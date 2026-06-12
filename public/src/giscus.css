@@ -8,4 +8,9 @@ main {
 
 form {
   border-radius: 0;
+  border-color: var(--color-border-primary);
+}
+
+.color-bg-primary {
+  background-color: var(--color-bg-primary);
 }
