@@ -1,0 +1,11 @@
+:root {
+  --color-bg-primary: white;
+  --color-border-primary: hotpink;
+}
+
+main {
+}
+
+form {
+  border-radius: 0;
+}
