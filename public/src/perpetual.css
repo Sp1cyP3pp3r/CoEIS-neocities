@@ -2,7 +2,7 @@
 */
 :root {
   --body-bg-img: url(https://i.pinimg.com/originals/23/d0/e6/23d0e6e14f5d9a9c8085fe062eb151cf.jpg);
-  --body-bg-img: url(assets/perpetual-bg.jpeg);
+  --body-bg-img: url(../assets/perpetual-bg.jpeg);
 
   --bg-plain-color: #45496f;
 
@@ -24,7 +24,7 @@
   height: 150dvh;
 
   background-image:
-    url(assets/boreal.png),
+    url(../assets/boreal.png),
     linear-gradient(
       calc(185deg * var(--dir-int)),
       transparent 55%,
