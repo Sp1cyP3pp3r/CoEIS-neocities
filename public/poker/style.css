@@ -1,0 +1,405 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+i, em {
+    font-style: italic;
+}
+
+b {
+    font-weight: bold;
+}
+
+
+:root{
+    --font-base: Cambria, Georgia, 'Times New Roman', serif;
+    --font-card-title: Merriweather, 'Certa Serif', serif;
+    --font-card-text: Vollkorn, 'Palatino Linotype', serif;
+    --font-card-detail: 'Certa Sans', sans-serif;
+    font-family: var(--font-base);
+
+    --card-perspective: 800px;
+    --card-size: 1;
+    --card-width-base: 180px;
+    --card-heigt-base: calc(var(--card-width-base) * 1.35 );
+    --card-width: calc(var(--card-width-base) * var(--card-size));
+    --card-heigt: calc(var(--card-heigt-base) * var(--card-size));
+    --card-width-inner: calc( var(--card-width) - (var(--card-border-margin) * 2));
+    --card-height-inner: calc( var(--card-heigt) - (var(--card-border-margin) * 2));
+
+    --card-color: #1f283b;
+    --card-color-detail: #b8cae2;
+    --card-color-type: color-mix(in oklab,
+        var(--card-color-detail),
+        black
+    );
+    --card-color-text: #ddebee;
+
+    --card-border-margin: 10px;
+    --card-border-padding: 3px;
+    --card-border-size: 3px;
+    --card-border-color: var(--card-color-detail);
+    --card-border-radius: 15px;
+
+    --card-text-align: center;
+    --card-title-align: var(--card-text-align);
+    --card-textbox-align: var(--card-text-align);
+    --card-text-size-base: 14px;
+    --card-text-size: calc(var(--card-text-size-base) * var(--card-size));
+    --card-title-size: calc(var(--card-text-size) * 1.5);
+    --card-textbox-text-size: calc(var(--card-text-size) / 1.1);
+    --card-text-small: calc(var(--card-text-size) / 1.25);
+    --card-text-color: var(--card-color-detail);
+
+    --card-textbox-height: calc(var(--card-height-inner) / 3);
+    --card-textbox-padding: 4px;
+    --card-type-height: var(--card-text-small);
+
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    background-color: #31384b;
+    --clr: #3a4259;
+    background-image: repeating-linear-gradient(90deg, var(--clr) 15px, var(--clr) 30px, transparent 30px, transparent 60px, var(--clr) 60px, var(--clr) 75px);
+    
+    &::before{
+        content: "filter";
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        
+        backdrop-filter: url(assets/filters.svg#TvScreenFilter);
+        z-index: 2;
+        pointer-events: none;
+
+    }
+}
+
+/* += Zones =+ */
+
+game-zone{
+    position: relative;
+
+
+    &[zone="deck"] {
+        --card-gap: 3px;
+
+        display: flex;
+        flex-flow: column nowrap;
+        left: 220px;
+        top: 200px;
+
+        & > game-card{
+            position: absolute;
+            top: calc(sibling-index() * var(--card-gap) * -1);
+            left: calc(sibling-index() * var(--card-gap) * 0.1);
+            
+            z-index: calc(sibling-index() + 1);
+            
+            --total: sibling-count();
+            --indx: sibling-index();
+            --apply: calc((var(--indx) / var(--total)) - 1);
+
+            &:nth-child(3n + 1)  {
+                transform: rotateZ(calc(7deg * var(--apply)));
+            }
+            &:nth-child(5n + 1)  {
+                transform: rotateZ(calc(-5deg * var(--apply)));
+
+            }
+            &:nth-child(7n + 1)  {
+                transform: rotateZ(calc(-7deg * var(--apply)));
+
+            }
+            &:nth-child(11n + 1) {
+                transform: rotateZ(calc(5deg * var(--apply)));
+
+            }
+            
+        }
+    }
+
+    &[zone="hand"] {
+        --fan-radius: 300px;
+        --card-rotation: 100deg;
+        
+        position: relative;
+        display: flex;
+        margin-top: 45%;
+        margin-left: 40%;
+
+        & > game-card {
+          --total: sibling-count();
+          --indx: sibling-index();
+          --center-card-indx: calc((var(--total) + 1) / 2);
+          
+          --pos: calc((var(--indx) - var(--center-card-indx)) / var(--total));
+          --rotate: calc(var(--pos) * var(--card-rotation));
+          
+          --angle: calc(var(--rotate) * (pi / 180));
+          --x-pos: calc(sin(var(--angle)) * var(--fan-radius));
+          
+          transform: 
+            translateX(var(--x-pos))
+            rotateZ(var(--rotate));
+          transform-origin: center bottom;
+          
+          position: absolute;
+          bottom: 0;
+          z-index: var(--idx);
+          transition: transform 0.3s ease;
+        }
+      }
+}
+
+
+
+/* += Cards =+ */
+
+game-card {
+    --rotateX: 0deg;
+    --rotateY: 0deg;
+    --translateZ: 0px;
+    transform: 
+        perspective(var(--card-perspective)) 
+        rotateX(var(--rotateX)) 
+        rotateY(var(--rotateY))
+        translateZ(var(--translateZ))
+    ;
+
+
+
+    display: flex;
+    overflow: hidden;
+    width: var(--card-width);
+    height: var(--card-heigt);
+    position: relative;
+
+    text-align: var(--card-text-align);
+    font-family: var(--font-card-text);
+    font-size: var(--card-text-size);
+    color: var(--card-color-text);
+
+    background-image: url(assets/cards/stars.png);
+    background-blend-mode: overlay;
+    background-color: var(--card-color);
+
+    box-shadow: 0px 0px 7px 0px var(--card-color-detail);
+
+    border-container {
+        z-index: 2;
+        display: flex;
+        flex-flow: column nowrap;
+        position: relative;
+        align-items: center;
+        justify-content: space-between;
+
+        width: var(--card-width-inner);
+        height: var(--card-height-inner);
+        margin: var(--card-border-margin);
+        padding: var(--card-border-padding);
+
+        border: solid var(--card-border-color) var(--card-border-size);
+        corner-shape: scoop;
+        border-radius: var(--card-border-radius);
+        overflow: hidden;
+
+        .card-title{
+            z-index: 2;
+            text-align: var(--card-title-align);
+            width: var(--card-width-inner);
+
+            .card-title-main {
+                font-size: var(--card-title-size);
+                font-family: var(--font-card-title);
+                text-transform: uppercase;
+                border-block-end: var(--card-border-color) calc(var(--card-border-size) / 2) solid;
+
+                background-image: linear-gradient(-183deg, #0b175387, transparent), linear-gradient(-218deg, #4082d15e, transparent), linear-gradient(-152deg, #633d226e, transparent), linear-gradient(-318deg, #69c8ff57, transparent);
+                border-block-start: var(--card-border-color) var(--textbox-border-size) solid;
+                width: 100%;
+            }
+
+            .card-title-second {
+                font-size: var(--card-text-small);
+                font-family: var(--font-card-detail);
+                text-transform: lowercase;
+                width: 100%;
+            }
+        }
+
+        .card-description {
+            z-index: 3;
+            margin-block-start: auto;
+            text-align: var(--card-textbox-align);
+            font-size: var(--card-text-size);
+            font-family: var(--font-card-text);
+
+            width: var(--card-width-inner);
+            height: var(--card-textbox-height);
+            margin-block-end: -3px;
+            --meter-height: 0px;
+
+            .card-stats {
+                --stats-number: 3;
+                --stats-width: var(--card-width-inner);
+
+                display: flex;
+                flex-flow: row nowrap;
+                width: var(--stats-width);
+
+                meter{
+                    width: round(down, calc(var(--stats-width) / var(--stats-number)), 1px);
+                    -webkit-appearance: none;
+                    height: var(--meter-height);
+
+                    &::-webkit-meter-bar{
+                        height: var(--meter-height);
+                    }
+                }
+
+                .fear {
+                    
+                }
+
+                .love {
+                    
+                }
+
+                .woe {
+                    
+                }
+
+            }
+
+            .card-text {
+                --textbox-border-size: calc(var(--card-border-size) / 2);
+                font-size: var(--card-textbox-text-size);
+
+                --first-clr: ;
+                --second-clr: ;
+                --third-clr: ;
+                --fourth-clr: ;
+                background-image: linear-gradient(183deg, #0b175387, transparent), linear-gradient(218deg, #4082d15e, transparent), linear-gradient(152deg, #633d226e, transparent), linear-gradient(318deg, #69c8ff57, transparent);
+                border-block-start: var(--card-border-color) var(--textbox-border-size) solid;
+
+                height: calc(var(--card-textbox-height) - var(--meter-height));
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                align-items: center;
+                
+                padding-inline: var(--card-textbox-padding);
+                padding-block: calc(var(--card-textbox-padding) / 2 - var(--textbox-border-size));
+
+                .card-ability-paragraph {
+                    margin-inline: auto;
+                    margin-block: auto;
+                    height: fit-content;
+                    word-wrap: break-word;
+                    word-break: normal;
+                    hyphens: auto;
+                }
+            }
+        }
+
+    
+    }
+    
+    
+    .card-type {
+        z-index: 4;
+        text-align: center;
+        font-size: var(--card-text-small);
+        font-family: var(--font-card-detail);
+        height: var(--card-type-height);
+        line-height: calc(var(--card-type-height) / 2);
+        display: block;
+        color: var(--card-color-type);
+
+        padding: var(--typeline-padding);
+        background-color: var(--card-border-color);
+        font-variant: small-caps;
+        text-transform: lowercase;
+
+        
+
+        --typeline-padding: 3px;
+        --position-bottom: calc( var(--card-border-margin) * 0.6 );
+        --position-left: calc( var(--card-heigt) / 4 );
+        position: absolute;
+        bottom: var(--position-bottom);
+        left: var(--position-left);
+    }
+
+    .card-image {
+        display: block;
+        position: absolute;
+        width: var(--card-width);
+        height: var(--card-heigt);
+        mix-blend-mode: normal;
+
+        z-index: 1;
+        
+    }
+
+
+    --card-edition: none;
+    --card-ed-foreground: none;
+    --card-ed-fg-size-x: 150%;
+    --card-ed-fg-size-y: 150%;
+    --card-ed-fg-pos-x: 100%;
+    --card-ed-fg-pos-y: 100%;
+
+    &::before{
+        content: "foil";
+        font-size: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+
+        background-image: var(--card-ed-foreground);
+        background-size: var(--card-ed-fg-size-x) var(--card-ed-fg-size-y);
+        background-position: var(--card-ed-fg-pos-x) var(--card-ed-fg-pos-y);
+        mix-blend-mode: overlay;
+
+        
+        transition: 0.1s;
+        
+
+    }
+    &:hover{
+        cursor: grab;
+        --card-color-detail: rgb(248, 187, 108);
+        --card-border-color: var(--card-color-detail);
+        
+        --card-color: #312821;
+        --card-color-type: color-mix(in oklab,
+            var(--card-color-detail),
+            black
+        );
+        --card-color-text: #fcf2d9;
+    }
+
+
+    &:not([face-down]){
+        /* Card Editions */
+        &[foil] {
+            --card-edition: foil;
+            --card-ed-foreground: linear-gradient(217deg, #60bfff, transparent), linear-gradient(127deg, #fd4b4b, transparent), linear-gradient(336deg, #38ec7d, transparent);
+            --card-ed-fg-size-x: 200%;
+            --card-ed-fg-size-y: 200%;
+        }
+    }
+
+    &[face-down] {
+        > * {visibility: hidden;}
+    }
+}
