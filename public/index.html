@@ -3,20 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="connect-src 'self' ka-f.fontawesome.com;
-               style-src 'self' 'unsafe-inline' ka-f.fontawesome.com;
-               font-src 'self' ka-f.fontawesome.com;"
-    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mainpage.css" />
+    <link rel="stylesheet" href="src/mainpage.css" />
+
+    <!-- Installing JQuery & other scripts -->
+    >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="main.js"></script>
-    <script src="mainpage.js"></script>
-
-    <link href="fontawesome/css/fontawesome.css" rel="stylesheet" />
-    <link href="fontawesome/css/brands.css" rel="stylesheet" />
+    <script src="src/mainpage.js"></script>
 
     <title>Сборник Бесконечно Интересных Штук</title>
   </head>
@@ -24,7 +20,7 @@
   <body>
     <header>
       <a href="index.html">
-        <img src="images/logo_rus.svg" alt="" />
+        <img src="assets/logo_rus.svg" alt="" />
         <h1>Сборник Бесконечно Интересных Штук</h1>
       </a>
       <nav>
@@ -75,7 +71,7 @@
             <p>
               <span class="perpetual-wip">
                 <strong>
-                  Progress is <a href="perpetual-sadness.html">perpetual</a>
+                  Progress is <a href="src/perpetual-sadness.html">perpetual</a>
                 </strong>
               </span>
               Это третья итерация сайта находится в незаконченном состоянии.
@@ -147,7 +143,7 @@
               <li>
                 <a href="#">
                   <figure>
-                    <img src="images/box.png" alt="" width="150" height="100" />
+                    <img src="assets/box.png" alt="" width="150" height="100" />
                     <figcaption>
                       <hgroup>
                         <h4>Box: The Power of Scaling</h4>
@@ -160,7 +156,7 @@
               <li>
                 <a href="#">
                   <figure>
-                    <img src="images/CMH.jpg" alt="" width="150" height="100" />
+                    <img src="assets/CMH.jpg" alt="" width="150" height="100" />
                     <figcaption>
                       <hgroup>
                         <h4>Meat Horror Mansion</h4>
@@ -174,7 +170,7 @@
                 <a href="#">
                   <figure>
                     <img
-                      src="images/parkour.jpg"
+                      src="assets/parkour.jpg"
                       alt=""
                       width="150"
                       height="100"
@@ -192,7 +188,7 @@
                 <a href="#">
                   <figure>
                     <img
-                      src="images/space_rocks.png"
+                      src="assets/space_rocks.png"
                       alt=""
                       width="150"
                       height="100"
@@ -210,7 +206,7 @@
                 <a href="#">
                   <figure>
                     <img
-                      src="images/mtfb.jpg"
+                      src="assets/mtfb.jpg"
                       alt=""
                       width="150"
                       height="100"
@@ -228,7 +224,7 @@
                 <a href="#">
                   <figure>
                     <img
-                      src="images/perpetual-bg.jpeg"
+                      src="assets/perpetual-bg.jpeg"
                       alt=""
                       width="150"
                       height="100"
@@ -246,7 +242,7 @@
                 <a href="#">
                   <figure>
                     <img
-                      src="images/towers.jpg"
+                      src="assets/towers.jpg"
                       alt=""
                       width="150"
                       height="100"
@@ -481,7 +477,7 @@
           <li>
             <figure id="t-box">
               <a href="">
-                <img src="images/box.png" alt="" />
+                <img src="assets/box.png" alt="" />
               </a>
               <figcaption>
                 <hgroup>
@@ -515,7 +511,7 @@
           <li>
             <figure>
               <a href="">
-                <img src="images/CMH.jpg" alt="" />
+                <img src="assets/CMH.jpg" alt="" />
               </a>
               <figcaption>
                 <hgroup>

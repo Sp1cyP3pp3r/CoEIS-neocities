@@ -1,72 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
     <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="perpetual.css" />
     <link rel="stylesheet" href="mainpage.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="main.js"></script>
-</head>
+    <script src="../main.js"></script>
+  </head>
 
-<body>
-    <div class="forest" id="left">
-    </div>
-    <div class="forest" id="right">
-    </div>
+  <body>
+    <div class="forest" id="left"></div>
+    <div class="forest" id="right"></div>
 
     <header>
-        <figure>
-            <h1>
-                Perpetual Sadness
-            </h1>
-            <figcaption>
-                <p>
-                    悲しみにむせられる
-                </p>
-            </figcaption>
-        </figure>
-        <a href="index.html">
-            ⯇ Escape eternity
-        </a>
+      <figure>
+        <h1>Perpetual Sadness</h1>
+        <figcaption>
+          <p>悲しみにむせられる</p>
+        </figcaption>
+      </figure>
+      <a href="../index.html"> ⯇ Escape eternity </a>
     </header>
     <main>
-        <article class="glass">
-            <section>
-                <h1>
-                    Vita brevis
-                </h1>
-                <p>
-                    Я не успеваю.
-                </p>
-                <h2>
-                    Ars longa
-                </h2>
-                <p>
-                    Я должен всё доделать.
-                </p>
-            </section>
-        </article>
+      <article class="glass">
+        <section>
+          <h1>Vita brevis</h1>
+          <p>Я не успеваю.</p>
+          <h2>Ars longa</h2>
+          <p>Я должен всё доделать.</p>
+        </section>
+      </article>
     </main>
 
-    <svg width="1000" height="500" style="position: absolute; visibility: hidden; pointer-events: none;">
-        <!-- Define the filter -->
-        <defs>
-            <filter id="psychedelic-sharp" x="-50%" y="-50%" width="200%" height="200%">
-                <feTile in="SourceGraphic" result="tiled" />
-                <feGaussianBlur in="tiled" stdDeviation="1" result="slightly-blurred" />
-                <feTurbulence baseFrequency="0.03" numOctaves="3" seed="42" result="turbulence" />
-                <feDisplacementMap in="slightly-blurred" in2="turbulence" scale="100" xChannelSelector="R"
-                    yChannelSelector="G" result="displaced" />
-                <feColorMatrix in="displaced" type="screen" values="2" />
-            </filter>
-        </defs>
+    <svg
+      width="1000"
+      height="500"
+      style="position: absolute; visibility: hidden; pointer-events: none"
+    >
+      <!-- Define the filter -->
+      <defs>
+        <filter
+          id="psychedelic-sharp"
+          x="-50%"
+          y="-50%"
+          width="200%"
+          height="200%"
+        >
+          <feTile in="SourceGraphic" result="tiled" />
+          <feGaussianBlur
+            in="tiled"
+            stdDeviation="1"
+            result="slightly-blurred"
+          />
+          <feTurbulence
+            baseFrequency="0.03"
+            numOctaves="3"
+            seed="42"
+            result="turbulence"
+          />
+          <feDisplacementMap
+            in="slightly-blurred"
+            in2="turbulence"
+            scale="100"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="displaced"
+          />
+          <feColorMatrix in="displaced" type="screen" values="2" />
+        </filter>
+      </defs>
     </svg>
-</body>
-
+  </body>
 </html>

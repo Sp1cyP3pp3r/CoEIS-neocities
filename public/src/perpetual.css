@@ -1,136 +1,134 @@
 /*@import 'functions.css';
 */
 :root {
-    --body-bg-img: url(https://i.pinimg.com/originals/23/d0/e6/23d0e6e14f5d9a9c8085fe062eb151cf.jpg);
-    --body-bg-img: url(images/perpetual-bg.jpeg);
+  --body-bg-img: url(https://i.pinimg.com/originals/23/d0/e6/23d0e6e14f5d9a9c8085fe062eb151cf.jpg);
+  --body-bg-img: url(assets/perpetual-bg.jpeg);
 
+  --bg-plain-color: #45496f;
 
+  overflow: hidden;
 
-    --bg-plain-color: #45496f;
-
-    overflow: hidden;
-
-    --forest-z: 5;
-    --forest-height: 60%;
-    --walking-speed: 55;
-    --forest-fog-clr: white;
-    --clr-text: white;
+  --forest-z: 5;
+  --forest-height: 60%;
+  --walking-speed: 55;
+  --forest-fog-clr: white;
+  --clr-text: white;
 }
-
-
 
 .forest {
-    z-index: var(--forest-z);
-    pointer-events: none;
-    position: absolute;
-    display: block;
-    width: 500dvw;
-    height: 150dvh;
+  z-index: var(--forest-z);
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  width: 500dvw;
+  height: 150dvh;
 
-    background-image: url(images/boreal.png), linear-gradient(calc(185deg * var(--dir-int)), transparent 55%, var(--forest-fog-clr));
-    background-size: 50% var(--forest-height), 100% 100%;
-    background-position: var(--bg-pos-final) bottom;
-    background-repeat: repeat-x;
+  background-image:
+    url(assets/boreal.png),
+    linear-gradient(
+      calc(185deg * var(--dir-int)),
+      transparent 55%,
+      var(--forest-fog-clr)
+    );
+  background-size:
+    50% var(--forest-height),
+    100% 100%;
+  background-position: var(--bg-pos-final) bottom;
+  background-repeat: repeat-x;
 
-    --anim-time: max(calc(1s * (300 - (var(--walking-speed) * 2.99))), 1s);
+  --anim-time: max(calc(1s * (300 - (var(--walking-speed) * 2.99))), 1s);
 
-    animation: walk-through infinite linear var(--anim-time) normal;
+  animation: walk-through infinite linear var(--anim-time) normal;
 
-    transform: perspective(800px) rotateY(var(--deg));
-    transform-origin: var(--pos) bottom;
-    bottom: 0;
+  transform: perspective(800px) rotateY(var(--deg));
+  transform-origin: var(--pos) bottom;
+  bottom: 0;
 
-    mask-image: linear-gradient(to var(--dir), black 40%, transparent 85%);
+  mask-image: linear-gradient(to var(--dir), black 40%, transparent 85%);
 
+  &#left {
+    --deg: 40deg;
+    --pos: left;
+    --dir: right;
+    --dir-int: 1;
+    --bg-pos-final: var(--bg-pos);
+    left: 0;
+  }
 
-    &#left {
-        --deg: 40deg;
-        --pos: left;
-        --dir: right;
-        --dir-int: 1;
-        --bg-pos-final: var(--bg-pos);
-        left: 0;
-    }
-
-    &#right {
-        --deg: -40deg;
-        --pos: right;
-        --dir: left;
-        --dir-int: -1;
-        --bg-pos-final: calc(var(--bg-pos) * -1);
-        right: 0;
-
-    }
+  &#right {
+    --deg: -40deg;
+    --pos: right;
+    --dir: left;
+    --dir-int: -1;
+    --bg-pos-final: calc(var(--bg-pos) * -1);
+    right: 0;
+  }
 }
 
-
 @property --forest-fog-clr {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: #ffffff;
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #ffffff;
 }
 
 @property --bg-pos {
-    syntax: "<percentage>";
-    inherits: false;
-    initial-value: 0%;
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
 }
 
 @keyframes walk-through {
-    from {
-        --bg-pos: 100%;
-        --forest-fog-clr: oklab(67% 0.00766 -0.17015);
-    }
+  from {
+    --bg-pos: 100%;
+    --forest-fog-clr: oklab(67% 0.00766 -0.17015);
+  }
 
-    25% {
-        --forest-fog-clr: oklab(70% -0.11222 0.03429);
-    }
+  25% {
+    --forest-fog-clr: oklab(70% -0.11222 0.03429);
+  }
 
-    50% {
-        --forest-fog-clr: oklab(75% -0.02569 -0.14163);
-    }
-    
-    75% {
-        --forest-fog-clr: oklab(50% 0.19296 0.04796);
-    }
+  50% {
+    --forest-fog-clr: oklab(75% -0.02569 -0.14163);
+  }
 
-    to {
-        --bg-pos: 0%;
-        --forest-fog-clr: oklab(67% 0.00766 -0.17015);
-    }
+  75% {
+    --forest-fog-clr: oklab(50% 0.19296 0.04796);
+  }
+
+  to {
+    --bg-pos: 0%;
+    --forest-fog-clr: oklab(67% 0.00766 -0.17015);
+  }
 }
-
-
 
 header {
-    --head-bg-clr: var(--bg-plain-color);
-    position: relative;
+  --head-bg-clr: var(--bg-plain-color);
+  position: relative;
 
-    h1 {
-        font-size: 2em;
-    }
+  h1 {
+    font-size: 2em;
+  }
 
-    &::before {
-        content: 's';
-        font-size: 0;
-        position: absolute;
-        z-index: -1;
+  &::before {
+    content: "s";
+    font-size: 0;
+    position: absolute;
+    z-index: -1;
 
-        width: 15%;
-        height: 50%;
+    width: 15%;
+    height: 50%;
 
-        backdrop-filter: url(#psychedelic-sharp);
-    }
+    backdrop-filter: url(#psychedelic-sharp);
+  }
 
-    a {
-        color: var(--clr-text);
-        text-decoration: none;
-    }
+  a {
+    color: var(--clr-text);
+    text-decoration: none;
+  }
 }
 
-
 .glass {
-    background-image: linear-gradient(to bottom, #45496f31, transparent);
-    background-blend-mode: screen;
-    backdrop-filter: url(#psychedelic-sharp);
+  background-image: linear-gradient(to bottom, #45496f31, transparent);
+  background-blend-mode: screen;
+  backdrop-filter: url(#psychedelic-sharp);
 }

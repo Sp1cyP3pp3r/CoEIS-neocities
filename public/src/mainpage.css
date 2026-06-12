@@ -241,7 +241,7 @@ main > article {
   corner-shape: notch;
   border-radius: var(--projects-border-width);
 
-  background-image: url(images/marble.jpg);
+  background-image: url(assets/marble.jpg);
   background-blend-mode: overlay;
 
   h3 {
