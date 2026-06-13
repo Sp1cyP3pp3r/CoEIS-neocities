@@ -214,7 +214,3 @@ button.gsc-comment-edited {
 .gsc-comment-box-tabs {
   background-image: url(https://sp1cyp3pp3r.neocities.org/assets/marble.jpg);
 }
-
-.gsc-timeline {
-  flex-direction: column-reverse;
-}
