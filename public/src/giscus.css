@@ -204,7 +204,8 @@ main .gsc-loading-image {
 form,
 form > *,
 .gsc-comment,
-.gsc-comment > * {
+.gsc-comment > *,
+.gsc-comment-box-write {
   border-radius: 0 !important;
 }
 
@@ -214,4 +215,5 @@ button.gsc-comment-edited {
 
 .gsc-comment-box-tabs {
   background-image: url(https://sp1cyp3pp3r.neocities.org/assets/marble.jpg);
+  background-blend-mode: overlay;
 }
