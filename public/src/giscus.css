@@ -227,6 +227,6 @@ button.gsc-comment-edited {
 }
 
 .gsc-comment-box-main,
-gsc-comment-content {
+.gsc-comment-content {
   background-color: var(--color-canvas-inset);
 }
