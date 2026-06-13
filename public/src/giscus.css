@@ -239,3 +239,7 @@ button.gsc-comment-edited {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.gsc-comment {
+  width: fit-content;
+}
