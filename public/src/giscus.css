@@ -209,6 +209,11 @@ form > *,
   border-radius: 0 !important;
 }
 
+form,
+.gsc-comment {
+  box-shadow: 5% 5% 1px 0px var(--color-border-default);
+}
+
 button.gsc-comment-edited {
   font-family: "Monotype Corsiva", cursive;
 }
