@@ -61,8 +61,8 @@ main {
   --color-segmented-control-button-bg: #fff;
   --color-segmented-control-button-selected-border: #8c959f;
   --color-fg-default: #1f2328;
-  --color-fg-muted: #656d76;
-  --color-fg-subtle: #6e7781;
+  --color-fg-muted: #20446d;
+  --color-fg-subtle: #485b70;
   --color-canvas-default: #fa7eb2;
   --color-canvas-overlay: #fff;
   --color-canvas-inset: #f6f8fa;
@@ -216,6 +216,7 @@ form,
 
 button.gsc-comment-edited {
   font-family: "Monotype Corsiva", cursive;
+  position: absolute;
 }
 
 .gsc-comment-box-tabs {
