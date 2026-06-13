@@ -234,3 +234,8 @@ button.gsc-comment-edited {
 .gsc-comment-content {
   background-color: var(--color-canvas-inset);
 }
+
+.gsc-timeline {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
