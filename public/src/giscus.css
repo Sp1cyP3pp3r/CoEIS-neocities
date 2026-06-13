@@ -201,6 +201,10 @@ main .gsc-loading-image {
   }
 }
 
+.gsc-comments {
+  padding-inline: 2.5%;
+}
+
 form,
 form > *,
 .gsc-comment,
