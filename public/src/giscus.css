@@ -66,8 +66,8 @@ main {
   --color-canvas-default: #fa7eb2;
   --color-canvas-overlay: #fff;
   --color-canvas-inset: #f6f8fa;
-  --color-canvas-subtle: #f6f8fa;
-  --color-border-default: #fa7eb2;
+  --color-canvas-subtle: #e793c4;
+  --color-border-default: #55b3ae;
   --color-border-muted: hsl(329, 28%, 62%);
   --color-neutral-muted: rgb(175 184 193 / 20%);
   --color-accent-fg: #0969da;
