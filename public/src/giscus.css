@@ -211,7 +211,7 @@ form > *,
 
 form,
 .gsc-comment {
-  box-shadow: 5% 5% 1px 0px var(--color-border-default);
+  box-shadow: 5px 5px 1px 0px var(--color-border-default);
 }
 
 button.gsc-comment-edited {
