@@ -200,3 +200,13 @@ main .gsc-loading-image {
     background-image: url("https://github.githubassets.com/images/mona-loading-dark.gif");
   }
 }
+
+*,
+form,
+.gsc-comment {
+  border-radius: 0;
+}
+
+button.gsc-comment-edited {
+  font-family: "Monotype Corsiva", cursive;
+}
