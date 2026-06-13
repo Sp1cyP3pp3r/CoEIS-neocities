@@ -203,7 +203,8 @@ main .gsc-loading-image {
 
 form,
 form > *,
-.gsc-comment {
+.gsc-comment,
+.gsc-comment > * {
   border-radius: 0 !important;
 }
 
