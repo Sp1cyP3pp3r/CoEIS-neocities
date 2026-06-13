@@ -201,10 +201,10 @@ main .gsc-loading-image {
   }
 }
 
-*,
 form,
+form > *,
 .gsc-comment {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 button.gsc-comment-edited {
