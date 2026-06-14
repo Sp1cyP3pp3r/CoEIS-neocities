@@ -203,6 +203,24 @@ header {
     & > ul {
       display: flex;
       flex-flow: row nowrap;
+
+      li {
+        --bg-color: var(--clr-main);
+        background-color: var(--bg-color);
+
+        &:nth-child(n + 1) {
+          --bg-color: var(--clr-accent);
+        }
+        &:nth-child(n + 3) {
+          --bg-color: var(--clr-aux);
+        }
+        &:nth-child(n + 5) {
+          --bg-color: var(--clr-comp);
+        }
+        &:nth-child(n + 7) {
+          --bg-color: var(--clr-tool);
+        }
+      }
     }
   }
 }
