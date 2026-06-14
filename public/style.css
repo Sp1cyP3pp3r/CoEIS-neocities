@@ -97,6 +97,8 @@
     --main-margin-base: 0px;
     --main-margin-block: var(--main-margin-base);
     --main-margin-inline: calc(var(--main-margin-base) * 5);
+
+    --aside-negative-margin: 0;
   }
 }
 
@@ -252,7 +254,10 @@ aside {
   height: var(--aside-height);
   overflow-y: auto;
   position: fixed;
-  margin-block-start: calc(var(--body-padding-block) * -1);
+
+  margin-block-start: calc(
+    var(--body-padding-block) * -1 * var(--aside-negative-margin, 1)
+  );
 
   &::-webkit-scrollbar {
     display: none;
