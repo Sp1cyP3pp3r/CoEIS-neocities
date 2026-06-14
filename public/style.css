@@ -208,16 +208,16 @@ header {
         --bg-color: var(--clr-main);
         background-color: var(--bg-color);
 
-        &:nth-child(n + 1) {
+        &:nth-child(1n) {
           --bg-color: var(--clr-accent);
         }
-        &:nth-child(n + 3) {
+        &:nth-child(3n) {
           --bg-color: var(--clr-aux);
         }
-        &:nth-child(n + 5) {
+        &:nth-child(5n) {
           --bg-color: var(--clr-comp);
         }
-        &:nth-child(n + 7) {
+        &:nth-child(7n) {
           --bg-color: var(--clr-tool);
         }
       }
