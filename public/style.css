@@ -223,12 +223,38 @@ header {
         background-color: var(--bg-color);
         transform: rotateZ(var(--deg));
 
+        mask-image:
+          linear-gradient(black, black),
+          radial-gradient(
+            at 50% 50%,
+            black,
+            black 15%,
+            transparent 20%,
+            transparent
+          );
+        mask-type: alpha;
+        mask-composite: exclude;
+        mask-size: 45px 45px;
+        mask-position: 113%;
+        mask-repeat: repeat, no-repeat;
+
         a {
           display: block;
           padding-block: var(--link-padding-block);
           padding-inline: var(--link-padding-inline);
+          padding-inline-end: calc(var(--link-padding-inline) * 1.25);
           color: white;
           text-decoration: none;
+
+          --bg-darker: oklch(
+            from var(--bg-color) calc(l - 0.075) calc(c + 0.01) calc(h - 10) / 1
+          );
+          background-image: linear-gradient(
+            270deg,
+            var(--bg-darker) 15%,
+            transparent 15%,
+            transparent
+          );
         }
 
         &:hover {
@@ -239,10 +265,10 @@ header {
         }
 
         &:nth-child(1n) {
-          --bg-color: var(--clr-comp);
-        }
-        &:nth-child(2n) {
           --bg-color: var(--clr-aux);
+        }
+        &:nth-child(2n + 1) {
+          --bg-color: var(--clr-comp);
         }
         &:nth-child(3n) {
           --bg-color: var(--clr-accent);
@@ -254,7 +280,7 @@ header {
           --bg-color: var(--clr-tool);
         }
         &:nth-child(7n) {
-          --bg-color: var(--clr-tool);
+          --bg-color: oklch(from var(--clr-comp) l c calc(h - 280) / 1);
         }
       }
     }
