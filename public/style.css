@@ -208,6 +208,12 @@ header {
         --bg-color: var(--clr-main);
         background-color: var(--bg-color);
 
+        &:nth-child(1n) {
+          --bg-color: var(--clr-aux);
+        }
+        &:nth-child(1n + 1) {
+          --bg-color: var(--clr-tool);
+        }
         &:nth-child(3n) {
           --bg-color: var(--clr-accent);
         }
