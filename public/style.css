@@ -253,6 +253,8 @@ aside {
   overflow-y: auto;
   position: fixed;
 
+  margin-block-start: calc(var(--body-padding-block) * -1);
+
   &::-webkit-scrollbar {
     display: none;
   }
