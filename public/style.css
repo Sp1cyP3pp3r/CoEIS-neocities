@@ -189,6 +189,9 @@ body::before {
 }
 
 header {
+  --link-padding-block: 18px;
+  --link-padding-inline: 24px;
+
   grid-area: HEAD;
 
   display: flex;
@@ -206,10 +209,37 @@ header {
 
       li {
         --bg-color: var(--clr-main);
+        --deg: calc(
+          (
+              rem(
+                  (sibling-index() + var(--header-link-rotation-mod)) * 7919,
+                  31
+                ) -
+                17
+            ) *
+            1deg
+        );
+
         background-color: var(--bg-color);
+        transform: rotateZ(var(--deg));
+
+        a {
+          display: block;
+          padding-block: var(--link-padding-block);
+          padding-inline: var(--link-padding-inline);
+          color: white;
+          text-decoration: none;
+        }
+
+        &:hover {
+          --header-link-rotation-mod: calc(
+            sin(sibling-index() / 2 * 13) * -1.285
+          );
+          transition: 10ms 0.1ms;
+        }
 
         &:nth-child(1n) {
-          --bg-color: var(--clr-main);
+          --bg-color: var(--clr-comp);
         }
         &:nth-child(2n) {
           --bg-color: var(--clr-aux);
@@ -217,15 +247,24 @@ header {
         &:nth-child(3n) {
           --bg-color: var(--clr-accent);
         }
+        &:nth-child(3n + 2) {
+          --bg-color: var(--clr-main);
+        }
         &:nth-child(5n) {
-          --bg-color: var(--clr-comp);
+          --bg-color: var(--clr-tool);
         }
         &:nth-child(7n) {
-          --bg-color: var(---clr-tool);
+          --bg-color: var(--clr-tool);
         }
       }
     }
   }
+}
+
+@property --header-link-rotation-mod {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
 }
 
 main {
