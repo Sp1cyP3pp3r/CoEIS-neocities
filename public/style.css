@@ -630,7 +630,8 @@ footer {
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-between;
-  height: auto;
+  height: 100%;
+  max-height: var(--callout-max-height);
   text-wrap: balance;
   position: relative;
 
@@ -651,7 +652,7 @@ footer {
     width: 100%;
   }
 
-  &.wip {
+  &.attention {
     --clr-accent-wip: var(--clr-aux);
     --clr-second: var(--clr-main);
     --clr-bg: color-mix(in oklab, var(--clr-second) 85%, var(--clr-accent-wip));
@@ -702,11 +703,12 @@ footer {
   }
 }
 
-.perpetual-wip {
+.stamp {
   --width: 22ch;
   --height: calc(var(--width) / 2);
   --padding-in: calc(var(--width) / 15);
   --padding-block: calc(var(--width) / 10);
+  --clr-stamp: var(--clr-accent);
 
   position: absolute;
   display: flex;
@@ -724,17 +726,17 @@ footer {
     round;
   border-style: solid;
 
-  --clr-bg: color-mix(in oklab, var(--clr-accent), white 75%);
+  --clr-bg: color-mix(in oklab, var(--clr-stamp), white 75%);
   background-color: var(--clr-bg);
-  box-shadow: inset 0px 0px 1px 2px var(--clr-accent);
+  box-shadow: inset 0px 0px 1px 2px var(--clr-stamp);
   --clr-shadow: color-mix(
     in oklab,
-    var(--clr-accent),
+    var(--clr-stamp),
     color-mix(in oklab, var(--clr-main), black)
   );
   filter: drop-shadow(1px 1px 3px var(--clr-shadow));
 
-  --clr-text: color-mix(in oklab, var(--clr-accent), black);
+  --clr-text: color-mix(in oklab, var(--clr-stamp), black);
   font-family: var(--font-fancy);
   font-style: italic;
   color: var(--clr-text);
