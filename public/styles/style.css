@@ -17,8 +17,8 @@
   --clr-tool: #00a289;
   --clr-text: #0a0a0a;
 
-  --body-bg-img: url(assets/background.jpg);
-  --bg-plain-color: #cba960;
+  --body-bg-img: url(../assets/background.jpg);
+  --bg-plain-color: #fff9d2;
 
   --font-regular-sans:
     "Certa Sans", "SCE-PS3 Rodin LATIN", "Bleeker Rus (Fixed)",
@@ -720,7 +720,7 @@ footer {
   padding-inline: var(--padding-in);
   padding-block: var(--padding-block);
 
-  --border-url: url(assets/border-image-pink.png);
+  --border-url: url(../assets/border-image-pink.png);
   --border-width: 10px;
   border-image: var(--border-url) 55 / var(--border-width) / var(--border-width)
     round;
