@@ -3,7 +3,17 @@ const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbzYBn6KqIhMe-SPhsAWNGdkG41zagxx6-V5FRTmiX5Aezx7VhHe9fxWFqmEzTIC4qjq/exec";
 
 // Dynamically get the current page's path (e.g., /about or /blog/post1)
-const page_url = window.location.pathname.replace(".html", "");
+let path = window.location.pathname;
+
+// If it's the homepage, standardize it to 'index'
+if (path === "/" || path === "/index.html" || path === "") {
+  path = "index";
+} else {
+  // For other pages, remove '.html' and the leading slash (e.g., /about.html -> about)
+  path = path.replace(".html", "").replace(/^\//, "");
+}
+
+const page_url = path;
 
 // READ FUNCTION: Handles displaying data on page load
 function displayComments(comments) {
