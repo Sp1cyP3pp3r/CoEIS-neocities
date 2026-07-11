@@ -28,13 +28,10 @@ function displayComments(comments) {
   comments.reverse().forEach((item) => {
     const card = document.createElement("div");
     card.className = "comment-card";
-    card.style.border = "1px solid #ccc";
-    card.style.padding = "10px";
-    card.style.marginBottom = "10px";
 
     card.innerHTML = `
-            <div class="comment-meta"><strong>${escapeHTML(item.Name)}</strong></div>
-            <div class="comment-text">${escapeHTML(item.Comment)}</div>
+            <div class="comment-meta"><strong>${escapeHTML(item.name)}</strong></div>
+            <div class="comment-text">${escapeHTML(item.comment)}</div>
         `;
     container.appendChild(card);
   });
