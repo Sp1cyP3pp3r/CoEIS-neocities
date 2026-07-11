@@ -1,6 +1,6 @@
 // PASTE YOUR WEB APP URL HERE
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/library/d/1MO-89shWg7FAEryYdmm131gcwflKKwIzAxNXdsLx9GaDmvd7yTTVrhNn/1";
+  "https://script.google.com/macros/s/AKfycbzYBn6KqIhMe-SPhsAWNGdkG41zagxx6-V5FRTmiX5Aezx7VhHe9fxWFqmEzTIC4qjq/exec";
 
 // Dynamically get the current page's path (e.g., /about or /blog/post1)
 const page_url = window.location.pathname.replace(".html", "");
