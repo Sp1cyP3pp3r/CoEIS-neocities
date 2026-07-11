@@ -73,7 +73,7 @@
             <p>
               <span class="stamp">
                 <strong>
-                  Progress is <a href="src/perpetual-sadness.html">perpetual</a>
+                  Progress is <a href="perpetual-sadness.html">perpetual</a>
                 </strong>
               </span>
               Это третья итерация сайта находится в незаконченном состоянии.
@@ -451,6 +451,28 @@
 
       <div class="blank"></div>
 
+      <!-- Comment Submission Form -->
+      <form id="guestbookForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email (Optional)" />
+        <textarea
+          id="comment"
+          placeholder="Leave a comment..."
+          required
+        ></textarea>
+        <button type="submit" id="submitBtn">Post Comment</button>
+        <p id="formStatus" style="display: none"></p>
+      </form>
+
+      <!-- Container for displaying existing comments -->
+      <div id="commentsContainer">
+        <p>Loading comments...</p>
+      </div>
+
+      <!-- Link to the JavaScript file we will create next -->
+      <script src="scripts/comments.js"></script>
+
+      <!--
       <script
         src="https://giscus.app/client.js"
         data-repo="Sp1cyP3pp3r/CoEIS-neocities"
@@ -468,6 +490,7 @@
         crossorigin="anonymous"
         async
       ></script>
+      -->
       <!-- https://rawcdn.githack.com/Sp1cyP3pp3r/CoEIS-neocities/refs/heads/main/public/src/giscus.css -->
     </main>
     <aside>
