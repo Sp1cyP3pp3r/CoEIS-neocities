@@ -162,7 +162,7 @@
     align-items: flex-start;
 
     .reply-card {
-      margin-left: calc(var(--indent, 0) * 10px);
+      margin-left: calc(var(--indent, 0) * 0px);
     }
   }
 }
