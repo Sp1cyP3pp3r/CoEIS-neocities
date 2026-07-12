@@ -130,21 +130,28 @@
 }
 
         .neocities-span-group {
-          --domen-skew: calc(
-            (var(--deg-skew) * -1) +
-              (cos(var(--neocities-domen-animation)) * 3deg)
-          );
           --domen-val: calc(
-            (var(--deg-rotate) * -1) +
-              (sin(var(--neocities-domen-animation)) * 5deg)
-          );
+    (var(--deg-rotate) * -1) +
+    (sin(var(--neocities-domen-animation)) * 1deg)
+  );
 
-          display: inline-flex;
-          flex-flow: row nowrap;
-
-          transform: skewX(var(--domen-skew)) rotateZ(var(--domen-val));
+          transform: 
+          /* Counteract parent's 2D skew and rotation */
+          skewX(calc(var(--deg-skew) * -1)) 
+          rotateZ(var(--domen-val))
+          
+          /* 3D Floating Effects */
+          /* Bobbing up and down */
+          translateY(calc(sin(var(--neocities-domen-animation)) * 20px))
+          /* Tilting forward and backward */
+          rotateX(calc(cos(var(--neocities-domen-animation)) * 10deg))
+          /* Tilting left and right */
+          rotateY(calc(sin(var(--neocities-domen-animation)) * 10deg));
 
           animation: neocities-domen 5s infinite ease-in-out;
+          
+          display: inline-flex;
+          flex-flow: row nowrap;
 
           .comment-favicon {
             display: block;
