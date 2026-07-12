@@ -294,21 +294,21 @@ function renderCommentTree(comment, allComments, depth = 0) {
   article.innerHTML = `
         <div class="comment-wrapper">
             <div class="comment-aside avatar" ${avatarStyle} role="img" aria-label="${escapeHTML(comment.name)}'s avatar"></div>
-            <header class="comment-header" role="group" aria-label="Comment metadata">
+            <div class="comment-header" role="group" aria-label="Comment metadata">
                 <hgroup class="comment-hgroup">
                     <span class="name">${escapeHTML(comment.name)}</span>
                     ${moodHtml}
                 </hgroup>
                 ${dateHtml}
-            </header>
-            <main class="comment-main" role="region" aria-label="Comment content">
+            </div>
+            <div class="comment-main" role="region" aria-label="Comment content">
                 <div class="content">${escapeHTML(comment.comment_content)}</div>
-            </main>
-            <footer class="comment-footer" role="group" aria-label="Comment actions">
+            </div>
+            <div class="comment-footer" role="group" aria-label="Comment actions">
                 ${neocitiesHtml}
                 ${reactionsHtml}
                 <button class="reply" aria-label="Reply to ${escapeHTML(comment.name)}">Reply</button>
-            </footer>
+            </div>
         </div>
         <div class="replies-container" role="group" aria-label="Replies"></div>
     `;
