@@ -122,9 +122,9 @@
         display: inline-flex;
         flex-flow: row nowrap;
 
-        padding: 7.5%;
+        padding: 2%;
 
-        transform: skewX(14deg);
+        transform: skewX(5deg) rotateZ(3deg);
 
         .comment-favicon {
         }
