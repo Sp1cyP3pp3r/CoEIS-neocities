@@ -41,7 +41,9 @@
 }
 
 .comment-card {
+  --max-width: calc(100% / 2.15);
   width: fit-content;
+  max-width: var(--max-width);
 
   > .comment-wrapper {
     background-color: bisque;
