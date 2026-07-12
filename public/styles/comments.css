@@ -138,11 +138,10 @@
           flex-flow: row nowrap;
 
           animation: neocities-domen 3s infinite linear;
-          transform: 
-    /* Float up and down along the Z-axis (towards and away from the viewer) */ translateZ(
-              calc(40px + (sin(var(--neocities-domen-animation)) * 30px))
+          transform-style: preserve-3d;
+          transform: translateZ(
+              calc(40px + (sin(var(--neocities-domen-animation) * 1.25) * 30px))
             )
-            /* Your original counter-skew and rotation */
             skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
 
           .comment-favicon {
