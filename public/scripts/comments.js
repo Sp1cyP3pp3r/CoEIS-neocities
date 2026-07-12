@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbytYx-pHgJSpANyhvEBAcHcOM1wmYjISjXzAHueO3Aos-GpSG_0LZMey9jeDbF3T796/exec";
+  "https://script.google.com/macros/s/AKfycbyNp6Mga5tFG4al5q5oMidv0F819QDOmlCvItY9PwT0UeLGYAXMYC0C5I-GcIMi656r/exec";
 
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
@@ -7,6 +7,34 @@ else path = path.replace(".html", "").replace(/^\//, "");
 const page_url = path;
 
 let sortNewestFirst = true;
+
+// Available reactions
+const REACTIONS = ["👍", "❤️", "😂", "😮", "😢", "😡"];
+
+// Track which reactions the user has given (stored in localStorage)
+function getUserReactions() {
+  try {
+    return JSON.parse(localStorage.getItem("userReactions") || "{}");
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveUserReaction(comment_id, reaction) {
+  let userReactions = getUserReactions();
+  if (!userReactions[comment_id]) userReactions[comment_id] = [];
+  if (!userReactions[comment_id].includes(reaction)) {
+    userReactions[comment_id].push(reaction);
+    localStorage.setItem("userReactions", JSON.stringify(userReactions));
+  }
+}
+
+function hasUserReacted(comment_id, reaction) {
+  let userReactions = getUserReactions();
+  return (
+    userReactions[comment_id] && userReactions[comment_id].includes(reaction)
+  );
+}
 
 function formatDate(dateInput) {
   if (!dateInput) return "";
@@ -29,7 +57,6 @@ function formatDate(dateInput) {
   return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-// --- AVATAR FUNCTION (Returns clean HTML with classes) ---
 function getAvatarHtml(item, sizeClass) {
   if (item.avatar_url) {
     return `<img src="${escapeHTML(item.avatar_url)}" class="avatar-img ${sizeClass}">`;
@@ -37,14 +64,10 @@ function getAvatarHtml(item, sizeClass) {
   return "";
 }
 
-// --- RECURSIVE TREE RENDERING ---
 function renderCommentTree(comment, allComments, depth = 0) {
   const card = document.createElement("div");
-
-  // Assign base classes
   card.className = depth === 0 ? "comment-card" : "reply-card";
 
-  // Handle dynamic indentation for replies using CSS variables!
   if (depth > 0) {
     const indent = Math.min(depth * 20, 60);
     card.style.setProperty("--indent", indent + "px");
@@ -56,7 +79,6 @@ function renderCommentTree(comment, allComments, depth = 0) {
     ? `<div class="comment-avatar">${avatarHtml}</div>`
     : "";
 
-  // Build Meta Info using CSS classes instead of inline styles
   let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
 
   const formattedDate = formatDate(comment.timestamp);
@@ -88,17 +110,39 @@ function renderCommentTree(comment, allComments, depth = 0) {
     metaHtml += ` <em class="reply-tag">(reply)</em>`;
   }
 
+  // Build reactions HTML
+  let reactionsHtml = '<div class="reactions-container">';
+  REACTIONS.forEach((emoji) => {
+    const count = comment.reactions[emoji] || 0;
+    const reacted = hasUserReacted(comment.comment_id, emoji);
+    const reactedClass = reacted ? "reacted" : "";
+
+    reactionsHtml += `
+            <button class="reaction-btn ${reactedClass}" data-comment-id="${comment.comment_id}" data-reaction="${emoji}">
+                <span class="reaction-emoji">${emoji}</span>
+                <span class="reaction-count">${count}</span>
+            </button>
+        `;
+  });
+  reactionsHtml += "</div>";
+
   card.innerHTML = `
         ${avatarContainer}
         <div class="comment-body">
             <div class="comment-meta">${metaHtml}</div>
             <div class="comment-text">${escapeHTML(comment.comment_content)}</div>
+            ${reactionsHtml}
             <button class="reply-btn">Reply</button>
         </div>
     `;
 
   card.querySelector(".reply-btn").onclick = () =>
     startReply(comment.comment_id, comment.name);
+
+  // Attach reaction button handlers
+  card.querySelectorAll(".reaction-btn").forEach((btn) => {
+    btn.onclick = () => handleReactionClick(btn);
+  });
 
   const children = allComments.filter(
     (c) => c.parent_id === comment.comment_id,
@@ -119,6 +163,56 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
+// --- NEW: HANDLE REACTION CLICK ---
+function handleReactionClick(btn) {
+  const commentId = btn.dataset.commentId;
+  const reaction = btn.dataset.reaction;
+
+  // Check if user already reacted
+  if (hasUserReacted(commentId, reaction)) {
+    alert("You already reacted to this comment!");
+    return;
+  }
+
+  // Send reaction to backend
+  const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&page_url=${page_url}&callback=handleReactionResponse`;
+
+  const reactionScript = document.createElement("script");
+  reactionScript.id = "tempReactionScript";
+  reactionScript.src = reactionUrl;
+  document.body.appendChild(reactionScript);
+
+  // Store the button reference for the callback
+  window.pendingReactionBtn = btn;
+}
+
+function handleReactionResponse(response) {
+  const btn = window.pendingReactionBtn;
+  if (!btn) return;
+
+  if (response.status === "success") {
+    const reaction = btn.dataset.reaction;
+    const commentId = btn.dataset.commentId;
+
+    // Update count
+    const countSpan = btn.querySelector(".reaction-count");
+    countSpan.textContent = response.reactions[reaction] || 0;
+
+    // Mark as reacted
+    btn.classList.add("reacted");
+
+    // Save to localStorage
+    saveUserReaction(commentId, reaction);
+  } else {
+    alert("Error: " + (response.message || "Could not add reaction"));
+  }
+
+  // Clean up
+  const tempScript = document.getElementById("tempReactionScript");
+  if (tempScript) tempScript.remove();
+  window.pendingReactionBtn = null;
+}
+
 function displayComments(comments) {
   const container = document.getElementById("commentsContainer");
   container.innerHTML = "";
@@ -135,7 +229,6 @@ function displayComments(comments) {
   });
 }
 
-// --- TOGGLE BUTTON LOGIC ---
 document.addEventListener("click", function (e) {
   if (e.target && e.target.id === "sortToggleBtn") {
     sortNewestFirst = !sortNewestFirst;
@@ -150,7 +243,6 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// --- FORM LOGIC (Using CSS classes for toggling visibility) ---
 function startReply(parentId, parentName) {
   document.getElementById("parent_id").value = parentId;
   document.getElementById("comment_content").placeholder =
@@ -181,8 +273,6 @@ document
     const statusText = document.getElementById("formStatus");
 
     submitBtn.disabled = true;
-
-    // Show status, reset colors
     statusText.classList.add("visible");
     statusText.classList.remove("success", "error");
     statusText.innerText = "Saving...";
@@ -233,12 +323,10 @@ function handleSubmissionResponse(response) {
   if (tempScript) tempScript.remove();
 }
 
-// Load initial comments
 const loadScript = document.createElement("script");
 loadScript.src = `${GOOGLE_SCRIPT_URL}?callback=displayComments&page_url=${page_url}`;
 document.body.appendChild(loadScript);
 
-// XSS Protection
 function escapeHTML(str) {
   if (!str) return "";
   return str.toString().replace(
