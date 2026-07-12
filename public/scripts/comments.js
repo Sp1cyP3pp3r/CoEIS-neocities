@@ -6,10 +6,38 @@ if (path === "/" || path === "/index.html" || path === "") path = "index";
 else path = path.replace(".html", "").replace(/^\//, "");
 const page_url = path;
 
-// --- SIMPLE AVATAR FUNCTION (NO PLACEHOLDERS) ---
+// --- NEW: STATE VARIABLES ---
+let allFetchedComments = []; // Stores comments in memory so we can re-sort them
+let sortNewestFirst = true; // Tracks the current sort order
+
+// --- NEW: DATE FORMATTER ---
+function formatDate(dateInput) {
+  if (!dateInput) return "";
+  let date = new Date(dateInput);
+  if (isNaN(date.getTime())) return ""; // Failsafe for invalid dates
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  // Returns format: "12 July 2026"
+  return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+// --- AVATAR FUNCTION ---
 function getAvatarHtml(item, size) {
   size = size || 60;
-  // If they have an avatar URL, show it. Otherwise, return absolutely nothing.
   if (item.avatar_url) {
     return `<img src="${escapeHTML(item.avatar_url)}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;">`;
   }
@@ -20,7 +48,6 @@ function getAvatarHtml(item, size) {
 function renderCommentTree(comment, allComments, depth = 0) {
   const card = document.createElement("div");
 
-  // 1. Styling based on depth
   if (depth === 0) {
     card.className = "comment-card";
     card.style.border = "1px solid #ccc";
@@ -30,7 +57,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
     card.style.gap = "15px";
   } else {
     card.className = "reply-card";
-    const indent = Math.min(depth * 20, 60); // Cap visual indent at 60px
+    const indent = Math.min(depth * 20, 60);
     card.style.marginLeft = indent + "px";
     card.style.marginTop = "10px";
     card.style.padding = "10px";
@@ -40,41 +67,39 @@ function renderCommentTree(comment, allComments, depth = 0) {
     card.style.gap = "10px";
   }
 
-  // 2. Build Avatar (Will be empty string if no avatar_url is provided)
   const avatarSize = depth === 0 ? 60 : 40;
   const avatarHtml = getAvatarHtml(comment, avatarSize);
-
-  // Only create the avatar container div if there is actually an avatar
   const avatarContainer = avatarHtml
     ? `<div class="comment-avatar">${avatarHtml}</div>`
     : "";
 
-  // 3. Build Meta Info (Name, Neocities Link with Favicon, Mood)
+  // 1. Build Name
   let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
 
+  // 2. NEW: Add Date
+  const formattedDate = formatDate(comment.timestamp);
+  if (formattedDate) {
+    metaHtml += ` <span style="font-size: 0.8em; color: #888; font-weight: normal;">• ${formattedDate}</span>`;
+  }
+
+  // 3. Add Neocities Link
   if (comment.neocities) {
     let urlStr = comment.neocities.trim();
     if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
-
     try {
-      // Extract domain for the favicon and for clean display
       let domain = new URL(urlStr).hostname;
-      let cleanDomain = domain.replace(/^www\./, ""); // Removes 'www.' if it exists
-
-      // Google's instant favicon API (16x16 pixels for an inline icon)
+      let cleanDomain = domain.replace(/^www\./, "");
       let faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
-
-      // Add the link: [favicon] clean-domain.com
       metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" style="text-decoration: none; color: #0066cc;">
                             <img src="${faviconUrl}" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; border-radius:2px;">
                             ${escapeHTML(cleanDomain)}
                           </a>`;
     } catch (e) {
-      // Fallback if the URL is totally invalid
       metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
     }
   }
 
+  // 4. Mood & Reply Tag
   if (comment.mood) {
     metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(comment.mood)}</em>`;
   }
@@ -82,8 +107,6 @@ function renderCommentTree(comment, allComments, depth = 0) {
     metaHtml += ` <em style="font-size:0.8em; color:#888;">(reply)</em>`;
   }
 
-  // 4. Assemble the HTML
-  // Notice we use ${avatarContainer} instead of a hardcoded div, so no empty space is left if there's no avatar!
   card.innerHTML = `
         ${avatarContainer}
         <div class="comment-body" style="flex: 1;">
@@ -93,11 +116,10 @@ function renderCommentTree(comment, allComments, depth = 0) {
         </div>
     `;
 
-  // 5. Attach Reply Button Logic
   card.querySelector(".reply-btn").onclick = () =>
     startReply(comment.comment_id, comment.name);
 
-  // 6. Find and render children (Replies to this specific comment)
+  // Find children (Replies). We use the SORTED allComments array so replies are sorted chronologically too!
   const children = allComments.filter(
     (c) => c.parent_id === comment.comment_id,
   );
@@ -109,23 +131,63 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
-// --- MAIN DISPLAY FUNCTION ---
-function displayComments(comments) {
+// --- NEW: MAIN RENDER & SORT FUNCTION ---
+function renderComments() {
   const container = document.getElementById("commentsContainer");
-  if (!comments || comments.length === 0) {
-    container.innerHTML = "<p>No comments yet. Be the first!</p>";
+
+  if (allFetchedComments.length === 0) {
+    container.innerHTML =
+      "<h3>What Visitors Said...</h3><p>No comments yet. Be the first!</p>";
     return;
   }
 
+  // 1. Create a copy of the array and sort it based on the toggle state
+  let sortedComments = [...allFetchedComments];
+  sortedComments.sort((a, b) => {
+    let dateA = new Date(a.timestamp);
+    let dateB = new Date(b.timestamp);
+    // If newest first, subtract A from B. If oldest first, subtract B from A.
+    return sortNewestFirst ? dateB - dateA : dateA - dateB;
+  });
+
+  // 2. Clear the container and add the header
   container.innerHTML = "<h3>What Visitors Said...</h3>";
 
-  let topLevel = comments.filter((c) => !c.parent_id || c.parent_id === "");
+  // 3. Find top-level comments from the SORTED list
+  let topLevel = sortedComments.filter(
+    (c) => !c.parent_id || c.parent_id === "",
+  );
 
+  // 4. Render the tree
   topLevel.forEach((item) => {
-    const tree = renderCommentTree(item, comments, 0);
+    // We pass 'sortedComments' down so that replies are also in the correct order!
+    const tree = renderCommentTree(item, sortedComments, 0);
     container.appendChild(tree);
   });
 }
+
+// --- UPDATED DISPLAY FUNCTION (Triggered by JSONP) ---
+function displayComments(comments) {
+  allFetchedComments = comments || []; // Save to memory
+  renderComments(); // Initial render
+}
+
+// --- NEW: TOGGLE BUTTON LOGIC ---
+// We listen for clicks on the whole document, but only act if the button was clicked
+document.addEventListener("click", function (e) {
+  if (e.target && e.target.id === "sortToggleBtn") {
+    // Flip the boolean
+    sortNewestFirst = !sortNewestFirst;
+
+    // Update button text
+    e.target.innerText = sortNewestFirst
+      ? "Sort: Newest First"
+      : "Sort: Oldest First";
+
+    // Re-render the comments instantly
+    renderComments();
+  }
+});
 
 // --- FORM LOGIC ---
 function startReply(parentId, parentName) {
