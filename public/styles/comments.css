@@ -128,6 +128,12 @@
 
         .comment-favicon {
         }
+        .neocities-span {
+        }
+
+        > * {
+          transform: skewX(-5deg) rotateZ(-3deg);
+        }
       }
 
       > .reactions {

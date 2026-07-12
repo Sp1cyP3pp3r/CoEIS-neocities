@@ -272,7 +272,9 @@ function renderCommentTree(comment, allComments, depth = 0) {
       let faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
       neocitiesHtml = `<a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-address neocities" aria-label="Visit ${escapeHTML(cleanDomain)}">
                 <img src="${faviconUrl}" alt="" class="comment-favicon" aria-hidden="true">
-                ${escapeHTML(cleanDomain)}
+                <span class="neocities-span">
+                  ${escapeHTML(cleanDomain)}
+                </span>
             </a>`;
     } catch (e) {
       neocitiesHtml = `<a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-address neocities">Visit Site</a>`;
