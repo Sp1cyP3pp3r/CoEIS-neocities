@@ -1,6 +1,5 @@
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbytYx-pHgJSpANyhvEBAcHcOM1wmYjISjXzAHueO3Aos-GpSG_0LZMey9jeDbF3T796/exec";
-
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
 else path = path.replace(".html", "").replace(/^\//, "");
@@ -11,31 +10,92 @@ function getAvatarHtml(item, size) {
   size = size || 60;
   let defaultStyle = `width:${size}px;height:${size}px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:4px;`;
 
-  // 1. Priority: Custom Avatar URL
   if (item.avatar_url) {
     return `<img src="${escapeHTML(item.avatar_url)}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
                 <div style="display:none;${defaultStyle}">👤</div>`;
   }
-
-  // 2. Priority: Scrape Favicon from Neocities Link
   if (item.neocities) {
     try {
       let urlStr = item.neocities;
-      // Auto-add https:// if the user forgot it
       if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
       let domain = new URL(urlStr).hostname;
-
-      // Google's free, instant favicon API
       return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=${size}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;">`;
-    } catch (e) {
-      // If URL parsing fails, fallback to default
-    }
+    } catch (e) {}
   }
-
-  // 3. Fallback: Default Emoji
   return `<div style="${defaultStyle}">👤</div>`;
 }
 
+// --- RECURSIVE TREE RENDERING ---
+function renderCommentTree(comment, allComments, depth = 0) {
+  const card = document.createElement("div");
+
+  // 1. Styling based on depth
+  if (depth === 0) {
+    card.className = "comment-card";
+    card.style.border = "1px solid #ccc";
+    card.style.padding = "15px";
+    card.style.marginBottom = "15px";
+    card.style.display = "flex";
+    card.style.gap = "15px";
+  } else {
+    card.className = "reply-card";
+    const indent = Math.min(depth * 20, 60); // Cap visual indent at 60px so it doesn't go off-screen
+    card.style.marginLeft = indent + "px";
+    card.style.marginTop = "10px";
+    card.style.padding = "10px";
+    card.style.backgroundColor = "#f9f9f9";
+    card.style.borderLeft = "3px solid #ccc";
+    card.style.display = "flex";
+    card.style.gap = "10px";
+  }
+
+  // 2. Build Avatar and Meta Info
+  const avatarSize = depth === 0 ? 60 : 40;
+  const avatarHtml = getAvatarHtml(comment, avatarSize);
+
+  let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
+  if (comment.neocities) {
+    let urlStr = comment.neocities;
+    if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
+    metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
+  }
+  if (comment.mood) {
+    metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(comment.mood)}</em>`;
+  }
+  if (depth > 0) {
+    metaHtml += ` <em style="font-size:0.8em; color:#888;">(reply)</em>`;
+  }
+
+  // 3. Assemble the HTML
+  card.innerHTML = `
+        <div class="comment-avatar">${avatarHtml}</div>
+        <div class="comment-body" style="flex: 1;">
+            <div class="comment-meta">${metaHtml}</div>
+            <div class="comment-text" style="margin: 10px 0; white-space: pre-wrap;">${escapeHTML(comment.comment_content)}</div>
+            <button class="reply-btn" style="font-size: 0.8em; cursor: pointer; background: none; border: none; color: #0066cc; text-decoration: underline;">Reply</button>
+        </div>
+    `;
+
+  // 4. Attach Reply Button Logic
+  // This works for ANY comment, no matter how deep it is!
+  card.querySelector(".reply-btn").onclick = () =>
+    startReply(comment.comment_id, comment.name);
+
+  // 5. Find and render children (Replies to this specific comment)
+  const children = allComments.filter(
+    (c) => c.parent_id === comment.comment_id,
+  );
+  children.forEach((child) => {
+    // Recursively call this function for the child, increasing the depth
+    const childElement = renderCommentTree(child, allComments, depth + 1);
+    // Append it inside the .comment-body so it aligns with the text, not the avatar
+    card.querySelector(".comment-body").appendChild(childElement);
+  });
+
+  return card;
+}
+
+// --- MAIN DISPLAY FUNCTION ---
 function displayComments(comments) {
   const container = document.getElementById("commentsContainer");
   if (!comments || comments.length === 0) {
@@ -45,76 +105,17 @@ function displayComments(comments) {
 
   container.innerHTML = "<h3>What Visitors Said...</h3>";
 
+  // Find only the top-level comments (those with no parent)
   let topLevel = comments.filter((c) => !c.parent_id || c.parent_id === "");
-  let replies = comments.filter((c) => c.parent_id && c.parent_id !== "");
 
+  // Render the tree for each top-level comment
   topLevel.forEach((item) => {
-    const card = document.createElement("div");
-    card.className = "comment-card";
-    card.style.display = "flex";
-    card.style.gap = "15px";
-    card.style.border = "1px solid #ccc";
-    card.style.padding = "15px";
-    card.style.marginBottom = "15px";
-
-    // Get Avatar (Favicon or Custom)
-    let avatarHtml = getAvatarHtml(item, 60);
-
-    // Build Meta Info
-    let metaHtml = `<strong>${escapeHTML(item.name)}</strong>`;
-
-    if (item.neocities) {
-      let urlStr = item.neocities;
-      if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
-      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
-    }
-
-    if (item.mood) {
-      metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(item.mood)}</em>`;
-    }
-
-    // Assemble Card
-    card.innerHTML = `
-            <div class="comment-avatar">${avatarHtml}</div>
-            <div class="comment-body" style="flex: 1;">
-                <div class="comment-meta">${metaHtml}</div>
-                <div class="comment-text" style="margin: 10px 0; white-space: pre-wrap;">${escapeHTML(item.comment_content)}</div>
-                <button class="reply-btn" style="font-size: 0.8em; cursor: pointer; background: none; border: none; color: #0066cc; text-decoration: underline;">Reply</button>
-            </div>
-        `;
-
-    card.querySelector(".reply-btn").onclick = () =>
-      startReply(item.comment_id, item.name);
-
-    // Render Replies
-    let itemReplies = replies.filter((r) => r.parent_id === item.comment_id);
-    itemReplies.forEach((reply) => {
-      const replyCard = document.createElement("div");
-      replyCard.className = "reply-card";
-      replyCard.style.marginTop = "10px";
-      replyCard.style.padding = "10px";
-      replyCard.style.backgroundColor = "#f9f9f9";
-      replyCard.style.borderLeft = "3px solid #ccc";
-      replyCard.style.display = "flex";
-      replyCard.style.gap = "10px";
-
-      let replyAvatar = getAvatarHtml(reply, 40); // Smaller avatar for replies
-
-      replyCard.innerHTML = `
-                <div>${replyAvatar}</div>
-                <div style="flex:1;">
-                    <strong>${escapeHTML(reply.name)}</strong> <em style="font-size:0.8em;">(reply)</em>
-                    <div style="margin-top: 5px; white-space: pre-wrap;">${escapeHTML(reply.comment_content)}</div>
-                </div>
-            `;
-      card.querySelector(".comment-body").appendChild(replyCard);
-    });
-
-    container.appendChild(card);
+    const tree = renderCommentTree(item, comments, 0);
+    container.appendChild(tree);
   });
 }
 
-// --- Form Logic ---
+// --- FORM LOGIC ---
 function startReply(parentId, parentName) {
   document.getElementById("parent_id").value = parentId;
   document.getElementById("comment_content").placeholder =
@@ -137,6 +138,7 @@ document
   .getElementById("cancelReplyBtn")
   .addEventListener("click", cancelReply);
 
+// --- BULLETPROOF SUBMISSION ---
 document
   .getElementById("guestbookForm")
   .addEventListener("submit", function (e) {
@@ -148,9 +150,6 @@ document
     statusText.style.display = "block";
     statusText.innerText = "Saving...";
 
-    // --- BULLETPROOF FIELD GRABBING ---
-    // This helper function safely checks if an element exists.
-    // If it doesn't, it returns an empty string instead of crashing!
     const getVal = (id) => {
       const el = document.getElementById(id);
       return el ? el.value : "";
@@ -160,7 +159,6 @@ document
     const name = encodeURIComponent(getVal("name"));
     const email = encodeURIComponent(getVal("email"));
 
-    // Fallback: If your HTML still uses id="comment", this will catch it!
     let comment_content = getVal("comment_content");
     if (!comment_content) comment_content = getVal("comment");
     comment_content = encodeURIComponent(comment_content);
@@ -169,10 +167,8 @@ document
     const avatar_url = encodeURIComponent(getVal("avatar_url"));
     const mood = encodeURIComponent(getVal("mood"));
 
-    // Build the URL to send to Google
     const submissionUrl = `${GOOGLE_SCRIPT_URL}?neocities=${neocities}&name=${name}&email=${email}&comment_content=${comment_content}&parent_id=${parent_id}&avatar_url=${avatar_url}&mood=${mood}&page_url=${page_url}&callback=handleSubmissionResponse`;
 
-    // Send the data via JSONP
     const submitScript = document.createElement("script");
     submitScript.id = "tempSubmitScript";
     submitScript.src = submissionUrl;
