@@ -122,14 +122,14 @@
 
         background-color: crimson;
 
-        display: inline-flex;
-        flex-flow: row nowrap;
-
         padding: 2.5%;
 
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .neocities-span-group {
+          display: inline-flex;
+          flex-flow: row nowrap;
+
           transform: skewX(calc(var(--deg-skew) * -1))
             rotateZ(calc(var(--deg-rotate) * -1));
 
