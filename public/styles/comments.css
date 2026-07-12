@@ -113,6 +113,9 @@
       position: relative;
 
       > .comment-address.neocities {
+        --deg-skew: 4deg;
+        --deg-rotate: 2deg;
+
         position: absolute;
         inset-inline-start: -15%;
         inset-block-end: -5%;
@@ -124,7 +127,7 @@
 
         padding: 2%;
 
-        transform: skewX(5deg) rotateZ(3deg);
+        transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .comment-favicon {
         }
@@ -132,7 +135,8 @@
         }
 
         > * {
-          transform: skewX(-5deg) rotateZ(-3deg);
+          transform: skewX(calc(var(--deg-skew) * -1))
+            rotateZ(calc(var(--deg-rotate) * -1));
         }
       }
 
