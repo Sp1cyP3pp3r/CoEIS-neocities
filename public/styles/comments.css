@@ -45,6 +45,10 @@
 }
 
 .comment-card {
+  --phase-offset: calc(sibling-index() * 73deg);
+  --base-z: calc(100px + (sibling-index() * 15px));
+  --anim-duration: calc(4s + (sibling-index() / sibling-count()) * 2s);
+
   --max-width: calc(var(--main-width) / 2.15);
   width: fit-content;
   max-width: var(--max-width);
@@ -144,10 +148,6 @@
                   3deg
               )
           );
-
-          --phase-offset: calc(sibling-index() * 73deg);
-          --base-z: calc(100px + (sibling-index() * 15px));
-          --anim-duration: calc(4s + (sibling-index() / sibling-count()) * 2s);
 
           display: inline-flex;
           flex-flow: row nowrap;
