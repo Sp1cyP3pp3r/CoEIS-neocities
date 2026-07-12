@@ -216,6 +216,7 @@
         }
 
         .add-reaction-btn {
+          margin-inline-start: 1em;
           cursor: pointer;
 
           .add-reaction-icon {
