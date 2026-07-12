@@ -49,7 +49,7 @@
   --parent-count: sibling-count();
 
   --phase-offset: calc(var(--parent-index) * 73deg);
-  --base-z: calc(30px + (var(--parent-index) * 15px));
+  --base-z: calc(40px + (var(--parent-index) * 15px));
   --anim-duration: calc(4s + (var(--parent-index) / var(--parent-count)) * 3s);
 
   --max-width: calc(var(--main-width) / 2.15);
