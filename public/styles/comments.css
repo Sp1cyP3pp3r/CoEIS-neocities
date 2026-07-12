@@ -64,6 +64,7 @@
 
     > .comment-aside.avatar {
       --avatar-size: 4em;
+      display: var(--avatar-display, none);
 
       grid-area: AVATAR;
 
