@@ -81,9 +81,15 @@
     }
 
     > .comment-header {
+      display: flex;
+      flex-flow: row wrap;
+
       grid-area: HEADER;
 
       > .comment-hgroup {
+        display: flex;
+        flex-flow: column nowrap;
+
         > .name {
         }
         > .mood {
@@ -91,6 +97,7 @@
       }
 
       > .date {
+        font-size: 0.75em;
       }
     }
 
