@@ -233,10 +233,11 @@
 
           background-color: color-mix(
             in oklab,
-            rgb(194, 236, 116),
+            #c2ec74,
             rgba(158, 158, 158, 0.5) 75%
           );
-          border: 2px solid rgb(194, 236, 116);
+          border: 2px solid #c2ec74;
+          box-shadow: 0px 0px 5px 0px #c2ec74;
 
           &.open {
             display: flex;
