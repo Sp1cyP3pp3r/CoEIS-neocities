@@ -124,7 +124,7 @@
 
         padding: 2.5%;
 
-        perspective: 650px;
+        perspective: 800px;
         transform-style: preserve-3d;
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
