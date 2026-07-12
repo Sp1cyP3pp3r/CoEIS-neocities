@@ -130,6 +130,7 @@
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .comment-favicon {
+          display: block;
         }
         .neocities-span {
           padding-inline-start: 0.5em;
