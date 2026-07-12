@@ -24,6 +24,21 @@ const REACTIONS = [
     url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/skull.gif",
     alt: "Skull",
   },
+  {
+    id: "frog",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/frog.gif",
+    alt: "frog",
+  },
+  {
+    id: "die",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/die.gif",
+    alt: "die",
+  },
+  {
+    id: "amogus",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/amogus.gif",
+    alt: "amogus",
+  },
 ];
 
 let allCommentsData = [];
