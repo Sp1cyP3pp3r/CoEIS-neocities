@@ -11,7 +11,7 @@ let sortNewestFirst = true;
 // Available reactions
 const REACTIONS = ["👍", "❤️", "💀"];
 
-// Track which reactions the user has given (stored in localStorage)
+// --- LOCAL STORAGE FUNCTIONS FOR USER REACTIONS ---
 function getUserReactions() {
   try {
     return JSON.parse(localStorage.getItem("userReactions") || "{}");
@@ -29,6 +29,19 @@ function saveUserReaction(comment_id, reaction) {
   }
 }
 
+function removeUserReaction(comment_id, reaction) {
+  let userReactions = getUserReactions();
+  if (userReactions[comment_id]) {
+    userReactions[comment_id] = userReactions[comment_id].filter(
+      (r) => r !== reaction,
+    );
+    if (userReactions[comment_id].length === 0) {
+      delete userReactions[comment_id];
+    }
+    localStorage.setItem("userReactions", JSON.stringify(userReactions));
+  }
+}
+
 function hasUserReacted(comment_id, reaction) {
   let userReactions = getUserReactions();
   return (
@@ -36,6 +49,7 @@ function hasUserReacted(comment_id, reaction) {
   );
 }
 
+// --- DATE FORMATTER ---
 function formatDate(dateInput) {
   if (!dateInput) return "";
   let date = new Date(dateInput);
@@ -57,6 +71,7 @@ function formatDate(dateInput) {
   return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
 }
 
+// --- AVATAR FUNCTION ---
 function getAvatarHtml(item, sizeClass) {
   if (item.avatar_url) {
     return `<img src="${escapeHTML(item.avatar_url)}" class="avatar-img ${sizeClass}">`;
@@ -64,6 +79,7 @@ function getAvatarHtml(item, sizeClass) {
   return "";
 }
 
+// --- RECURSIVE TREE RENDERING ---
 function renderCommentTree(comment, allComments, depth = 0) {
   const card = document.createElement("div");
   card.className = depth === 0 ? "comment-card" : "reply-card";
@@ -163,7 +179,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
-// --- UPDATED: HANDLE REACTION CLICK (TOGGLE) ---
+// --- OPTIMISTIC REACTION HANDLER ---
 function handleReactionClick(btn) {
   const commentId = btn.dataset.commentId;
   const reaction = btn.dataset.reaction;
@@ -171,67 +187,42 @@ function handleReactionClick(btn) {
   const alreadyReacted = hasUserReacted(commentId, reaction);
   const action = alreadyReacted ? "remove" : "add";
 
-  // Send reaction to backend with action parameter
-  const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&react_action=${action}&page_url=${page_url}&callback=handleReactionResponse`;
+  // IMMEDIATELY update the UI (optimistic update)
+  const countSpan = btn.querySelector(".reaction-count");
+  let currentCount = parseInt(countSpan.textContent) || 0;
+
+  if (action === "add") {
+    countSpan.textContent = currentCount + 1;
+    btn.classList.add("reacted");
+    saveUserReaction(commentId, reaction);
+  } else {
+    countSpan.textContent = Math.max(0, currentCount - 1);
+    btn.classList.remove("reacted");
+    removeUserReaction(commentId, reaction);
+  }
+
+  // Temporarily disable the button to prevent spam-clicking
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.disabled = false;
+  }, 1000);
+
+  // Send to backend in the background (fire and forget)
+  const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&react_action=${action}&page_url=${page_url}`;
 
   const reactionScript = document.createElement("script");
-  reactionScript.id = "tempReactionScript";
   reactionScript.src = reactionUrl;
   document.body.appendChild(reactionScript);
 
-  // Store the button reference and action for the callback
-  window.pendingReactionBtn = btn;
-  window.pendingReactionAction = action;
-}
-
-// --- UPDATED: HANDLE REACTION RESPONSE ---
-function handleReactionResponse(response) {
-  const btn = window.pendingReactionBtn;
-  const action = window.pendingReactionAction;
-  if (!btn) return;
-
-  if (response.status === "success") {
-    const reaction = btn.dataset.reaction;
-    const commentId = btn.dataset.commentId;
-
-    // Update count
-    const countSpan = btn.querySelector(".reaction-count");
-    const newCount = response.reactions[reaction] || 0;
-    countSpan.textContent = newCount;
-
-    if (action === "add") {
-      // Mark as reacted
-      btn.classList.add("reacted");
-      saveUserReaction(commentId, reaction);
-    } else {
-      // Remove reacted state
-      btn.classList.remove("reacted");
-      removeUserReaction(commentId, reaction);
+  // Clean up the script tag after a delay
+  setTimeout(() => {
+    if (reactionScript.parentNode) {
+      reactionScript.parentNode.removeChild(reactionScript);
     }
-  } else {
-    alert("Error: " + (response.message || "Could not update reaction"));
-  }
-
-  // Clean up
-  const tempScript = document.getElementById("tempReactionScript");
-  if (tempScript) tempScript.remove();
-  window.pendingReactionBtn = null;
-  window.pendingReactionAction = null;
+  }, 5000);
 }
 
-function removeUserReaction(comment_id, reaction) {
-  let userReactions = getUserReactions();
-  if (userReactions[comment_id]) {
-    userReactions[comment_id] = userReactions[comment_id].filter(
-      (r) => r !== reaction,
-    );
-    if (userReactions[comment_id].length === 0) {
-      delete userReactions[comment_id];
-    }
-    localStorage.setItem("userReactions", JSON.stringify(userReactions));
-  }
-}
-
+// --- DISPLAY COMMENTS ---
 function displayComments(comments) {
   const container = document.getElementById("commentsContainer");
   container.innerHTML = "";
@@ -248,6 +239,7 @@ function displayComments(comments) {
   });
 }
 
+// --- SORT TOGGLE ---
 document.addEventListener("click", function (e) {
   if (e.target && e.target.id === "sortToggleBtn") {
     sortNewestFirst = !sortNewestFirst;
@@ -262,6 +254,7 @@ document.addEventListener("click", function (e) {
   }
 });
 
+// --- FORM LOGIC ---
 function startReply(parentId, parentName) {
   document.getElementById("parent_id").value = parentId;
   document.getElementById("comment_content").placeholder =
@@ -342,10 +335,12 @@ function handleSubmissionResponse(response) {
   if (tempScript) tempScript.remove();
 }
 
+// Load initial comments
 const loadScript = document.createElement("script");
 loadScript.src = `${GOOGLE_SCRIPT_URL}?callback=displayComments&page_url=${page_url}`;
 document.body.appendChild(loadScript);
 
+// XSS Protection
 function escapeHTML(str) {
   if (!str) return "";
   return str.toString().replace(
