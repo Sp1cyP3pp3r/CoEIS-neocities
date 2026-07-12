@@ -120,14 +120,18 @@
 
       > .reactions {
         .reaction-btn {
+          font-size: 14px;
           cursor: pointer;
 
-          width: 3em;
-          height: 3em;
+          width: 2em;
+          height: 2em;
           aspect-ratio: 1 / 1;
 
           background-color: transparent;
           border: none;
+
+          display: flex;
+          flex-flow: row nowrap;
 
           &.reacted {
           }
