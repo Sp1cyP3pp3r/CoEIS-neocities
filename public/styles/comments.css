@@ -129,7 +129,6 @@
         .neocities-span-group {
           display: inline-flex;
           flex-flow: row nowrap;
-
           transform: skewX(calc(var(--deg-skew) * -1))
             rotateZ(calc(var(--neocities-domen-animation) * -1));
 
@@ -137,9 +136,13 @@
 
           .comment-favicon {
             display: block;
+            transform: skewX(calc(var(--deg-skew) * -1))
+              rotateZ(calc(var(--neocities-domen-animation) * -1));
           }
           .neocities-domain-span {
             padding-inline-start: 0.5em;
+            transform: skewX(calc(var(--deg-skew) * -1))
+              rotateZ(calc(var(--neocities-domen-animation) * -1));
           }
         }
       }
