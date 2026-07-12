@@ -138,18 +138,18 @@
           display: inline-flex;
           flex-flow: row nowrap;
 
-          animation: neocities-domen 5s infinite ease-in-out;
+          animation: neocities-domen 3s infinite linear;
           transform: 
     /* Counteract parent's 2D skew and rotation */ skewX(
               calc(var(--deg-skew) * -1)
             )
             rotateZ(var(--domen-val)) /* 3D Floating Effects */
             /* Bobbing up and down */
-            translateY(calc(sin(var(--neocities-domen-animation)) * 20px))
+            translateY(calc(sin(var(--neocities-domen-animation)) * 10px))
             /* Tilting forward and backward */
-            rotateX(calc(cos(var(--neocities-domen-animation)) * 10deg))
+            rotateX(calc(cos(var(--neocities-domen-animation)) * 5deg))
             /* Tilting left and right */
-            rotateY(calc(sin(var(--neocities-domen-animation)) * 10deg));
+            rotateY(calc(sin(var(--neocities-domen-animation)) * 7deg));
 
           .comment-favicon {
             display: block;
