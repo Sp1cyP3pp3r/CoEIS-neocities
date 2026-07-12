@@ -124,7 +124,10 @@
 
         padding: 2.5%;
 
-        transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        transform: rotateX(60deg) skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
+}
 
         .neocities-span-group {
           --domen-skew: calc(
