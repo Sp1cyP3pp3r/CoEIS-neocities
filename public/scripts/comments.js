@@ -9,7 +9,23 @@ const page_url = path;
 let sortNewestFirst = true;
 
 // Available reactions
-const REACTIONS = ["👍", "❤️", "😂", "😮", "😢", "😡"];
+const REACTIONS = [
+  {
+    id: "heart",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/heart.gif",
+    alt: "Hearts",
+  },
+  {
+    id: "like",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/like.gif",
+    alt: "Thumbs up",
+  },
+  {
+    id: "skull",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/skull.gif",
+    alt: "Skull",
+  },
+];
 
 // --- IN-MEMORY DATA STORE ---
 // This holds the current state of all comments, including reaction counts.
@@ -85,10 +101,7 @@ function getAvatarHtml(item, sizeClass) {
   return "";
 }
 
-// --- PURE FUNCTION: BUILD REACTIONS SECTION HTML ---
-// Takes a comment_id and returns the HTML for its reactions section based on current state
 function buildReactionsSectionHtml(commentId) {
-  // Find the comment in our in-memory store
   const comment = allCommentsData.find((c) => c.comment_id === commentId);
   if (!comment) return "";
 
@@ -97,21 +110,18 @@ function buildReactionsSectionHtml(commentId) {
 
   let html = '<div class="reactions-section">';
 
-  // Display existing reactions (only those with count > 0)
-  const hasAnyReactions = REACTIONS.some(
-    (emoji) => (reactions[emoji] || 0) > 0,
-  );
+  const hasAnyReactions = REACTIONS.some((r) => (reactions[r.id] || 0) > 0);
 
   if (hasAnyReactions) {
     html += '<div class="reactions-display">';
-    REACTIONS.forEach((emoji) => {
-      const count = reactions[emoji] || 0;
+    REACTIONS.forEach((reaction) => {
+      const count = reactions[reaction.id] || 0;
       if (count > 0) {
-        const reacted = userReactionList.includes(emoji);
+        const reacted = userReactionList.includes(reaction.id);
         const reactedClass = reacted ? "reacted" : "";
         html += `
-                    <button class="reaction-btn ${reactedClass}" data-comment-id="${commentId}" data-reaction="${emoji}">
-                        <span class="reaction-emoji">${emoji}</span>
+                    <button class="reaction-btn ${reactedClass}" data-comment-id="${commentId}" data-reaction="${reaction.id}">
+                        <img src="${reaction.url}" alt="${reaction.alt}" class="reaction-img">
                         <span class="reaction-count">${count}</span>
                     </button>
                 `;
@@ -120,17 +130,17 @@ function buildReactionsSectionHtml(commentId) {
     html += "</div>";
   }
 
-  // Add Reaction button
   html += `
         <button class="add-reaction-btn" data-comment-id="${commentId}">
             <span class="add-reaction-icon">+</span> React
         </button>
     `;
 
-  // Hidden picker
   html += '<div class="reactions-picker">';
-  REACTIONS.forEach((emoji) => {
-    html += `<button class="picker-emoji-btn" data-comment-id="${commentId}" data-reaction="${emoji}">${emoji}</button>`;
+  REACTIONS.forEach((reaction) => {
+    html += `<button class="picker-emoji-btn" data-comment-id="${commentId}" data-reaction="${reaction.id}">
+                    <img src="${reaction.url}" alt="${reaction.alt}" class="picker-img">
+                 </button>`;
   });
   html += "</div>";
 
@@ -138,7 +148,6 @@ function buildReactionsSectionHtml(commentId) {
 
   return html;
 }
-
 // --- ATTACH ALL REACTION HANDLERS TO A CARD ---
 function attachReactionHandlers(card) {
   // Existing reaction buttons (toggle)
