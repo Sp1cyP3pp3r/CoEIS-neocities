@@ -363,7 +363,7 @@ document.addEventListener("click", function (e) {
       .getElementById("commentsContainer")
       .style.setProperty(
         "--flex-direction",
-        sortNewestFirst ? "column-reverse" : "column",
+        sortNewestFirst ? "row-reverse" : "row",
       );
   }
 });

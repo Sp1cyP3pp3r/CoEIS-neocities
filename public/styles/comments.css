@@ -35,9 +35,13 @@
 }
 
 #commentsContainer {
-  --flex-direction: column-reverse;
+  --flex-direction: row-reverse;
   display: flex;
   flex-direction: var(--flex-direction);
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
 .comment-card {
