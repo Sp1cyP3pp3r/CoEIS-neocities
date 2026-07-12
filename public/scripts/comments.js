@@ -148,22 +148,31 @@ document
     statusText.style.display = "block";
     statusText.innerText = "Saving...";
 
-    const neocities = encodeURIComponent(
-      document.getElementById("neocities").value,
-    );
-    const name = encodeURIComponent(document.getElementById("name").value);
-    const email = encodeURIComponent(document.getElementById("email").value);
-    const comment_content = encodeURIComponent(
-      document.getElementById("comment_content").value,
-    );
-    const parent_id = document.getElementById("parent_id").value;
-    const avatar_url = encodeURIComponent(
-      document.getElementById("avatar_url").value,
-    );
-    const mood = encodeURIComponent(document.getElementById("mood").value);
+    // --- BULLETPROOF FIELD GRABBING ---
+    // This helper function safely checks if an element exists.
+    // If it doesn't, it returns an empty string instead of crashing!
+    const getVal = (id) => {
+      const el = document.getElementById(id);
+      return el ? el.value : "";
+    };
 
+    const neocities = encodeURIComponent(getVal("neocities"));
+    const name = encodeURIComponent(getVal("name"));
+    const email = encodeURIComponent(getVal("email"));
+
+    // Fallback: If your HTML still uses id="comment", this will catch it!
+    let comment_content = getVal("comment_content");
+    if (!comment_content) comment_content = getVal("comment");
+    comment_content = encodeURIComponent(comment_content);
+
+    const parent_id = getVal("parent_id");
+    const avatar_url = encodeURIComponent(getVal("avatar_url"));
+    const mood = encodeURIComponent(getVal("mood"));
+
+    // Build the URL to send to Google
     const submissionUrl = `${GOOGLE_SCRIPT_URL}?neocities=${neocities}&name=${name}&email=${email}&comment_content=${comment_content}&parent_id=${parent_id}&avatar_url=${avatar_url}&mood=${mood}&page_url=${page_url}&callback=handleSubmissionResponse`;
 
+    // Send the data via JSONP
     const submitScript = document.createElement("script");
     submitScript.id = "tempSubmitScript";
     submitScript.src = submissionUrl;
@@ -199,17 +208,15 @@ document.body.appendChild(loadScript);
 // XSS Protection
 function escapeHTML(str) {
   if (!str) return "";
-  return str
-    .toString()
-    .replace(
-      /[&<>'"]/g,
-      (tag) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          "'": "&#39;",
-          '"': "&quot;",
-        })[tag] || tag,
-    );
+  return str.toString().replace(
+    /[&<>'"]/g,
+    (tag) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "'": "&#39;",
+        '"': "&quot;",
+      })[tag] || tag,
+  );
 }
