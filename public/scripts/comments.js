@@ -254,7 +254,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
 
   // Avatar (CSS variable, no <img>)
   const avatarStyle = comment.avatar_url
-    ? `style="--avatar-url: url('${escapeHTML(comment.avatar_url)}')"`
+    ? `style="--avatar-url: url('${comment.avatar_url.replace(/'/g, "\\'")}')"`
     : "";
 
   // Neocities link
