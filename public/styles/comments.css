@@ -98,8 +98,14 @@
 
     > .comment-footer {
       grid-area: FOOTER;
+
       display: flex;
       flex-flow: row nowrap;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      align-items: center;
+
+      position: relative;
 
       > .comment-address.neocities {
         .comment-favicon {
