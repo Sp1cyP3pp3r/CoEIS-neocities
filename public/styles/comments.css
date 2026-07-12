@@ -233,8 +233,8 @@
 
           background-color: color-mix(
             in oklab,
-            aquamarine,
-            rgba(0, 0, 0, 0.5) 75%
+            rgb(194, 236, 116),
+            rgba(158, 158, 158, 0.5) 75%
           );
           border: 3px solid cyan;
           border-radius: 15px;
