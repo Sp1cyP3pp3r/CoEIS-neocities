@@ -126,8 +126,7 @@
 
         perspective: 1000px;
         transform-style: preserve-3d;
-        transform: rotateX(60deg) skewX(var(--deg-skew))
-          rotateZ(var(--deg-rotate));
+        transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .neocities-span-group {
           --domen-val: calc(
@@ -140,16 +139,11 @@
 
           animation: neocities-domen 3s infinite linear;
           transform: 
-    /* Counteract parent's 2D skew and rotation */ skewX(
-              calc(var(--deg-skew) * -1)
+    /* Float up and down along the Z-axis (towards and away from the viewer) */ translateZ(
+              calc(40px + (sin(var(--neocities-domen-animation)) * 30px))
             )
-            rotateZ(var(--domen-val)) /* 3D Floating Effects */
-            /* Bobbing up and down */
-            translateY(calc(sin(var(--neocities-domen-animation)) * 10px))
-            /* Tilting forward and backward */
-            rotateX(calc(cos(var(--neocities-domen-animation)) * 5deg))
-            /* Tilting left and right */
-            rotateY(calc(sin(var(--neocities-domen-animation)) * 7deg));
+            /* Your original counter-skew and rotation */
+            skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
 
           .comment-favicon {
             display: block;
