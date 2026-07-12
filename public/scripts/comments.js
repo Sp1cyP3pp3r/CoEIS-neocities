@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyPho3jtmGk0Lm1ly_Hdfolqkp4e60cxR-tTNFcDGHuT0Pl7ECXz4asE9NS9GW9xJ3y/exec";
+  "https://script.google.com/macros/s/AKfycbwppSLRMgpevtJXv0Dh19g6x4Mrl2Nk5c7e9-gsiVYKjgomy9scFHWAchsqvGSmh_Ns/exec";
 
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
@@ -163,31 +163,31 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
-// --- NEW: HANDLE REACTION CLICK ---
+// --- UPDATED: HANDLE REACTION CLICK (TOGGLE) ---
 function handleReactionClick(btn) {
   const commentId = btn.dataset.commentId;
   const reaction = btn.dataset.reaction;
 
-  // Check if user already reacted
-  if (hasUserReacted(commentId, reaction)) {
-    alert("You already reacted to this comment!");
-    return;
-  }
+  const alreadyReacted = hasUserReacted(commentId, reaction);
+  const action = alreadyReacted ? "remove" : "add";
 
-  // Send reaction to backend
-  const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&page_url=${page_url}&callback=handleReactionResponse`;
+  // Send reaction to backend with action parameter
+  const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&react_action=${action}&page_url=${page_url}&callback=handleReactionResponse`;
 
   const reactionScript = document.createElement("script");
   reactionScript.id = "tempReactionScript";
   reactionScript.src = reactionUrl;
   document.body.appendChild(reactionScript);
 
-  // Store the button reference for the callback
+  // Store the button reference and action for the callback
   window.pendingReactionBtn = btn;
+  window.pendingReactionAction = action;
 }
 
+// --- UPDATED: HANDLE REACTION RESPONSE ---
 function handleReactionResponse(response) {
   const btn = window.pendingReactionBtn;
+  const action = window.pendingReactionAction;
   if (!btn) return;
 
   if (response.status === "success") {
@@ -196,21 +196,40 @@ function handleReactionResponse(response) {
 
     // Update count
     const countSpan = btn.querySelector(".reaction-count");
-    countSpan.textContent = response.reactions[reaction] || 0;
+    const newCount = response.reactions[reaction] || 0;
+    countSpan.textContent = newCount;
 
-    // Mark as reacted
-    btn.classList.add("reacted");
-
-    // Save to localStorage
-    saveUserReaction(commentId, reaction);
+    if (action === "add") {
+      // Mark as reacted
+      btn.classList.add("reacted");
+      saveUserReaction(commentId, reaction);
+    } else {
+      // Remove reacted state
+      btn.classList.remove("reacted");
+      removeUserReaction(commentId, reaction);
+    }
   } else {
-    alert("Error: " + (response.message || "Could not add reaction"));
+    alert("Error: " + (response.message || "Could not update reaction"));
   }
 
   // Clean up
   const tempScript = document.getElementById("tempReactionScript");
   if (tempScript) tempScript.remove();
   window.pendingReactionBtn = null;
+  window.pendingReactionAction = null;
+}
+
+function removeUserReaction(comment_id, reaction) {
+  let userReactions = getUserReactions();
+  if (userReactions[comment_id]) {
+    userReactions[comment_id] = userReactions[comment_id].filter(
+      (r) => r !== reaction,
+    );
+    if (userReactions[comment_id].length === 0) {
+      delete userReactions[comment_id];
+    }
+    localStorage.setItem("userReactions", JSON.stringify(userReactions));
+  }
 }
 
 function displayComments(comments) {
