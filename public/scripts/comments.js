@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyNp6Mga5tFG4al5q5oMidv0F819QDOmlCvItY9PwT0UeLGYAXMYC0C5I-GcIMi656r/exec";
+  "https://script.google.com/macros/s/AKfycbyPho3jtmGk0Lm1ly_Hdfolqkp4e60cxR-tTNFcDGHuT0Pl7ECXz4asE9NS9GW9xJ3y/exec";
 
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
@@ -9,7 +9,7 @@ const page_url = path;
 let sortNewestFirst = true;
 
 // Available reactions
-const REACTIONS = ["👍", "❤️", "😂", "😮", "😢", "😡"];
+const REACTIONS = ["👍", "❤️", "💀"];
 
 // Track which reactions the user has given (stored in localStorage)
 function getUserReactions() {
