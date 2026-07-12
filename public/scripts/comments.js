@@ -1,41 +1,19 @@
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbytYx-pHgJSpANyhvEBAcHcOM1wmYjISjXzAHueO3Aos-GpSG_0LZMey9jeDbF3T796/exec";
+
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
 else path = path.replace(".html", "").replace(/^\//, "");
 const page_url = path;
 
-// --- SMART AVATAR FUNCTION ---
-// --- SMART AVATAR FUNCTION (FIXED) ---
+// --- SIMPLE AVATAR FUNCTION (NO PLACEHOLDERS) ---
 function getAvatarHtml(item, size) {
   size = size || 60;
-
-  // Separate the image styles from the fallback styles
-  let imgStyle = `width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;`;
-  let fallbackStyle = `width:${size}px;height:${size}px;background:#eee;align-items:center;justify-content:center;border-radius:4px;`;
-
-  // 1. Priority: Custom Avatar URL
+  // If they have an avatar URL, show it. Otherwise, return absolutely nothing.
   if (item.avatar_url) {
-    // The fallback div is hidden by default. If the image fails to load, onerror hides the img and shows the fallback.
-    return `<img src="${escapeHTML(item.avatar_url)}" style="${imgStyle}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                <div style="display:none;${fallbackStyle}">👤</div>`;
+    return `<img src="${escapeHTML(item.avatar_url)}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;">`;
   }
-
-  // 2. Priority: Scrape Favicon from Neocities Link
-  if (item.neocities) {
-    try {
-      let urlStr = item.neocities;
-      if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
-      let domain = new URL(urlStr).hostname;
-
-      // Added onerror here too, just in case the favicon API fails!
-      return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=${size}" style="${imgStyle}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                    <div style="display:none;${fallbackStyle}">👤</div>`;
-    } catch (e) {}
-  }
-
-  // 3. Fallback: Default Emoji
-  return `<div style="display:flex;${fallbackStyle}">👤</div>`;
+  return "";
 }
 
 // --- RECURSIVE TREE RENDERING ---
@@ -52,7 +30,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
     card.style.gap = "15px";
   } else {
     card.className = "reply-card";
-    const indent = Math.min(depth * 20, 60); // Cap visual indent at 60px so it doesn't go off-screen
+    const indent = Math.min(depth * 20, 60); // Cap visual indent at 60px
     card.style.marginLeft = indent + "px";
     card.style.marginTop = "10px";
     card.style.padding = "10px";
@@ -62,26 +40,52 @@ function renderCommentTree(comment, allComments, depth = 0) {
     card.style.gap = "10px";
   }
 
-  // 2. Build Avatar and Meta Info
+  // 2. Build Avatar (Will be empty string if no avatar_url is provided)
   const avatarSize = depth === 0 ? 60 : 40;
   const avatarHtml = getAvatarHtml(comment, avatarSize);
 
+  // Only create the avatar container div if there is actually an avatar
+  const avatarContainer = avatarHtml
+    ? `<div class="comment-avatar">${avatarHtml}</div>`
+    : "";
+
+  // 3. Build Meta Info (Name, Neocities Link with Favicon, Mood)
   let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
+
   if (comment.neocities) {
-    let urlStr = comment.neocities;
+    let urlStr = comment.neocities.trim();
     if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
-    metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
+
+    try {
+      // Extract domain for the favicon and for clean display
+      let domain = new URL(urlStr).hostname;
+      let cleanDomain = domain.replace(/^www\./, ""); // Removes 'www.' if it exists
+
+      // Google's instant favicon API (16x16 pixels for an inline icon)
+      let faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
+
+      // Add the link: [favicon] clean-domain.com
+      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" style="text-decoration: none; color: #0066cc;">
+                            <img src="${faviconUrl}" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; border-radius:2px;">
+                            ${escapeHTML(cleanDomain)}
+                          </a>`;
+    } catch (e) {
+      // Fallback if the URL is totally invalid
+      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
+    }
   }
+
   if (comment.mood) {
-    metaHtml += `<br><em style="font-size: 0.9em; color: #666;">${escapeHTML(comment.mood)}</em>`;
+    metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(comment.mood)}</em>`;
   }
   if (depth > 0) {
     metaHtml += ` <em style="font-size:0.8em; color:#888;">(reply)</em>`;
   }
 
-  // 3. Assemble the HTML
+  // 4. Assemble the HTML
+  // Notice we use ${avatarContainer} instead of a hardcoded div, so no empty space is left if there's no avatar!
   card.innerHTML = `
-        <div class="comment-avatar">${avatarHtml}</div>
+        ${avatarContainer}
         <div class="comment-body" style="flex: 1;">
             <div class="comment-meta">${metaHtml}</div>
             <div class="comment-text" style="margin: 10px 0; white-space: pre-wrap;">${escapeHTML(comment.comment_content)}</div>
@@ -89,19 +93,16 @@ function renderCommentTree(comment, allComments, depth = 0) {
         </div>
     `;
 
-  // 4. Attach Reply Button Logic
-  // This works for ANY comment, no matter how deep it is!
+  // 5. Attach Reply Button Logic
   card.querySelector(".reply-btn").onclick = () =>
     startReply(comment.comment_id, comment.name);
 
-  // 5. Find and render children (Replies to this specific comment)
+  // 6. Find and render children (Replies to this specific comment)
   const children = allComments.filter(
     (c) => c.parent_id === comment.comment_id,
   );
   children.forEach((child) => {
-    // Recursively call this function for the child, increasing the depth
     const childElement = renderCommentTree(child, allComments, depth + 1);
-    // Append it inside the .comment-body so it aligns with the text, not the avatar
     card.querySelector(".comment-body").appendChild(childElement);
   });
 
@@ -118,10 +119,8 @@ function displayComments(comments) {
 
   container.innerHTML = "<h3>What Visitors Said...</h3>";
 
-  // Find only the top-level comments (those with no parent)
   let topLevel = comments.filter((c) => !c.parent_id || c.parent_id === "");
 
-  // Render the tree for each top-level comment
   topLevel.forEach((item) => {
     const tree = renderCommentTree(item, comments, 0);
     container.appendChild(tree);
