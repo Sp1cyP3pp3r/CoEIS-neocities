@@ -9,12 +9,21 @@ const page_url = path;
 let sortNewestFirst = true;
 
 const REACTIONS = [
-  { id: "like", url: "/images/reactions/like.png", alt: "Like" },
-  { id: "love", url: "/images/reactions/love.png", alt: "Love" },
-  { id: "laugh", url: "/images/reactions/laugh.png", alt: "Laugh" },
-  { id: "wow", url: "/images/reactions/wow.png", alt: "Wow" },
-  { id: "sad", url: "/images/reactions/sad.png", alt: "Sad" },
-  { id: "angry", url: "/images/reactions/angry.png", alt: "Angry" },
+  {
+    id: "heart",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/heart.gif",
+    alt: "Hearts",
+  },
+  {
+    id: "like",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/like.gif",
+    alt: "Thumbs up",
+  },
+  {
+    id: "skull",
+    url: "https://sp1cyp3pp3r.neocities.org/assets/reactions/skull.gif",
+    alt: "Skull",
+  },
 ];
 
 let allCommentsData = [];
