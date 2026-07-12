@@ -231,11 +231,7 @@
 
           width: calc(var(--main-width) / 3);
 
-          background-color: color-mix(
-            in oklab,
-            #c2ec74,
-            rgba(158, 158, 158, 0.5) 75%
-          );
+          background-color: #c2ec74aa;
           border: 2px solid #c2ec74;
           box-shadow: 0px 0px 5px 3px #b9f023;
 
