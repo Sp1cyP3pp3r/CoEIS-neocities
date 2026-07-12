@@ -131,7 +131,9 @@
           flex-flow: row nowrap;
 
           transform: skewX(calc(var(--deg-skew) * -1))
-            rotateZ(calc(var(--deg-rotate) * -1));
+            rotateZ(calc(var(--neocities-domen-animation) * -1));
+
+          animation: neocities-domen 5s infinite ease-in-out;
 
           .comment-favicon {
             display: block;
@@ -214,5 +216,20 @@
     .reply-card {
       margin-left: calc(var(--indent, 0) * 0px);
     }
+  }
+}
+
+@property --neocities-domen-animation {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@keyframes neocities-domen {
+  from {
+    --neocities-domen-animation: 0deg;
+  }
+  to {
+    --neocities-domen-animation: 360deg;
   }
 }
