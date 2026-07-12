@@ -54,6 +54,7 @@
     outline: dashed magenta 1px;
 
     width: fit-content;
+    aspect-ratio: 4/3;
 
     > .comment-aside.avatar {
       --avatar-size: 4em;
@@ -139,6 +140,10 @@
   > .replies-container {
     display: flex;
     flex-direction: var(--flex-direction);
+
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
 
     .reply-card {
       margin-left: calc(var(--indent, 0) * 10px);
