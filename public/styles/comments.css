@@ -122,8 +122,8 @@
         .reaction-btn {
           cursor: pointer;
 
-          width: 1em;
-          height: 1em;
+          width: 3em;
+          height: 3em;
           aspect-ratio: 1 / 1;
 
           background-color: transparent;
@@ -136,7 +136,9 @@
           }
 
           .reaction-img {
+            height: 100%;
           }
+
           .reaction-count {
           }
         }
