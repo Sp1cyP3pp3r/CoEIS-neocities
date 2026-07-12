@@ -128,7 +128,8 @@
 
         .neocities-span-group {
           --domen-val: calc(
-            (var(--deg-rotate) * -1) + sin(var(--neocities-domen-animation))
+            (var(--deg-rotate) * -1) +
+              (sin(var(--neocities-domen-animation)) * 1deg)
           );
 
           display: inline-flex;
