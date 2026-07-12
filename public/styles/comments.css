@@ -45,13 +45,9 @@
 }
 
 .comment-card {
-  --a-phase-offset: calc(sibling-index() * 73deg);
-  --a-base-z: calc(100px + (sibling-index() * 15px));
-  --a-anim-duration: calc(4s + (sibling-index() / sibling-count()) * 2s);
-
-  --phase-offset: var(--a-phase-offset);
-  --base-z: var(--a-base-z);
-  --anim-duration: var(--a-anim-duration);
+  --phase-offset: calc(sibling-index() * 73deg);
+  --base-z: calc(100px + (sibling-index() * 15px));
+  --anim-duration: calc(4s + (sibling-index() / sibling-count()) * 2s);
 
   --max-width: calc(var(--main-width) / 2.15);
   width: fit-content;
@@ -267,4 +263,23 @@
   to {
     --neocities-domen-animation: 360deg;
   }
+}
+
+/*----*/
+@property --phase-offset {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@property --base-z {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --anim-duration {
+  syntax: "<time>";
+  inherits: true;
+  initial-value: 0s;
 }
