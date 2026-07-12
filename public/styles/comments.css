@@ -50,7 +50,7 @@
 
   --phase-offset: calc(var(--parent-index) * 73deg);
   --base-z: calc(100px + (var(--parent-index) * 15px));
-  --anim-duration: calc(4s + (var(--parent-index) / sibling-count()) * 2s);
+  --anim-duration: calc(4s + (var(--parent-index) / var(--parent-count)) * 2s);
 
   --max-width: calc(var(--main-width) / 2.15);
   width: fit-content;
