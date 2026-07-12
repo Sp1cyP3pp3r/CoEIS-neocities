@@ -56,8 +56,16 @@
     width: fit-content;
     aspect-ratio: 4/3;
 
+    display: grid;
+    grid-template-areas:
+      "AVATAR HEADER"
+      "AVATAR CONTENT"
+      "FOOTER FOOTER";
+
     > .comment-aside.avatar {
       --avatar-size: 4em;
+
+      grid-area: AVATAR;
 
       background-image: var(--avatar-url, none);
       background-size: cover;
@@ -68,6 +76,8 @@
     }
 
     > .comment-header {
+      grid-area: HEADER;
+
       > .comment-hgroup {
         > .name {
         }
@@ -80,11 +90,14 @@
     }
 
     > .comment-main {
+      grid-area: CONTENT;
+
       > .content {
       }
     }
 
     > .comment-footer {
+      grid-area: FOOTER;
       > .comment-address.neocities {
         .comment-favicon {
         }
