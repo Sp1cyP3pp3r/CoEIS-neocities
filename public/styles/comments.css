@@ -1,0 +1,17 @@
+/* --- COMMENT SORTING SYSTEM --- */
+
+/* The main container becomes a flex column. 
+   It reads the --flex-direction variable, defaulting to column-reverse (Newest First). */
+#commentsContainer {
+  --flex-direction: column-reverse;
+  display: flex;
+  flex-direction: var(--flex-direction);
+}
+
+/* This wrapper holds the nested replies. 
+   Because it is inside #commentsContainer, it AUTOMATICALLY inherits the --flex-direction variable! */
+.replies-wrapper {
+  display: flex;
+  flex-direction: var(--flex-direction);
+  margin-top: 15px; /* Adds space between the parent's text and the replies */
+}

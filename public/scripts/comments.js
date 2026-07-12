@@ -6,16 +6,14 @@ if (path === "/" || path === "/index.html" || path === "") path = "index";
 else path = path.replace(".html", "").replace(/^\//, "");
 const page_url = path;
 
-// --- NEW: STATE VARIABLES ---
-let allFetchedComments = []; // Stores comments in memory so we can re-sort them
-let sortNewestFirst = true; // Tracks the current sort order
+// --- STATE VARIABLE ---
+let sortNewestFirst = true; // Matches our default CSS (column-reverse)
 
-// --- NEW: DATE FORMATTER ---
+// --- DATE FORMATTER ---
 function formatDate(dateInput) {
   if (!dateInput) return "";
   let date = new Date(dateInput);
-  if (isNaN(date.getTime())) return ""; // Failsafe for invalid dates
-
+  if (isNaN(date.getTime())) return "";
   const monthNames = [
     "January",
     "February",
@@ -30,8 +28,6 @@ function formatDate(dateInput) {
     "November",
     "December",
   ];
-
-  // Returns format: "12 July 2026"
   return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
 }
 
@@ -73,16 +69,12 @@ function renderCommentTree(comment, allComments, depth = 0) {
     ? `<div class="comment-avatar">${avatarHtml}</div>`
     : "";
 
-  // 1. Build Name
   let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
-
-  // 2. NEW: Add Date
   const formattedDate = formatDate(comment.timestamp);
   if (formattedDate) {
     metaHtml += ` <span style="font-size: 0.8em; color: #888; font-weight: normal;">• ${formattedDate}</span>`;
   }
 
-  // 3. Add Neocities Link
   if (comment.neocities) {
     let urlStr = comment.neocities.trim();
     if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
@@ -99,7 +91,6 @@ function renderCommentTree(comment, allComments, depth = 0) {
     }
   }
 
-  // 4. Mood & Reply Tag
   if (comment.mood) {
     metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(comment.mood)}</em>`;
   }
@@ -119,64 +110,48 @@ function renderCommentTree(comment, allComments, depth = 0) {
   card.querySelector(".reply-btn").onclick = () =>
     startReply(comment.comment_id, comment.name);
 
-  // Find children (Replies). We use the SORTED allComments array so replies are sorted chronologically too!
+  // Find children (Replies)
   const children = allComments.filter(
     (c) => c.parent_id === comment.comment_id,
   );
-  children.forEach((child) => {
-    const childElement = renderCommentTree(child, allComments, depth + 1);
-    card.querySelector(".comment-body").appendChild(childElement);
-  });
+
+  // NEW: Wrap children in a flex container so the CSS can reverse them independently!
+  if (children.length > 0) {
+    const repliesWrapper = document.createElement("div");
+    repliesWrapper.className = "replies-wrapper";
+
+    children.forEach((child) => {
+      const childElement = renderCommentTree(child, allComments, depth + 1);
+      repliesWrapper.appendChild(childElement);
+    });
+
+    card.querySelector(".comment-body").appendChild(repliesWrapper);
+  }
 
   return card;
 }
 
-// --- NEW: MAIN RENDER & SORT FUNCTION ---
-function renderComments() {
+// --- INITIAL RENDER (NO SORTING LOGIC NEEDED!) ---
+function displayComments(comments) {
   const container = document.getElementById("commentsContainer");
+  container.innerHTML = ""; // Clear loading text
 
-  if (allFetchedComments.length === 0) {
-    container.innerHTML =
-      "<h3>What Visitors Said...</h3><p>No comments yet. Be the first!</p>";
+  if (!comments || comments.length === 0) {
+    container.innerHTML = "<p>No comments yet. Be the first!</p>";
     return;
   }
 
-  // 1. Create a copy of the array and sort it based on the toggle state
-  let sortedComments = [...allFetchedComments];
-  sortedComments.sort((a, b) => {
-    let dateA = new Date(a.timestamp);
-    let dateB = new Date(b.timestamp);
-    // If newest first, subtract A from B. If oldest first, subtract B from A.
-    return sortNewestFirst ? dateB - dateA : dateA - dateB;
-  });
-
-  // 2. Clear the container and add the header
-  container.innerHTML = "<h3>What Visitors Said...</h3>";
-
-  // 3. Find top-level comments from the SORTED list
-  let topLevel = sortedComments.filter(
-    (c) => !c.parent_id || c.parent_id === "",
-  );
-
-  // 4. Render the tree
+  // Just render them in the exact order they arrived from Google Sheets!
+  let topLevel = comments.filter((c) => !c.parent_id || c.parent_id === "");
   topLevel.forEach((item) => {
-    // We pass 'sortedComments' down so that replies are also in the correct order!
-    const tree = renderCommentTree(item, sortedComments, 0);
+    const tree = renderCommentTree(item, comments, 0);
     container.appendChild(tree);
   });
 }
 
-// --- UPDATED DISPLAY FUNCTION (Triggered by JSONP) ---
-function displayComments(comments) {
-  allFetchedComments = comments || []; // Save to memory
-  renderComments(); // Initial render
-}
-
-// --- NEW: TOGGLE BUTTON LOGIC ---
-// We listen for clicks on the whole document, but only act if the button was clicked
+// --- NEW: TOGGLE BUTTON LOGIC (CSS ONLY) ---
 document.addEventListener("click", function (e) {
   if (e.target && e.target.id === "sortToggleBtn") {
-    // Flip the boolean
     sortNewestFirst = !sortNewestFirst;
 
     // Update button text
@@ -184,8 +159,12 @@ document.addEventListener("click", function (e) {
       ? "Sort: Newest First"
       : "Sort: Oldest First";
 
-    // Re-render the comments instantly
-    renderComments();
+    // MAGIC: Just update the CSS variable on the container!
+    // Because .replies-wrapper inherits this variable, the nested replies flip too!
+    const newDirection = sortNewestFirst ? "column-reverse" : "column";
+    document
+      .getElementById("commentsContainer")
+      .style.setProperty("--flex-direction", newDirection);
   }
 });
 
@@ -212,7 +191,6 @@ document
   .getElementById("cancelReplyBtn")
   .addEventListener("click", cancelReply);
 
-// --- BULLETPROOF SUBMISSION ---
 document
   .getElementById("guestbookForm")
   .addEventListener("submit", function (e) {
