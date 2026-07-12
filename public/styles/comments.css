@@ -114,7 +114,9 @@
 
       > .comment-address.neocities {
         --deg-skew: 3deg;
+        /*
         --deg-rotate: 2deg;
+        */
 
         position: absolute;
         inset-inline-start: -15%;
@@ -124,15 +126,14 @@
 
         padding: 2.5%;
 
-        transform: skewX(var(--deg-skew))
-          rotateZ(var(--neocities-domen-animation));
+        transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .neocities-span-group {
           display: inline-flex;
           flex-flow: row nowrap;
 
           transform: skewX(calc(var(--deg-skew) * -1))
-            rotateZ(calc(var(--neocities-domen-animation) * -1));
+            rotateZ(calc(var(--deg-rotate) * -1));
 
           animation: neocities-domen 5s infinite ease-in-out;
 
@@ -226,11 +227,23 @@
   initial-value: 0deg;
 }
 
+@property --deg-rotate {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 2deg;
+}
+
 @keyframes neocities-domen {
   from {
+    /*
     --neocities-domen-animation: 0deg;
+    */
+    --deg-rotate: 0deg;
   }
   to {
+    /*
     --neocities-domen-animation: 360deg;
+    */
+    --deg-rotate: 360deg;
   }
 }
