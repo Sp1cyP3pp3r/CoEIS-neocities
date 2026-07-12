@@ -54,7 +54,6 @@
     outline: dashed magenta 1px;
 
     width: fit-content;
-    aspect-ratio: 4/3;
 
     display: grid;
     grid-template-areas: var(
