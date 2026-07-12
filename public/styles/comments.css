@@ -87,7 +87,7 @@
       width: var(--avatar-size);
       height: var(--avatar-size);
 
-      border: 0.5em solid rgb(223, 174, 129);
+      border: 0.25em solid rgb(223, 174, 129);
     }
 
     > .comment-header {
@@ -227,14 +227,18 @@
           position: absolute;
           bottom: 100%;
 
+          width: 100%;
+
           &.open {
             display: flex;
           }
 
           .picker-btn {
             cursor: pointer;
+            width: 100%;
 
             .picker-img {
+              width: 100%;
             }
           }
         }
