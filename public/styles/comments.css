@@ -114,9 +114,7 @@
 
       > .comment-address.neocities {
         --deg-skew: 3deg;
-        /*
         --deg-rotate: 2deg;
-        */
 
         position: absolute;
         inset-inline-start: -15%;
