@@ -112,6 +112,8 @@
         inset-inline-start: 0;
         inset-block-end: 0;
 
+        background-color: crimson;
+
         .comment-favicon {
         }
       }
