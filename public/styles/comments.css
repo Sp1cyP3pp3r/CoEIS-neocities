@@ -113,8 +113,8 @@
       position: relative;
 
       > .comment-address.neocities {
-        --deg-skew: 6deg;
-        --deg-rotate: 5deg;
+        --deg-skew: 3deg;
+        --deg-rotate: 2deg;
 
         position: absolute;
         inset-inline-start: -15%;
@@ -125,7 +125,7 @@
         display: inline-flex;
         flex-flow: row nowrap;
 
-        padding: 2%;
+        padding: 2.5%;
 
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
