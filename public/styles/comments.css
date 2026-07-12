@@ -49,6 +49,8 @@
   --base-z: calc(100px + (sibling-index() * 15px));
   --anim-duration: calc(4s + (sibling-index() / sibling-count()) * 2s);
 
+  --a: calc(var(--phase-offset) + var(--base-z) + var(--anim-duration));
+
   --max-width: calc(var(--main-width) / 2.15);
   width: fit-content;
   max-width: var(--max-width);
