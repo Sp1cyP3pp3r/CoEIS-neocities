@@ -133,7 +133,7 @@
           transform: skewX(calc(var(--deg-skew) * -1))
             rotateZ(calc(var(--neocities-domen-animation) * -1));
 
-          animation: neocities-domen 5s infinite ease-in-out;
+          /*animation: neocities-domen 5s infinite ease-in-out;*/
 
           .comment-favicon {
             display: block;
