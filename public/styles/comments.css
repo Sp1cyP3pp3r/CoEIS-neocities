@@ -236,9 +236,7 @@
             rgb(194, 236, 116),
             rgba(158, 158, 158, 0.5) 75%
           );
-          border: 3px solid cyan;
-          border-radius: 15px;
-          corner-shape: scoop;
+          border: 2px solid rgb(194, 236, 116);
 
           &.open {
             display: flex;
