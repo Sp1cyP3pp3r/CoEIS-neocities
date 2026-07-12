@@ -237,7 +237,7 @@
             rgba(158, 158, 158, 0.5) 75%
           );
           border: 2px solid #c2ec74;
-          box-shadow: 0px 0px 5px 0px #c2ec74;
+          box-shadow: 0px 0px 5px 3px #b9f023;
 
           &.open {
             display: flex;
