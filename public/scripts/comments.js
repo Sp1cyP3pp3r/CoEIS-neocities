@@ -241,7 +241,7 @@ function handlePickerReaction(btn) {
 
 // --- BUILD COMMENT HTML ---
 function renderCommentTree(comment, allComments, depth = 0) {
-  const article = document.createElement("article");
+  const article = document.createElement("div");
   article.className = "comment-card";
   article.setAttribute("data-comment-id", comment.comment_id);
   article.setAttribute("role", "article");
