@@ -34,6 +34,10 @@
 
 .comment-avatar {
   width: 256px;
+
+  img {
+    width: 100%;
+  }
 }
 
 /* REACTIONSs */
