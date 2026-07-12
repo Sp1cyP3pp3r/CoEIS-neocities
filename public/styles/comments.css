@@ -138,9 +138,8 @@
           flex-flow: row nowrap;
 
           animation: neocities-domen 3s infinite linear;
-          transform-style: preserve-3d;
           transform: translateZ(
-              calc((sin(var(--neocities-domen-animation)) * 40px))
+              calc((sin(var(--neocities-domen-animation)) * 30px))
             )
             skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
 
