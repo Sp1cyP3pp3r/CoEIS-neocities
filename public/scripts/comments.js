@@ -249,8 +249,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
 
   if (depth > 0) {
     article.classList.add("reply-card");
-    const indent = Math.min(depth * 20, 60);
-    article.style.setProperty("--indent", indent + "px");
+    article.style.setProperty("--indent", depth);
   }
 
   // Avatar (CSS variable, no <img>)
