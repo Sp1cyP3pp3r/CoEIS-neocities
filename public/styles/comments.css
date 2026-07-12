@@ -129,11 +129,11 @@
         .neocities-span-group {
           --domen-skew: calc(
             (var(--deg-skew) * -1) +
-              (cos(var(--neocities-domen-animation)) * 1deg)
+              (cos(var(--neocities-domen-animation)) * 3deg)
           );
           --domen-val: calc(
             (var(--deg-rotate) * -1) +
-              (sin(var(--neocities-domen-animation)) * 2deg)
+              (sin(var(--neocities-domen-animation)) * 5deg)
           );
 
           display: inline-flex;
