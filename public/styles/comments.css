@@ -86,6 +86,8 @@
 
       width: var(--avatar-size);
       height: var(--avatar-size);
+
+      border: 0.5em solid rgb(223, 174, 129);
     }
 
     > .comment-header {
