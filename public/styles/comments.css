@@ -113,8 +113,8 @@
       position: relative;
 
       > .comment-address.neocities {
-        --deg-skew: 4deg;
-        --deg-rotate: 2deg;
+        --deg-skew: 6deg;
+        --deg-rotate: 5deg;
 
         position: absolute;
         inset-inline-start: -15%;
