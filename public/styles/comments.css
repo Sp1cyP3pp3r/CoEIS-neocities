@@ -240,12 +240,12 @@
 
           &.open {
             display: flex;
-            flex-flow: column wrap;
+            flex-flow: row wrap;
           }
 
           .picker-btn {
             cursor: pointer;
-            width: calc(100% / sibling-count());
+            width: max(calc(100% / sibling-count()), 75px);
 
             .picker-img {
               width: 100%;
