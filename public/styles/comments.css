@@ -99,6 +99,9 @@
 
     > .comment-footer {
       grid-area: FOOTER;
+      display: flex;
+      flex-flow: row nowrap;
+
       > .comment-address.neocities {
         .comment-favicon {
         }
