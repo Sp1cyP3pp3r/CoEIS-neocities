@@ -129,16 +129,16 @@
 
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
-        .comment-favicon {
-          display: block;
-        }
-        .neocities-span {
-          padding-inline-start: 0.5em;
-        }
-
-        > * {
+        .neocities-span-group {
           transform: skewX(calc(var(--deg-skew) * -1))
             rotateZ(calc(var(--deg-rotate) * -1));
+
+          .comment-favicon {
+            display: block;
+          }
+          .neocities-domain-span {
+            padding-inline-start: 0.5em;
+          }
         }
       }
 
