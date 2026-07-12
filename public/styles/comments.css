@@ -229,7 +229,7 @@
           bottom: 100%;
           z-index: 999;
 
-          height: calc(var(--main-width) / 8);
+          height: calc(var(--main-width) / 6);
 
           background-color: #c2ec74aa;
           border: 2px solid #c2ec74;
