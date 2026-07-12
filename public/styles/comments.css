@@ -133,7 +133,7 @@
           );
           --domen-val: calc(
             (var(--deg-rotate) * -1) +
-              (sin(var(--neocities-domen-animation)) * 1deg)
+              (sin(var(--neocities-domen-animation)) * 2deg)
           );
 
           display: inline-flex;
