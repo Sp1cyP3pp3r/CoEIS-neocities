@@ -41,14 +41,23 @@
 }
 
 .comment-card {
+  width: fit-content;
+
   > .comment-wrapper {
     background-color: bisque;
     outline: dashed magenta 1px;
 
+    width: fit-content;
+
     > .comment-aside.avatar {
+      --avatar-size: 4em;
+
       background-image: var(--avatar-url, none);
       background-size: cover;
       background-position: center;
+
+      width: var(--avatar-size);
+      height: var(--avatar-size);
     }
 
     > .comment-header {
