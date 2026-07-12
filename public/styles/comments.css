@@ -124,15 +124,14 @@
 
         padding: 2.5%;
 
-        transform: skewX(var(--deg-skew))
-          rotateZ(var(--neocities-domen-animation));
+        transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .neocities-span-group {
           display: inline-flex;
           flex-flow: row nowrap;
 
           transform: skewX(calc(var(--deg-skew) * -1))
-            rotateZ(calc(var(--neocities-domen-animation) * -1));
+            rotateZ(calc(var(--deg-rotate) * -1));
 
           animation: neocities-domen 5s infinite ease-in-out;
 
