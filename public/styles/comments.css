@@ -11,10 +11,14 @@
   --flex-direction: column-reverse;
   display: flex;
   flex-direction: var(--flex-direction);
+
+  width: 100%;
 }
 .replies-wrapper {
   display: flex;
   flex-direction: var(--flex-direction);
+
+  width: 100%;
 }
 
 .comment-card,
@@ -28,12 +32,16 @@
   flex: 1;
 }
 
+/* REACTIONSs */
+
 .reactions-section {
   display: flex;
   position: relative;
 }
 .reactions-display {
   display: flex;
+
+  width: 26px;
 }
 .reaction-btn {
   display: inline-flex;
