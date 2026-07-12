@@ -124,25 +124,23 @@
 
         padding: 2.5%;
 
-        transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
+        transform: skewX(var(--deg-skew))
+          rotateZ(var(--neocities-domen-animation));
 
         .neocities-span-group {
           display: inline-flex;
           flex-flow: row nowrap;
+
           transform: skewX(calc(var(--deg-skew) * -1))
             rotateZ(calc(var(--neocities-domen-animation) * -1));
 
-          /*animation: neocities-domen 5s infinite ease-in-out;*/
+          animation: neocities-domen 5s infinite ease-in-out;
 
           .comment-favicon {
             display: block;
-            transform: skewX(calc(var(--deg-skew) * -1))
-              rotateZ(calc(var(--neocities-domen-animation) * -1));
           }
           .neocities-domain-span {
             padding-inline-start: 0.5em;
-            transform: skewX(calc(var(--deg-skew) * -1))
-              rotateZ(calc(var(--neocities-domen-animation) * -1));
           }
         }
       }
