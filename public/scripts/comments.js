@@ -258,7 +258,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
     : "";
   const avatarGridNoTemplate =
     avatarStyle == ""
-      ? `style='--comment-grid-template: "HEADER", "CONTENT", "FOOTER";'`
+      ? `style='--comment-grid-template: "HEADER" "CONTENT" "FOOTER";'`
       : "";
 
   // Neocities link
