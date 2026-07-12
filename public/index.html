@@ -455,43 +455,43 @@
       <form id="guestbookForm">
         <input type="hidden" id="parent_id" value="" />
 
-        <div style="display: flex; gap: 10px; margin-bottom: 10px">
+        <div class="form-row">
           <input
             type="text"
             id="name"
             placeholder="Your Name *"
             required
-            style="flex: 1"
+            class="flex-1"
           />
           <input
             type="url"
             id="neocities"
             placeholder="Your Neocities URL (https://...)"
-            style="flex: 2"
+            class="flex-2"
           />
         </div>
 
-        <div style="display: flex; gap: 10px; margin-bottom: 10px">
+        <div class="form-row">
           <input
             type="email"
             id="email"
-            placeholder="Your Email (Kept private, used for reply notifications)"
-            style="flex: 2"
+            placeholder="Your Email (Kept private)"
+            class="flex-2"
           />
           <input
             type="url"
             id="avatar_url"
-            placeholder="Custom Avatar URL (Overrides favicon)"
-            style="flex: 1"
+            placeholder="Custom Avatar URL"
+            class="flex-1"
           />
         </div>
 
-        <div style="margin-bottom: 10px">
+        <div class="form-row">
           <input
             type="text"
             id="mood"
-            placeholder="Current Mood / Listening to... (Optional)"
-            style="width: 100%"
+            placeholder="Current Mood / Listening to..."
+            class="full-width"
           />
         </div>
 
@@ -499,34 +499,17 @@
           id="comment_content"
           placeholder="Leave a comment... *"
           required
-          style="width: 100%; height: 80px"
+          class="full-width"
         ></textarea>
 
         <button type="submit" id="submitBtn">Post Comment</button>
-        <button type="button" id="cancelReplyBtn" style="display: none">
-          Cancel Reply
-        </button>
-        <p id="formStatus" style="display: none"></p>
+        <button type="button" id="cancelReplyBtn">Cancel Reply</button>
+        <p id="formStatus"></p>
       </form>
+
       <h3>What Visitors Said...</h3>
+      <button id="sortToggleBtn">Sort: Newest First</button>
 
-      <!-- Toggle Button -->
-      <button
-        id="sortToggleBtn"
-        style="
-          margin-bottom: 15px;
-          padding: 8px 15px;
-          cursor: pointer;
-          font-family: monospace;
-          background: #eee;
-          border: 2px solid #999;
-          border-radius: 4px;
-        "
-      >
-        Sort: Newest First
-      </button>
-
-      <!-- The comments will be injected inside here -->
       <div id="commentsContainer">
         <p>Loading comments...</p>
       </div>

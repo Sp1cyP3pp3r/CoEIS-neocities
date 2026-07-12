@@ -6,10 +6,8 @@ if (path === "/" || path === "/index.html" || path === "") path = "index";
 else path = path.replace(".html", "").replace(/^\//, "");
 const page_url = path;
 
-// --- STATE VARIABLE ---
-let sortNewestFirst = true; // Matches our default CSS (column-reverse)
+let sortNewestFirst = true;
 
-// --- DATE FORMATTER ---
 function formatDate(dateInput) {
   if (!dateInput) return "";
   let date = new Date(dateInput);
@@ -31,11 +29,10 @@ function formatDate(dateInput) {
   return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-// --- AVATAR FUNCTION ---
-function getAvatarHtml(item, size) {
-  size = size || 60;
+// --- AVATAR FUNCTION (Returns clean HTML with classes) ---
+function getAvatarHtml(item, sizeClass) {
   if (item.avatar_url) {
-    return `<img src="${escapeHTML(item.avatar_url)}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;">`;
+    return `<img src="${escapeHTML(item.avatar_url)}" class="avatar-img ${sizeClass}">`;
   }
   return "";
 }
@@ -44,35 +41,27 @@ function getAvatarHtml(item, size) {
 function renderCommentTree(comment, allComments, depth = 0) {
   const card = document.createElement("div");
 
-  if (depth === 0) {
-    card.className = "comment-card";
-    card.style.border = "1px solid #ccc";
-    card.style.padding = "15px";
-    card.style.marginBottom = "15px";
-    card.style.display = "flex";
-    card.style.gap = "15px";
-  } else {
-    card.className = "reply-card";
+  // Assign base classes
+  card.className = depth === 0 ? "comment-card" : "reply-card";
+
+  // Handle dynamic indentation for replies using CSS variables!
+  if (depth > 0) {
     const indent = Math.min(depth * 20, 60);
-    card.style.marginLeft = indent + "px";
-    card.style.marginTop = "10px";
-    card.style.padding = "10px";
-    card.style.backgroundColor = "#f9f9f9";
-    card.style.borderLeft = "3px solid #ccc";
-    card.style.display = "flex";
-    card.style.gap = "10px";
+    card.style.setProperty("--indent", indent + "px");
   }
 
-  const avatarSize = depth === 0 ? 60 : 40;
-  const avatarHtml = getAvatarHtml(comment, avatarSize);
+  const avatarSizeClass = depth === 0 ? "avatar-large" : "avatar-small";
+  const avatarHtml = getAvatarHtml(comment, avatarSizeClass);
   const avatarContainer = avatarHtml
     ? `<div class="comment-avatar">${avatarHtml}</div>`
     : "";
 
+  // Build Meta Info using CSS classes instead of inline styles
   let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
+
   const formattedDate = formatDate(comment.timestamp);
   if (formattedDate) {
-    metaHtml += ` <span style="font-size: 0.8em; color: #888; font-weight: normal;">• ${formattedDate}</span>`;
+    metaHtml += ` <span class="comment-date">• ${formattedDate}</span>`;
   }
 
   if (comment.neocities) {
@@ -82,40 +71,39 @@ function renderCommentTree(comment, allComments, depth = 0) {
       let domain = new URL(urlStr).hostname;
       let cleanDomain = domain.replace(/^www\./, "");
       let faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
-      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" style="text-decoration: none; color: #0066cc;">
-                            <img src="${faviconUrl}" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; border-radius:2px;">
+
+      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-link">
+                            <img src="${faviconUrl}" class="comment-favicon">
                             ${escapeHTML(cleanDomain)}
                           </a>`;
     } catch (e) {
-      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
+      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-link">🔗 Visit Site</a>`;
     }
   }
 
   if (comment.mood) {
-    metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(comment.mood)}</em>`;
+    metaHtml += `<br><em class="comment-mood">🎧 ${escapeHTML(comment.mood)}</em>`;
   }
   if (depth > 0) {
-    metaHtml += ` <em style="font-size:0.8em; color:#888;">(reply)</em>`;
+    metaHtml += ` <em class="reply-tag">(reply)</em>`;
   }
 
   card.innerHTML = `
         ${avatarContainer}
-        <div class="comment-body" style="flex: 1;">
+        <div class="comment-body">
             <div class="comment-meta">${metaHtml}</div>
-            <div class="comment-text" style="margin: 10px 0; white-space: pre-wrap;">${escapeHTML(comment.comment_content)}</div>
-            <button class="reply-btn" style="font-size: 0.8em; cursor: pointer; background: none; border: none; color: #0066cc; text-decoration: underline;">Reply</button>
+            <div class="comment-text">${escapeHTML(comment.comment_content)}</div>
+            <button class="reply-btn">Reply</button>
         </div>
     `;
 
   card.querySelector(".reply-btn").onclick = () =>
     startReply(comment.comment_id, comment.name);
 
-  // Find children (Replies)
   const children = allComments.filter(
     (c) => c.parent_id === comment.comment_id,
   );
 
-  // NEW: Wrap children in a flex container so the CSS can reverse them independently!
   if (children.length > 0) {
     const repliesWrapper = document.createElement("div");
     repliesWrapper.className = "replies-wrapper";
@@ -131,17 +119,15 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
-// --- INITIAL RENDER (NO SORTING LOGIC NEEDED!) ---
 function displayComments(comments) {
   const container = document.getElementById("commentsContainer");
-  container.innerHTML = ""; // Clear loading text
+  container.innerHTML = "";
 
   if (!comments || comments.length === 0) {
     container.innerHTML = "<p>No comments yet. Be the first!</p>";
     return;
   }
 
-  // Just render them in the exact order they arrived from Google Sheets!
   let topLevel = comments.filter((c) => !c.parent_id || c.parent_id === "");
   topLevel.forEach((item) => {
     const tree = renderCommentTree(item, comments, 0);
@@ -149,18 +135,14 @@ function displayComments(comments) {
   });
 }
 
-// --- NEW: TOGGLE BUTTON LOGIC (CSS ONLY) ---
+// --- TOGGLE BUTTON LOGIC ---
 document.addEventListener("click", function (e) {
   if (e.target && e.target.id === "sortToggleBtn") {
     sortNewestFirst = !sortNewestFirst;
-
-    // Update button text
     e.target.innerText = sortNewestFirst
       ? "Sort: Newest First"
       : "Sort: Oldest First";
 
-    // MAGIC: Just update the CSS variable on the container!
-    // Because .replies-wrapper inherits this variable, the nested replies flip too!
     const newDirection = sortNewestFirst ? "column-reverse" : "column";
     document
       .getElementById("commentsContainer")
@@ -168,13 +150,13 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// --- FORM LOGIC ---
+// --- FORM LOGIC (Using CSS classes for toggling visibility) ---
 function startReply(parentId, parentName) {
   document.getElementById("parent_id").value = parentId;
   document.getElementById("comment_content").placeholder =
     `Replying to ${parentName}...`;
   document.getElementById("submitBtn").innerText = "Post Reply";
-  document.getElementById("cancelReplyBtn").style.display = "inline-block";
+  document.getElementById("cancelReplyBtn").classList.add("visible");
   document
     .getElementById("guestbookForm")
     .scrollIntoView({ behavior: "smooth" });
@@ -184,7 +166,7 @@ function cancelReply() {
   document.getElementById("parent_id").value = "";
   document.getElementById("comment_content").placeholder = "Leave a comment...";
   document.getElementById("submitBtn").innerText = "Post Comment";
-  document.getElementById("cancelReplyBtn").style.display = "none";
+  document.getElementById("cancelReplyBtn").classList.remove("visible");
 }
 
 document
@@ -199,7 +181,10 @@ document
     const statusText = document.getElementById("formStatus");
 
     submitBtn.disabled = true;
-    statusText.style.display = "block";
+
+    // Show status, reset colors
+    statusText.classList.add("visible");
+    statusText.classList.remove("success", "error");
     statusText.innerText = "Saving...";
 
     const getVal = (id) => {
@@ -232,7 +217,7 @@ function handleSubmissionResponse(response) {
   const submitBtn = document.getElementById("submitBtn");
 
   if (response.status === "success") {
-    statusText.style.color = "green";
+    statusText.classList.add("success");
     statusText.innerText = response.message;
     document.getElementById("guestbookForm").reset();
     cancelReply();
@@ -240,7 +225,7 @@ function handleSubmissionResponse(response) {
       location.reload();
     }, 1500);
   } else {
-    statusText.style.color = "red";
+    statusText.classList.add("error");
     statusText.innerText = response.message || "An error occurred.";
   }
   submitBtn.disabled = false;

@@ -1,17 +1,157 @@
-/* --- COMMENT SORTING SYSTEM --- */
+/* =========================================
+   GUESTBOOK FORM STYLES
+   ========================================= */
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-2 {
+  flex: 2;
+}
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
 
-/* The main container becomes a flex column. 
-   It reads the --flex-direction variable, defaulting to column-reverse (Newest First). */
+#comment_content {
+  height: 80px;
+}
+
+/* Form Status & Cancel Button (Hidden by default, shown via JS classes) */
+#formStatus,
+#cancelReplyBtn {
+  display: none;
+}
+#formStatus.visible,
+#cancelReplyBtn.visible {
+  display: inline-block; /* or block, depending on preference */
+}
+#formStatus.success {
+  color: green;
+}
+#formStatus.error {
+  color: red;
+}
+
+/* =========================================
+   TOGGLE BUTTON & SORTING SYSTEM
+   ========================================= */
+#sortToggleBtn {
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-family: monospace;
+  background: #eee;
+  border: 2px solid #999;
+  border-radius: 4px;
+}
+
+/* The main container becomes a flex column. */
 #commentsContainer {
   --flex-direction: column-reverse;
   display: flex;
   flex-direction: var(--flex-direction);
 }
 
-/* This wrapper holds the nested replies. 
-   Because it is inside #commentsContainer, it AUTOMATICALLY inherits the --flex-direction variable! */
+/* Nested replies wrapper inherits the flex direction */
 .replies-wrapper {
   display: flex;
   flex-direction: var(--flex-direction);
-  margin-top: 15px; /* Adds space between the parent's text and the replies */
+  margin-top: 15px;
+}
+
+/* =========================================
+   COMMENT CARDS & LAYOUT
+   ========================================= */
+.comment-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+.reply-card {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-left: 3px solid #ccc;
+  display: flex;
+  gap: 10px;
+  /* Dynamic indentation handled by CSS variable set in JS */
+  margin-left: var(--indent, 0px);
+}
+
+.comment-body {
+  flex: 1;
+}
+
+/* =========================================
+   AVATARS
+   ========================================= */
+.avatar-img {
+  object-fit: cover;
+  border-radius: 4px;
+}
+.avatar-large {
+  width: 60px;
+  height: 60px;
+}
+.avatar-small {
+  width: 40px;
+  height: 40px;
+}
+
+/* =========================================
+   META INFO, LINKS & TEXT
+   ========================================= */
+.comment-date {
+  font-size: 0.8em;
+  color: #888;
+  font-weight: normal;
+}
+
+.comment-link {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.comment-favicon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 4px;
+  border-radius: 2px;
+}
+
+.comment-mood {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.reply-tag {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.comment-text {
+  margin: 10px 0;
+  white-space: pre-wrap;
+}
+
+/* =========================================
+   REPLY BUTTON
+   ========================================= */
+.reply-btn {
+  font-size: 0.8em;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #0066cc;
+  text-decoration: underline;
+  padding: 0;
 }
