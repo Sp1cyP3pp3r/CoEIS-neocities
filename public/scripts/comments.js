@@ -256,6 +256,8 @@ function renderCommentTree(comment, allComments, depth = 0) {
   const avatarStyle = comment.avatar_url
     ? `style="--avatar-url: url(${comment.avatar_url}); --avatar-display: block;"`
     : "";
+  const avatarGridNoTemplate =
+    avatarStyle == "" ? `style='--comment-grid-template: none;'` : "";
 
   // Neocities link
   let neocitiesHtml = "";
@@ -291,7 +293,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
 
   // Assemble
   article.innerHTML = `
-        <div class="comment-wrapper">
+        <div class="comment-wrapper" ${avatarGridNoTemplate}">
             <div class="comment-aside avatar" ${avatarStyle} role="img" aria-label="${escapeHTML(comment.name)}'s avatar"></div>
             <div class="comment-header" role="group" aria-label="Comment metadata">
                 <hgroup class="comment-hgroup">

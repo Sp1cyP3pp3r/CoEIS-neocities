@@ -57,10 +57,10 @@
     aspect-ratio: 4/3;
 
     display: grid;
-    grid-template-areas:
-      "AVATAR HEADER"
-      "AVATAR CONTENT"
-      "FOOTER FOOTER";
+    grid-template-areas: var(
+      --comment-grid-template,
+      "AVATAR HEADER" "AVATAR CONTENT" "FOOTER FOOTER"
+    );
 
     > .comment-aside.avatar {
       --avatar-size: 4em;
