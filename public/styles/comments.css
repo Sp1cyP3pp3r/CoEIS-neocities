@@ -139,7 +139,7 @@
 
           animation: neocities-domen 3s infinite linear;
           transform: translateZ(
-              calc(30px + (sin(var(--neocities-domen-animation)) * 45px))
+              calc(45px + (sin(var(--neocities-domen-animation)) * 45px))
             )
             skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
 
