@@ -108,6 +108,10 @@
       position: relative;
 
       > .comment-address.neocities {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-end: 0;
+
         .comment-favicon {
         }
       }
