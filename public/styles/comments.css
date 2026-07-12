@@ -138,6 +138,7 @@
 
   > .replies-container {
     display: flex;
+    flex-direction: var(--flex-direction);
 
     .reply-card {
       margin-left: calc(var(--indent, 0) * 10px);
