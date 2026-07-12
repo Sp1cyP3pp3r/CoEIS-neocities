@@ -108,7 +108,7 @@ function buildReactionsSectionHtml(commentId) {
   const reactions = comment.reactions || {};
   const userReactionList = getUserReactions()[commentId] || [];
 
-  let html = '<div class="reactions-section">';
+  let html = '<div class="reactions">';
 
   const hasAnyReactions = REACTIONS.some((r) => (reactions[r.id] || 0) > 0);
 
@@ -134,20 +134,20 @@ function buildReactionsSectionHtml(commentId) {
         <button class="add-reaction-btn" data-comment-id="${commentId}">
             <span class="add-reaction-icon">+</span> React
         </button>
+        <div class="reactions-picker">
     `;
 
-  html += '<div class="reactions-picker">';
   REACTIONS.forEach((reaction) => {
     html += `<button class="picker-emoji-btn" data-comment-id="${commentId}" data-reaction="${reaction.id}">
                     <img src="${reaction.url}" alt="${reaction.alt}" class="picker-img">
                  </button>`;
   });
-  html += "</div>";
 
-  html += "</div>";
+  html += "</div></div>";
 
   return html;
 }
+
 // --- ATTACH ALL REACTION HANDLERS TO A CARD ---
 function attachReactionHandlers(card) {
   // Existing reaction buttons (toggle)
@@ -213,28 +213,33 @@ function refreshCommentReactions(commentId) {
 
 // --- RECURSIVE TREE RENDERING ---
 function renderCommentTree(comment, allComments, depth = 0) {
-  const card = document.createElement("div");
-  card.className = depth === 0 ? "comment-card" : "reply-card";
-  card.setAttribute("data-comment-id", comment.comment_id); // Add data attribute for easy lookup
+  const card = document.createElement("section");
+  card.className = "comment-card";
+  card.setAttribute("data-comment-id", comment.comment_id);
 
   if (depth > 0) {
-    const indent = Math.min(depth * 20, 60);
-    card.style.setProperty("--indent", indent + "px");
+    card.style.setProperty("--indent", `${depth * 1}rem`);
   }
 
-  const avatarSizeClass = depth === 0 ? "avatar-large" : "avatar-small";
-  const avatarHtml = getAvatarHtml(comment, avatarSizeClass);
-  const avatarContainer = avatarHtml
-    ? `<div class="comment-avatar">${avatarHtml}</div>`
+  // Avatar
+  const avatarHtml = comment.avatar_url
+    ? `<aside class="avatar" style="background-image: url('${escapeHTML(comment.avatar_url)}')"></aside>`
+    : `<aside class="avatar"></aside>`;
+
+  // Name and Mood
+  const nameHtml = `<div class="name">${escapeHTML(comment.name)}</div>`;
+  const moodHtml = comment.mood
+    ? `<div class="mood">${escapeHTML(comment.mood)}</div>`
     : "";
 
-  let metaHtml = `<strong>${escapeHTML(comment.name)}</strong>`;
+  // Date
+  const dateHtml = `<div class="date">${formatDate(comment.timestamp)}</div>`;
 
-  const formattedDate = formatDate(comment.timestamp);
-  if (formattedDate) {
-    metaHtml += ` <span class="comment-date">• ${formattedDate}</span>`;
-  }
+  // Content
+  const contentHtml = `<div class="content">${escapeHTML(comment.comment_content)}</div>`;
 
+  // Neocities link
+  let neocitiesHtml = "";
   if (comment.neocities) {
     let urlStr = comment.neocities.trim();
     if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
@@ -242,57 +247,87 @@ function renderCommentTree(comment, allComments, depth = 0) {
       let domain = new URL(urlStr).hostname;
       let cleanDomain = domain.replace(/^www\./, "");
       let faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
-
-      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-link">
-                            <img src="${faviconUrl}" class="comment-favicon">
-                            ${escapeHTML(cleanDomain)}
-                          </a>`;
-    } catch (e) {
-      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-link">Visit Site</a>`;
-    }
+      neocitiesHtml = `
+                <address class="neocities">
+                    <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">
+                        <img src="${faviconUrl}" class="comment-favicon" alt="">
+                        ${escapeHTML(cleanDomain)}
+                    </a>
+                </address>
+            `;
+    } catch (e) {}
   }
 
-  if (comment.mood) {
-    metaHtml += `<br><em class="comment-mood">${escapeHTML(comment.mood)}</em>`;
-  }
-  if (depth > 0) {
-    metaHtml += ` <em class="reply-tag">(reply)</em>`;
-  }
+  // Reactions
+  const reactionsHtml = buildReactionsSectionHtml(comment.comment_id);
 
-  // Build reactions section using the pure function
-  const reactionsSectionHtml = buildReactionsSectionHtml(comment.comment_id);
+  // Reply button
+  const replyHtml = `<button class="reply">Reply</button>`;
 
   card.innerHTML = `
-        ${avatarContainer}
-        <div class="comment-body">
-            <div class="comment-meta">${metaHtml}</div>
-            <div class="comment-text">${escapeHTML(comment.comment_content)}</div>
-            ${reactionsSectionHtml}
-            <button class="reply-btn">Reply</button>
+        ${avatarHtml}
+        <div class="comment-wrapper">
+            <header>
+                <hgroup>
+                    ${nameHtml}
+                    ${moodHtml}
+                </hgroup>
+                ${dateHtml}
+            </header>
+            <main>
+                ${contentHtml}
+            </main>
+            <footer>
+                ${neocitiesHtml}
+                ${reactionsHtml}
+                ${replyHtml}
+            </footer>
         </div>
     `;
 
-  card.querySelector(".reply-btn").onclick = () =>
+  // Reply button handler
+  card.querySelector(".reply").onclick = () =>
     startReply(comment.comment_id, comment.name);
 
-  // Attach reaction handlers
-  attachReactionHandlers(card);
+  // Reaction handlers
+  card.querySelectorAll(".reaction-btn").forEach((btn) => {
+    btn.onclick = () => handleReactionClick(btn);
+  });
 
-  // Render children
+  const addBtn = card.querySelector(".add-reaction-btn");
+  if (addBtn) {
+    addBtn.onclick = (e) => {
+      e.stopPropagation();
+      const picker = card.querySelector(".reactions-picker");
+      document.querySelectorAll(".reactions-picker.open").forEach((p) => {
+        if (p !== picker) p.classList.remove("open");
+      });
+      picker.classList.toggle("open");
+    };
+  }
+
+  card.querySelectorAll(".picker-emoji-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      handlePickerReaction(btn);
+    };
+  });
+
+  // Render children (replies)
   const children = allComments.filter(
     (c) => c.parent_id === comment.comment_id,
   );
 
   if (children.length > 0) {
-    const repliesWrapper = document.createElement("div");
-    repliesWrapper.className = "replies-wrapper";
+    const repliesContainer = document.createElement("div");
+    repliesContainer.className = "replies-container";
 
     children.forEach((child) => {
       const childElement = renderCommentTree(child, allComments, depth + 1);
-      repliesWrapper.appendChild(childElement);
+      repliesContainer.appendChild(childElement);
     });
 
-    card.querySelector(".comment-body").appendChild(repliesWrapper);
+    card.appendChild(repliesContainer);
   }
 
   return card;

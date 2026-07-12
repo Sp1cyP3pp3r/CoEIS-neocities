@@ -46,104 +46,123 @@
   --flex-direction: column-reverse;
   display: flex;
   flex-direction: var(--flex-direction);
-
-  .replies-wrapper {
-    display: flex;
-    flex-direction: var(--flex-direction);
-  }
 }
 
 /* =========================================
-   COMMENT CARDS
+   COMMENT CARD
    ========================================= */
 .comment-card {
   display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-left: var(--indent, 0);
 
-  .comment-avatar {
-    .avatar-img {
-    }
-    .avatar-large {
-    }
-    .avatar-small {
-    }
+  .avatar {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
-  .comment-body {
+  .comment-wrapper {
     flex: 1;
+    min-width: 0;
 
-    .comment-meta {
-      .comment-date {
+    header {
+      hgroup {
+        .name {
+        }
+        .mood {
+        }
       }
-      .comment-link {
+
+      .date {
+      }
+    }
+
+    main {
+      .content {
+      }
+    }
+
+    footer {
+      address.neocities {
         .comment-favicon {
         }
       }
-      .comment-mood {
-      }
-      .reply-tag {
-      }
-    }
 
-    .comment-text {
-    }
-
-    .reactions-section {
-      display: flex;
-      position: relative;
-
-      .reactions-display {
+      .reactions {
         display: flex;
+        position: relative;
 
-        .reaction-btn {
-          display: inline-flex;
-          cursor: pointer;
-
-          &.reacted {
-          }
-
-          &.syncing {
-            pointer-events: none;
-          }
-
-          .reaction-img {
-          }
-          .reaction-count {
-          }
-        }
-      }
-
-      .add-reaction-btn {
-        cursor: pointer;
-
-        .add-reaction-icon {
-        }
-      }
-
-      .reactions-picker {
-        display: none;
-        position: absolute;
-        bottom: 100%;
-
-        &.open {
+        .reactions-display {
           display: flex;
+          gap: 0.5rem;
+
+          .reaction-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+
+            &.reacted {
+            }
+
+            &.syncing {
+              pointer-events: none;
+            }
+
+            .reaction-img {
+            }
+            .reaction-count {
+            }
+          }
         }
 
-        .picker-emoji-btn {
+        .add-reaction-btn {
           cursor: pointer;
 
-          .picker-img {
+          .add-reaction-icon {
+          }
+        }
+
+        .reactions-picker {
+          display: none;
+          position: absolute;
+          bottom: 100%;
+          left: 0;
+
+          &.open {
+            display: flex;
+          }
+
+          .picker-emoji-btn {
+            cursor: pointer;
+
+            .picker-img {
+            }
           }
         }
       }
-    }
 
-    .reply-btn {
-      cursor: pointer;
+      .reply {
+        cursor: pointer;
+      }
     }
+  }
+
+  /* Nested replies container */
+  .replies-container {
+    display: flex;
+    flex-direction: var(--flex-direction);
+    flex-direction: column;
+    margin-top: 1rem;
   }
 }
 
-.reply-card {
-  display: flex;
-  margin-left: var(--indent, 0);
+/* Reply cards inherit from comment-card but with indentation */
+.comment-card .comment-card {
+  margin-left: var(--indent, 1rem);
 }
