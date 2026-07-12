@@ -115,12 +115,16 @@
       > .comment-address.neocities {
         position: absolute;
         inset-inline-start: -15%;
-        inset-block-end: -50%;
+        inset-block-end: -5%;
 
         background-color: crimson;
 
         display: inline-flex;
         flex-flow: row nowrap;
+
+        padding: 7.5%;
+
+        transform: skewX(14deg);
 
         .comment-favicon {
         }
