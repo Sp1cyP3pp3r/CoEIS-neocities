@@ -113,7 +113,7 @@ function buildReactionsHtml(commentId) {
     </button>`;
 
   html +=
-    '<div class="reactions-picker" role="listbox" aria-label="Choose a reaction">';
+    '<div class="reactions-picker frosted-glass" role="listbox" aria-label="Choose a reaction">';
   REACTIONS.forEach((reaction) => {
     html += `<button class="picker-btn" data-comment-id="${commentId}" data-reaction="${reaction.id}" role="option" aria-label="${reaction.alt}">
             <img src="${reaction.url}" alt="${reaction.alt}" class="picker-img">
