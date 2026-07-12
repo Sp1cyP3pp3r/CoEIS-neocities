@@ -242,6 +242,7 @@
 
           &.open {
             display: flex;
+            flex-flow: column wrap;
           }
 
           .picker-btn {
