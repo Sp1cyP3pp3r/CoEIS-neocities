@@ -806,7 +806,7 @@ i {
 }
 
 .frosted-glass {
-  backdrop-filter: var(--frosted-glass);
+  backdrop-filter: blur(2px) var(--frosted-glass);
 }
 
 .svg-filter,
