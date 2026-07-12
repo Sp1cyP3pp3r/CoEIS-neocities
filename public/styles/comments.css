@@ -230,9 +230,9 @@
 
 @keyframes neocities-domen {
   from {
-    --neocities-domen-animation: 0deg;
+    --neocities-domen-animation: 0;
   }
   to {
-    --neocities-domen-animation: 360deg;
+    --neocities-domen-animation: 360;
   }
 }
