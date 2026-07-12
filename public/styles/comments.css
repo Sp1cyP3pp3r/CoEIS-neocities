@@ -127,11 +127,14 @@
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .neocities-span-group {
+          --domen-val: calc(
+            (var(--deg-rotate) * -1) + sin(var(--neocities-domen-animation))
+          );
+
           display: inline-flex;
           flex-flow: row nowrap;
 
-          transform: skewX(calc(var(--deg-skew) * -1))
-            rotateZ(calc(var(--deg-rotate) * -1));
+          transform: skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
 
           animation: neocities-domen 5s infinite ease-in-out;
 
@@ -220,28 +223,16 @@
 }
 
 @property --neocities-domen-animation {
-  syntax: "<angle>";
+  syntax: "<number>";
   inherits: true;
   initial-value: 0deg;
 }
 
-@property --deg-rotate {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 2deg;
-}
-
 @keyframes neocities-domen {
   from {
-    /*
     --neocities-domen-animation: 0deg;
-    */
-    --deg-rotate: 0deg;
   }
   to {
-    /*
     --neocities-domen-animation: 360deg;
-    */
-    --deg-rotate: 360deg;
   }
 }
