@@ -1,6 +1,5 @@
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwppSLRMgpevtJXv0Dh19g6x4Mrl2Nk5c7e9-gsiVYKjgomy9scFHWAchsqvGSmh_Ns/exec";
-const GOOGLE_SCRIPT_URL = "YOUR_WEB_APP_URL_HERE";
 
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
