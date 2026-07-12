@@ -815,7 +815,3 @@ svg[hidden] {
   user-select: none;
   pointer-events: none;
 }
-
-.giscus {
-  margin-block-start: 5%;
-}
