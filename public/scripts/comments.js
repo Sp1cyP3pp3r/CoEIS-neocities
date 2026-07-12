@@ -6,23 +6,36 @@ else path = path.replace(".html", "").replace(/^\//, "");
 const page_url = path;
 
 // --- SMART AVATAR FUNCTION ---
+// --- SMART AVATAR FUNCTION (FIXED) ---
 function getAvatarHtml(item, size) {
   size = size || 60;
-  let defaultStyle = `width:${size}px;height:${size}px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:4px;`;
 
+  // Separate the image styles from the fallback styles
+  let imgStyle = `width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;`;
+  let fallbackStyle = `width:${size}px;height:${size}px;background:#eee;align-items:center;justify-content:center;border-radius:4px;`;
+
+  // 1. Priority: Custom Avatar URL
   if (item.avatar_url) {
-    return `<img src="${escapeHTML(item.avatar_url)}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                <div style="display:none;${defaultStyle}">👤</div>`;
+    // The fallback div is hidden by default. If the image fails to load, onerror hides the img and shows the fallback.
+    return `<img src="${escapeHTML(item.avatar_url)}" style="${imgStyle}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div style="display:none;${fallbackStyle}">👤</div>`;
   }
+
+  // 2. Priority: Scrape Favicon from Neocities Link
   if (item.neocities) {
     try {
       let urlStr = item.neocities;
       if (!urlStr.startsWith("http")) urlStr = "https://" + urlStr;
       let domain = new URL(urlStr).hostname;
-      return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=${size}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:4px;">`;
+
+      // Added onerror here too, just in case the favicon API fails!
+      return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=${size}" style="${imgStyle}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <div style="display:none;${fallbackStyle}">👤</div>`;
     } catch (e) {}
   }
-  return `<div style="${defaultStyle}">👤</div>`;
+
+  // 3. Fallback: Default Emoji
+  return `<div style="display:flex;${fallbackStyle}">👤</div>`;
 }
 
 // --- RECURSIVE TREE RENDERING ---
@@ -60,7 +73,7 @@ function renderCommentTree(comment, allComments, depth = 0) {
     metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener">🔗 Visit Site</a>`;
   }
   if (comment.mood) {
-    metaHtml += `<br><em style="font-size: 0.9em; color: #666;">🎧 ${escapeHTML(comment.mood)}</em>`;
+    metaHtml += `<br><em style="font-size: 0.9em; color: #666;">${escapeHTML(comment.mood)}</em>`;
   }
   if (depth > 0) {
     metaHtml += ` <em style="font-size:0.8em; color:#888;">(reply)</em>`;
