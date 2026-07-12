@@ -41,6 +41,9 @@
 }
 
 .comment-card {
+  background-color: bisque;
+  outline: dashed magenta 1px;
+
   > .comment-wrapper {
     > .comment-aside.avatar {
       background-image: var(--avatar-url, none);
