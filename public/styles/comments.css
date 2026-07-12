@@ -45,7 +45,7 @@
 }
 
 .comment-card {
-  --max-width: calc(100% / 2.15);
+  --max-width: calc(var(--main-width) / 2.15);
   width: fit-content;
   max-width: var(--max-width);
 
