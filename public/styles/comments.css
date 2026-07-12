@@ -127,6 +127,10 @@
         transform: skewX(var(--deg-skew)) rotateZ(var(--deg-rotate));
 
         .neocities-span-group {
+          --domen-skew: calc(
+            (var(--deg-skew) * -1) +
+              (cos(var(--neocities-domen-animation)) * 1deg)
+          );
           --domen-val: calc(
             (var(--deg-rotate) * -1) +
               (sin(var(--neocities-domen-animation)) * 1deg)
@@ -135,7 +139,7 @@
           display: inline-flex;
           flex-flow: row nowrap;
 
-          transform: skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
+          transform: skewX(var(--domen-skew)) rotateZ(var(--domen-val));
 
           animation: neocities-domen 5s infinite ease-in-out;
 
