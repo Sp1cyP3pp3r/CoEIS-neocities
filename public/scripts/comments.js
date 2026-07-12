@@ -226,46 +226,27 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
-// --- NEW: HANDLE PICKER REACTION ---
+// --- UPDATED: HANDLE PICKER REACTION ---
 function handlePickerReaction(btn) {
   const commentId = btn.dataset.commentId;
   const reaction = btn.dataset.reaction;
 
-  // Close the picker first
   const picker = btn.closest(".reactions-picker");
   if (picker) picker.classList.remove("open");
 
-  // If user already reacted, remove the reaction
   if (hasUserReacted(commentId, reaction)) {
     removeUserReaction(commentId, reaction);
     sendReactionToBackend(commentId, reaction, "remove");
+    refreshCommentReactions(commentId, reaction, "remove");
   } else {
-    // Add the reaction
     saveUserReaction(commentId, reaction);
     sendReactionToBackend(commentId, reaction, "add");
+    refreshCommentReactions(commentId, reaction, "add");
   }
-
-  // Immediately refresh the display
-  refreshCommentReactions(commentId);
 }
 
-// --- NEW: SEND REACTION TO BACKEND ---
-function sendReactionToBackend(commentId, reaction, action) {
-  const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&react_action=${action}&page_url=${page_url}`;
-
-  const reactionScript = document.createElement("script");
-  reactionScript.src = reactionUrl;
-  document.body.appendChild(reactionScript);
-
-  setTimeout(() => {
-    if (reactionScript.parentNode) {
-      reactionScript.parentNode.removeChild(reactionScript);
-    }
-  }, 5000);
-}
-
-// --- NEW: REFRESH A SINGLE COMMENT'S REACTIONS DISPLAY ---
-function refreshCommentReactions(commentId) {
+// --- UPDATED: REFRESH A SINGLE COMMENT'S REACTIONS DISPLAY ---
+function refreshCommentReactions(commentId, changedReaction, action) {
   const addBtn = document.querySelector(
     `.add-reaction-btn[data-comment-id="${commentId}"]`,
   );
@@ -274,7 +255,6 @@ function refreshCommentReactions(commentId) {
   const card = addBtn.closest(".comment-card, .reply-card");
   if (!card) return;
 
-  // Get current reactions from localStorage (source of truth for this user)
   const userReactions = getUserReactions();
   const userReactionList = userReactions[commentId] || [];
 
@@ -287,10 +267,25 @@ function refreshCommentReactions(commentId) {
     if (count > 0) reactions[emoji] = count;
   });
 
-  // Merge: ensure all user reactions are represented
+  // Apply the action to adjust the count
+  if (changedReaction && action) {
+    if (action === "add") {
+      if (!reactions[changedReaction]) reactions[changedReaction] = 0;
+      reactions[changedReaction]++;
+    } else if (action === "remove") {
+      if (reactions[changedReaction]) {
+        reactions[changedReaction]--;
+        if (reactions[changedReaction] <= 0) {
+          delete reactions[changedReaction];
+        }
+      }
+    }
+  }
+
+  // Ensure all user reactions are represented
   userReactionList.forEach((emoji) => {
     if (!reactions[emoji]) {
-      reactions[emoji] = 1; // New reaction from this user
+      reactions[emoji] = 1;
     }
   });
 
@@ -300,7 +295,6 @@ function refreshCommentReactions(commentId) {
 
   let newHtml = "";
 
-  // Display existing reactions
   const hasAnyReactions = Object.keys(reactions).length > 0;
   if (hasAnyReactions) {
     newHtml += '<div class="reactions-display">';
@@ -320,14 +314,12 @@ function refreshCommentReactions(commentId) {
     newHtml += "</div>";
   }
 
-  // Add Reaction button
   newHtml += `
         <button class="add-reaction-btn" data-comment-id="${commentId}">
             <span class="add-reaction-icon">+</span> React
         </button>
     `;
 
-  // Hidden picker
   newHtml += '<div class="reactions-picker">';
   REACTIONS.forEach((emoji) => {
     newHtml += `<button class="picker-emoji-btn" data-comment-id="${commentId}" data-reaction="${emoji}">${emoji}</button>`;
@@ -362,29 +354,24 @@ function refreshCommentReactions(commentId) {
   });
 }
 
-// --- UPDATED: OPTIMISTIC REACTION HANDLER (for clicking existing reactions) ---
+// --- UPDATED: OPTIMISTIC REACTION HANDLER ---
 function handleReactionClick(btn) {
   const commentId = btn.dataset.commentId;
   const reaction = btn.dataset.reaction;
 
-  // If button is disabled (syncing), ignore the click
   if (btn.disabled) return;
 
   const alreadyReacted = hasUserReacted(commentId, reaction);
   const action = alreadyReacted ? "remove" : "add";
 
-  // Update localStorage first (source of truth)
   if (action === "add") {
     saveUserReaction(commentId, reaction);
   } else {
     removeUserReaction(commentId, reaction);
   }
 
-  // Send to backend
   sendReactionToBackend(commentId, reaction, action);
-
-  // Immediately refresh the display
-  refreshCommentReactions(commentId);
+  refreshCommentReactions(commentId, reaction, action);
 }
 
 // --- DISPLAY COMMENTS ---
