@@ -248,12 +248,12 @@ function renderCommentTree(comment, allComments, depth = 0) {
                             ${escapeHTML(cleanDomain)}
                           </a>`;
     } catch (e) {
-      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-link">🔗 Visit Site</a>`;
+      metaHtml += ` | <a href="${escapeHTML(urlStr)}" target="_blank" rel="noopener" class="comment-link">Visit Site</a>`;
     }
   }
 
   if (comment.mood) {
-    metaHtml += `<br><em class="comment-mood">🎧 ${escapeHTML(comment.mood)}</em>`;
+    metaHtml += `<br><em class="comment-mood">${escapeHTML(comment.mood)}</em>`;
   }
   if (depth > 0) {
     metaHtml += ` <em class="reply-tag">(reply)</em>`;
