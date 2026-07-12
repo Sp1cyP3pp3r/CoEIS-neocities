@@ -238,6 +238,9 @@
           &.open {
             display: flex;
             flex-flow: row wrap;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
           }
 
           .picker-btn {
