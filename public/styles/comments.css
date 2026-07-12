@@ -32,6 +32,10 @@
   flex: 1;
 }
 
+.comment-avatar {
+  width: 256px;
+}
+
 /* REACTIONSs */
 
 .reactions-section {
