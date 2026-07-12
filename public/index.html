@@ -451,25 +451,68 @@
 
       <div class="blank"></div>
 
-      <!-- Comment Submission Form -->
       <form id="guestbookForm">
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="email" id="email" placeholder="Your Email (Optional)" />
+        <input type="hidden" id="parent_id" value="" />
+
+        <div style="display: flex; gap: 10px; margin-bottom: 10px">
+          <input
+            type="text"
+            id="name"
+            placeholder="Your Name *"
+            required
+            style="flex: 1"
+          />
+          <input
+            type="url"
+            id="neocities"
+            placeholder="Your Neocities URL (https://...)"
+            style="flex: 2"
+          />
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 10px">
+          <input
+            type="email"
+            id="email"
+            placeholder="Your Email (Kept private, used for reply notifications)"
+            style="flex: 2"
+          />
+          <input
+            type="url"
+            id="avatar_url"
+            placeholder="Custom Avatar URL (Overrides favicon)"
+            style="flex: 1"
+          />
+        </div>
+
+        <div style="margin-bottom: 10px">
+          <input
+            type="text"
+            id="mood"
+            placeholder="Current Mood / Listening to... (Optional)"
+            style="width: 100%"
+          />
+        </div>
+
         <textarea
-          id="comment"
-          placeholder="Leave a comment..."
+          id="comment_content"
+          placeholder="Leave a comment... *"
           required
+          style="width: 100%; height: 80px"
         ></textarea>
+
         <div
           class="h-captcha"
           data-sitekey="87c8f04a-47ca-488a-ae62-f9a2663439ec"
         ></div>
         <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
         <button type="submit" id="submitBtn">Post Comment</button>
+        <button type="button" id="cancelReplyBtn" style="display: none">
+          Cancel Reply
+        </button>
         <p id="formStatus" style="display: none"></p>
       </form>
 
-      <!-- Container for displaying existing comments -->
       <div id="commentsContainer">
         <p>Loading comments...</p>
       </div>
