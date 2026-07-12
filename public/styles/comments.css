@@ -99,6 +99,7 @@
       > .comment-hgroup {
         display: flex;
         flex-flow: column nowrap;
+        margin-inline-end: auto;
 
         > .name {
         }
