@@ -139,17 +139,29 @@
         .neocities-span-group {
           --domen-val: calc(
             (var(--deg-rotate) * -1) +
-              (sin(var(--neocities-domen-animation)) * 3deg)
+              (
+                sin(var(--neocities-domen-animation) + var(--phase-offset)) *
+                  3deg
+              )
           );
+
+          --phase-offset: calc(sibling-index() * 73deg);
+          --base-z: calc(100px + (sibling-index() * 15px));
+          --anim-duration: calc(4s + (sibling-index() / sibling-count()) * 2s);
 
           display: inline-flex;
           flex-flow: row nowrap;
 
-          animation: neocities-domen 3s infinite linear;
+          animation: neocities-domen var(--anim-duration) infinite linear;
           transform: translateZ(
               calc(
-                var(--domen-px) +
-                  (sin(var(--neocities-domen-animation)) * var(--domen-px))
+                var(--base-z) +
+                  (
+                    sin(
+                        var(--neocities-domen-animation) + var(--phase-offset)
+                      ) *
+                      var(--domen-px)
+                  )
               )
             )
             skewX(calc(var(--deg-skew) * -1)) rotateZ(var(--domen-val));
