@@ -227,9 +227,9 @@
           display: none;
           position: absolute;
           bottom: 100%;
-
-          width: 100%;
           z-index: 999;
+
+          width: calc(var(--main-width) / 3);
 
           background-color: color-mix(
             in oklab,
