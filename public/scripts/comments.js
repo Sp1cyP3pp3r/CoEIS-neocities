@@ -1,5 +1,6 @@
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwppSLRMgpevtJXv0Dh19g6x4Mrl2Nk5c7e9-gsiVYKjgomy9scFHWAchsqvGSmh_Ns/exec";
+const GOOGLE_SCRIPT_URL = "YOUR_WEB_APP_URL_HERE";
 
 let path = window.location.pathname;
 if (path === "/" || path === "/index.html" || path === "") path = "index";
@@ -9,7 +10,7 @@ const page_url = path;
 let sortNewestFirst = true;
 
 // Available reactions
-const REACTIONS = ["👍", "❤️", "💀"];
+const REACTIONS = ["👍", "❤️", "😂", "😮", "😢", "😡"];
 
 // --- LOCAL STORAGE FUNCTIONS FOR USER REACTIONS ---
 function getUserReactions() {
@@ -126,28 +127,54 @@ function renderCommentTree(comment, allComments, depth = 0) {
     metaHtml += ` <em class="reply-tag">(reply)</em>`;
   }
 
-  // Build reactions HTML
-  let reactionsHtml = '<div class="reactions-container">';
-  REACTIONS.forEach((emoji) => {
-    const count = comment.reactions[emoji] || 0;
-    const reacted = hasUserReacted(comment.comment_id, emoji);
-    const reactedClass = reacted ? "reacted" : "";
+  // --- NEW: Build reactions section with picker ---
+  let reactionsSectionHtml = '<div class="reactions-section">';
 
-    reactionsHtml += `
-            <button class="reaction-btn ${reactedClass}" data-comment-id="${comment.comment_id}" data-reaction="${emoji}">
-                <span class="reaction-emoji">${emoji}</span>
-                <span class="reaction-count">${count}</span>
-            </button>
-        `;
+  // 1. Display existing reactions (only if there are any)
+  const hasAnyReactions = REACTIONS.some(
+    (emoji) => (comment.reactions[emoji] || 0) > 0,
+  );
+
+  if (hasAnyReactions) {
+    reactionsSectionHtml += '<div class="reactions-display">';
+    REACTIONS.forEach((emoji) => {
+      const count = comment.reactions[emoji] || 0;
+      if (count > 0) {
+        const reacted = hasUserReacted(comment.comment_id, emoji);
+        const reactedClass = reacted ? "reacted" : "";
+        reactionsSectionHtml += `
+                    <button class="reaction-btn ${reactedClass}" data-comment-id="${comment.comment_id}" data-reaction="${emoji}">
+                        <span class="reaction-emoji">${emoji}</span>
+                        <span class="reaction-count">${count}</span>
+                    </button>
+                `;
+      }
+    });
+    reactionsSectionHtml += "</div>";
+  }
+
+  // 2. Add Reaction button (always visible)
+  reactionsSectionHtml += `
+        <button class="add-reaction-btn" data-comment-id="${comment.comment_id}">
+            <span class="add-reaction-icon">+</span> React
+        </button>
+    `;
+
+  // 3. Hidden reactions picker menu
+  reactionsSectionHtml += '<div class="reactions-picker">';
+  REACTIONS.forEach((emoji) => {
+    reactionsSectionHtml += `<button class="picker-emoji-btn" data-comment-id="${comment.comment_id}" data-reaction="${emoji}">${emoji}</button>`;
   });
-  reactionsHtml += "</div>";
+  reactionsSectionHtml += "</div>";
+
+  reactionsSectionHtml += "</div>";
 
   card.innerHTML = `
         ${avatarContainer}
         <div class="comment-body">
             <div class="comment-meta">${metaHtml}</div>
             <div class="comment-text">${escapeHTML(comment.comment_content)}</div>
-            ${reactionsHtml}
+            ${reactionsSectionHtml}
             <button class="reply-btn">Reply</button>
         </div>
     `;
@@ -155,9 +182,30 @@ function renderCommentTree(comment, allComments, depth = 0) {
   card.querySelector(".reply-btn").onclick = () =>
     startReply(comment.comment_id, comment.name);
 
-  // Attach reaction button handlers
+  // Attach handlers for existing reaction buttons (toggle)
   card.querySelectorAll(".reaction-btn").forEach((btn) => {
     btn.onclick = () => handleReactionClick(btn);
+  });
+
+  // Attach handler for "Add Reaction" button (opens picker)
+  const addBtn = card.querySelector(".add-reaction-btn");
+  addBtn.onclick = (e) => {
+    e.stopPropagation();
+    // Close any other open pickers first
+    document.querySelectorAll(".reactions-picker.open").forEach((p) => {
+      if (p !== card.querySelector(".reactions-picker")) {
+        p.classList.remove("open");
+      }
+    });
+    card.querySelector(".reactions-picker").classList.toggle("open");
+  };
+
+  // Attach handlers for picker emoji buttons
+  card.querySelectorAll(".picker-emoji-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      handlePickerReaction(btn);
+    };
   });
 
   const children = allComments.filter(
@@ -179,10 +227,155 @@ function renderCommentTree(comment, allComments, depth = 0) {
   return card;
 }
 
+// --- NEW: HANDLE PICKER REACTION (adds reaction and closes picker) ---
+function handlePickerReaction(btn) {
+  const commentId = btn.dataset.commentId;
+  const reaction = btn.dataset.reaction;
+
+  // If user already reacted, just remove the reaction (toggle behavior)
+  if (hasUserReacted(commentId, reaction)) {
+    // Find the existing reaction button and toggle it off
+    const existingBtn = document.querySelector(
+      `.reaction-btn[data-comment-id="${commentId}"][data-reaction="${reaction}"]`,
+    );
+    if (existingBtn) {
+      handleReactionClick(existingBtn);
+    }
+  } else {
+    // Create a fake button to use the same optimistic update logic
+    const fakeBtn = document.createElement("button");
+    fakeBtn.dataset.commentId = commentId;
+    fakeBtn.dataset.reaction = reaction;
+
+    // Create a temporary count span with value 0
+    const countSpan = document.createElement("span");
+    countSpan.className = "reaction-count";
+    countSpan.textContent = "0";
+    fakeBtn.appendChild(countSpan);
+
+    // Run the optimistic update
+    handleReactionClick(fakeBtn);
+
+    // After the UI updates, we need to refresh the comment to show the new reaction
+    // We'll do this by reloading the page after a short delay (simplest approach)
+    // OR we can rebuild just this comment's reactions section
+    setTimeout(() => {
+      refreshCommentReactions(commentId);
+    }, 100);
+  }
+
+  // Close the picker
+  const picker = btn.closest(".reactions-picker");
+  if (picker) picker.classList.remove("open");
+}
+
+// --- NEW: REFRESH A SINGLE COMMENT'S REACTIONS DISPLAY ---
+function refreshCommentReactions(commentId) {
+  // Find the comment card
+  const reactionBtn = document.querySelector(
+    `.reaction-btn[data-comment-id="${commentId}"]`,
+  );
+  const addBtn = document.querySelector(
+    `.add-reaction-btn[data-comment-id="${commentId}"]`,
+  );
+
+  if (!addBtn) return;
+
+  const card = addBtn.closest(".comment-card, .reply-card");
+  if (!card) return;
+
+  // Get current reactions from the buttons
+  const reactions = {};
+  card.querySelectorAll(".reaction-btn").forEach((btn) => {
+    const emoji = btn.dataset.reaction;
+    const count =
+      parseInt(btn.querySelector(".reaction-count").textContent) || 0;
+    if (count > 0) reactions[emoji] = count;
+  });
+
+  // Also include any new reactions from localStorage that aren't in the DOM yet
+  const userReactions = getUserReactions();
+  if (userReactions[commentId]) {
+    userReactions[commentId].forEach((emoji) => {
+      if (!reactions[emoji]) reactions[emoji] = 1;
+    });
+  }
+
+  // Rebuild the reactions section
+  const reactionsSection = card.querySelector(".reactions-section");
+  if (!reactionsSection) return;
+
+  let newHtml = "";
+
+  // Display existing reactions
+  const hasAnyReactions = Object.keys(reactions).length > 0;
+  if (hasAnyReactions) {
+    newHtml += '<div class="reactions-display">';
+    REACTIONS.forEach((emoji) => {
+      const count = reactions[emoji] || 0;
+      if (count > 0) {
+        const reacted = hasUserReacted(commentId, emoji);
+        const reactedClass = reacted ? "reacted" : "";
+        newHtml += `
+                    <button class="reaction-btn ${reactedClass}" data-comment-id="${commentId}" data-reaction="${emoji}">
+                        <span class="reaction-emoji">${emoji}</span>
+                        <span class="reaction-count">${count}</span>
+                    </button>
+                `;
+      }
+    });
+    newHtml += "</div>";
+  }
+
+  // Add Reaction button
+  newHtml += `
+        <button class="add-reaction-btn" data-comment-id="${commentId}">
+            <span class="add-reaction-icon">+</span> React
+        </button>
+    `;
+
+  // Hidden picker
+  newHtml += '<div class="reactions-picker">';
+  REACTIONS.forEach((emoji) => {
+    newHtml += `<button class="picker-emoji-btn" data-comment-id="${commentId}" data-reaction="${emoji}">${emoji}</button>`;
+  });
+  newHtml += "</div>";
+
+  reactionsSection.innerHTML = newHtml;
+
+  // Re-attach handlers
+  reactionsSection.querySelectorAll(".reaction-btn").forEach((btn) => {
+    btn.onclick = () => handleReactionClick(btn);
+  });
+
+  const newAddBtn = reactionsSection.querySelector(".add-reaction-btn");
+  newAddBtn.onclick = (e) => {
+    e.stopPropagation();
+    document.querySelectorAll(".reactions-picker.open").forEach((p) => {
+      if (p !== reactionsSection.querySelector(".reactions-picker")) {
+        p.classList.remove("open");
+      }
+    });
+    reactionsSection
+      .querySelector(".reactions-picker")
+      .classList.toggle("open");
+  };
+
+  reactionsSection.querySelectorAll(".picker-emoji-btn").forEach((btn) => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      handlePickerReaction(btn);
+    };
+  });
+}
+
 // --- OPTIMISTIC REACTION HANDLER ---
 function handleReactionClick(btn) {
   const commentId = btn.dataset.commentId;
   const reaction = btn.dataset.reaction;
+
+  // If button is disabled (syncing), ignore the click
+  if (btn.disabled) return;
 
   const alreadyReacted = hasUserReacted(commentId, reaction);
   const action = alreadyReacted ? "remove" : "add";
@@ -199,13 +392,28 @@ function handleReactionClick(btn) {
     countSpan.textContent = Math.max(0, currentCount - 1);
     btn.classList.remove("reacted");
     removeUserReaction(commentId, reaction);
+
+    // If count is now 0, remove the button entirely
+    if (currentCount - 1 <= 0) {
+      btn.remove();
+
+      // Check if reactions-display is now empty, and remove it if so
+      const reactionsDisplay = document.querySelector(".reactions-display");
+      if (reactionsDisplay && reactionsDisplay.children.length === 0) {
+        reactionsDisplay.remove();
+      }
+    }
   }
 
-  // Temporarily disable the button to prevent spam-clicking
+  // Disable button while syncing
   btn.disabled = true;
+  btn.classList.add("syncing");
   setTimeout(() => {
-    btn.disabled = false;
-  }, 1000);
+    if (btn.parentNode) {
+      btn.disabled = false;
+      btn.classList.remove("syncing");
+    }
+  }, 1500);
 
   // Send to backend in the background (fire and forget)
   const reactionUrl = `${GOOGLE_SCRIPT_URL}?action=react&comment_id=${commentId}&reaction=${encodeURIComponent(reaction)}&react_action=${action}&page_url=${page_url}`;
@@ -214,7 +422,6 @@ function handleReactionClick(btn) {
   reactionScript.src = reactionUrl;
   document.body.appendChild(reactionScript);
 
-  // Clean up the script tag after a delay
   setTimeout(() => {
     if (reactionScript.parentNode) {
       reactionScript.parentNode.removeChild(reactionScript);
@@ -251,6 +458,15 @@ document.addEventListener("click", function (e) {
     document
       .getElementById("commentsContainer")
       .style.setProperty("--flex-direction", newDirection);
+  }
+});
+
+// --- CLOSE PICKERS WHEN CLICKING OUTSIDE ---
+document.addEventListener("click", function (e) {
+  if (!e.target.closest(".reactions-section")) {
+    document.querySelectorAll(".reactions-picker.open").forEach((p) => {
+      p.classList.remove("open");
+    });
   }
 });
 
