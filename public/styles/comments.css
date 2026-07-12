@@ -66,6 +66,7 @@
     outline: dashed magenta 1px;
 
     width: fit-content;
+    padding: 1em;
 
     display: grid;
     grid-template-areas: var(
