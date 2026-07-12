@@ -1,10 +1,45 @@
-#formStatus,
-#cancelReplyBtn {
-  display: none;
+/* =========================================
+   GUESTBOOK FORM
+   ========================================= */
+#guestbookForm {
+  #parent_id {
+  }
+  #name {
+  }
+  #neocities {
+  }
+  #email {
+  }
+  #avatar_url {
+  }
+  #mood {
+  }
+  #comment_content {
+  }
+  #submitBtn {
+  }
+
+  #cancelReplyBtn {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  #formStatus {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
 }
-#formStatus.visible,
-#cancelReplyBtn.visible {
-  display: block;
+
+/* =========================================
+   SORTING & CONTAINER
+   ========================================= */
+#sortToggleBtn {
 }
 
 #commentsContainer {
@@ -12,63 +47,103 @@
   display: flex;
   flex-direction: var(--flex-direction);
 
-  width: 100%;
-}
-.replies-wrapper {
-  display: flex;
-  flex-direction: var(--flex-direction);
-
-  width: 100%;
-}
-
-.comment-card,
-.reply-card {
-  display: flex;
-}
-.reply-card {
-  margin-left: var(--indent, 0);
-}
-.comment-body {
-  flex: 1;
-}
-
-.comment-avatar {
-  width: 256px;
-
-  img {
-    width: 100%;
+  .replies-wrapper {
+    display: flex;
+    flex-direction: var(--flex-direction);
   }
 }
 
-/* REACTIONSs */
-
-.reactions-section {
-  display: flex;
-  position: relative;
-}
-.reactions-display {
+/* =========================================
+   COMMENT CARDS
+   ========================================= */
+.comment-card {
   display: flex;
 
-  width: 26px;
+  .comment-avatar {
+    .avatar-img {
+    }
+    .avatar-large {
+    }
+    .avatar-small {
+    }
+  }
+
+  .comment-body {
+    flex: 1;
+
+    .comment-meta {
+      .comment-date {
+      }
+      .comment-link {
+        .comment-favicon {
+        }
+      }
+      .comment-mood {
+      }
+      .reply-tag {
+      }
+    }
+
+    .comment-text {
+    }
+
+    .reactions-section {
+      display: flex;
+      position: relative;
+
+      .reactions-display {
+        display: flex;
+
+        .reaction-btn {
+          display: inline-flex;
+          cursor: pointer;
+
+          &.reacted {
+          }
+
+          &.syncing {
+            pointer-events: none;
+          }
+
+          .reaction-img {
+          }
+          .reaction-count {
+          }
+        }
+      }
+
+      .add-reaction-btn {
+        cursor: pointer;
+
+        .add-reaction-icon {
+        }
+      }
+
+      .reactions-picker {
+        display: none;
+        position: absolute;
+        bottom: 100%;
+
+        &.open {
+          display: flex;
+        }
+
+        .picker-emoji-btn {
+          cursor: pointer;
+
+          .picker-img {
+          }
+        }
+      }
+    }
+
+    .reply-btn {
+      cursor: pointer;
+    }
+  }
 }
-.reaction-btn {
-  display: inline-flex;
-  cursor: pointer;
-}
-.reaction-btn.syncing {
-  pointer-events: none;
-}
-.add-reaction-btn {
-  cursor: pointer;
-}
-.reactions-picker {
-  display: none;
-  position: absolute;
-  bottom: 100%;
-}
-.reactions-picker.open {
+
+.reply-card {
   display: flex;
-}
-.picker-emoji-btn {
-  cursor: pointer;
+  margin-left: var(--indent, 0);
 }
