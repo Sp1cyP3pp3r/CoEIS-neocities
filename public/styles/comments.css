@@ -224,16 +224,16 @@
 }
 
 @property --neocities-domen-animation {
-  syntax: "<number>";
+  syntax: "<angle>";
   inherits: true;
   initial-value: 0deg;
 }
 
 @keyframes neocities-domen {
   from {
-    --neocities-domen-animation: 0;
+    --neocities-domen-animation: 0deg;
   }
   to {
-    --neocities-domen-animation: 360;
+    --neocities-domen-animation: 360deg;
   }
 }
