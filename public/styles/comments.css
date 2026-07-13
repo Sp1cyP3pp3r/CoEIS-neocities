@@ -224,6 +224,8 @@
         }
 
         .reactions-picker {
+          --reaction-clr
+
           display: none;
           position: absolute;
           bottom: 100%;
