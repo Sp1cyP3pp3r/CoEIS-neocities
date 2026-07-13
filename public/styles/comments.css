@@ -226,7 +226,7 @@
         .reactions-picker {
           --reaction-clr: #c2ec74;
           --reaction-clr-border: oklch(
-            from var(--reaction-clr) calc(l + 20%) c h
+            from var(--reaction-clr) calc(l + 0.2) c h
           );
 
           display: none;
