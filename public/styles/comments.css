@@ -224,7 +224,10 @@
         }
 
         .reactions-picker {
-          --reaction-clr
+          --reaction-clr: #c2ec74;
+          --reaction-clr-border: oklch(
+            from var(--reaction-clr) calc(l + 20%) c h
+          );
 
           display: none;
           position: absolute;
@@ -233,9 +236,9 @@
 
           width: calc(var(--main-width) / 3);
 
-          background-color: #c2ec74aa;
-          border: 2px solid #c2ec74;
-          box-shadow: 0px 0px 5px 3px #b9f023;
+          background-color: rgb(from var(--reaction-clr) r g b / 0.5);
+          border: 2px solid var(--reaction-clr);
+          box-shadow: 0px 0px 5px 3px var(--reaction-clr-border);
 
           &.open {
             display: flex;
@@ -251,7 +254,7 @@
 
             .picker-img {
               width: 98%;
-              filter: drop-shadow(0px 0px 3px #b9f023);
+              filter: drop-shadow(0px 0px 3px var(--reaction-clr-border));
             }
           }
         }
