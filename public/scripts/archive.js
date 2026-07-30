@@ -1,49 +1,41 @@
-// archive-list.js
+// scripts/archive.js
 console.log("[Archive List] Script loaded.");
 
 (function () {
   "use strict";
 
-  // 1. Your Cloudflare Worker URL
-  var PROXY_URL = "https://fragrant-feather-c731.niktoktoto21.workers.dev/";
-
-  // 2. CHANGE THIS to any valid Archive.org list or metadata URL!
-  var TARGET_API = "https://archive.org/services/users/@user_38779/lists/1";
-
-  var CONTAINER_ID = "archive-list-container";
+  // Your Cloudflare Worker URL
+  const PROXY_URL = "https://fragrant-feather-c731.niktoktoto21.workers.dev/";
 
   function log(msg) {
     console.log("[Archive List] " + msg);
   }
-  function showError(msg) {
-    var c = document.getElementById(CONTAINER_ID);
-    if (c) c.innerHTML = '<p style="color:#cc0000;">' + msg + "</p>";
+
+  function showError(container, msg) {
+    if (container)
+      container.innerHTML = '<p style="color:#cc0000;">' + msg + "</p>";
     log("ERROR: " + msg);
   }
 
-  function renderList(data) {
-    var c = document.getElementById(CONTAINER_ID);
-    if (!c) return;
-
+  function renderList(container, data) {
     if (!data || !data.success || !data.value || !data.value.members) {
-      showError("Invalid data received from Archive.org.");
+      showError(container, "Invalid data received from Archive.org.");
       return;
     }
 
-    var members = data.value.members;
+    const members = data.value.members;
     if (members.length === 0) {
-      c.innerHTML = "<p>No items found in this list.</p>";
+      container.innerHTML = "<p>No items found in this list.</p>";
       return;
     }
 
-    var html = '<ul style="list-style-type:disc;padding-left:20px;">';
-    for (var i = 0; i < members.length; i++) {
-      var id = members[i].identifier;
-      var title = id
+    let html = '<ul style="list-style-type:disc;padding-left:20px;">';
+    for (let i = 0; i < members.length; i++) {
+      const id = members[i].identifier;
+      // Format identifier into a readable title
+      const title = id
         .split("-")
-        .map(function (w) {
-          return w.charAt(0).toUpperCase() + w.slice(1);
-        })
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
         .join(" ");
 
       html += '<li style="margin-bottom:8px;">';
@@ -55,48 +47,68 @@ console.log("[Archive List] Script loaded.");
       html += "</a></li>";
     }
     html += "</ul>";
-    c.innerHTML = html;
+
+    container.innerHTML = html;
     log("Done! Rendered " + members.length + " items.");
   }
 
   function init() {
-    var c = document.getElementById(CONTAINER_ID);
-    if (!c) {
+    // 1. Find ALL containers with the specific class and data attribute
+    const containers = document.querySelectorAll(
+      ".archive-list-container[data-target-archive-list]",
+    );
+
+    if (containers.length === 0) {
+      // Retry in case the script loads before the DOM is fully parsed
       setTimeout(init, 500);
       return;
     }
 
-    var cbName = "_archCb_" + Date.now();
+    // 2. Process each container independently
+    containers.forEach((container) => {
+      const relativePath = container.getAttribute("data-target-archive-list");
+      const targetApi = "https://archive.org/services/" + relativePath;
 
-    window[cbName] = function (response) {
-      delete window[cbName];
-      var s = document.getElementById("arch-jsonp-script");
-      if (s) s.remove();
-      renderList(response);
-    };
+      // Generate a globally unique callback name for this specific request
+      const cbName =
+        "archCb_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
 
-    // 3. Pass the TARGET_API as the 'target' query parameter
-    var scriptUrl =
-      PROXY_URL +
-      "?callback=" +
-      cbName +
-      "&target=" +
-      encodeURIComponent(TARGET_API);
+      // Define the global callback.
+      // Because of JavaScript closures, 'container' is safely remembered for this specific request.
+      window[cbName] = function (response) {
+        delete window[cbName]; // Clean up global scope
+        const scriptTag = document.getElementById(cbName + "-script");
+        if (scriptTag) scriptTag.remove(); // Clean up DOM
+        renderList(container, response);
+      };
 
-    var script = document.createElement("script");
-    script.id = "arch-jsonp-script";
-    script.src = scriptUrl;
+      // Build the request to YOUR Cloudflare Worker
+      const scriptUrl =
+        PROXY_URL +
+        "?callback=" +
+        cbName +
+        "&target=" +
+        encodeURIComponent(targetApi);
 
-    script.onerror = function () {
-      showError("Failed to load data. Check your Worker URL.");
-      script.remove();
-      delete window[cbName];
-    };
+      const script = document.createElement("script");
+      script.id = cbName + "-script";
+      script.src = scriptUrl;
 
-    log("Fetching from custom proxy...");
-    document.head.appendChild(script);
+      script.onerror = function () {
+        showError(
+          container,
+          "Failed to load data. Check Worker URL or list path.",
+        );
+        script.remove();
+        delete window[cbName];
+      };
+
+      log("Fetching: " + targetApi);
+      document.head.appendChild(script);
+    });
   }
 
+  // Initialize when DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
