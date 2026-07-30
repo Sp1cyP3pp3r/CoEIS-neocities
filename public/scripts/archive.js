@@ -1,10 +1,12 @@
+// scripts/archive.js
 console.log("[Archive List] Script loaded.");
 
 (function () {
   "use strict";
 
+  // Your Cloudflare Worker URL
   const PROXY_URL = "https://fragrant-feather-c731.niktoktoto21.workers.dev/";
-  const THUMBNAIL_WIDTH = 120; // Adjust thumbnail width as needed
+  const THUMBNAIL_WIDTH = 120;
 
   function log(msg) {
     console.log("[Archive List] " + msg);
@@ -14,42 +16,6 @@ console.log("[Archive List] Script loaded.");
     if (container)
       container.innerHTML = '<p style="color:#cc0000;">' + msg + "</p>";
     log("ERROR: " + msg);
-  }
-
-  // Helper to get thumbnail URL from metadata
-  function getThumbnailUrl(identifier, metaData) {
-    // Method 1: Try to find image files in the metadata
-    if (metaData.files && Array.isArray(metaData.files)) {
-      // Look for common image file patterns
-      const imageFiles = metaData.files.filter(function (file) {
-        return (
-          file.name &&
-          ((file.name.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp)$/i) &&
-            file.name.toLowerCase().indexOf("cover") !== -1) ||
-            file.name.toLowerCase().indexOf("image") !== -1 ||
-            file.name.toLowerCase().indexOf("front") !== -1)
-        );
-      });
-
-      if (imageFiles.length > 0) {
-        // Prefer files with 'cover' in the name
-        const coverFile =
-          imageFiles.find(function (f) {
-            return f.name.toLowerCase().indexOf("cover") !== -1;
-          }) || imageFiles[0];
-
-        return (
-          "https://archive.org/download/" +
-          identifier +
-          "/" +
-          encodeURIComponent(coverFile.name)
-        );
-      }
-    }
-
-    // Method 2: Use Archive.org's image service (fallback)
-    // This redirects to the primary image for the item
-    return "https://archive.org/services/img/" + identifier;
   }
 
   function renderList(container, data) {
@@ -64,16 +30,15 @@ console.log("[Archive List] Script loaded.");
       return;
     }
 
-    // Create a flexbox or grid container for items with thumbnails
     let html =
-      '<div style="display: flex; flex-direction: column; gap: 15px;">';
+      '<div style="display: flex; flex-direction: column; gap: 20px;">';
 
     for (let i = 0; i < members.length; i++) {
-      const id = members[i].identifier;
-      const title = members[i].title
-        .split("-")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" ");
+      const item = members[i];
+      const title = item.title;
+      const creator = item.creator;
+      const thumb = item.thumbnail;
+      const link = "https://archive.org/details/" + item.identifier;
 
       html +=
         '<div style="display: flex; gap: 15px; align-items: flex-start;">';
@@ -81,37 +46,47 @@ console.log("[Archive List] Script loaded.");
       // Thumbnail image
       html += '<div style="flex-shrink: 0;">';
       html +=
-        '<a href="https://archive.org/details/' +
-        id +
-        '" target="_blank" rel="noopener noreferrer">';
-      html += '<img src="https://archive.org/services/img/' + id + '" ';
+        '<a href="' + link + '" target="_blank" rel="noopener noreferrer">';
+      html += '<img src="' + thumb + '" ';
       html += 'alt="' + title + '" ';
       html +=
         'style="width: ' +
         THUMBNAIL_WIDTH +
-        'px; height: auto; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" ';
+        'px; height: auto; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" ';
+      // Fallback SVG if image fails to load
       html +=
-        "onerror=\"this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23ddd%22 width=%22120%22 height=%22160%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E';\" ";
+        "onerror=\"this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23eee%22 width=%22120%22 height=%22160%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Cover%3C/text%3E%3C/svg%3E';\" ";
       html += "/>";
       html += "</a>";
       html += "</div>";
 
-      // Text content
-      html += '<div style="flex: 1;">';
+      // Text content (Title + Creator)
+      html += '<div style="flex: 1; padding-top: 4px;">';
       html +=
-        '<a href="https://archive.org/details/' +
-        id +
-        '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:#0066cc;font-weight:bold;font-size:1.1em;">';
+        '<a href="' +
+        link +
+        '" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:#0066cc; font-weight:bold; font-size:1.15em; display:block; margin-bottom: 4px;">';
       html += title;
       html += "</a>";
-      html += "</div>";
 
+      if (creator) {
+        html +=
+          '<div style="color: #555; font-size: 0.95em;">by ' +
+          creator +
+          "</div>";
+      }
+
+      html += "</div>";
       html += "</div>"; // Close flex item
     }
 
     html += "</div>"; // Close flex container
     container.innerHTML = html;
-    log("Done! Rendered " + members.length + " items with thumbnails.");
+    log(
+      "Done! Rendered " +
+        members.length +
+        " items with real titles and covers.",
+    );
   }
 
   function init() {
