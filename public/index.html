@@ -142,55 +142,7 @@
         <section id="archive-org">
           <div id="archive-list-container">Loading TTRPGs list...</div>
 
-          <script>
-            // This function is called automatically by the JSONP script tag
-            function handleArchiveList(response) {
-              const container = document.getElementById(
-                "archive-list-container",
-              );
-              try {
-                // The proxy returns the actual API response as a stringified JSON in the 'contents' property
-                const listData = JSON.parse(response.contents);
-
-                if (!listData.success) {
-                  container.innerHTML = "<p>Failed to retrieve list data.</p>";
-                  return;
-                }
-
-                const members = listData.value.members;
-                let html =
-                  '<ul style="list-style-type: disc; padding-left: 20px;">';
-
-                for (const member of members) {
-                  // Format the identifier to look like a readable title
-                  const formattedTitle = member.identifier
-                    .split("-")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ");
-
-                  html += `<li style="margin-bottom: 8px;">
-        <a href="https://archive.org/details/${member.identifier}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #0066cc;">
-          ${formattedTitle}
-        </a>
-      </li>`;
-                }
-
-                html += "</ul>";
-                container.innerHTML = html;
-              } catch (error) {
-                console.error("Error parsing Archive.org list:", error);
-                container.innerHTML =
-                  '<p style="color: #cc0000;">Failed to load the TTRPGs list. The proxy service may be temporarily unavailable.</p>';
-              }
-            }
-
-            // Dynamically create a script tag to fetch the data via JSONP
-            const script = document.createElement("script");
-            const apiUrl =
-              "https://archive.org/services/users/@user_38779/lists/1";
-            script.src = `https://api.allorigins.win/get?callback=handleArchiveList&url=${encodeURIComponent(apiUrl)}`;
-            document.head.appendChild(script);
-          </script>
+          <script src="scripts/archive.js"></script>
         </section>
 
         <section id="projects">
