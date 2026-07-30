@@ -4,9 +4,12 @@ console.log("[Archive List] Script loaded.");
 (function () {
   "use strict";
 
-  // REPLACE THIS with your actual Cloudflare Worker URL from Step 1
+  // 1. Your Cloudflare Worker URL
   var PROXY_URL = "https://fragrant-feather-c731.niktoktoto21.workers.dev/";
+
+  // 2. CHANGE THIS to any valid Archive.org list or metadata URL!
   var TARGET_API = "https://archive.org/services/users/@user_38779/lists/1";
+
   var CONTAINER_ID = "archive-list-container";
 
   function log(msg) {
@@ -65,7 +68,6 @@ console.log("[Archive List] Script loaded.");
 
     var cbName = "_archCb_" + Date.now();
 
-    // Define the global callback function
     window[cbName] = function (response) {
       delete window[cbName];
       var s = document.getElementById("arch-jsonp-script");
@@ -73,12 +75,12 @@ console.log("[Archive List] Script loaded.");
       renderList(response);
     };
 
-    // Build the JSONP URL pointing to YOUR Cloudflare Worker
+    // 3. Pass the TARGET_API as the 'target' query parameter
     var scriptUrl =
       PROXY_URL +
       "?callback=" +
       cbName +
-      "&url=" +
+      "&target=" +
       encodeURIComponent(TARGET_API);
 
     var script = document.createElement("script");
