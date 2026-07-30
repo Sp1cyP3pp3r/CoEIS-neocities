@@ -69,7 +69,7 @@ console.log("[Archive List] Script loaded.");
       '<div style="display: flex; flex-direction: column; gap: 15px;">';
 
     for (let i = 0; i < members.length; i++) {
-      const id = members[i].identifier;
+      const id = members[i].title;
       const title = id
         .split("-")
         .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
