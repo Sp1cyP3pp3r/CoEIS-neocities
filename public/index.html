@@ -140,73 +140,56 @@
         -->
 
         <section id="archive-org">
-          <!-- Container where the list will be displayed -->
           <div id="archive-list-container">Loading TTRPGs list...</div>
 
           <script>
-            async function loadArchiveList() {
+            // This function is called automatically by the JSONP script tag
+            function handleArchiveList(response) {
               const container = document.getElementById(
                 "archive-list-container",
               );
-              // The JSON endpoint for your specific list
-              const listApiUrl =
-                "https://archive.org/services/users/@user_38779/lists/1";
-
               try {
-                // Step 1: Fetch the list of identifiers
-                const listResponse = await fetch(listApiUrl);
-                if (!listResponse.ok)
-                  throw new Error(`HTTP error! status: ${listResponse.status}`);
+                // The proxy returns the actual API response as a stringified JSON in the 'contents' property
+                const listData = JSON.parse(response.contents);
 
-                const listData = await listResponse.json();
-                if (!listData.success)
-                  throw new Error("Failed to retrieve list data");
+                if (!listData.success) {
+                  container.innerHTML = "<p>Failed to retrieve list data.</p>";
+                  return;
+                }
 
                 const members = listData.value.members;
                 let html =
                   '<ul style="list-style-type: disc; padding-left: 20px;">';
 
-                // Step 2: Fetch metadata for each item to display readable titles
                 for (const member of members) {
-                  const identifier = member.identifier;
-                  try {
-                    const metaResponse = await fetch(
-                      `https://archive.org/metadata/${identifier}`,
-                    );
-                    const metaData = await metaResponse.json();
+                  // Format the identifier to look like a readable title
+                  const formattedTitle = member.identifier
+                    .split("-")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ");
 
-                    const title = metaData.metadata.title || identifier;
-                    // Handle creators, which can sometimes be a string or an array
-                    const creator = metaData.metadata.creator
-                      ? ` <em>by</em> ${Array.isArray(metaData.metadata.creator) ? metaData.metadata.creator.join(", ") : metaData.metadata.creator}`
-                      : "";
-
-                    html += `<li style="margin-bottom: 8px;">
-          <a href="https://archive.org/details/${identifier}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #0066cc;">
-            ${title}
-          </a>${creator}
-        </li>`;
-                  } catch (err) {
-                    // Fallback if metadata fetch fails (e.g., temporary network error)
-                    html += `<li style="margin-bottom: 8px;">
-          <a href="https://archive.org/details/${identifier}" target="_blank" rel="noopener noreferrer">
-            ${identifier}
-          </a>
-        </li>`;
-                  }
+                  html += `<li style="margin-bottom: 8px;">
+        <a href="https://archive.org/details/${member.identifier}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #0066cc;">
+          ${formattedTitle}
+        </a>
+      </li>`;
                 }
 
                 html += "</ul>";
                 container.innerHTML = html;
               } catch (error) {
-                console.error("Error loading Archive.org list:", error);
+                console.error("Error parsing Archive.org list:", error);
                 container.innerHTML =
-                  '<p style="color: #cc0000;">Failed to load the TTRPGs list. Please try again later.</p>';
+                  '<p style="color: #cc0000;">Failed to load the TTRPGs list. The proxy service may be temporarily unavailable.</p>';
               }
             }
 
-            // Initialize the function when the script loads
-            loadArchiveList();
+            // Dynamically create a script tag to fetch the data via JSONP
+            const script = document.createElement("script");
+            const apiUrl =
+              "https://archive.org/services/users/@user_38779/lists/1";
+            script.src = `https://api.allorigins.win/get?callback=handleArchiveList&url=${encodeURIComponent(apiUrl)}`;
+            document.head.appendChild(script);
           </script>
         </section>
 
