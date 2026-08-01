@@ -141,23 +141,29 @@
 
         <section id="archive-org">
           <link rel="stylesheet" href="styles/archive.css" />
-          <!-- List 1 -->
-          <div
-            class="archive-list-container"
-            data-target-archive-list="users/@user_38779/lists/1"
-          >
-            Loading TTRPGs list...
+
+          <div class="archive-list-group">
+            <hgroup>
+              <h2>Table-top RPGs</h2>
+              <p>List of ttrpgs</p>
+            </hgroup>
+            <div
+              class="archive-list-container"
+              data-target-archive-list="users/@user_38779/lists/1"
+            >
+              Loading TTRPGs list...
+            </div>
           </div>
 
-          <!-- List 2 (Example of a second list) -->
-          <div
-            class="archive-list-container"
-            data-target-archive-list="users/@user_38779/lists/2"
-          >
-            Loading Books list...
+          <div class="archive-list-group">
+            <div
+              class="archive-list-container"
+              data-target-archive-list="users/@user_38779/lists/2"
+            >
+              Loading Books list...
+            </div>
           </div>
 
-          <!-- The script only needs to be included ONCE per page, ideally at the bottom -->
           <script src="scripts/archive.js"></script>
         </section>
 
