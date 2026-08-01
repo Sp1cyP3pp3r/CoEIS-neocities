@@ -34,27 +34,29 @@ console.log("[Archive List] Script loaded.");
 
     for (let i = 0; i < members.length; i++) {
       const item = members[i];
-      const meta = item.metadata; // <--- HERE IS YOUR DICTIONARY
 
-      // 1. Extract Title (Archive.org sometimes returns arrays instead of strings)
+      // DEBUG: Log the first item so we can see exactly what the Worker sent
+      if (i === 0) {
+        console.log("[Archive List] First item data structure:", item);
+      }
+
+      const meta = item.metadata || {};
+
+      // Safely extract Identifier (prevents "undefined" URLs)
+      const identifier = item.identifier || "unknown";
+
+      // 1. Extract Title
       let title = meta.title;
       if (Array.isArray(title)) title = title.join(" ");
-      if (!title) title = item.identifier;
+      if (!title) title = identifier;
 
       // 2. Extract Creator
       let creator = meta.creator;
       if (Array.isArray(creator)) creator = creator.join(", ");
 
-      // 3. Extract Thumbnail (Using the reliable Archive.org image service)
-      const thumb = `https://archive.org/services/img/${item.identifier}`;
-      const link = `https://archive.org/details/${item.identifier}`;
-
-      /*
-       * NOW YOU CAN EASILY ADD ANYTHING ELSE FROM THE DICTIONARY!
-       * Example:
-       * const description = meta.description || '';
-       * const subjects = Array.isArray(meta.subject) ? meta.subject.join(', ') : (meta.subject || '');
-       */
+      // 3. Extract Thumbnail SAFELY
+      const thumb = `https://archive.org/services/img/${identifier}`;
+      const link = `https://archive.org/details/${identifier}`;
 
       html +=
         '<div style="display: flex; gap: 15px; align-items: flex-start;">';
@@ -68,6 +70,7 @@ console.log("[Archive List] Script loaded.");
         'style="width: ' +
         THUMBNAIL_WIDTH +
         'px; height: auto; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" ';
+      // Fallback SVG if image fails to load
       html +=
         "onerror=\"this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23eee%22 width=%22120%22 height=%22160%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Cover%3C/text%3E%3C/svg%3E';\" ";
       html += "/>";
@@ -96,11 +99,7 @@ console.log("[Archive List] Script loaded.");
 
     html += "</div>";
     container.innerHTML = html;
-    log(
-      "Done! Rendered " +
-        members.length +
-        " items using raw metadata dictionary.",
-    );
+    log("Done! Rendered " + members.length + " items.");
   }
 
   function init() {
