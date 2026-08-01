@@ -1,29 +1,42 @@
 #archive-org {
+  width: 100%;
+
+  background-color: #eee;
+
+  hgroup {
+    background-color: #0a0a0a;
+    color: white;
+    h2,
+    h1,
+    p {
+      font-family: Effra;
+    }
+  }
 }
 
 .archive-list-container {
+  width: 100%;
 }
 
 .archive-list {
+  --thumb-width: 130px;
+
+  display: flex;
+  flex-flow: row wrap;
+
+  justify-content: center;
 }
 
 .archive-item {
+  width: var(--thumb-width);
 }
 
 .archive-thumb {
+  width: var(--thumb-width);
 }
 
 .archive-info {
 }
 
 .archive-title {
-}
-
-.archive-title:hover {
-}
-
-.archive-creator {
-}
-
-.archive-error {
 }
