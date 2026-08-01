@@ -4,7 +4,6 @@ console.log("[Archive List] Script loaded.");
 (function () {
   "use strict";
 
-  // Your Cloudflare Worker URL
   const PROXY_URL = "https://fragrant-feather-c731.niktoktoto21.workers.dev/";
   const THUMBNAIL_WIDTH = 120;
 
@@ -35,10 +34,27 @@ console.log("[Archive List] Script loaded.");
 
     for (let i = 0; i < members.length; i++) {
       const item = members[i];
-      const title = item.title;
-      const creator = item.creator;
-      const thumb = item.thumbnail;
-      const link = "https://archive.org/details/" + item.identifier;
+      const meta = item.metadata; // <--- HERE IS YOUR DICTIONARY
+
+      // 1. Extract Title (Archive.org sometimes returns arrays instead of strings)
+      let title = meta.title;
+      if (Array.isArray(title)) title = title.join(" ");
+      if (!title) title = item.identifier;
+
+      // 2. Extract Creator
+      let creator = meta.creator;
+      if (Array.isArray(creator)) creator = creator.join(", ");
+
+      // 3. Extract Thumbnail (Using the reliable Archive.org image service)
+      const thumb = `https://archive.org/services/img/${item.identifier}`;
+      const link = `https://archive.org/details/${item.identifier}`;
+
+      /*
+       * NOW YOU CAN EASILY ADD ANYTHING ELSE FROM THE DICTIONARY!
+       * Example:
+       * const description = meta.description || '';
+       * const subjects = Array.isArray(meta.subject) ? meta.subject.join(', ') : (meta.subject || '');
+       */
 
       html +=
         '<div style="display: flex; gap: 15px; align-items: flex-start;">';
@@ -47,20 +63,18 @@ console.log("[Archive List] Script loaded.");
       html += '<div style="flex-shrink: 0;">';
       html +=
         '<a href="' + link + '" target="_blank" rel="noopener noreferrer">';
-      html += '<img src="' + thumb + '" ';
-      html += 'alt="' + title + '" ';
+      html += '<img src="' + thumb + '" alt="' + title + '" ';
       html +=
         'style="width: ' +
         THUMBNAIL_WIDTH +
         'px; height: auto; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" ';
-      // Fallback SVG if image fails to load
       html +=
         "onerror=\"this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23eee%22 width=%22120%22 height=%22160%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Cover%3C/text%3E%3C/svg%3E';\" ";
       html += "/>";
       html += "</a>";
       html += "</div>";
 
-      // Text content (Title + Creator)
+      // Text content
       html += '<div style="flex: 1; padding-top: 4px;">';
       html +=
         '<a href="' +
@@ -77,15 +91,15 @@ console.log("[Archive List] Script loaded.");
       }
 
       html += "</div>";
-      html += "</div>"; // Close flex item
+      html += "</div>";
     }
 
-    html += "</div>"; // Close flex container
+    html += "</div>";
     container.innerHTML = html;
     log(
       "Done! Rendered " +
         members.length +
-        " items with real titles and covers.",
+        " items using raw metadata dictionary.",
     );
   }
 
