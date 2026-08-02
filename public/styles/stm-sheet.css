@@ -1,6 +1,10 @@
 #stm-sheet {
+  --sheet-padding: 1em;
+
   position: relative;
   flex-flow: column nowrap;
+
+  padding: var(--sheet-padding);
 }
 
 #sheet-header {
