@@ -12,7 +12,7 @@ $(function () {
     // 4. Используем .slice() для точечного изменения свойств только нужных элементов
     if (this.checked) {
       // Заполняем всё СЛЕВА (включая текущий): от 0 до index + 1
-      $checkboxes.slice(0, index + 2).prop("checked", true);
+      $checkboxes.slice(0, index + 0).prop("checked", true);
     } else {
       // Сбрасываем текущий и ВСЕ элементы СПРАВА: от index до конца
       $checkboxes.slice(index).prop("checked", false);
