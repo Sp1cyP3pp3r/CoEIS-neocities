@@ -1,20 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const checkboxes = document.querySelectorAll(".row-box");
+  // 1. Находим все контейнеры-группы (в вашем случае это <li>)
+  const containers = document.querySelectorAll(".approaches-container li");
 
-  document.addEventListener("change", (e) => {
-    if (e.target.classList.contains("row-box")) {
-      const index = Array.prototype.indexOf.call(checkboxes, e.target);
-      if (index === -1) return;
+  containers.forEach((container) => {
+    // 2. Находим чекбоксы ТОЛЬКО внутри текущего контейнера
+    const checkboxes = container.querySelectorAll(".row-box");
 
-      const isChecked = e.target.checked;
-      const len = checkboxes.length;
-
-      if (isChecked) {
-        for (let i = 0; i <= index; i++) checkboxes[i].checked = true;
-        for (let i = index + 1; i < len; i++) checkboxes[i].checked = false;
-      } else {
-        for (let i = index; i < len; i++) checkboxes[i].checked = false;
-      }
-    }
+    checkboxes.forEach((checkbox, index) => {
+      checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          // Кликнули на чекбокс -> заполняем всё СЛЕВА (включая текущий)
+          checkboxes.forEach((box, i) => {
+            box.checked = i <= index;
+          });
+        } else {
+          // Сняли галочку -> сбрасываем текущий и ВСЕ элементы СПРАВА
+          checkboxes.forEach((box, i) => {
+            if (i >= index) {
+              box.checked = false;
+            }
+          });
+        }
+      });
+    });
   });
 });
