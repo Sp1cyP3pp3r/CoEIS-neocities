@@ -9,7 +9,7 @@
 
   hgroup {
     h1,
-    :heading() {
+    :heading {
     }
 
     p {
