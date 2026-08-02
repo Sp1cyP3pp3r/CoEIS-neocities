@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   containers.forEach((container) => {
     // 2. Находим чекбоксы ТОЛЬКО внутри текущего контейнера
-    const checkboxes = container.querySelectorAll(".row-box");
+    const checkboxes = container.querySelectorAll(".approach-checkbox");
 
     checkboxes.forEach((checkbox, index) => {
       checkbox.addEventListener("change", function () {
