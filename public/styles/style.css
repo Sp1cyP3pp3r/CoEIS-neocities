@@ -149,6 +149,42 @@
   }
 }
 
+/* =========================================
+   Layout adjustments when <aside> is absent
+   ========================================= */
+
+/* Base fallback for no aside */
+body:not(:has(aside)) {
+  --body-template-areas: "HEAD" "MAIN" "FOOT";
+  --body-template-rows: var(--header-height) 1fr var(--footer-height);
+  --body-template-columns: 1fr;
+}
+
+/* Mobile without aside */
+@media (max-aspect-ratio: 3/4) or ((min-aspect-ratio: 3/4) and (max-aspect-ratio: 1/1)) {
+  body:not(:has(aside)) {
+    --body-template-areas: "HEAD" "MAIN" "FOOT";
+    --body-template-rows: var(--header-height) 1fr var(--footer-height);
+    --body-template-columns: 1fr;
+  }
+}
+
+/* Desktop without aside */
+@media ((min-aspect-ratio: 1/1) and (max-aspect-ratio: 4/3)) or (min-aspect-ratio: 4/3) {
+  body:not(:has(aside)) {
+    --body-template-areas: "HEAD" "MAIN" "FOOT";
+    --body-template-rows: var(--header-height) 1fr var(--footer-height);
+    --body-template-columns: 1fr;
+  }
+}
+
+/* Ultra-wide without aside */
+@media (min-width: 2048px) {
+  body:not(:has(aside)) {
+    --body-template-columns: 1fr;
+  }
+}
+
 body {
   display: grid;
   grid-template-areas: var(--body-template-areas);
