@@ -3,11 +3,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkboxes.forEach((checkbox, index) => {
     checkbox.addEventListener("change", function () {
-      // Запускаем цикл по всем последующим чекбоксам
-      for (let i = index + 1; i < checkboxes.length; i++) {
-        // Если текущий чекбокс отметили — отмечаем последующие.
-        // Если сняли отметку — снимаем и с последующих.
-        checkboxes[i].checked = this.checked;
+      // Кликнули на ЧЕКНУТЫЙ бокс -> заполняем всё СЛЕВА, сбрасываем всё СПРАВА
+      if (this.checked) {
+        checkboxes.forEach((box, i) => {
+          box.checked = i <= index;
+        });
+      }
+      // Кликнули на УЖЕ ОТМЕЧЕННЫЙ бокс (чтобы снять галочку) ->
+      // сбрасываем его и ВСЕ элементы СПРАВА от него
+      else {
+        checkboxes.forEach((box, i) => {
+          if (i >= index) {
+            box.checked = false;
+          }
+        });
       }
     });
   });
