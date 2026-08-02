@@ -1,29 +1,29 @@
 $(function () {
-  // 1. Делегирование событий: один слушатель для любого .point-container
-  // (используем $(document), чтобы работало даже при динамическом добавлении элементов)
+  // 1. Делегирование событий на любой .point-checkbox внутри .point-container
   $(document).on("change", ".point-container .point-checkbox", function () {
+    // 2. Изолируем контекст строго в пределах родительского .point-container
+    // Это надежнее, чем closest("li"), так как работает независимо от наличия тегов <li>
     const $container = $(this).closest(".point-container");
-    const $li = $(this).closest("li");
-    const $checkboxes = $li.find(".point-checkbox");
+    const $checkboxes = $container.find(".point-checkbox");
     const index = $checkboxes.index(this);
 
     if (this.checked) {
-      // Пользователь отметил пустой чекбокс:
+      // Пользователь отметил чекбокс:
       // Отмечаем текущий и все СЛЕВА от него
       $checkboxes.slice(0, index + 1).prop("checked", true);
-      // Снимаем отметку со всех СПРАВА от него (чтобы блок оставался сплошным)
+      // Снимаем отметку со всех СПРАВА от него (чтобы трек оставался сплошным)
       $checkboxes.slice(index + 1).prop("checked", false);
     } else {
       // Пользователь снял отметку с уже отмеченного чекбокса:
-      // Снимаем отметку с текущего и всех СПРАВА от него
+      // Снимаем отметку с текущего и всех СПРАВА от него.
+      // (Если справа нет отмеченных, это просто снимет отметку с текущего, как вы и описали)
       $checkboxes.slice(index).prop("checked", false);
     }
 
-    // 2. Обновляем .point-total
-    // Считаем все отмеченные чекбоксы внутри этого .point-container
+    // 3. Обновляем .point-total
     const totalCount = $container.find(".point-checkbox:checked").length;
 
-    // Находим .point-total (поддерживаем оба варианта: когда он внутри контейнера или является соседним элементом)
+    // Гибкий поиск .point-total: сначала внутри контейнера, если нет — среди его соседей
     const $total = $container.find(".point-total").length
       ? $container.find(".point-total")
       : $container.siblings(".point-total");
