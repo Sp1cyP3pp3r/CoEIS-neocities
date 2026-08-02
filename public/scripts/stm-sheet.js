@@ -1,31 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".approaches-container");
-  if (!container) return;
+$(function () {
+  // 1. Event Delegation: ОДИН слушатель на весь контейнер
+  $(".approaches-container").on("change", ".approach-checkbox", function () {
+    // 2. Изолируем контекст: находим родительский <li> и чекбоксы внутри него
+    const $li = $(this).closest("li");
+    const $checkboxes = $li.find(".approach-checkbox");
 
-  // 1. Event Delegation: Вешаем ОДИН слушатель на весь контейнер вместо каждого чекбокса
-  container.addEventListener("change", (event) => {
-    const target = event.target;
+    // 3. Получаем индекс текущего чекбокса относительно группы
+    const index = $checkboxes.index(this);
 
-    // 2. Проверяем, что клик был именно по нужному чекбоксу
-    if (!target.classList.contains("approach-checkbox")) return;
-
-    // 3. Изолируем контекст: берем чекбоксы только внутри текущего <li>
-    const checkboxes = Array.from(
-      target.closest("li").querySelectorAll(".approach-checkbox"),
-    );
-    const index = checkboxes.indexOf(target);
-
-    // 4. Оптимизированные циклы: меняем состояние только у тех элементов, которым это нужно
-    if (target.checked) {
-      // Заполняем всё СЛЕВА (включая текущий)
-      for (let i = 0; i <= index; i++) {
-        checkboxes[i].checked = true;
-      }
+    // 4. Используем .slice() для точечного изменения свойств только нужных элементов
+    if (this.checked) {
+      // Заполняем всё СЛЕВА (включая текущий): от 0 до index + 1
+      $checkboxes.slice(0, index + 1).prop("checked", true);
     } else {
-      // Сбрасываем текущий и ВСЕ элементы СПРАВА
-      for (let i = index; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-      }
+      // Сбрасываем текущий и ВСЕ элементы СПРАВА: от index до конца
+      $checkboxes.slice(index).prop("checked", false);
     }
   });
 });
