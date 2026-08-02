@@ -1,3 +1,18 @@
 #stm-sheet {
+  position: relative;
   flex-flow: column nowrap;
+}
+
+#sheet-header {
+  display: flex;
+  position: absolute;
+
+  hgroup {
+    h1,
+    :heading() {
+    }
+
+    p {
+    }
+  }
 }
