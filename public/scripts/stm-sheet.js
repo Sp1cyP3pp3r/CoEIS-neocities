@@ -1,9 +1,9 @@
 $(function () {
   // 1. Event Delegation: ОДИН слушатель на весь контейнер
-  $(".approaches-container").on("change", ".approach-checkbox", function () {
+  $(".approaches-container").on("change", ".point-checkbox", function () {
     // 2. Изолируем контекст: находим родительский <li> и чекбоксы внутри него
     const $li = $(this).closest("li");
-    const $checkboxes = $li.find(".approach-checkbox");
+    const $checkboxes = $li.find(".point-checkbox");
 
     // 3. Получаем индекс текущего чекбокса относительно группы
     const index = $checkboxes.index(this);
