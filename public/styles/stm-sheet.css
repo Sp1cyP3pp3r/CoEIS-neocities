@@ -1,6 +1,16 @@
+:root {
+  --body-bg-img: url("https://img2.joyreactor.cc/pics/post/full/Fantasy-art-%D0%A0%D0%B5%D1%82%D1%80%D0%BE-%D1%84%D1%8D%D0%BD%D1%82%D0%B5%D0%B7%D0%B8-6553324.jpeg");
+}
+
 #stm-sheet {
   --sheet-padding: 1em;
 
+  --point-width: 2ch;
+
+  --sect-approaches-width: 50%;
+  --sect-attributes-width: 50%;
+
+  background-color: rgba(38, 39, 55, 0.6);
   position: relative;
   flex-flow: column nowrap;
 
@@ -21,4 +31,154 @@
     p {
     }
   }
+}
+
+#sheet-body {
+  width: 100%;
+}
+
+#sheet-lore {
+  --lore-item-height-orig: 25px;
+  --lore-item-height: var(--lore-item-height-orig);
+
+  --lore-width: 100%;
+  --span-width: 15ch;
+  --input-width: 100%;
+
+  --name-w: 45%;
+  --persona-w: calc(100% - var(--name-w));
+
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+
+  .lore-container {
+    display: flex;
+    flex-flow: row wrap;
+    width: var(--lore-width);
+
+    > div {
+      display: flex;
+      flex-flow: column wrap;
+      width: 100%;
+
+      div {
+        background-color: #0a0a0a;
+        color: white;
+        height: var(--lore-item-height);
+        line-height: var(--lore-item-height);
+
+        label {
+          display: flex;
+          flex-flow: row nowrap;
+          width: 100%;
+
+          span {
+            display: inline-block;
+            width: var(--span-width);
+            text-align: start;
+
+            padding-inline-start: calc(var(--span-width) / 20);
+          }
+
+          input {
+            width: var(--input-width);
+            height: var(--lore-item-height);
+            line-height: var(--lore-item-height);
+
+            background-color: #3a3a3a;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .lore-name-concept-container {
+      --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
+
+      width: var(--name-w);
+    }
+
+    .lore-persona {
+      width: var(--persona-w);
+    }
+  }
+}
+
+#sheet-parameters {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+}
+
+#section-approaches {
+  width: var(--sect-approaches-width);
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.approaches-container {
+  display: flex;
+  flex-flow: column wrap;
+
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+  }
+}
+
+.approach-list-item {
+  width: 50%;
+
+  .approach-container {
+    display: grid;
+    grid-template-areas: "---- NAME TOTL" "IMAG PNTS PNTS" "IMAG PNTS PNTS";
+    align-items: center;
+    justify-items: stretch;
+
+    .approach-name {
+      grid-area: NAME;
+      h4,
+      :heading {
+      }
+
+      p {
+      }
+    }
+
+    img {
+      display: block;
+      grid-area: IMAG;
+    }
+
+    .point-container {
+      grid-area: PNTS;
+
+      width: 50%;
+      margin-inline: auto;
+
+      .point-checkbox {
+      }
+    }
+
+    .point-total {
+      grid-area: TOTL;
+    }
+  }
+}
+
+.point-container {
+}
+
+.point-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: var(--point-width);
+  height: var(--point-width);
+
+  background-color: white;
+}
+.point-checkbox:checked {
+  background-color: red;
 }
