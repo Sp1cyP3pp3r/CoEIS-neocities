@@ -245,7 +245,7 @@ header {
     & > ul {
       display: flex;
       flex-flow: row nowrap;
-      gap: var(--list-gap-width);
+      column-gap: var(--list-gap-width);
 
       li {
         --bg-color: var(--clr-main);
