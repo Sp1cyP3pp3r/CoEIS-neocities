@@ -12,7 +12,7 @@ $(function () {
     // 4. Используем .slice() для точечного изменения свойств только нужных элементов
     if (this.checked) {
       // Заполняем всё СЛЕВА (включая текущий): от 0 до index + 1
-      $checkboxes.slice(0, index + 1).prop("checked", true);
+      $checkboxes.slice(0, index + 0).prop("checked", true);
     } else {
       // Сбрасываем текущий и ВСЕ элементы СПРАВА: от index до конца
       $checkboxes.slice(index).prop("checked", false);
@@ -24,16 +24,5 @@ $(function () {
 
     // Находим соседний элемент .point-total и обновляем его текст
     $container.siblings(".point-total").text(totalCount);
-
-    /* 
-      АДАПТАЦИЯ ПОД ВАШ HTML:
-      
-      Вариант А: Если .point-total находится ВНУТРИ .point-container, замените строку выше на:
-      $container.find(".point-total").text(totalCount);
-      
-      Вариант Б: Если подсчёт должен вестись отдельно для каждого <li> (а не всего контейнера), замените на:
-      const liCount = $li.find(".point-checkbox:checked").length;
-      $li.siblings(".point-total").text(liCount);
-    */
   });
 });
