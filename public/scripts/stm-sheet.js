@@ -1,7 +1,8 @@
 $(function () {
-  // 1. Event Delegation: ОДИН слушатель на весь контейнер
-  $(".approaches-container").on("change", ".point-checkbox", function () {
-    // 2. Изолируем контекст: находим родительский <li> и чекбоксы внутри него
+  // 1. Event Delegation: ОДИН слушатель на любой .point-container (работает и для динамически добавленных элементов)
+  $(document).on("change", ".point-container .point-checkbox", function () {
+    // 2. Изолируем контекст: находим родительский .point-container и текущий <li>
+    const $container = $(this).closest(".point-container");
     const $li = $(this).closest("li");
     const $checkboxes = $li.find(".point-checkbox");
 
@@ -16,5 +17,23 @@ $(function () {
       // Сбрасываем текущий и ВСЕ элементы СПРАВА: от index до конца
       $checkboxes.slice(index).prop("checked", false);
     }
+
+    // 5. Обновляем sibling .point-total
+    // Считаем все отмеченные чекбоксы внутри этого .point-container
+    const totalCount = $container.find(".point-checkbox:checked").length;
+
+    // Находим соседний элемент .point-total и обновляем его текст
+    $container.siblings(".point-total").text(totalCount);
+
+    /* 
+      АДАПТАЦИЯ ПОД ВАШ HTML:
+      
+      Вариант А: Если .point-total находится ВНУТРИ .point-container, замените строку выше на:
+      $container.find(".point-total").text(totalCount);
+      
+      Вариант Б: Если подсчёт должен вестись отдельно для каждого <li> (а не всего контейнера), замените на:
+      const liCount = $li.find(".point-checkbox:checked").length;
+      $li.siblings(".point-total").text(liCount);
+    */
   });
 });
