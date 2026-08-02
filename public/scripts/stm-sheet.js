@@ -1,16 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Превращаем коллекцию чекбоксов в массив и разворачиваем его
-  const checkboxes = Array.from(
-    document.querySelectorAll(".row-box"),
-  ).reverse();
+  const checkboxes = document.querySelectorAll(".row-box");
 
   checkboxes.forEach((checkbox, index) => {
     checkbox.addEventListener("change", function () {
-      if (this.checked) {
-        // Теперь "последующие" элементы в массиве — это элементы левее на экране
-        for (let i = index + 1; i < checkboxes.length; i++) {
-          checkboxes[i].checked = true;
-        }
+      // Запускаем цикл по всем последующим чекбоксам
+      for (let i = index + 1; i < checkboxes.length; i++) {
+        // Если текущий чекбокс отметили — отмечаем последующие.
+        // Если сняли отметку — снимаем и с последующих.
+        checkboxes[i].checked = this.checked;
       }
     });
   });
