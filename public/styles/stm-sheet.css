@@ -171,6 +171,8 @@
 .point-container {
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .point-checkbox {
