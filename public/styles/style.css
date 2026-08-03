@@ -683,6 +683,15 @@ footer {
   width: 110%;
   margin-inline-start: -5%;
 
+  h2 {
+    font-family: var(--font-fancy) !important;
+    color: var(--clr-comp);
+    text-shadow:
+      var(--clr-main) 3px 3px 0px,
+      var(--clr-aux) 3px 3px 5px;
+    font-size: 30px;
+  }
+
   #contacts {
     display: flex;
     flex-flow: column wrap;
@@ -698,15 +707,6 @@ footer {
       img {
         width: 2em;
       }
-    }
-
-    h2 {
-      font-family: var(--font-fancy) !important;
-      color: var(--clr-comp);
-      text-shadow:
-        var(--clr-main) 3px 3px 0px,
-        var(--clr-aux) 0px 0px 5px;
-      font-size: 30px;
     }
   }
 
