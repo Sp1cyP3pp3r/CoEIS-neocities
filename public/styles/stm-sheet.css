@@ -48,8 +48,10 @@
   --span-width: 15ch;
   --input-width: 100%;
 
-  --name-w: 45%;
-  --persona-w: calc(100% - var(--name-w));
+  --name-w-perc: 45%;
+  --name-w: 405px;
+  --persona-w-perc: calc(100% - var(--name-w));
+  --persona-w: 495px;
 
   display: flex;
   flex-flow: column wrap;
@@ -99,11 +101,11 @@
     .lore-name-concept-container {
       --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
 
-      width: var(--name-w);
+      width: min(var(--name-w), var(--name-w-perc));
     }
 
     .lore-persona {
-      width: var(--persona-w);
+      width: min(var(--persona-w), var(--persona-w-perc));
     }
   }
 }
