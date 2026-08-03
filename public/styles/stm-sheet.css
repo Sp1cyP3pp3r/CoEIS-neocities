@@ -9,8 +9,8 @@
   --point-width: 2ch;
   --point-gap: 3px;
 
-  --sect-approaches-width: 600px;
-  --sect-attributes-width: 600px;
+  --sect-approaches-width: 450px;
+  --sect-attributes-width: 450px;
 
   background-color: rgba(38, 39, 55, 0.6);
   position: relative;
@@ -112,7 +112,7 @@
   display: flex;
   flex-flow: row wrap;
 
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
 
