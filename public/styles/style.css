@@ -704,6 +704,7 @@ footer {
       font-family: var(--font-fancy) !important;
       color: var(--clr-aux);
       text-shadow: var(--clr-comp) 3px 3px 0px;
+      font-size: 16px;
     }
   }
 
