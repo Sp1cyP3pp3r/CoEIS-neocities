@@ -175,6 +175,7 @@
       grid-template-columns: repeat(4, var(--point-width));
 
       align-content: center;
+      justify-content: center;
       justify-items: center;
 
       .point-checkbox {
