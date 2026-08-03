@@ -355,7 +355,7 @@
 
 .skill-list-item {
   width: 100%;
-  height: var(--point-width);
+  height: fit-content;
 
   display: flex;
   flex-flow: row wrap;
@@ -367,6 +367,7 @@
   }
 
   .point-container {
+    height: var(--point-width);
   }
 
   .point-checkbox {
