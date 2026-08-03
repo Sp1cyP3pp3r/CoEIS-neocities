@@ -368,6 +368,7 @@
 
   .skill-name {
     width: 6ch;
+    text-align: center;
   }
 
   .point-container {
