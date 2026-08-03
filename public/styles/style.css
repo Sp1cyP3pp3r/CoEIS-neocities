@@ -695,7 +695,8 @@ footer {
   #contacts {
     display: flex;
     flex-flow: column wrap;
-    align-items: flex-starts;
+    align-items: stretch;
+    justify-content: flex-start;
 
     nav > ul {
       display: flex;
