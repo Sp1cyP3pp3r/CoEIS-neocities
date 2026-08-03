@@ -684,6 +684,10 @@ footer {
     nav > ul {
       display: flex;
       flex-flow: row wrap;
+
+      img {
+        width: 1em;
+      }
     }
   }
 
