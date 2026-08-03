@@ -183,3 +183,9 @@
 .point-checkbox:checked {
   background-color: red;
 }
+
+/* ATTRIBUTES */
+
+.attribute-container img {
+  fill: white;
+}
