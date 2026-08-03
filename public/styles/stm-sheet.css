@@ -37,6 +37,7 @@
 
 #sheet-body {
   width: 100%;
+  flex-flow: column nowrap;
 }
 
 #sheet-lore {
@@ -109,7 +110,7 @@
 
 #sheet-parameters {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   width: 100%;
 
   > hgroup {
