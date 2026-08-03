@@ -103,12 +103,12 @@
 
       width: var(--name-w-perc);
       min-width: var(--name-w);
+      flex: 1;
     }
 
     .lore-persona {
       width: var(--persona-w-perc);
       min-width: var(--persona-w);
-      flex: 1;
     }
   }
 }
