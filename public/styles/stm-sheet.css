@@ -364,7 +364,7 @@
   height: fit-content;
 
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: flex-end;
   justify-content: center;
 
