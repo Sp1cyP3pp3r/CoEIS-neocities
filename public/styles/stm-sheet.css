@@ -428,3 +428,130 @@
 .attribute-container img {
   fill: white;
 }
+
+/* =========================================
+   MOBILE SHEET OPTIMIZATIONS
+   Fluid layout for any mobile display
+   ========================================= */
+@media (max-width: 768px) {
+  #stm-sheet {
+    --sect-approaches-width: 100%;
+    --sect-attributes-width: 100%;
+    --sheet-padding: 0.75em;
+  }
+
+  /* 1. LORE: Destroy hardcoded min-widths that force horizontal scrolling */
+  #sheet-lore {
+    --name-w: 0px;
+    --persona-w: 0px;
+  }
+
+  #sheet-lore .lore-name-concept-container,
+  #sheet-lore .lore-persona {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Stack labels above inputs for better narrow-screen readability */
+  #sheet-lore label {
+    flex-direction: column !important;
+    height: auto !important;
+    padding-block: 4px;
+  }
+
+  #sheet-lore label span {
+    width: 100% !important;
+    padding-inline-start: 0 !important;
+    margin-block-end: 4px;
+  }
+
+  #sheet-lore label input {
+    width: 100% !important;
+  }
+
+  /* 2. PARAMETERS: Stack sections vertically */
+  #sheet-parameters {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 2em;
+  }
+
+  #section-approaches,
+  #section-dice-parameters {
+    width: 100% !important;
+    margin-inline-start: 0 !important; /* Remove desktop negative margins */
+  }
+
+  /* 3. APPROACHES: Stack vertically and optimize grid to guarantee fit */
+  .approach-list-item {
+    width: 100% !important;
+  }
+
+  .approach-container {
+    grid-template-columns: auto 1fr auto !important;
+    grid-template-areas:
+      "IMAG NAME TOTL"
+      "IMAG PNTS PNTS" !important;
+  }
+
+  /* 4. ATTRIBUTES: Fix height bug and center 3-column layout */
+  #section-attributes {
+    height: auto !important;
+  }
+
+  .attribute-item-list {
+    margin-inline-start: 0 !important;
+    width: 33.333% !important;
+    display: flex;
+    justify-content: center;
+  }
+
+  .attribute-container svg {
+    max-width: 90% !important;
+    height: auto !important;
+    /* Scale down slightly to ensure 3 columns fit comfortably */
+    transform: scale(0.85) translateY(var(--svg-top-margin, 0)) !important;
+  }
+
+  /* 5. SKILLS: Fluid wrapping instead of forced 3 columns */
+  .skills-container ul {
+    justify-content: center !important;
+    gap: 1rem !important;
+  }
+
+  .skill-list-item-container {
+    width: auto !important;
+    flex-basis: 160px; /* Natural wrapping width */
+    flex-grow: 1;
+    max-width: 200px;
+  }
+
+  .skill-list-item {
+    justify-content: space-between !important;
+    gap: 0.5rem;
+  }
+
+  /* Un-absolute the total so it stays in the flex flow and doesn't overlap */
+  .skill-list-item .point-total {
+    position: static !important;
+    margin-inline-start: auto;
+  }
+
+  /* 6. EXTRA SMALL PHONES (e.g., iPhone SE, split-screen, older devices) */
+  @media (max-width: 480px) {
+    .attribute-item-list {
+      width: 50% !important; /* Drop to 2 columns for attributes */
+    }
+
+    .skill-list-item-container {
+      flex-basis: 100%; /* Drop to 1 column for skills */
+      max-width: 100%;
+    }
+
+    /* Scale down approach icons slightly if needed */
+    .approach-container img {
+      max-width: 40px;
+      height: auto;
+    }
+  }
+}
