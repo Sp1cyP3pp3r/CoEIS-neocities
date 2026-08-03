@@ -703,7 +703,9 @@ footer {
     h2 {
       font-family: var(--font-fancy) !important;
       color: var(--clr-comp);
-      text-shadow: var(--clr-main) 3px 3px 0px;
+      text-shadow:
+        var(--clr-main) 3px 3px 0px,
+        var(--clr-aux) 0px 0px 5px;
       font-size: 30px;
     }
   }
