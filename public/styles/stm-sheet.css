@@ -379,6 +379,7 @@
   }
 
   .point-total {
+    position: absolute;
     text-align: center;
     width: 1ch;
   }
