@@ -9,8 +9,8 @@
   --point-width: 2ch;
   --point-gap: 3px;
 
-  --sect-approaches-width: 50%;
-  --sect-attributes-width: 50%;
+  --sect-approaches-width: 600px;
+  --sect-attributes-width: 600px;
 
   background-color: rgba(38, 39, 55, 0.6);
   position: relative;
@@ -122,7 +122,7 @@
 /* APPROACHES */
 
 #section-approaches {
-  width: var(--sect-approaches-width);
+  width: min(100%, var(--sect-approaches-width));
   display: flex;
   flex-flow: column wrap;
 
