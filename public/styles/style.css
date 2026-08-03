@@ -31,6 +31,11 @@
   --font-heading-small: "ClickClack (RUS BY hidsky41)", sans-serif;
   --font-fancy: "Monotype Corsiva", "Palatino Linotype", "Constantia", cursive;
 
+  /*
+    background-color: rgb(22, 22, 22);
+    color: #eaeaea;
+    */
+
   --vp-width: 100dvw;
   width: var(--vp-width);
   max-width: 100%;
@@ -71,7 +76,7 @@
 }
 
 /* Mobile */
-@media (max-width: 1024px) {
+@media (max-aspect-ratio: 3/4) or ((min-aspect-ratio: 3/4) and (max-aspect-ratio: 1/1)) {
   :root {
     --mobile: true;
     --desktop: false;
@@ -81,59 +86,55 @@
     --timeline-flow: row nowrap;
     --timeline-overflow-x: scroll;
     --body-padding-mult: 0;
-    --body-template-rows: auto 1fr auto auto;
+
+    /* FIX: Changed fixed heights to auto so the grid expands when header wraps */
+    --body-template-rows: auto minmax(0, 1fr) var(--aside-height) auto;
     --body-template-columns: 1fr;
 
     --main-width: calc(var(--vp-width) - (var(--body-padding-inline) * 2));
+    /* FIX: Changed to auto to prevent calc() errors when header-height is auto */
     --main-height: auto;
 
-    --main-margin-base: 10px;
+    --main-margin-base: 0px;
     --main-margin-block: var(--main-margin-base);
-    --main-margin-inline: calc(var(--main-margin-base) * 2);
+    --main-margin-inline: calc(var(--main-margin-base) * 5);
 
     --aside-negative-margin: 0;
   }
 
+  /* FIX: Prevent horizontal overflow by allowing header and nav to wrap */
   header {
-    flex-flow: row wrap;
-    justify-content: center;
+    flex-flow: row wrap !important;
+    justify-content: center !important;
     gap: 1rem;
-    padding-block: 1rem;
   }
 
   header > a {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+    width: 100%;
     text-align: center;
+    justify-content: center;
   }
 
   header nav {
-    width: 100%;
-    margin-inline: 0;
+    width: 100% !important;
+    margin-inline: 0 !important;
   }
 
   header nav > ul {
-    flex-flow: row wrap;
-    justify-content: center;
+    flex-flow: row wrap !important;
+    justify-content: center !important;
     gap: 0.5rem;
   }
 
   header nav > ul li {
-    transform: none;
+    /* Remove rotation on mobile to prevent overlap and save vertical space */
+    transform: none !important;
     margin: 0;
-  }
-
-  header nav > ul li a {
-    padding-block: 12px;
-    padding-inline: 16px;
   }
 }
 
 /* Desktop */
-@media (min-width: 1025px) {
+@media ((min-aspect-ratio: 1/1) and (max-aspect-ratio: 4/3)) or (min-aspect-ratio: 4/3) {
   :root {
     --mobile: false;
     --desktop: true;
@@ -143,8 +144,9 @@
     --timeline-flow: column nowrap;
     --timeline-overflow-x: unset;
     --body-padding-mult: 1;
-    --body-template-rows: auto minmax(0, 1fr) auto;
-    --body-template-columns: 1fr var(--aside-width);
+    --body-template-rows: var(--header-height)
+      minmax(var(--main-height), max-content) var(--footer-height);
+    --body-template-columns: var(--main-width) var(--aside-width);
 
     --aside-height: 100vh;
     --main-width: calc(
@@ -188,7 +190,7 @@ body:not(:has(aside)) {
 }
 
 /* Mobile without aside */
-@media (max-width: 1024px) {
+@media (max-aspect-ratio: 3/4) or ((min-aspect-ratio: 3/4) and (max-aspect-ratio: 1/1)) {
   body:not(:has(aside)) {
     --body-template-areas: "HEAD" "MAIN" "FOOT";
     --body-template-rows: auto 1fr auto;
@@ -197,10 +199,10 @@ body:not(:has(aside)) {
 }
 
 /* Desktop without aside */
-@media (min-width: 1025px) {
+@media ((min-aspect-ratio: 1/1) and (max-aspect-ratio: 4/3)) or (min-aspect-ratio: 4/3) {
   body:not(:has(aside)) {
     --body-template-areas: "HEAD" "MAIN" "FOOT";
-    --body-template-rows: auto 1fr auto;
+    --body-template-rows: var(--header-height) 1fr var(--footer-height);
     --body-template-columns: 1fr;
   }
 }
@@ -244,6 +246,7 @@ body::before {
   display: block;
   z-index: -1;
   background-color: var(--bg-plain-color);
+  /* var(--clr-main); */
   background-image: var(--body-bg-img);
   background-blend-mode: hard-light;
   background-size: cover;
@@ -368,6 +371,10 @@ main {
   margin-block: var(--main-margin-block, 25px);
   margin-inline: var(--main-margin-inline, 25px);
 
+  /*
+    overflow: hidden;
+    */
+
   article {
     display: flex;
     flex-flow: row wrap;
@@ -470,14 +477,17 @@ aside {
 
         &:nth-child(2n + 1) {
           --color-bg: var(--clr-aux);
+          /*rgb(247, 132, 79);*/
         }
 
         &:nth-child(3n + 1) {
           --color-bg: var(--clr-accent);
+          /*rgb(250, 90, 111);*/
         }
 
         &:nth-child(5n + 1) {
           --color-bg: var(--clr-comp);
+          /*rgb(255, 219, 101);*/
         }
 
         --timeline-block-padding-base: var(--timeline-gap);
@@ -663,6 +673,7 @@ footer {
   flex-flow: column nowrap;
   background-color: rgb(173, 130, 95);
 
+  /* experimental */
   width: 110%;
   margin-inline-start: -5%;
 
@@ -693,7 +704,11 @@ footer {
   text-wrap: balance;
   position: relative;
 
+  /*
+  max-height: var(--callout-max-height);
+  */
   flex-grow: 1;
+  /*TODO*/
 
   h3 {
     text-align: center;
