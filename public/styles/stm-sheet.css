@@ -1,12 +1,13 @@
 :root {
-  --body-bg-img: url("https://img2.joyreactor.cc/pics/post/full/Fantasy-art-%D0%A0%D0%B5%D1%82%D1%80%D0%BE-%D1%84%D1%8D%D0%BD%D1%82%D0%B5%D0%B7%D0%B8-6553324.jpeg");
-  --bg-plain-color: #99caf0;
+  --body-bg-img: url("https://i.pinimg.com/1200x/89/c9/cd/89c9cd1724a68278255e4ae119f44fff.jpg");
+  --bg-plain-color: #a98c73aa;
 }
 
 #stm-sheet {
   --sheet-padding: 1em;
 
   --point-width: 2ch;
+  --point-gap: 3px;
 
   --sect-approaches-width: 50%;
   --sect-attributes-width: 50%;
@@ -108,7 +109,7 @@
 
 #sheet-parameters {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: row nowrap;
   width: 100%;
 }
 
