@@ -101,11 +101,12 @@
     .lore-name-concept-container {
       --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
 
-      width: min(var(--name-w), var(--name-w-perc));
+      width: var(--name-w-perc);
     }
 
     .lore-persona {
-      width: min(var(--persona-w), var(--persona-w-perc));
+      width: var(--persona-w-perc);
+      flex: 1;
     }
   }
 }
