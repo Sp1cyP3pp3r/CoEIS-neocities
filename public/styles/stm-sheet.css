@@ -109,6 +109,7 @@
     .lore-persona {
       width: var(--persona-w-perc);
       min-width: var(--persona-w);
+      flex: 1;
     }
   }
 }
