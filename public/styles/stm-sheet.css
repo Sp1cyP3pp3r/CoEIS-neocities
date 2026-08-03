@@ -428,21 +428,34 @@
 .attribute-container img {
   fill: white;
 }
+
 /* =========================================
    MOBILE SHEET FIXES (Fluid & Non-Destructive)
    ========================================= */
 @media (max-width: 1024px) {
-  /* Remove hardcoded section width limits */
   #stm-sheet {
     --sect-approaches-width: 100%;
     --sect-attributes-width: 100%;
+    /* Slightly reduce point size for mobile to help everything fit */
+    --point-width: 1.5ch;
+    --point-gap: 2px;
   }
 
-  /* 1. LORE: Allow vertical stacking of containers, but keep inputs inline */
-  #sheet-lore .lore-name-concept-container,
+  /* 1. LORE: Restore natural flex-wrap without hardcoded pixel floors */
+  #sheet-lore .lore-container {
+    flex-wrap: wrap !important;
+  }
+
+  #sheet-lore .lore-name-concept-container {
+    flex: 1 1 280px !important; /* Replaces 405px min-width */
+    min-width: 0 !important;
+    width: auto !important;
+  }
+
   #sheet-lore .lore-persona {
-    min-width: 0 !important; /* Destroys the 405px/495px floor */
-    width: 100% !important;
+    flex: 1 1 320px !important; /* Replaces 495px min-width */
+    min-width: 0 !important;
+    width: auto !important;
   }
 
   #sheet-lore label {
@@ -453,7 +466,7 @@
 
   #sheet-lore label span {
     flex-shrink: 0;
-    width: auto !important; /* Override the 15ch fixed width */
+    width: auto !important;
     padding-right: 8px;
   }
 
@@ -473,23 +486,21 @@
   #section-dice-parameters {
     width: 100% !important;
     max-width: 100% !important;
-    margin-inline: 0 !important; /* Remove desktop negative margins */
+    margin-inline: 0 !important;
   }
 
   /* 3. ATTRIBUTES: Keep in a single horizontal line of 3 */
   #section-attributes {
-    height: auto !important; /* Fix the 40% height bug */
+    height: auto !important;
   }
 
   .attribute-item-list {
-    margin-inline-start: 0 !important; /* Remove the 4em desktop offset */
+    margin-inline-start: 0 !important;
     width: 33.333% !important;
     display: flex;
     justify-content: center;
   }
 
-  /* FIX: Remove scale() which breaks foreignObject hitboxes. 
-     Use width/height: auto to make SVGs responsive. */
   .attribute-container svg {
     width: 100% !important;
     height: auto !important;
@@ -497,39 +508,42 @@
     transform: translateY(var(--svg-top-margin, 0)) !important;
   }
 
-  /* 4. SKILLS: Keep 3 columns, fix the absolute positioning bug */
+  /* 4. SKILLS: Natural wrapping instead of forced rigid columns */
+  .skills-container ul {
+    justify-content: center !important;
+    gap: 1rem !important;
+  }
+
   .skill-list-item-container {
-    width: 33.333% !important;
-    min-width: 0;
+    /* Allows 3 columns on wide mobile, drops to 2 or 1 on narrow */
+    flex: 1 1 30% !important;
+    min-width: 130px !important; /* Guarantees name + 5 boxes fit */
+    max-width: 100%;
+    width: auto !important;
   }
 
   .skill-list-item {
-    display: flex !important;
     flex-flow: row nowrap !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    gap: 4px;
+    justify-content: flex-start !important;
+    gap: 6px;
   }
 
   .skill-list-item .skill-name {
-    width: auto !important;
-    flex-shrink: 1;
-    min-width: 0;
+    width: 5ch !important;
+    flex-shrink: 0;
     text-align: left;
   }
 
   .skill-list-item .point-container {
-    flex-shrink: 1;
-    min-width: 0;
-    justify-content: flex-end;
+    flex-wrap: nowrap !important; /* Stop checkboxes from breaking to a second line */
+    justify-content: flex-start;
   }
 
-  /* FIX: Absolute positioning breaks layout on narrow screens. 
-     Reverting to static keeps it safely in the flex flow. */
   .skill-list-item .point-total {
-    position: static !important;
+    position: static !important; /* Keeps it in the flex flow */
     flex-shrink: 0;
-    margin-left: 4px;
+    margin-left: auto; /* Pushes total to the right */
   }
 
   /* 5. APPROACHES: Keep 2 columns, ensure grid fits */
@@ -550,15 +564,15 @@
   .approach-container .point-container {
     width: 100%;
     justify-content: flex-start;
+    flex-wrap: nowrap !important;
   }
 }
 
 /* Extra small screens (e.g. 320px - 360px) */
 @media (max-width: 400px) {
-  /* Scale down checkboxes slightly to guarantee fit without wrapping */
   #stm-sheet {
-    --point-width: 1.6ch;
-    --point-gap: 2px;
+    --point-width: 1.3ch;
+    --point-gap: 1px;
   }
 
   .approach-container img {
