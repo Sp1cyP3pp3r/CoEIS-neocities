@@ -698,6 +698,10 @@ footer {
     align-items: stretch;
     justify-content: flex-start;
 
+    nav {
+      max-height: 40px;
+    }
+
     nav > ul {
       display: flex;
       flex-flow: row wrap;
