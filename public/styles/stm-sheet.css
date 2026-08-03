@@ -321,8 +321,11 @@
 /* SKILLS*/
 
 #section-skills {
+  --skills-x: 50%;
+
   height: auto;
-  width: 100%;
+  width: calc(100% + var(--skills-x));
+  transform: translateX(calc(var(--skills-x) / -2));
 
   justify-content: center;
   position: relative;
