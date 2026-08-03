@@ -111,12 +111,24 @@
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+
+  > hgroup {
+    position: absolute;
+    right: 0;
+  }
 }
+
+/* APPROACHES */
 
 #section-approaches {
   width: var(--sect-approaches-width);
   display: flex;
   flex-flow: column wrap;
+
+  > hgroup {
+    position: absolute;
+    right: 0;
+  }
 }
 
 .approaches-container {
@@ -170,11 +182,118 @@
   }
 }
 
+/* ATTRIBUTES & SKILLS */
+#section-dice-parameters {
+  width: 50%;
+}
+
+#section-attributes {
+  width: 100%;
+  height: 40%;
+
+  > hgroup {
+    position: absolute;
+  }
+}
+
+.attributes-container {
+  height: 100%;
+
+  ul {
+    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+
+    justify-content: space-around;
+  }
+}
+
+.attribute-item-list {
+  height: 100%;
+}
+
+.attribute-container {
+  height: 100%;
+}
+
+.attribute-container svg {
+  transform: scale(1.1) translateY(var(--svg-top-margin));
+}
+
+#section-skills {
+  height: auto;
+  width: 100%;
+
+  justify-content: center;
+  position: relative;
+
+  > hgroup {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+  }
+}
+
+.skills-container {
+  ul {
+    --ul-hor-gap: calc(var(--point-gap) * 0.8);
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: calc(var(--point-gap) * 3);
+    column-gap: var(--ul-hor-gap);
+
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+  }
+}
+
+.skill-list-item-container {
+  width: calc((100% - var(--ul-hor-gap) * 6) / 3);
+
+  ul {
+    display: flex;
+    flex-flow: column wrap;
+    row-gap: calc(var(--point-gap) * 1.5);
+  }
+}
+
+.skill-list-item {
+  width: 100%;
+  height: var(--point-width);
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .skill-name {
+    width: 6ch;
+  }
+
+  .point-container {
+  }
+
+  .point-checkbox {
+  }
+
+  .point-total {
+    text-align: center;
+    width: 1ch;
+  }
+}
+
+/* POINTS*/
+
 .point-container {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: flex-start;
+
+  row-gap: var(--point-gap);
+  column-gap: var(--point-gap);
 }
 
 .point-checkbox {
