@@ -171,6 +171,9 @@
       width: 50%;
       margin-inline: auto;
 
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
       .point-checkbox {
       }
     }
