@@ -202,10 +202,11 @@
 /* ATTRIBUTES & SKILLS */
 #section-dice-parameters {
   width: min(100%, var(--sect-approaches-width));
-  height: 100%;
+  height: auto;
   min-height: max-content;
-
   justify-content: center;
+
+  margin-block: auto;
 }
 
 #section-attributes {
