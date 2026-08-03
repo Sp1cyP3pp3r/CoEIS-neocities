@@ -428,130 +428,140 @@
 .attribute-container img {
   fill: white;
 }
-
 /* =========================================
-   MOBILE SHEET OPTIMIZATIONS
-   Fluid layout for any mobile display
+   MOBILE SHEET FIXES (Fluid & Non-Destructive)
    ========================================= */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  /* Remove hardcoded section width limits */
   #stm-sheet {
     --sect-approaches-width: 100%;
     --sect-attributes-width: 100%;
-    --sheet-padding: 0.75em;
   }
 
-  /* 1. LORE: Destroy hardcoded min-widths that force horizontal scrolling */
-  #sheet-lore {
-    --name-w: 0px;
-    --persona-w: 0px;
-  }
-
+  /* 1. LORE: Allow vertical stacking of containers, but keep inputs inline */
   #sheet-lore .lore-name-concept-container,
   #sheet-lore .lore-persona {
+    min-width: 0 !important; /* Destroys the 405px/495px floor */
     width: 100% !important;
-    min-width: 0 !important;
   }
 
-  /* Stack labels above inputs for better narrow-screen readability */
   #sheet-lore label {
-    flex-direction: column !important;
-    height: auto !important;
-    padding-block: 4px;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
   }
 
   #sheet-lore label span {
-    width: 100% !important;
-    padding-inline-start: 0 !important;
-    margin-block-end: 4px;
+    flex-shrink: 0;
+    width: auto !important; /* Override the 15ch fixed width */
+    padding-right: 8px;
   }
 
   #sheet-lore label input {
-    width: 100% !important;
+    min-width: 0;
+    flex-grow: 1;
+    width: auto !important;
   }
 
-  /* 2. PARAMETERS: Stack sections vertically */
+  /* 2. PARAMETERS: Stack the big sections vertically */
   #sheet-parameters {
     flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 2em;
+    gap: 2rem;
   }
 
   #section-approaches,
   #section-dice-parameters {
     width: 100% !important;
-    margin-inline-start: 0 !important; /* Remove desktop negative margins */
+    max-width: 100% !important;
+    margin-inline: 0 !important; /* Remove desktop negative margins */
   }
 
-  /* 3. APPROACHES: Stack vertically and optimize grid to guarantee fit */
-  .approach-list-item {
-    width: 100% !important;
-  }
-
-  .approach-container {
-    grid-template-columns: auto 1fr auto !important;
-    grid-template-areas:
-      "IMAG NAME TOTL"
-      "IMAG PNTS PNTS" !important;
-  }
-
-  /* 4. ATTRIBUTES: Fix height bug and center 3-column layout */
+  /* 3. ATTRIBUTES: Keep in a single horizontal line of 3 */
   #section-attributes {
-    height: auto !important;
+    height: auto !important; /* Fix the 40% height bug */
   }
 
   .attribute-item-list {
-    margin-inline-start: 0 !important;
+    margin-inline-start: 0 !important; /* Remove the 4em desktop offset */
     width: 33.333% !important;
     display: flex;
     justify-content: center;
   }
 
+  /* FIX: Remove scale() which breaks foreignObject hitboxes. 
+     Use width/height: auto to make SVGs responsive. */
   .attribute-container svg {
-    max-width: 90% !important;
+    width: 100% !important;
     height: auto !important;
-    /* Scale down slightly to ensure 3 columns fit comfortably */
-    transform: scale(0.85) translateY(var(--svg-top-margin, 0)) !important;
+    max-width: 90px;
+    transform: translateY(var(--svg-top-margin, 0)) !important;
   }
 
-  /* 5. SKILLS: Fluid wrapping instead of forced 3 columns */
-  .skills-container ul {
-    justify-content: center !important;
-    gap: 1rem !important;
-  }
-
+  /* 4. SKILLS: Keep 3 columns, fix the absolute positioning bug */
   .skill-list-item-container {
-    width: auto !important;
-    flex-basis: 160px; /* Natural wrapping width */
-    flex-grow: 1;
-    max-width: 200px;
+    width: 33.333% !important;
+    min-width: 0;
   }
 
   .skill-list-item {
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: center !important;
     justify-content: space-between !important;
-    gap: 0.5rem;
+    gap: 4px;
   }
 
-  /* Un-absolute the total so it stays in the flex flow and doesn't overlap */
+  .skill-list-item .skill-name {
+    width: auto !important;
+    flex-shrink: 1;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .skill-list-item .point-container {
+    flex-shrink: 1;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+
+  /* FIX: Absolute positioning breaks layout on narrow screens. 
+     Reverting to static keeps it safely in the flex flow. */
   .skill-list-item .point-total {
     position: static !important;
-    margin-inline-start: auto;
+    flex-shrink: 0;
+    margin-left: 4px;
   }
 
-  /* 6. EXTRA SMALL PHONES (e.g., iPhone SE, split-screen, older devices) */
-  @media (max-width: 480px) {
-    .attribute-item-list {
-      width: 50% !important; /* Drop to 2 columns for attributes */
-    }
+  /* 5. APPROACHES: Keep 2 columns, ensure grid fits */
+  .approach-list-item {
+    width: 50% !important;
+  }
 
-    .skill-list-item-container {
-      flex-basis: 100%; /* Drop to 1 column for skills */
-      max-width: 100%;
-    }
+  .approach-container {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 6px;
+  }
 
-    /* Scale down approach icons slightly if needed */
-    .approach-container img {
-      max-width: 40px;
-      height: auto;
-    }
+  .approach-container img {
+    width: 35px;
+    height: auto;
+  }
+
+  .approach-container .point-container {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* Extra small screens (e.g. 320px - 360px) */
+@media (max-width: 400px) {
+  /* Scale down checkboxes slightly to guarantee fit without wrapping */
+  #stm-sheet {
+    --point-width: 1.6ch;
+    --point-gap: 2px;
+  }
+
+  .approach-container img {
+    width: 25px;
   }
 }
