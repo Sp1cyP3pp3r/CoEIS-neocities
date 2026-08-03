@@ -686,13 +686,16 @@ footer {
   #contacts {
     display: flex;
     flex-flow: column wrap;
+    align-items: flex-starts;
 
     nav > ul {
       display: flex;
       flex-flow: row wrap;
+      align-items: center;
+      width: 70%;
 
       img {
-        width: 1em;
+        width: 3em;
       }
     }
 
