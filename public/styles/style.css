@@ -703,6 +703,8 @@ footer {
     h2,
     :heading {
       font-family: var(--font-fancy) !important;
+      color: var(--clr-aux);
+      text-shadow: var(--clr-comp) 0px 0px 3px;
     }
   }
 
