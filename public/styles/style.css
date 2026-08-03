@@ -695,6 +695,11 @@ footer {
         width: 1em;
       }
     }
+
+    h2,
+    :heading {
+      font-family: var(--font-fancy);
+    }
   }
 
   #license {
