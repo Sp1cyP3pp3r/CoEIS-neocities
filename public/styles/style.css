@@ -687,6 +687,7 @@ footer {
     display: flex;
     flex-flow: column wrap;
     align-items: flex-starts;
+    justify-content: space-evenly;
 
     nav > ul {
       display: flex;
@@ -701,7 +702,7 @@ footer {
 
     h2,
     :heading {
-      font-family: var(--font-fancy);
+      font-family: var(--font-fancy) !important;
     }
   }
 
