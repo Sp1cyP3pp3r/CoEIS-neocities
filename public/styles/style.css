@@ -671,7 +671,7 @@ footer {
   bottom: 0;
   display: flex;
   flex-flow: column nowrap;
-  background-color: rgb(173, 130, 95);
+  background-color: var(--bg-plain-color);
 
   /* experimental */
   width: 110%;
