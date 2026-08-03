@@ -102,10 +102,12 @@
       --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
 
       width: var(--name-w-perc);
+      min-width: var(--name-w);
     }
 
     .lore-persona {
       width: var(--persona-w-perc);
+      min-width: var(--persona-w);
       flex: 1;
     }
   }
