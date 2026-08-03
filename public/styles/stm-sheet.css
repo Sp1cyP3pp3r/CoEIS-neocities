@@ -172,7 +172,7 @@
       margin-inline: auto;
 
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, var(--point-width));
 
       align-content: center;
       justify-items: center;
