@@ -233,6 +233,7 @@
 
 .attribute-item-list {
   height: 100%;
+  margin-inline-start: 4em;
 }
 
 .attribute-container {
