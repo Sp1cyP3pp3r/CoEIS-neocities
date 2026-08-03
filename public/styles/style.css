@@ -665,13 +665,19 @@ aside {
 }
 
 footer {
+  --footer-bg-color: var(--bg-plain-color);
   grid-area: FOOT;
 
   position: sticky;
   bottom: 0;
   display: flex;
   flex-flow: column nowrap;
-  background-color: var(--bg-plain-color);
+  background-color: transparent;
+  background-image: linear-gradient(
+    to top,
+    var(--footer-bg-color) var(--basic-hf-heigt),
+    transparent
+  );
 
   /* experimental */
   width: 110%;
