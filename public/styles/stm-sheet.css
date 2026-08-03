@@ -164,6 +164,7 @@
 
     .point-total {
       grid-area: TOTL;
+      width: 1ch;
     }
   }
 }
