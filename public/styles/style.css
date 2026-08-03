@@ -687,12 +687,12 @@ footer {
     display: flex;
     flex-flow: column wrap;
     align-items: flex-starts;
-    justify-content: space-evenly;
 
     nav > ul {
       display: flex;
       flex-flow: row wrap;
       align-items: center;
+      justify-content: space-evenly;
       width: 70%;
 
       img {
