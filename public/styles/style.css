@@ -693,7 +693,7 @@ footer {
       flex-flow: row wrap;
       align-items: center;
       justify-content: space-evenly;
-      width: 70%;
+      width: 60%;
 
       img {
         width: 2em;
@@ -710,6 +710,15 @@ footer {
 
   #license {
     /* style */
+
+    a {
+      text-decoration: none;
+      color: var(--clr-text);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
