@@ -201,12 +201,15 @@
 
 /* ATTRIBUTES & SKILLS */
 #section-dice-parameters {
+  --att-margin-left: 4em;
+
   width: min(100%, var(--sect-attributes-width));
   height: auto;
   min-height: max-content;
   justify-content: center;
 
   margin-block: auto;
+  margin-inline-start: calc(var(--att-margin-left) * -1);
   row-gap: 2em;
 }
 
@@ -233,7 +236,7 @@
 
 .attribute-item-list {
   height: 100%;
-  margin-inline-start: 4em;
+  margin-inline-start: var(--att-margin-left);
 }
 
 .attribute-container {
