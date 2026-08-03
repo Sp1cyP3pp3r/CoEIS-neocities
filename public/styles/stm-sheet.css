@@ -364,7 +364,7 @@
   display: flex;
   flex-flow: row wrap;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: center;
 
   .skill-name {
     width: 6ch;
