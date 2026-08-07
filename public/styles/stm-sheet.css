@@ -564,11 +564,38 @@
   font-weight: bold;
 }
 
-figcaption {
+#sheet-fight figcaption {
   font-size: 0.7em;
   opacity: 0.6;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   Damage checkboxes
+   ========================================================================== */
+
+#fight-damage .damage-block > div {
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1em;
+  row-gap: 0.5em;
+}
+
+#fight-damage label {
+  flex: 0 1 auto;
+}
+
+#fight-damage .damage-points {
+  order: 3;
+  width: 100%;
+  margin: 0;
+}
+
+#fight-damage figure {
+  margin: 0;
+  min-width: 4ch;
 }
 
 /* ==========================================================================
