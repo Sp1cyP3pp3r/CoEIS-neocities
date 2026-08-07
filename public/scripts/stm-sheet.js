@@ -65,3 +65,160 @@ $(function () {
     });
   });
 });
+
+(function ($) {
+  $(function () {
+    const $damageBlocks = $("#fight-damage .damage-block");
+
+    function getMax($block) {
+      const max = parseInt($block.find(".damage-max").first().text(), 10);
+      return Number.isFinite(max) && max >= 0 ? max : 0;
+    }
+
+    function getInputValue($block) {
+      const raw = String($block.find(".damage-input").val() || "").replace(
+        /[^0-9]/g,
+        "",
+      );
+
+      const value = parseInt(raw, 10);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function clampValue($block, value) {
+      const max = getMax($block);
+      value = parseInt(value, 10) || 0;
+
+      return Math.max(0, Math.min(value, max));
+    }
+
+    function renderInput($block, value) {
+      value = clampValue($block, value);
+      $block.find(".damage-input").val(value);
+
+      return value;
+    }
+
+    function renderCheckboxes($block, value) {
+      value = clampValue($block, value);
+
+      $block.find(".damage-checkbox").prop("checked", function () {
+        return Number($(this).data("value")) <= value;
+      });
+
+      return value;
+    }
+
+    function renderDamage($block, value) {
+      value = clampValue($block, value);
+
+      renderInput($block, value);
+      renderCheckboxes($block, value);
+
+      return value;
+    }
+
+    function buildCheckboxes($block) {
+      const max = getMax($block);
+      const current = getInputValue($block);
+      const $points = $block.find(".damage-points").empty();
+
+      for (let i = 1; i <= max; i++) {
+        $("<input>", {
+          type: "checkbox",
+          class: "point-checkbox damage-checkbox",
+          "data-value": i,
+        }).appendTo($points);
+      }
+
+      renderDamage($block, current);
+    }
+
+    function buildAllDamageCheckboxes() {
+      $damageBlocks.each(function () {
+        buildCheckboxes($(this));
+      });
+    }
+
+    $(document).on("input", "#fight-damage .damage-input", function () {
+      const $input = $(this);
+      const $block = $input.closest(".damage-block");
+
+      const clean = String($input.val() || "").replace(/[^0-9]/g, "");
+
+      if (clean !== $input.val()) {
+        $input.val(clean);
+      }
+
+      renderDamage($block, clean === "" ? 0 : parseInt(clean, 10));
+    });
+
+    $(document).on("blur", "#fight-damage .damage-input", function () {
+      const $block = $(this).closest(".damage-block");
+      renderInput($block, getInputValue($block));
+    });
+
+    $(document).on("change", "#fight-damage .damage-checkbox", function () {
+      const $box = $(this);
+      const $block = $box.closest(".damage-block");
+
+      const clickedValue = Number($box.data("value"));
+      const newValue = $box.prop("checked") ? clickedValue : clickedValue - 1;
+
+      renderDamage($block, newValue);
+    });
+
+    const damageMaxObserver = new MutationObserver(function (mutations) {
+      const blocksToUpdate = new Set();
+
+      mutations.forEach(function (mutation) {
+        const node = mutation.target;
+
+        const element =
+          node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+
+        const $max = $(element).closest(".damage-max");
+
+        if ($max.length) {
+          const block = $max.closest(".damage-block")[0];
+
+          if (block) {
+            blocksToUpdate.add(block);
+          }
+        }
+      });
+
+      blocksToUpdate.forEach(function (block) {
+        buildCheckboxes($(block));
+      });
+    });
+
+    $("#fight-damage .damage-max").each(function () {
+      damageMaxObserver.observe(this, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+      });
+    });
+
+    window.STM = window.STM || {};
+
+    window.STM.setDamageMax = function (damageType, newMax) {
+      const $block = $("#fight-damage #" + damageType + "-damage");
+
+      if (!$block.length) {
+        return;
+      }
+
+      newMax = Math.max(0, parseInt(newMax, 10) || 0);
+
+      $block.find(".damage-max").text(newMax);
+
+      if (!("MutationObserver" in window)) {
+        buildCheckboxes($block);
+      }
+    };
+
+    buildAllDamageCheckboxes();
+  });
+})(jQuery);
