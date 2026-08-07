@@ -65,57 +65,44 @@ $(function () {
     });
   });
 });
-
 (function ($) {
   $(function () {
-    const $damageBlocks = $("#fight-damage .damage-block");
+    const $lightBlock = $("#light-damage");
+    const $heavyBlock = $("#heavy-damage");
+
+    function parseNumber(value) {
+      const parsed = parseInt(String(value || "").replace(/[^0-9]/g, ""), 10);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
 
     function getMax($block) {
-      const max = parseInt($block.find(".damage-max").first().text(), 10);
-      return Number.isFinite(max) && max >= 0 ? max : 0;
+      return Math.max(
+        0,
+        parseNumber($block.find(".damage-max").first().text()),
+      );
     }
 
     function getInputValue($block) {
-      const raw = String($block.find(".damage-input").val() || "").replace(
-        /[^0-9]/g,
-        "",
-      );
-
-      const value = parseInt(raw, 10);
-      return Number.isFinite(value) ? value : 0;
+      return parseNumber($block.find(".damage-input").val());
     }
 
-    function clampValue($block, value) {
-      const max = getMax($block);
-      value = parseInt(value, 10) || 0;
-
-      return Math.max(0, Math.min(value, max));
-    }
-
-    function renderInput($block, value) {
-      value = clampValue($block, value);
-      $block.find(".damage-input").val(value);
-
-      return value;
+    function clampValue(value, max) {
+      value = Math.max(0, parseNumber(value));
+      return max <= 0 ? 0 : Math.min(value, max);
     }
 
     function renderCheckboxes($block, value) {
-      value = clampValue($block, value);
+      const max = getMax($block);
+      const safeValue = clampValue(value, max);
 
       $block.find(".damage-checkbox").prop("checked", function () {
-        return Number($(this).data("value")) <= value;
+        return Number($(this).data("value")) <= safeValue;
       });
-
-      return value;
     }
 
-    function renderDamage($block, value) {
-      value = clampValue($block, value);
-
-      renderInput($block, value);
+    function setInputValue($block, value) {
+      $block.find(".damage-input").val(value);
       renderCheckboxes($block, value);
-
-      return value;
     }
 
     function buildCheckboxes($block) {
@@ -131,42 +118,115 @@ $(function () {
         }).appendTo($points);
       }
 
-      renderDamage($block, current);
+      renderCheckboxes($block, current);
     }
 
-    function buildAllDamageCheckboxes() {
-      $damageBlocks.each(function () {
-        buildCheckboxes($(this));
-      });
-    }
-
-    $(document).on("input", "#fight-damage .damage-input", function () {
-      const $input = $(this);
-      const $block = $input.closest(".damage-block");
-
+    function sanitizeInput($input) {
       const clean = String($input.val() || "").replace(/[^0-9]/g, "");
 
       if (clean !== $input.val()) {
         $input.val(clean);
       }
 
-      renderDamage($block, clean === "" ? 0 : parseInt(clean, 10));
+      return clean;
+    }
+
+    function setHeavyValue(value) {
+      const heavyMax = getMax($heavyBlock);
+      value = clampValue(value, heavyMax);
+
+      setInputValue($heavyBlock, value);
+
+      return value;
+    }
+
+    function commitLightValue(value) {
+      const lightMax = getMax($lightBlock);
+
+      value = Math.max(0, parseNumber(value));
+
+      let carry = 0;
+      let newLight = 0;
+
+      if (lightMax > 0) {
+        carry = Math.floor(value / lightMax);
+        newLight = value % lightMax;
+      }
+
+      if (carry > 0) {
+        const currentHeavy = getInputValue($heavyBlock);
+        setHeavyValue(currentHeavy + carry);
+      }
+
+      setInputValue($lightBlock, newLight);
+
+      return newLight;
+    }
+
+    function buildAllDamageCheckboxes() {
+      buildCheckboxes($lightBlock);
+      buildCheckboxes($heavyBlock);
+    }
+
+    /* Light input */
+
+    $(document).on("input", "#light-damage .damage-input", function () {
+      sanitizeInput($(this));
+      renderCheckboxes($lightBlock, getInputValue($lightBlock));
     });
 
-    $(document).on("blur", "#fight-damage .damage-input", function () {
-      const $block = $(this).closest(".damage-block");
-      renderInput($block, getInputValue($block));
+    $(document).on("keydown", "#light-damage .damage-input", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        commitLightValue(getInputValue($lightBlock));
+      }
     });
 
-    $(document).on("change", "#fight-damage .damage-checkbox", function () {
+    $(document).on("blur", "#light-damage .damage-input", function () {
+      commitLightValue(getInputValue($lightBlock));
+    });
+
+    /* Heavy input */
+
+    $(document).on("input", "#heavy-damage .damage-input", function () {
+      sanitizeInput($(this));
+      renderCheckboxes($heavyBlock, getInputValue($heavyBlock));
+    });
+
+    $(document).on("keydown", "#heavy-damage .damage-input", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        setHeavyValue(getInputValue($heavyBlock));
+      }
+    });
+
+    $(document).on("blur", "#heavy-damage .damage-input", function () {
+      setHeavyValue(getInputValue($heavyBlock));
+    });
+
+    /* Light checkboxes */
+
+    $(document).on("change", "#light-damage .damage-checkbox", function () {
       const $box = $(this);
-      const $block = $box.closest(".damage-block");
-
       const clickedValue = Number($box.data("value"));
-      const newValue = $box.prop("checked") ? clickedValue : clickedValue - 1;
 
-      renderDamage($block, newValue);
+      const value = $box.prop("checked") ? clickedValue : clickedValue - 1;
+
+      commitLightValue(value);
     });
+
+    /* Heavy checkboxes */
+
+    $(document).on("change", "#heavy-damage .damage-checkbox", function () {
+      const $box = $(this);
+      const clickedValue = Number($box.data("value"));
+
+      const value = $box.prop("checked") ? clickedValue : clickedValue - 1;
+
+      setHeavyValue(value);
+    });
+
+    /* Watch max changes */
 
     const damageMaxObserver = new MutationObserver(function (mutations) {
       const blocksToUpdate = new Set();
@@ -189,7 +249,15 @@ $(function () {
       });
 
       blocksToUpdate.forEach(function (block) {
-        buildCheckboxes($(block));
+        const $block = $(block);
+
+        buildCheckboxes($block);
+
+        if ($block.attr("id") === "light-damage") {
+          commitLightValue(getInputValue($lightBlock));
+        } else {
+          setHeavyValue(getInputValue($heavyBlock));
+        }
       });
     });
 
@@ -210,15 +278,26 @@ $(function () {
         return;
       }
 
-      newMax = Math.max(0, parseInt(newMax, 10) || 0);
+      newMax = Math.max(0, parseNumber(newMax));
 
       $block.find(".damage-max").text(newMax);
 
       if (!("MutationObserver" in window)) {
         buildCheckboxes($block);
+
+        if (damageType === "light") {
+          commitLightValue(getInputValue($lightBlock));
+        } else {
+          setHeavyValue(getInputValue($heavyBlock));
+        }
       }
     };
 
+    /* Initial render */
+
     buildAllDamageCheckboxes();
+
+    commitLightValue(getInputValue($lightBlock));
+    setHeavyValue(getInputValue($heavyBlock));
   });
 })(jQuery);
