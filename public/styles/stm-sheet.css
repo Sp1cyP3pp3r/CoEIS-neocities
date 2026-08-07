@@ -296,6 +296,7 @@
     -webkit-appearance: none;
     -moz-appearance: textfield;
     pointer-events: all;
+    user-select: all;
 
     border: none;
     background: none;
