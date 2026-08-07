@@ -4,6 +4,7 @@
 }
 
 #stm-sheet {
+  --parameters-areas: "ATTRBT APPRCH" "TALENT FIGHT";
   --sheet-padding: 1em;
 
   --point-width: 2ch;
@@ -142,7 +143,7 @@
 
 #sheet-parameters {
   display: grid;
-  grid-template-areas:;
+  grid-template-areas: var(--parameters-areas);
 
   justify-content: space-around;
   align-items: flex-start;
@@ -157,6 +158,7 @@
 /* APPROACHES */
 
 #section-approaches {
+  grid-area: APPRCH;
   width: min(100%, var(--sect-approaches-width));
   display: flex;
   flex-flow: column wrap;
@@ -229,6 +231,8 @@
 #section-dice-parameters {
   --att-margin-left: 4em;
 
+  grid-area: ATTRBT;
+
   width: min(100%, var(--sect-attributes-width));
   height: auto;
   min-height: max-content;
@@ -240,6 +244,8 @@
 }
 
 #section-attributes {
+  grid-area: ATTRBT;
+
   width: 100%;
   height: 40%;
 
@@ -354,6 +360,8 @@
 #section-skills {
   --skills-x: 50%;
 
+  grid-area: SKILLS;
+
   height: auto;
   width: 100%;
   /*
@@ -456,9 +464,22 @@
   fill: white;
 }
 
+/*/*/
 .vertical-notes {
   display: flex;
   flex-flow: column wrap;
+}
+
+#sheet-talents-flaws {
+  grid-area: TALENT;
+}
+
+#sheet-talents {
+  grid-area: TALENT;
+}
+
+#sheet-flaws {
+  grid-area: FLAWS;
 }
 
 /* =========================================
