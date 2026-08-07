@@ -31,21 +31,23 @@ $(function () {
 });
 
 $(function () {
-  $("input[data-cleave-numeral]").each(function () {
+  const $inputs = $("#light-damage-input, #heavy-damage-input");
+
+  $inputs.each(function () {
     const $input = $(this);
 
-    // Clear/select previous input on focus
+    // Clear previous input before entering new number
     $input.on("focus", function () {
       $(this).select();
     });
 
-    // Format and clean on input
     $input.on("input", function () {
-      let value = cleaveZen.formatNumeral($(this).val(), {
-        numeralThousandsGroupStyle: "none", // Change to "thousand" for commas (e.g., 1,000)
-      });
+      let value = $(this).val();
 
-      // Fallback to strictly strip leading zeroes (e.g., "007" -> "7")
+      // Delete spaces and any non-digit characters
+      value = value.replace(/\D/g, "");
+
+      // Trim 0 in the front ("05" -> "5", but leaves a single "0" alone)
       value = value.replace(/^0+(?=\d)/, "");
 
       // Prevent completely empty input while typing
