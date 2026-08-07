@@ -30,6 +30,7 @@ $(function () {
   });
 });
 
+/* LIGHT & HEAVY DAMAGE FORMATING */
 $(function () {
   const $inputs = $("#light-damage-input, #heavy-damage-input");
 
