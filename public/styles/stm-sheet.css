@@ -1,3 +1,7 @@
+/* ==========================================================================
+   1. CSS Variables
+   ========================================================================== */
+
 :root {
   --body-bg-img: url("https://i.pinimg.com/1200x/23/35/8c/23358c2cc37998fd355474ae0a3d8d94.jpg");
   --bg-plain-color: #a98c73aa;
@@ -12,28 +16,17 @@
 
   --sect-approaches-width: 450px;
   --sect-attributes-width: 500px;
+}
 
+/* ==========================================================================
+   2. Base Layout
+   ========================================================================== */
+
+#stm-sheet {
   background-color: rgba(38, 39, 55, 0.6);
   position: relative;
   flex-flow: column nowrap;
-
   padding: var(--sheet-padding);
-}
-
-#sheet-header {
-  display: flex;
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-end: 0;
-
-  hgroup {
-    h1,
-    :heading {
-    }
-
-    p {
-    }
-  }
 }
 
 #sheet-body {
@@ -41,72 +34,73 @@
   flex-flow: column nowrap;
 }
 
+#sheet-header {
+  display: flex;
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
+
+/* ==========================================================================
+   3. Lore Section
+   ========================================================================== */
+
 #sheet-lore {
   --grid-areas: "NAME ART PERSONA";
   --img-height: 175px;
-  --img-ratio: calc(3/4);
+  --img-ratio: calc(3 / 4);
   --img-width: calc(var(--img-height) * var(--img-ratio));
-
   --lore-height: var(--img-height);
   --lore-item-max: 3;
-  --lore-item-height-orig: calc(var(--lore-height) / var(--lore-item-max));
-  --lore-item-height: var(--lore-item-height-orig);
-
+  --lore-item-height: calc(var(--lore-height) / var(--lore-item-max));
   --lore-width: 100%;
   --span-width: 15ch;
   --input-width: 100%;
-
-  /* watafuk */
-  --name-w-perc: 45%;
-  --name-w: 405px;
-  --persona-w-perc: calc(100% - var(--name-w));
-  --persona-w: 495px;
+  --name-width: 405px;
+  --persona-width: 495px;
 
   display: flex;
   flex-flow: column wrap;
   width: 100%;
   height: var(--lore-height);
 
-  hgroup {
+  & hgroup {
     position: absolute;
   }
 
-  .lore-container {
-    display: grid !important;
+  & .lore-container {
+    display: grid;
     grid-template-areas: var(--grid-areas);
     grid-template-columns: 1fr var(--img-width) 1fr;
-
     width: var(--lore-width);
 
-    > div {
+    & > div {
       display: flex;
       flex-flow: column wrap;
       width: 100%;
 
-      div {
+      & div {
         background-color: #0a0a0a;
         color: white;
         height: var(--lore-item-height);
         line-height: var(--lore-item-height);
 
-        label {
+        & label {
           display: flex;
           flex-flow: row nowrap;
           width: 100%;
 
-          span {
+          & span {
             display: inline-block;
             width: var(--span-width);
             text-align: start;
-
             padding-inline-start: calc(var(--span-width) / 20);
           }
 
-          input {
+          & input {
             width: var(--input-width);
             height: var(--lore-item-height);
             line-height: var(--lore-item-height);
-
             background-color: #3a3a3a;
             color: white;
           }
@@ -114,133 +108,62 @@
       }
     }
 
-    .lore-character-image {
+    & .lore-character-image {
       grid-area: ART;
-
-      aspect-ratio: var(--image-ratio);
+      aspect-ratio: var(--img-ratio);
       height: var(--img-height);
       width: var(--img-width);
 
-      img {
+      & img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
       }
     }
 
-    .lore-name-concept-container {
-      --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
-
+    & .lore-name-concept-container {
+      --lore-item-height: calc(var(--lore-item-height) * 1.5);
       grid-area: NAME;
-      min-width: auto !important;
+      min-width: auto;
       height: var(--lore-height);
     }
 
-    .lore-persona {
+    & .lore-persona {
       grid-area: PERSONA;
     }
   }
 }
 
+/* ==========================================================================
+   4. Parameters Section (Main Grid)
+   ========================================================================== */
+
 #sheet-parameters {
   display: grid;
   grid-template-areas: var(--parameters-areas);
-
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-
   justify-content: space-around;
   align-items: flex-start;
   width: 100%;
 
-  > hgroup {
+  & > hgroup {
     position: absolute;
     right: 0;
   }
 }
 
-/* APPROACHES */
+/* ==========================================================================
+   5. Attributes
+   ========================================================================== */
 
-#section-approaches {
-  grid-area: APPRCH;
-  width: min(100%, var(--sect-approaches-width));
-  display: flex;
-  flex-flow: column wrap;
-
-  > hgroup {
-    position: absolute;
-    right: 0;
-  }
-}
-
-.approaches-container {
-  display: flex;
-  flex-flow: column wrap;
-
-  ul {
-    display: flex;
-    flex-flow: row wrap;
-  }
-}
-
-.approach-list-item {
-  width: 50%;
-
-  .approach-container {
-    display: grid;
-    grid-template-areas: "---- NAME TOTL" "IMAG PNTS PNTS" "IMAG PNTS PNTS";
-    align-items: center;
-    justify-items: stretch;
-
-    .approach-name {
-      grid-area: NAME;
-      h4,
-      :heading {
-      }
-
-      p {
-      }
-    }
-
-    img {
-      display: block;
-      grid-area: IMAG;
-    }
-
-    .point-container {
-      grid-area: PNTS;
-
-      width: 50%;
-      margin-inline: auto;
-
-      display: grid;
-      grid-template-columns: repeat(4, var(--point-width));
-
-      align-content: center;
-      justify-content: center;
-      justify-items: center;
-
-      .point-checkbox {
-      }
-    }
-
-    .point-total {
-      grid-area: TOTL;
-      width: 1ch;
-    }
-  }
-}
-
-/* ATTRIBUTES & SKILLS */
 #section-dice-parameters {
   --att-margin-left: 4em;
-
   grid-area: ATTRBT;
-
   width: min(100%, var(--sect-attributes-width));
   height: auto;
   min-height: max-content;
   justify-content: center;
-
   margin-block: auto;
   margin-inline-start: calc(var(--att-margin-left) / -2);
   row-gap: 2em;
@@ -248,23 +171,50 @@
 
 #section-attributes {
   grid-area: ATTRBT;
-
   width: 100%;
   height: 40%;
 
-  > hgroup {
+  & > hgroup {
     position: absolute;
+  }
+
+  & svg {
+    overflow: visible;
+    pointer-events: none;
+
+    & input {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+      pointer-events: all;
+      user-select: all;
+      border: none;
+      background: none;
+      padding: 0;
+      caret-color: transparent;
+      width: 1ch;
+      text-align: center;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
   }
 }
 
 .attributes-container {
   height: 100%;
 
-  ul {
+  & ul {
     height: 100%;
     display: flex;
     flex-flow: row wrap;
-
     justify-content: space-around;
   }
 }
@@ -276,19 +226,21 @@
 
 .attribute-container {
   height: 100%;
-}
 
-.attribute-container svg {
-  transform: scale(1.1) translateY(var(--svg-top-margin));
-}
-.attribute-svg {
-  foreignObject {
-    width: 100%;
-    height: 100%;
-    transform: translatex(-50%) translatey(-25%);
-
-    overflow: visible;
+  & img {
+    fill: white;
   }
+
+  & svg {
+    transform: scale(1.1) translateY(var(--svg-top-margin, 0));
+  }
+}
+
+.attribute-svg foreignObject {
+  width: 100%;
+  height: 100%;
+  transform: translateX(-50%) translateY(-25%);
+  overflow: visible;
 }
 
 .attribute-total {
@@ -296,35 +248,7 @@
   text-align: center;
 }
 
-#section-attributes svg {
-  overflow: visible;
-  pointer-events: none;
-
-  input {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
-    pointer-events: all;
-    user-select: all;
-
-    border: none;
-    background: none;
-    padding: 0;
-    caret-color: transparent;
-
-    width: 1ch;
-    text-align: center;
-    &:focus {
-      outline: none;
-    }
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-}
-
+/* Attribute Specific Overrides */
 #attribute-voice {
   --svg-top-margin: 10px;
 }
@@ -332,75 +256,50 @@
 #attribute-mind {
   --svg-top-margin: 5px;
 
-  foreignObject .attribute-total {
+  & foreignObject .attribute-total {
     transform: translateY(0.3px);
   }
 }
+
 #attribute-body {
   --svg-top-margin: 0;
-
-  /*
-	position: relative;
-	&::before{
-		content: "sex";
-		font-size: 0;
-		position: absolute;
-		
-		display: block;
-		background-image: repeating-linear-gradient(to left, transparent 0px, transparent 10px, red 10px, red 20px);
-		width: 300px;
-		height: 2px;
-		
-		z-index: 100;
-		top: 87px;
-		right: 0;
-	}
-	*/
 }
 
-/* SKILLS*/
+/* ==========================================================================
+   6. Skills
+   ========================================================================== */
 
 #section-skills {
   --skills-x: 50%;
-
   grid-area: SKILLS;
-
   height: auto;
   width: 100%;
-  /*
-  width: calc(100% + var(--skills-x));
-  transform: translateX(calc(var(--skills-x) / -2));
-  */
-
   justify-content: center;
   position: relative;
 
-  > hgroup {
+  & > hgroup {
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
   }
 }
 
-.skills-container {
-  ul {
-    --ul-hor-gap: calc(var(--point-gap) * 0.8);
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    row-gap: calc(var(--point-gap) * 3);
-    column-gap: var(--ul-hor-gap);
-
-    justify-content: space-around;
-    align-items: center;
-    align-content: center;
-  }
+.skills-container ul {
+  --ul-hor-gap: calc(var(--point-gap) * 0.8);
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: calc(var(--point-gap) * 3);
+  column-gap: var(--ul-hor-gap);
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
 }
 
 .skill-list-item-container {
   width: calc((100% - var(--ul-hor-gap) * 6) / 3);
 
-  ul {
+  & ul {
     display: flex;
     flex-flow: column wrap;
     row-gap: calc(var(--point-gap) * 1.5);
@@ -410,64 +309,96 @@
 .skill-list-item {
   width: 100%;
   height: fit-content;
-
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-end;
   justify-content: center;
 
-  .skill-name {
+  & .skill-name {
     width: 6ch;
     text-align: left;
   }
 
-  .point-container {
+  & .point-container {
     height: var(--point-width);
   }
 
-  .point-checkbox {
-  }
-
-  .point-total {
+  & .point-total {
     position: absolute;
     text-align: center;
     width: 1ch;
   }
 }
 
-/* POINTS*/
+/* ==========================================================================
+   7. Approaches
+   ========================================================================== */
 
-.point-container {
+#section-approaches {
+  grid-area: APPRCH;
+  width: min(100%, var(--sect-approaches-width));
   display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: flex-start;
+  flex-flow: column wrap;
 
-  row-gap: var(--point-gap);
-  column-gap: var(--point-gap);
+  & > hgroup {
+    position: absolute;
+    right: 0;
+  }
 }
 
-.point-checkbox {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
+.approaches-container {
+  display: flex;
+  flex-flow: column wrap;
 
-  width: var(--point-width);
-  height: var(--point-width);
-
-  background-color: white;
-}
-.point-checkbox:checked {
-  background-color: red;
+  & ul {
+    display: flex;
+    flex-flow: row wrap;
+  }
 }
 
-/* ATTRIBUTES */
+.approach-list-item {
+  width: 50%;
 
-.attribute-container img {
-  fill: white;
+  & .approach-container {
+    display: grid;
+    grid-template-areas:
+      "---- NAME TOTL"
+      "IMAG PNTS PNTS"
+      "IMAG PNTS PNTS";
+    align-items: center;
+    justify-items: stretch;
+
+    & .approach-name {
+      grid-area: NAME;
+    }
+
+    & img {
+      display: block;
+      grid-area: IMAG;
+    }
+
+    & .point-container {
+      grid-area: PNTS;
+      width: 50%;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: repeat(4, var(--point-width));
+      align-content: center;
+      justify-content: center;
+      justify-items: center;
+    }
+
+    & .point-total {
+      grid-area: TOTL;
+      width: 1ch;
+    }
+  }
 }
 
-/*/*/
+/* ==========================================================================
+   8. Talents & Flaws (Notes)
+   ========================================================================== */
+
 .vertical-notes {
   display: flex;
   flex-flow: column wrap;
@@ -485,127 +416,149 @@
   grid-area: FLAWS;
 }
 
-/* =========================================
-   MOBILE SHEET FIXES (Fluid & Non-Destructive)
-   ========================================= */
+/* ==========================================================================
+   9. Common Components (Points & Checkboxes)
+   ========================================================================== */
+
+.point-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
+  row-gap: var(--point-gap);
+  column-gap: var(--point-gap);
+}
+
+.point-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  width: var(--point-width);
+  height: var(--point-width);
+  background-color: white;
+
+  &:checked {
+    background-color: red;
+  }
+}
+
+/* ==========================================================================
+   10. Responsive / Media Queries
+   ========================================================================== */
+
+/* Tablet / Small Desktop */
 @media (max-width: 1024px) {
   #stm-sheet {
     --sect-approaches-width: 100%;
     --sect-attributes-width: 100%;
-    /* Slightly reduce point size for mobile to help everything fit */
     --point-width: 1.5ch;
     --point-gap: 2px;
   }
 
-  /* 1. LORE: Restore natural flex-wrap without hardcoded pixel floors */
+  /* Lore */
   #sheet-lore .lore-container {
     --grid-areas: "ART" "NAME" "PERSONA";
-    flex-wrap: wrap !important;
+    display: flex;
+    flex-wrap: wrap;
   }
 
-  #sheet-lore .lore-name-concept-container {
-    flex: 1 1 280px !important; /* Replaces 405px min-width */
-    min-width: 0 !important;
-    width: auto !important;
-  }
-
+  #sheet-lore .lore-name-concept-container,
   #sheet-lore .lore-persona {
-    flex: 1 1 320px !important; /* Replaces 495px min-width */
-    min-width: 0 !important;
-    width: auto !important;
+    min-width: 0;
+    width: auto;
+    flex: 1 1 300px;
   }
 
   #sheet-lore label {
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
   }
 
   #sheet-lore label span {
     flex-shrink: 0;
-    width: auto !important;
+    width: auto;
     padding-right: 8px;
   }
 
   #sheet-lore label input {
     min-width: 0;
     flex-grow: 1;
-    width: auto !important;
+    width: auto;
   }
 
-  /* 2. PARAMETERS: Stack the big sections vertically */
+  /* Parameters */
   #sheet-parameters {
-    flex-direction: column !important;
+    flex-direction: column;
     gap: 2rem;
   }
 
   #section-approaches,
   #section-dice-parameters {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-inline: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
   }
 
-  /* 3. ATTRIBUTES: Keep in a single horizontal line of 3 */
+  /* Attributes */
   #section-attributes {
-    height: auto !important;
+    height: auto;
   }
 
   .attribute-item-list {
-    margin-inline-start: 0 !important;
-    width: 33.333% !important;
+    margin-inline-start: 0;
+    width: 33.333%;
     display: flex;
     justify-content: center;
   }
 
   .attribute-container svg {
-    width: 100% !important;
-    height: auto !important;
+    width: 100%;
+    height: auto;
     max-width: 90px;
-    transform: translateY(var(--svg-top-margin, 0)) !important;
+    transform: translateY(var(--svg-top-margin, 0));
   }
 
-  /* 4. SKILLS: Natural wrapping instead of forced rigid columns */
+  /* Skills */
   .skills-container ul {
-    justify-content: center !important;
-    gap: 1rem !important;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .skill-list-item-container {
-    /* Allows 3 columns on wide mobile, drops to 2 or 1 on narrow */
-    flex: 1 1 30% !important;
-    min-width: 130px !important; /* Guarantees name + 5 boxes fit */
+    flex: 1 1 30%;
+    min-width: 130px;
     max-width: 100%;
-    width: auto !important;
+    width: auto;
   }
 
   .skill-list-item {
-    flex-flow: row nowrap !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
     gap: 6px;
   }
 
   .skill-list-item .skill-name {
-    width: 5ch !important;
+    width: 5ch;
     flex-shrink: 0;
     text-align: left;
   }
 
   .skill-list-item .point-container {
-    flex-wrap: nowrap !important; /* Stop checkboxes from breaking to a second line */
+    flex-wrap: nowrap;
     justify-content: flex-start;
   }
 
   .skill-list-item .point-total {
-    position: static !important; /* Keeps it in the flex flow */
+    position: static;
     flex-shrink: 0;
-    margin-left: auto; /* Pushes total to the right */
+    margin-left: auto;
   }
 
-  /* 5. APPROACHES: Keep 2 columns, ensure grid fits */
+  /* Approaches */
   .approach-list-item {
-    width: 50% !important;
+    width: 50%;
   }
 
   .approach-container {
@@ -621,11 +574,11 @@
   .approach-container .point-container {
     width: 100%;
     justify-content: flex-start;
-    flex-wrap: nowrap !important;
+    flex-wrap: nowrap;
   }
 }
 
-/* Extra small screens (e.g. 320px - 360px) */
+/* Mobile */
 @media (max-width: 400px) {
   #stm-sheet {
     --point-width: 1.3ch;
