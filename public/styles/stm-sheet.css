@@ -37,8 +37,7 @@
 
 #sheet-body {
   width: 100%;
-  display: grid;
-  grid-template-areas:;
+  flex-flow: column nowrap;
 }
 
 #sheet-lore {
@@ -142,8 +141,8 @@
 }
 
 #sheet-parameters {
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-areas:;
 
   justify-content: space-around;
   align-items: flex-start;
