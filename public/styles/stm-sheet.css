@@ -145,6 +145,9 @@
   display: grid;
   grid-template-areas: var(--parameters-areas);
 
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+
   justify-content: space-around;
   align-items: flex-start;
   width: 100%;
