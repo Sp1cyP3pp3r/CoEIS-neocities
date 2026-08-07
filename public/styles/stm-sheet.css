@@ -469,14 +469,13 @@
   gap: 1em;
 }
 
-#fight-ht,
-#fight-damage {
+/* Hit Threshold */
+#fight-ht {
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5em;
 }
 
-/* Hit Threshold */
 .ht-container {
   background-color: #0a0a0a;
   color: white;
@@ -492,13 +491,20 @@
 }
 
 /* Damage Section */
-.damage-types-container {
+#fight-damage {
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.5em;
+  gap: 1em;
 }
 
-.damage-type-container {
+#light-damage,
+#heavy-damage {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#light-damage > div,
+#heavy-damage > div {
   background-color: #0a0a0a;
   color: white;
   display: flex;
@@ -508,49 +514,61 @@
   padding: 0.5em 1em;
 }
 
-.damage-label {
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-.damage-values {
+#light-damage label,
+#heavy-damage label {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  gap: 0.5em;
-  background-color: #3a3a3a;
-  padding: 0.25em 0.5em;
+  gap: 0.75em;
 }
 
-.damage-values input {
-  background: transparent;
+#light-damage input,
+#heavy-damage input {
+  background-color: #3a3a3a;
   border: none;
   color: white;
   width: 3ch;
   text-align: center;
-  font-size: 1em;
-  padding: 0;
+  padding: 0.25em 0;
 }
 
-.damage-values input:focus {
+#light-damage input:focus,
+#heavy-damage input:focus {
   outline: none;
 }
 
 /* Hide number spin buttons */
-.damage-values input::-webkit-outer-spin-button,
-.damage-values input::-webkit-inner-spin-button {
+#light-damage input::-webkit-outer-spin-button,
+#light-damage input::-webkit-inner-spin-button,
+#heavy-damage input::-webkit-outer-spin-button,
+#heavy-damage input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.damage-values input[type="number"] {
+#light-damage input[type="number"],
+#heavy-damage input[type="number"] {
   -moz-appearance: textfield;
+}
+
+#light-damage figure,
+#heavy-damage figure {
+  margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  line-height: 1.2;
 }
 
 .damage-max {
   font-weight: bold;
-  min-width: 2ch;
-  text-align: center;
+}
+
+figcaption {
+  font-size: 0.7em;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* ==========================================================================
