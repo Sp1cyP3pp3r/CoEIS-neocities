@@ -726,51 +726,84 @@
               </section>
             </section>
 
-                      <section id="sheet-fight">
-            <hgroup>
-              <h2>Combat</h2>
-            </hgroup>
-            
-            <section id="fight-ht">
+            <section id="sheet-fight">
               <hgroup>
-                <h3>Hit Threshold</h3>
+                <h2>Combat</h2>
               </hgroup>
-              <div class="ht-container">
-                <span class="ht-value" id="ht-total">0</span>
-              </div>
-            </section>
 
-            <section id="fight-damage">
-              <section id="light-damage">
-                <hgroup></hgroup>
-                <div>
-                  <label>
-                    <span>Light damage</span>
-                    <input type="text" inputmode="numeric" id="light-damage-input" name="light-damage" min="0" value="0" />
-                  </label>
-                  <figure>
-                    <span class="damage-max" id="light-damage-max">0</span>
-                    <figcaption>max</figcaption>
-                  </figure>
+              <section id="fight-ht">
+                <hgroup>
+                  <h3>Hit Threshold</h3>
+                </hgroup>
+                <div class="ht-container">
+                  <span class="ht-value" id="ht-total">0</span>
                 </div>
               </section>
+              <section id="fight-damage">
+                <section
+                  id="light-damage"
+                  class="damage-block"
+                  data-damage="light"
+                >
+                  <hgroup></hgroup>
+                  <div>
+                    <label>
+                      <span>Light damage</span>
+                      <input
+                        type="text"
+                        inputmode="numeric"
+                        class="damage-input"
+                        id="light-damage-input"
+                        name="light-damage"
+                        maxlength="2"
+                        value="0"
+                      />
+                    </label>
 
-              <section id="heavy-damage">
-                <hgroup></hgroup>
-                <div>
-                  <label>
-                    <span>Heavy damage</span>
-                    <input type="text" inputmode="numeric" id="heavy-damage-input" name="light-damage" min="0" value="0" />
-                  </label>
-                  <figure>
-                    <span class="damage-max" id="heavy-damage-max">0</span>
-                    <figcaption>max</figcaption>
-                  </figure>
-                </div>
+                    <div
+                      class="damage-points point-container"
+                      id="light-damage-points"
+                    ></div>
+
+                    <figure>
+                      <span class="damage-max" id="light-damage-max">6</span>
+                      <figcaption>max</figcaption>
+                    </figure>
+                  </div>
+                </section>
+
+                <section
+                  id="heavy-damage"
+                  class="damage-block"
+                  data-damage="heavy"
+                >
+                  <hgroup></hgroup>
+                  <div>
+                    <label>
+                      <span>Heavy damage</span>
+                      <input
+                        type="text"
+                        inputmode="numeric"
+                        class="damage-input"
+                        id="heavy-damage-input"
+                        name="heavy-damage"
+                        maxlength="2"
+                        value="0"
+                      />
+                    </label>
+
+                    <div
+                      class="damage-points point-container"
+                      id="heavy-damage-points"
+                    ></div>
+
+                    <figure>
+                      <span class="damage-max" id="heavy-damage-max">6</span>
+                      <figcaption>max</figcaption>
+                    </figure>
+                  </div>
+                </section>
               </section>
-            </section>
-          </section>
-              
             </section>
           </section>
         </section>
