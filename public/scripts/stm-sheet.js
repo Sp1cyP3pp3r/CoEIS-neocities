@@ -30,20 +30,19 @@ $(function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const numericInputs = document.querySelectorAll("input[data-cleave-numeral]");
+$(function () {
+  $("input[data-cleave-numeral]").each(function () {
+    const $input = $(this);
 
-  numericInputs.forEach((input) => {
     // Clear/select previous input on focus
-    input.addEventListener("focus", () => {
-      input.select();
+    $input.on("focus", function () {
+      $(this).select();
     });
 
     // Format and clean on input
-    input.addEventListener("input", (e) => {
-      // Apply cleave-zen numeral formatting
-      let value = cleaveZen.formatNumeral(e.target.value, {
-        numeralThousandsGroupStyle: "none", // Use "thousand" if you want commas (e.g., 1,000)
+    $input.on("input", function () {
+      let value = cleaveZen.formatNumeral($(this).val(), {
+        numeralThousandsGroupStyle: "none", // Change to "thousand" for commas (e.g., 1,000)
       });
 
       // Fallback to strictly strip leading zeroes (e.g., "007" -> "7")
@@ -52,13 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // Prevent completely empty input while typing
       if (value === "") value = "0";
 
-      e.target.value = value;
+      $(this).val(value);
     });
 
     // Default to 0 if cleared on blur
-    input.addEventListener("blur", (e) => {
-      if (e.target.value.trim() === "") {
-        e.target.value = "0";
+    $input.on("blur", function () {
+      if ($(this).val().trim() === "") {
+        $(this).val("0");
       }
     });
   });
