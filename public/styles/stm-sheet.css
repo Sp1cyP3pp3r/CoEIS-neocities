@@ -71,8 +71,10 @@
   }
 
   .lore-container {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid !important;
+    grid-template-areas: var(--grid-areas);
+    grid-template-columns: 1fr var(--img-width) 1fr;
+
     width: var(--lore-width);
 
     > div {
@@ -111,18 +113,29 @@
       }
     }
 
+    .lore-character-image {
+      grid-area: ART;
+
+      aspect-ratio: var(--image-ratio);
+      height: var(--img-height);
+      width: var(--img-width);
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     .lore-name-concept-container {
       --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
 
-      width: var(--name-w-perc);
-      min-width: var(--name-w);
-      flex: 1;
+      grid-area: NAME;
+      min-width: auto !important;
+      height: var(--lore-height);
     }
 
     .lore-persona {
-      width: var(--persona-w-perc);
-      min-width: var(--persona-w);
-      flex: 1;
+      grid-area: PERSONA;
     }
   }
 }
@@ -461,6 +474,7 @@
 
   /* 1. LORE: Restore natural flex-wrap without hardcoded pixel floors */
   #sheet-lore .lore-container {
+    --grid-areas: "ART" "NAME" "PERSONA";
     flex-wrap: wrap !important;
   }
 
