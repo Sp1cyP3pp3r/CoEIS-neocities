@@ -547,10 +547,6 @@
   -moz-appearance: textfield;
 }
 
-.damage-separator {
-  opacity: 0.6;
-}
-
 .damage-max {
   font-weight: bold;
   min-width: 2ch;
