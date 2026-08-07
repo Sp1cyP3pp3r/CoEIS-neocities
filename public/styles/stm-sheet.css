@@ -16,29 +16,35 @@
 
   --sect-approaches-width: 450px;
   --sect-attributes-width: 500px;
-}
 
-/* ==========================================================================
-   2. Base Layout
-   ========================================================================== */
-
-#stm-sheet {
   background-color: rgba(38, 39, 55, 0.6);
   position: relative;
   flex-flow: column nowrap;
   padding: var(--sheet-padding);
 }
 
-#sheet-body {
-  width: 100%;
-  flex-flow: column nowrap;
-}
+/* ==========================================================================
+   2. Base Layout
+   ========================================================================== */
 
 #sheet-header {
   display: flex;
   position: absolute;
   inset-block-start: 0;
   inset-inline-end: 0;
+
+  hgroup {
+    h1,
+    :heading {
+    }
+    p {
+    }
+  }
+}
+
+#sheet-body {
+  width: 100%;
+  flex-flow: column nowrap;
 }
 
 /* ==========================================================================
@@ -50,54 +56,60 @@
   --img-height: 175px;
   --img-ratio: calc(3 / 4);
   --img-width: calc(var(--img-height) * var(--img-ratio));
+
   --lore-height: var(--img-height);
   --lore-item-max: 3;
-  --lore-item-height: calc(var(--lore-height) / var(--lore-item-max));
+  --lore-item-height-orig: calc(var(--lore-height) / var(--lore-item-max));
+  --lore-item-height: var(--lore-item-height-orig);
+
   --lore-width: 100%;
   --span-width: 15ch;
   --input-width: 100%;
-  --name-width: 405px;
-  --persona-width: 495px;
+
+  --name-w-perc: 45%;
+  --name-w: 405px;
+  --persona-w-perc: calc(100% - var(--name-w));
+  --persona-w: 495px;
 
   display: flex;
   flex-flow: column wrap;
   width: 100%;
   height: var(--lore-height);
 
-  & hgroup {
+  hgroup {
     position: absolute;
   }
 
-  & .lore-container {
-    display: grid;
+  .lore-container {
+    display: grid !important;
     grid-template-areas: var(--grid-areas);
     grid-template-columns: 1fr var(--img-width) 1fr;
     width: var(--lore-width);
 
-    & > div {
+    > div {
       display: flex;
       flex-flow: column wrap;
       width: 100%;
 
-      & div {
+      div {
         background-color: #0a0a0a;
         color: white;
         height: var(--lore-item-height);
         line-height: var(--lore-item-height);
 
-        & label {
+        label {
           display: flex;
           flex-flow: row nowrap;
           width: 100%;
 
-          & span {
+          span {
             display: inline-block;
             width: var(--span-width);
             text-align: start;
             padding-inline-start: calc(var(--span-width) / 20);
           }
 
-          & input {
+          input {
             width: var(--input-width);
             height: var(--lore-item-height);
             line-height: var(--lore-item-height);
@@ -108,27 +120,26 @@
       }
     }
 
-    & .lore-character-image {
+    .lore-character-image {
       grid-area: ART;
       aspect-ratio: var(--img-ratio);
       height: var(--img-height);
       width: var(--img-width);
 
-      & img {
+      img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
       }
     }
 
-    & .lore-name-concept-container {
-      --lore-item-height: calc(var(--lore-item-height) * 1.5);
+    .lore-name-concept-container {
+      --lore-item-height: calc(var(--lore-item-height-orig) * 1.5);
       grid-area: NAME;
-      min-width: auto;
+      min-width: auto !important;
       height: var(--lore-height);
     }
 
-    & .lore-persona {
+    .lore-persona {
       grid-area: PERSONA;
     }
   }
@@ -147,7 +158,7 @@
   align-items: flex-start;
   width: 100%;
 
-  & > hgroup {
+  > hgroup {
     position: absolute;
     right: 0;
   }
@@ -174,15 +185,15 @@
   width: 100%;
   height: 40%;
 
-  & > hgroup {
+  > hgroup {
     position: absolute;
   }
 
-  & svg {
+  svg {
     overflow: visible;
     pointer-events: none;
 
-    & input {
+    input {
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: textfield;
@@ -211,7 +222,7 @@
 .attributes-container {
   height: 100%;
 
-  & ul {
+  ul {
     height: 100%;
     display: flex;
     flex-flow: row wrap;
@@ -227,20 +238,22 @@
 .attribute-container {
   height: 100%;
 
-  & img {
+  img {
     fill: white;
   }
 
-  & svg {
+  svg {
     transform: scale(1.1) translateY(var(--svg-top-margin, 0));
   }
 }
 
-.attribute-svg foreignObject {
-  width: 100%;
-  height: 100%;
-  transform: translateX(-50%) translateY(-25%);
-  overflow: visible;
+.attribute-svg {
+  foreignObject {
+    width: 100%;
+    height: 100%;
+    transform: translateX(-50%) translateY(-25%);
+    overflow: visible;
+  }
 }
 
 .attribute-total {
@@ -256,7 +269,7 @@
 #attribute-mind {
   --svg-top-margin: 5px;
 
-  & foreignObject .attribute-total {
+  foreignObject .attribute-total {
     transform: translateY(0.3px);
   }
 }
@@ -277,29 +290,31 @@
   justify-content: center;
   position: relative;
 
-  & > hgroup {
+  > hgroup {
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
   }
 }
 
-.skills-container ul {
-  --ul-hor-gap: calc(var(--point-gap) * 0.8);
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  row-gap: calc(var(--point-gap) * 3);
-  column-gap: var(--ul-hor-gap);
-  justify-content: space-around;
-  align-items: center;
-  align-content: center;
+.skills-container {
+  ul {
+    --ul-hor-gap: calc(var(--point-gap) * 0.8);
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: calc(var(--point-gap) * 3);
+    column-gap: var(--ul-hor-gap);
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+  }
 }
 
 .skill-list-item-container {
   width: calc((100% - var(--ul-hor-gap) * 6) / 3);
 
-  & ul {
+  ul {
     display: flex;
     flex-flow: column wrap;
     row-gap: calc(var(--point-gap) * 1.5);
@@ -314,16 +329,16 @@
   align-items: flex-end;
   justify-content: center;
 
-  & .skill-name {
+  .skill-name {
     width: 6ch;
     text-align: left;
   }
 
-  & .point-container {
+  .point-container {
     height: var(--point-width);
   }
 
-  & .point-total {
+  .point-total {
     position: absolute;
     text-align: center;
     width: 1ch;
@@ -340,7 +355,7 @@
   display: flex;
   flex-flow: column wrap;
 
-  & > hgroup {
+  > hgroup {
     position: absolute;
     right: 0;
   }
@@ -350,7 +365,7 @@
   display: flex;
   flex-flow: column wrap;
 
-  & ul {
+  ul {
     display: flex;
     flex-flow: row wrap;
   }
@@ -359,7 +374,7 @@
 .approach-list-item {
   width: 50%;
 
-  & .approach-container {
+  .approach-container {
     display: grid;
     grid-template-areas:
       "---- NAME TOTL"
@@ -368,16 +383,16 @@
     align-items: center;
     justify-items: stretch;
 
-    & .approach-name {
+    .approach-name {
       grid-area: NAME;
     }
 
-    & img {
+    img {
       display: block;
       grid-area: IMAG;
     }
 
-    & .point-container {
+    .point-container {
       grid-area: PNTS;
       width: 50%;
       margin-inline: auto;
@@ -388,7 +403,7 @@
       justify-items: center;
     }
 
-    & .point-total {
+    .point-total {
       grid-area: TOTL;
       width: 1ch;
     }
@@ -458,107 +473,112 @@
   /* Lore */
   #sheet-lore .lore-container {
     --grid-areas: "ART" "NAME" "PERSONA";
-    display: flex;
-    flex-wrap: wrap;
+    display: flex !important;
+    flex-wrap: wrap !important;
   }
 
-  #sheet-lore .lore-name-concept-container,
+  #sheet-lore .lore-name-concept-container {
+    flex: 1 1 280px !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+
   #sheet-lore .lore-persona {
-    min-width: 0;
-    width: auto;
-    flex: 1 1 300px;
+    flex: 1 1 320px !important;
+    min-width: 0 !important;
+    width: auto !important;
   }
 
   #sheet-lore label {
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
     align-items: center;
   }
 
   #sheet-lore label span {
     flex-shrink: 0;
-    width: auto;
+    width: auto !important;
     padding-right: 8px;
   }
 
   #sheet-lore label input {
     min-width: 0;
     flex-grow: 1;
-    width: auto;
+    width: auto !important;
   }
 
   /* Parameters */
   #sheet-parameters {
-    flex-direction: column;
+    flex-direction: column !important;
     gap: 2rem;
   }
 
   #section-approaches,
   #section-dice-parameters {
-    width: 100%;
-    max-width: 100%;
-    margin-inline: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-inline: 0 !important;
   }
 
   /* Attributes */
   #section-attributes {
-    height: auto;
+    height: auto !important;
   }
 
   .attribute-item-list {
-    margin-inline-start: 0;
-    width: 33.333%;
+    margin-inline-start: 0 !important;
+    width: 33.333% !important;
     display: flex;
     justify-content: center;
   }
 
   .attribute-container svg {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     max-width: 90px;
-    transform: translateY(var(--svg-top-margin, 0));
+    transform: translateY(var(--svg-top-margin, 0)) !important;
   }
 
   /* Skills */
   .skills-container ul {
-    justify-content: center;
-    gap: 1rem;
+    justify-content: center !important;
+    gap: 1rem !important;
   }
 
   .skill-list-item-container {
-    flex: 1 1 30%;
-    min-width: 130px;
+    flex: 1 1 30% !important;
+    min-width: 130px !important;
     max-width: 100%;
-    width: auto;
+    width: auto !important;
   }
 
   .skill-list-item {
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: flex-start;
+    flex-flow: row nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
     gap: 6px;
   }
 
   .skill-list-item .skill-name {
-    width: 5ch;
+    width: 5ch !important;
     flex-shrink: 0;
     text-align: left;
   }
 
   .skill-list-item .point-container {
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
     justify-content: flex-start;
   }
 
   .skill-list-item .point-total {
-    position: static;
+    position: static !important;
     flex-shrink: 0;
     margin-left: auto;
   }
 
   /* Approaches */
   .approach-list-item {
-    width: 50%;
+    width: 50% !important;
   }
 
   .approach-container {
@@ -574,7 +594,7 @@
   .approach-container .point-container {
     width: 100%;
     justify-content: flex-start;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
   }
 }
 
