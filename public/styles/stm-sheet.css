@@ -41,13 +41,21 @@
 }
 
 #sheet-lore {
-  --lore-item-height-orig: 25px;
+  --grid-areas: "NAME ART PERSONA";
+  --img-height: 175px;
+  --img-ratio: calc(3/4);
+  --img-width: calc(var(--img-height) * var(--img-ratio));
+
+  --lore-height: var(--img-height);
+  --lore-item-max: 3;
+  --lore-item-height-orig: calc(var(--lore-height) / var(--lore-item-max));
   --lore-item-height: var(--lore-item-height-orig);
 
   --lore-width: 100%;
   --span-width: 15ch;
   --input-width: 100%;
 
+  /* watafuk */
   --name-w-perc: 45%;
   --name-w: 405px;
   --persona-w-perc: calc(100% - var(--name-w));
@@ -56,6 +64,11 @@
   display: flex;
   flex-flow: column wrap;
   width: 100%;
+  height: var(--lore-height);
+
+  hgroup {
+    position: absolute;
+  }
 
   .lore-container {
     display: flex;
