@@ -429,6 +429,11 @@
   fill: white;
 }
 
+.vertical-notes {
+  display: flex;
+  flex-flow: column wrap;
+}
+
 /* =========================================
    MOBILE SHEET FIXES (Fluid & Non-Destructive)
    ========================================= */
