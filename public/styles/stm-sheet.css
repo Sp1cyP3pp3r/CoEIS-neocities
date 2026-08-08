@@ -464,10 +464,9 @@
 
 #sheet-fight {
   grid-area: FIGHT;
-  width: 100%;
+  width: auto;
   display: flex;
   flex-flow: column nowrap;
-  gap: 1em;
 }
 
 /* Hit Threshold */
