@@ -9,6 +9,7 @@
 
 #stm-sheet {
   --sheet-bg-img: url(../assets/stm/paper.png);
+  --sheet-border-img: url(../assets/stm/border.png);
 
   --parameters-areas: "ATTRBT APPRCH" "TALENT FIGHT";
   --sheet-padding: 1em;
@@ -19,12 +20,17 @@
   --sect-approaches-width: 450px;
   --sect-attributes-width: 500px;
 
-  background-color: rgba(38, 39, 55, 0.6);
-  background-image: var(--sheet-bg-img);
-
   position: relative;
   flex-flow: column nowrap;
   padding: var(--sheet-padding);
+
+  background-color: rgba(38, 39, 55, 0.6);
+  background-image: var(--sheet-bg-img);
+
+  border-image-slice: 121 102 180 104;
+  border-image-width: 20px 20px 20px 20px;
+  border-image-outset: 0px 0px 0px 0px;
+  border-image-repeat: repeat repeat;
 }
 
 /* ==========================================================================
