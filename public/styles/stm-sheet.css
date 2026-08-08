@@ -8,7 +8,7 @@
 }
 
 #stm-sheet {
-  --sheet-bg-img: url(assets/stm/paper.png);
+  --sheet-bg-img: url(../assets/stm/paper.png);
 
   --parameters-areas: "ATTRBT APPRCH" "TALENT FIGHT";
   --sheet-padding: 1em;
