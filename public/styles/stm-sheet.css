@@ -473,13 +473,9 @@
 #fight-ht {
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.5em;
 }
 
 .ht-container {
-  background-color: #0a0a0a;
-  color: white;
-  padding: 0.75em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -494,7 +490,6 @@
 #fight-damage {
   display: flex;
   flex-flow: column nowrap;
-  gap: 1em;
 }
 
 #light-damage,
@@ -505,13 +500,10 @@
 
 #light-damage > div,
 #heavy-damage > div {
-  background-color: #0a0a0a;
-  color: white;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em 1em;
 }
 
 #light-damage label,
@@ -519,15 +511,12 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  gap: 0.75em;
 }
 
 #light-damage input,
 #heavy-damage input {
   border: none;
-  width: 3ch;
   text-align: center;
-  padding: 0.25em 0;
 }
 
 #light-damage input:focus,
@@ -577,8 +566,6 @@
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  column-gap: 1em;
-  row-gap: 0.5em;
 }
 
 #fight-damage label {
