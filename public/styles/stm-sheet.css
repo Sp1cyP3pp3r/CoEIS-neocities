@@ -9,7 +9,7 @@
 
 #stm-sheet {
   --sheet-bg-img: url(../assets/stm/paper.png);
-  --sheet-border-img: url(../assets/stm/border.png);
+  --sheet-border-img: url(../assets/stm/border_1.png);
 
   --parameters-areas: "ATTRBT APPRCH" "TALENT FIGHT";
   --sheet-padding: 1em;
