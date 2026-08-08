@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root {
-  --body-bg-img: url("https://i.pinimg.com/1200x/23/35/8c/23358c2cc37998fd355474ae0a3d8d94.jpg");
+  --body-bg-img: linear-gradient(to top, black, black);
   --bg-plain-color: #a98c73aa;
 }
 
