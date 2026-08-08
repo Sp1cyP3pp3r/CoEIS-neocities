@@ -31,9 +31,9 @@
   border: 25px solid transparent;
 
   border-image-slice: 51 64 57 191;
-  border-image-width: 20px 20px 20px 20px;
-  border-image-outset: 1em 0px 6px 9px;
-  border-image-repeat: repeat repeat;
+  border-image-width: 42px 58px 51px 147px;
+  border-image-outset: 15px 32px 23px 122px;
+  border-image-repeat: round round;
   border-image-source: var(--sheet-border-img);
 }
 
