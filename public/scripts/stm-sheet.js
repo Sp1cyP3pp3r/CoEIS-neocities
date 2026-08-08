@@ -65,6 +65,7 @@ $(function () {
     });
   });
 });
+
 (function ($) {
   $(function () {
     const $lightBlock = $("#light-damage");
@@ -75,6 +76,13 @@ $(function () {
       return Number.isFinite(parsed) ? parsed : 0;
     }
 
+    function isHeavyBlock($block) {
+      return (
+        $block.attr("id") === "heavy-damage" ||
+        $block.attr("data-damage") === "heavy"
+      );
+    }
+
     function getMax($block) {
       return Math.max(
         0,
@@ -82,18 +90,33 @@ $(function () {
       );
     }
 
+    function getLimit($block) {
+      const max = getMax($block);
+
+      if (isHeavyBlock($block)) {
+        return max * 2;
+      }
+
+      return max;
+    }
+
     function getInputValue($block) {
       return parseNumber($block.find(".damage-input").val());
     }
 
-    function clampValue(value, max) {
+    function clampValue(value, limit) {
       value = Math.max(0, parseNumber(value));
-      return max <= 0 ? 0 : Math.min(value, max);
+
+      if (limit <= 0) {
+        return 0;
+      }
+
+      return Math.min(value, limit);
     }
 
     function renderCheckboxes($block, value) {
-      const max = getMax($block);
-      const safeValue = clampValue(value, max);
+      const limit = getLimit($block);
+      const safeValue = clampValue(value, limit);
 
       $block.find(".damage-checkbox").prop("checked", function () {
         return Number($(this).data("value")) <= safeValue;
@@ -107,13 +130,22 @@ $(function () {
 
     function buildCheckboxes($block) {
       const max = getMax($block);
+      const limit = getLimit($block);
       const current = getInputValue($block);
+      const heavy = isHeavyBlock($block);
+
       const $points = $block.find(".damage-points").empty();
 
-      for (let i = 1; i <= max; i++) {
+      for (let i = 1; i <= limit; i++) {
+        let checkboxClass = "point-checkbox damage-checkbox";
+
+        if (heavy && i > max) {
+          checkboxClass += " beyond-max";
+        }
+
         $("<input>", {
           type: "checkbox",
-          class: "point-checkbox damage-checkbox",
+          class: checkboxClass,
           "data-value": i,
         }).appendTo($points);
       }
@@ -132,8 +164,9 @@ $(function () {
     }
 
     function setHeavyValue(value) {
-      const heavyMax = getMax($heavyBlock);
-      value = clampValue(value, heavyMax);
+      const heavyLimit = getLimit($heavyBlock);
+
+      value = clampValue(value, heavyLimit);
 
       setInputValue($heavyBlock, value);
 
