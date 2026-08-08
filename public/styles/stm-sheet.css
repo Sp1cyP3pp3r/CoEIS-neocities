@@ -3,7 +3,11 @@
    ========================================================================== */
 
 :root {
-  --body-bg-img: linear-gradient(to top, black, black);
+  --body-bg-img: linear-gradient(
+    to top,
+    rgb(203, 181, 255),
+    rgb(151, 236, 169)
+  );
   --bg-plain-color: #a98c73aa;
 }
 
