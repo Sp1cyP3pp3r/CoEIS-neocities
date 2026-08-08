@@ -104,8 +104,6 @@
       width: 100%;
 
       div {
-        background-color: #0a0a0a;
-        color: white;
         height: var(--lore-item-height);
         line-height: var(--lore-item-height);
 
@@ -125,8 +123,6 @@
             width: var(--input-width);
             height: var(--lore-item-height);
             line-height: var(--lore-item-height);
-            background-color: #3a3a3a;
-            color: white;
           }
         }
       }
