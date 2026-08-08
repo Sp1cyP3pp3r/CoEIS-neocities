@@ -587,7 +587,7 @@
 
 #fight-damage .damage-points {
   order: 3;
-  width: 100%;
+  width: auto;
   margin: 0;
 }
 
