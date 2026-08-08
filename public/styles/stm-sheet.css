@@ -28,10 +28,10 @@
   background-color: rgba(38, 39, 55, 0.6);
   background-image: var(--sheet-bg-img);
 
-  border-image-slice: 121 102 180 104;
-  border-image-width: 55px 55px 66px 55px;
-  border-image-outset: 34px 34px 53px 34px;
-  border-image-repeat: repeat repeat;
+  border-image-slice: 133 108 97 105;
+  border-image-width: 20px 20px 20px 20px;
+  border-image-outset: 0px 0px 0px 0px;
+  border-image-repeat: round round;
   border-image-source: var(--sheet-border-img);
 }
 
