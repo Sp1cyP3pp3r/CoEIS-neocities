@@ -524,9 +524,7 @@
 
 #light-damage input,
 #heavy-damage input {
-  background-color: #3a3a3a;
   border: none;
-  color: white;
   width: 3ch;
   text-align: center;
   padding: 0.25em 0;
