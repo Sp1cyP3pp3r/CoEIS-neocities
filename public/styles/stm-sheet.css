@@ -23,6 +23,7 @@
   position: relative;
   flex-flow: column nowrap;
   padding: var(--sheet-padding);
+  padding-inline: calc(var(--sheet-padding) * 1.25);
 
   background-color: rgba(38, 39, 55, 0.6);
   background-image: var(--sheet-bg-img);
