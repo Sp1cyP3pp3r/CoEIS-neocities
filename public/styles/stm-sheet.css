@@ -439,6 +439,7 @@
 
 #sheet-talents-flaws {
   grid-area: TALENT;
+  width: -webkit-fill-available;
 
   background-image: var(--talents-bg);
   background-repeat: no-repeat;
