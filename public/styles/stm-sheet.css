@@ -17,6 +17,8 @@
   --sheet-bg-img: url(../assets/stm/paper.png);
   --sheet-border-img: url(../assets/stm/border_2.png);
 
+  --talents-bg: url(../assets/stm/sun.png);
+
   --parameters-areas: "ATTRBT APPRCH" "TALENT FIGHT";
   --sheet-padding: 1em;
 
@@ -437,6 +439,11 @@
 
 #sheet-talents-flaws {
   grid-area: TALENT;
+
+  background-image: var(--talents-bg);
+  background-repeat: no-repeat;
+  background-position: 85% 15%;
+  background-size: 50%;
 }
 
 #sheet-talents {
