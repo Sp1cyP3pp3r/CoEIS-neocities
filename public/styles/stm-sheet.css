@@ -442,9 +442,10 @@
   width: -webkit-fill-available;
 
   background-image: var(--talents-bg);
+  background-blend-mode: color;
   background-repeat: no-repeat;
   background-position: 85% 15%;
-  background-size: 50%;
+  background-size: 27%;
 }
 
 #sheet-talents {
