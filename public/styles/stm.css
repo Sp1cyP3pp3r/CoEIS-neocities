@@ -109,9 +109,13 @@ descr:hover {
       background-image: linear-gradient(135deg, black 50%, transparent 50%);
     }
 
-    &[disabled] {
+    &.locked {
       background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiI+PHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNNiAxOEwxOCA2TTYgNmwxMiAxMiIvPjwvc3ZnPg==);
       background-size: 100% 100%;
+      cursor: not-allowed;
+    }
+
+    &[disabled] {
       cursor: default;
     }
   }
