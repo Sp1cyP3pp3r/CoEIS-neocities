@@ -3,7 +3,7 @@
 
 /* DESCRIPTION PLUG-IN */
 
-[descr] {
+descr {
   --descr-max-width: 40ch;
   --descr-border-clr: #535353;
   --descr-bg-clr: white;
@@ -25,8 +25,8 @@
   padding-inline-start: var(--descr-padding-inline);
 }
 
-*:hover + [descr],
-[descr]:hover {
+*:hover + descr,
+descr:hover {
   display: block;
 }
 
