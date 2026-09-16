@@ -1,29 +1,35 @@
 $(function () {
-  const checkboxSelector = ".point-container input[type='checkbox']";
+  const selector = ".point-container input[type='checkbox']";
 
-  $(document).on("mousedown", checkboxSelector, function (e) {
-    const $box = $(this);
-    const $container = $box.closest(".point-container");
-    const $boxes = $container.find("input[type='checkbox']");
+  // Prevent the browser's native checkbox behavior.
+  $(document).on("click", selector, function (e) {
+    e.preventDefault();
+  });
+
+  // =============================================================
+  // LEFT + MIDDLE CLICK
+  // =============================================================
+  $(document).on("mousedown", selector, function (e) {
+    if (e.button !== 0 && e.button !== 1) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $container = $(this).closest(".point-container");
+    const $boxes = $container.find(selector);
     const index = $boxes.index(this);
 
-    // =============================================================
-    // LEFT MOUSE BUTTON
-    // =============================================================
+    // -----------------------------------------------------------
+    // LEFT CLICK
+    // -----------------------------------------------------------
     if (e.button === 0) {
-      e.preventDefault();
-
-      // -----------------------------------------------------------
-      // LMB on INDETERMINATE
-      //
-      // This box becomes CHECKED.
-      // INDETERMINATE boxes to the right stay INDETERMINATE.
-      // -----------------------------------------------------------
+      // LMB on INDETERMINATE:
+      // this becomes checked, indeterminate boxes to the right
+      // remain untouched.
       if (this.indeterminate) {
-        this.indeterminate = false;
         this.checked = true;
+        this.indeterminate = false;
 
-        // Everything to the left is also checked.
         $boxes.slice(0, index).each(function () {
           if (!this.disabled) {
             this.checked = true;
@@ -34,21 +40,15 @@ $(function () {
         return;
       }
 
-      // -----------------------------------------------------------
-      // LMB on CHECKED
-      //
-      // If there is an indeterminate region to the right,
-      // the boxes we would normally clear become indeterminate.
-      //
-      // Otherwise they simply become unchecked.
-      // -----------------------------------------------------------
+      // LMB on CHECKED:
+      // if there is an indeterminate region to the right,
+      // the boxes that would normally become unchecked instead
+      // become indeterminate.
       if (this.checked) {
         const hasIndeterminateRight = $boxes
           .slice(index + 1)
           .toArray()
-          .some(function (box) {
-            return box.indeterminate;
-          });
+          .some((box) => box.indeterminate);
 
         $boxes.slice(index + 1).each(function () {
           if (this.disabled) return;
@@ -60,11 +60,8 @@ $(function () {
         return;
       }
 
-      // -----------------------------------------------------------
-      // LMB on UNCHECKED
-      //
-      // Fill everything from the left through this box.
-      // -----------------------------------------------------------
+      // LMB on UNCHECKED:
+      // fill everything from the left through this box.
       $boxes.slice(0, index + 1).each(function () {
         if (this.disabled) return;
 
@@ -75,18 +72,12 @@ $(function () {
       return;
     }
 
-    // =============================================================
-    // MIDDLE MOUSE BUTTON
-    // =============================================================
+    // -----------------------------------------------------------
+    // MIDDLE CLICK
+    // -----------------------------------------------------------
     if (e.button === 1) {
-      e.preventDefault();
-
-      // -----------------------------------------------------------
-      // MMB on CHECKED
-      //
-      // This box AND every checked box to its right become
-      // INDETERMINATE.
-      // -----------------------------------------------------------
+      // MMB on CHECKED:
+      // this box and checked boxes to its right become indeterminate.
       if (this.checked && !this.indeterminate) {
         $boxes.slice(index).each(function () {
           if (this.disabled) return;
@@ -100,21 +91,14 @@ $(function () {
         return;
       }
 
-      // -----------------------------------------------------------
-      // MMB on INDETERMINATE
-      //
-      // Already indeterminate, so don't change anything.
-      // -----------------------------------------------------------
+      // MMB on INDETERMINATE:
+      // leave it alone.
       if (this.indeterminate) {
         return;
       }
 
-      // -----------------------------------------------------------
-      // MMB on UNCHECKED
-      //
-      // Make unchecked boxes from the left through this box
-      // indeterminate.
-      // -----------------------------------------------------------
+      // MMB on UNCHECKED:
+      // unchecked boxes to the left become indeterminate.
       $boxes.slice(0, index + 1).each(function () {
         if (this.disabled) return;
 
@@ -122,42 +106,42 @@ $(function () {
           this.indeterminate = true;
         }
       });
-
-      return;
-    }
-
-    // =============================================================
-    // RIGHT MOUSE BUTTON
-    // =============================================================
-    if (e.button === 2) {
-      e.preventDefault();
-
-      // Disable this box and EVERYTHING to its right.
-      $boxes.slice(index).each(function () {
-        this.checked = false;
-        this.indeterminate = false;
-        this.disabled = true;
-      });
-
-      return;
     }
   });
 
-  // ===============================================================
+  // =============================================================
   // RIGHT CLICK
   //
-  // Needed because the context menu can otherwise appear.
-  // ===============================================================
+  // Listen on the CONTAINER, because disabled checkboxes don't
+  // receive mouse events.
+  // =============================================================
   $(document).on("contextmenu", ".point-container", function (e) {
     e.preventDefault();
+
+    // Find the checkbox currently under the cursor.
+    const element = document.elementFromPoint(e.clientX, e.clientY);
+
+    if (!element || !element.matches(selector)) {
+      return;
+    }
+
+    const $boxes = $(this).find(selector);
+    const index = $boxes.index(element);
+
+    if (index === -1) return;
+
+    // Disable this box and everything to its right.
+    $boxes.slice(index).each(function () {
+      this.checked = false;
+      this.indeterminate = false;
+      this.disabled = true;
+    });
   });
 
-  // ===============================================================
-  // MIDDLE CLICK
-  //
-  // Prevent browser autoscroll / auxclick behavior.
-  // ===============================================================
-  $(document).on("auxclick", checkboxSelector, function (e) {
+  // =============================================================
+  // MIDDLE CLICK: prevent auxclick behavior
+  // =============================================================
+  $(document).on("auxclick", selector, function (e) {
     if (e.button === 1) {
       e.preventDefault();
     }
