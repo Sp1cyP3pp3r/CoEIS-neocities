@@ -23,7 +23,7 @@ descr {
   );
   padding: var(--descr-padding);
   padding-inline-start: var(--descr-padding-inline);
-  transition: 3s display;
+  transition: 3s 3s display;
 
   &:not([hidden]) {
     display: none;
