@@ -57,27 +57,16 @@ descr:hover {
 
     span {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
+      font-size: 1.5em;
     }
 
-    picture {
-      height: 100%;
+    picture img {
+      height: 2rem;
     }
 
     input {
     }
   }
-}
-
-#a-voice > label span {
-  font-size: 1.8rem;
-  font-style: italic;
-  margin-right: 1rem;
-}
-
-#a-voice > label picture img {
-  height: 2rem;
-  width: auto;
-  filter: invert(1); /* Ensures icon is white if the source is black */
 }
 
 /* Attribute Value Input (The small line above the checkboxes) */
