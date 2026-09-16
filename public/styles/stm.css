@@ -83,6 +83,23 @@ descr:hover {
   }
 }
 
+.c-skills-container {
+}
+
+.point-container {
+  display: flex;
+  flex-flow: row wrap;
+
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+  }
+  input[type="checkbox"]:checked {
+    background-color: #2f2f30;
+  }
+}
+
 /*
 
 .c-skills-container {
