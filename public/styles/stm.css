@@ -68,9 +68,11 @@ descr:hover {
     }
 
     input {
+      width: 2em;
+      text-align: center;
+
       border: none;
       background: transparent;
-      text-align: center;
       -moz-appearance: textfield;
 
       &::-webkit-outer-spin-button,
