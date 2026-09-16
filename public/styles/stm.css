@@ -62,6 +62,7 @@ descr:hover {
 
     picture img {
       height: 2rem;
+      filter: invert(1);
     }
 
     input {
