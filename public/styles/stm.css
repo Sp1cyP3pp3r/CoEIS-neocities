@@ -1,4 +1,6 @@
 .character-sheet {
+  --c-element-height: 24px;
+
   margin-inline: 25%;
   margin-block: 7%;
 }
@@ -52,18 +54,21 @@ descr:hover {
   flex-flow: column wrap;
 
   & > label {
+    height: var(--c-element-height);
     display: flex;
     flex-flow: row nowrap;
     color: var(--clr-element-txt, white);
 
     span {
+      line-height: var(--c-element-height);
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
       font-size: 1.5em;
       background-color: var(--clr-element-bg, #2f2f30);
     }
 
     picture img {
-      height: 2rem;
+      line-height: var(--c-element-height);
+      height: var(--c-element-height);
       filter: invert(1);
     }
 
