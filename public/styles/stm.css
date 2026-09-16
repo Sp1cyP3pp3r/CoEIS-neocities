@@ -98,7 +98,7 @@ descr:hover {
 
     width: var(--point-size);
     height: var(--point-size);
-    border: calc(var(--point-size) / 16) solid black;
+    border: calc(var(--point-size) / 8) solid black;
 
     &:not([disabled]) {
       cursor: pointer;
