@@ -1,10 +1,6 @@
 $(function () {
   const selector = ".point-container input[type='checkbox']";
 
-  // ===============================================================
-  // STATE
-  // ===============================================================
-
   function setState(box, state) {
     $(box).attr("data-state", state);
 
@@ -31,19 +27,9 @@ $(function () {
     return $(box).closest(".point-container").find("input[type='checkbox']");
   }
 
-  // ===============================================================
-  // PREVENT NATIVE CHECKBOX BEHAVIOR
-  //
-  // All state changes are handled by mousedown.
-  // ===============================================================
-
   $(document).on("click", selector, function (e) {
     e.preventDefault();
   });
-
-  // ===============================================================
-  // MOUSE DOWN
-  // ===============================================================
 
   $(document).on("mousedown", selector, function (e) {
     e.preventDefault();
@@ -52,26 +38,10 @@ $(function () {
     const index = $boxes.index(this);
     const state = $(this).attr("data-state");
 
-    // =============================================================
-    // LEFT MOUSE BUTTON
-    // =============================================================
-
     if (e.button === 0) {
-      // -----------------------------------------------------------
-      // OFF-LIMIT
-      //
-      // LMB does nothing to an off-limit point.
-      // -----------------------------------------------------------
-
       if (state === "off-limit") {
         return;
       }
-
-      // -----------------------------------------------------------
-      // UNCHECKED → CHECKED
-      //
-      // Fill from the left through this point.
-      // -----------------------------------------------------------
 
       if (state === "unchecked") {
         $boxes.slice(0, index + 1).each(function () {
@@ -84,15 +54,6 @@ $(function () {
 
         return;
       }
-
-      // -----------------------------------------------------------
-      // CHECKED → INDETERMINATE
-      //
-      // Convert this point and all CHECKED points to its right
-      // into INDETERMINATE.
-      //
-      // Existing INDETERMINATE points are preserved.
-      // -----------------------------------------------------------
 
       if (state === "checked") {
         $boxes.slice(index).each(function () {
@@ -109,14 +70,6 @@ $(function () {
 
         return;
       }
-
-      // -----------------------------------------------------------
-      // INDETERMINATE → CHECKED
-      //
-      // Promote this point to CHECKED.
-      //
-      // Everything to the left becomes CHECKED as well.
-      // -----------------------------------------------------------
 
       if (state === "indeterminate") {
         setState(this, "checked");
@@ -133,24 +86,10 @@ $(function () {
       }
     }
 
-    // =============================================================
-    // MIDDLE MOUSE BUTTON
-    // =============================================================
-
     if (e.button === 1) {
-      // -----------------------------------------------------------
-      // OFF-LIMIT
-      // -----------------------------------------------------------
-
       if (state === "off-limit") {
         return;
       }
-
-      // -----------------------------------------------------------
-      // UNCHECKED → INDETERMINATE
-      //
-      // Fill from the left through this point temporarily.
-      // -----------------------------------------------------------
 
       if (state === "unchecked") {
         $boxes.slice(0, index + 1).each(function () {
@@ -165,13 +104,6 @@ $(function () {
 
         return;
       }
-
-      // -----------------------------------------------------------
-      // CHECKED → INDETERMINATE
-      //
-      // This point and all CHECKED points to the right become
-      // INDETERMINATE.
-      // -----------------------------------------------------------
 
       if (state === "checked") {
         $boxes.slice(index).each(function () {
@@ -188,15 +120,6 @@ $(function () {
 
         return;
       }
-
-      // -----------------------------------------------------------
-      // INDETERMINATE
-      //
-      // Remove INDETERMINATE points past this point.
-      //
-      // If there are no INDETERMINATE points to the right,
-      // remove this point itself.
-      // -----------------------------------------------------------
 
       if (state === "indeterminate") {
         const $right = $boxes.slice(index + 1);
@@ -226,25 +149,7 @@ $(function () {
       }
     }
 
-    // =============================================================
-    // RIGHT MOUSE BUTTON
-    // =============================================================
-
     if (e.button === 2) {
-      // -----------------------------------------------------------
-      // CLICKING AN OFF-LIMIT POINT
-      //
-      // Remove THIS off-limit point and everything to its LEFT
-      // that is also off-limit.
-      //
-      // Example:
-      //
-      //   ■ ■ ■ □ ╳ ╳
-      //             RMB
-      //   → ■ ■ ■ □ □ ╳
-      //
-      // -----------------------------------------------------------
-
       if (state === "off-limit") {
         for (let i = index; i >= 0; i--) {
           if ($boxes.eq(i).attr("data-state") !== "off-limit") {
@@ -257,19 +162,6 @@ $(function () {
         return;
       }
 
-      // -----------------------------------------------------------
-      // CLICKING ANY NON-OFF-LIMIT POINT
-      //
-      // This point and everything to its RIGHT become off-limit.
-      //
-      // Example:
-      //
-      //   ■ ■ ■ □ □
-      //       RMB
-      //   → ■ ■ ■ ╳ ╳
-      //
-      // -----------------------------------------------------------
-
       $boxes.slice(index).each(function () {
         setState(this, "off-limit");
       });
@@ -278,17 +170,9 @@ $(function () {
     }
   });
 
-  // ===============================================================
-  // PREVENT RIGHT-CLICK CONTEXT MENU
-  // ===============================================================
-
   $(document).on("contextmenu", selector, function (e) {
     e.preventDefault();
   });
-
-  // ===============================================================
-  // PREVENT MIDDLE-CLICK AUXCLICK
-  // ===============================================================
 
   $(document).on("auxclick", selector, function (e) {
     if (e.button === 1) {
