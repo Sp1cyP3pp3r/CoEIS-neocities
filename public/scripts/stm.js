@@ -241,38 +241,57 @@ $(function () {
     }
 
     // =============================================================
-    // RIGHT MOUSE BUTTON
-    // =============================================================
+// RIGHT MOUSE BUTTON
+// =============================================================
 
-    if (e.button === 2) {
-      // -----------------------------------------------------------
-      // OFF-LIMIT → UNCHECKED
-      //
-      // RMB on the boundary removes the boundary from this point
-      // and everything to its right.
-      // -----------------------------------------------------------
+if (e.button === 2) {
 
-      if (state === "off-limit") {
-        $boxes.slice(index).each(function () {
-          setState(this, "unchecked");
-        });
+  // -----------------------------------------------------------
+  // CLICKING AN OFF-LIMIT POINT
+  //
+  // Remove THIS off-limit point and everything to its LEFT
+  // that is also off-limit.
+  //
+  // Example:
+  //
+  //   ■ ■ ■ □ ╳ ╳
+  //           RMB
+  //   → ■ ■ ■ □ □ ╳
+  //
+  // -----------------------------------------------------------
 
-        return;
+  if (state === "off-limit") {
+    for (let i = index; i >= 0; i--) {
+      if ($boxes.eq(i).attr("data-state") !== "off-limit") {
+        break;
       }
 
-      // -----------------------------------------------------------
-      // ANY OTHER STATE → OFF-LIMIT
-      //
-      // This point and everything to its right become off-limit.
-      // -----------------------------------------------------------
-
-      $boxes.slice(index).each(function () {
-        setState(this, "off-limit");
-      });
-
-      return;
+      setState($boxes[i], "unchecked");
     }
+
+    return;
+  }
+
+
+  // -----------------------------------------------------------
+  // CLICKING ANY NON-OFF-LIMIT POINT
+  //
+  // This point and everything to its RIGHT become off-limit.
+  //
+  // Example:
+  //
+  //   ■ ■ ■ □ □
+  //       RMB
+  //   → ■ ■ ■ ╳ ╳
+  //
+  // -----------------------------------------------------------
+
+  $boxes.slice(index).each(function () {
+    setState(this, "off-limit");
   });
+
+  return;
+}
 
   // ===============================================================
   // PREVENT RIGHT-CLICK CONTEXT MENU
