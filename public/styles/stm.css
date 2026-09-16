@@ -20,7 +20,8 @@
   padding-inline-start: var(--descr-padding-inline);
 }
 
-*:hover + .descr {
+*:hover + .descr,
+.descr:hover {
   display: block;
 }
 
