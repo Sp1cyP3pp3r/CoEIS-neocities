@@ -1,124 +1,183 @@
 $(function () {
   const selector = ".point-container input[type='checkbox']";
 
-  // Prevent the browser's native checkbox behavior.
-  $(document).on("click", selector, function (e) {
-    e.preventDefault();
-  });
+  // ---------------------------------------------------------------
+  // Keep native checkbox properties synchronized with data-state.
+  // ---------------------------------------------------------------
+  function setState(box, state) {
+    box.dataset.state = state;
 
-  // =============================================================
-  // LEFT + MIDDLE CLICK
-  // =============================================================
+    switch (state) {
+      case "checked":
+        box.checked = true;
+        box.indeterminate = false;
+        break;
+
+      case "indeterminate":
+        box.checked = false;
+        box.indeterminate = true;
+        break;
+
+      case "off-limit":
+        box.checked = false;
+        box.indeterminate = false;
+        break;
+
+      case "unchecked":
+      default:
+        box.checked = false;
+        box.indeterminate = false;
+        break;
+    }
+  }
+
+  // ---------------------------------------------------------------
+  // LEFT CLICK
+  // ---------------------------------------------------------------
   $(document).on("mousedown", selector, function (e) {
-    if (e.button !== 0 && e.button !== 1) return;
+    if (e.button !== 0) return;
 
     e.preventDefault();
-    e.stopPropagation();
 
-    const $container = $(this).closest(".point-container");
-    const $boxes = $container.find(selector);
+    const $boxes = $(this).closest(".point-container").find(selector);
+
     const index = $boxes.index(this);
+    const state = this.dataset.state;
 
-    // -----------------------------------------------------------
-    // LEFT CLICK
-    // -----------------------------------------------------------
-    if (e.button === 0) {
-      // LMB on INDETERMINATE:
-      // this becomes checked, indeterminate boxes to the right
-      // remain untouched.
-      if (this.indeterminate) {
-        this.checked = true;
-        this.indeterminate = false;
+    // =============================================================
+    // LMB on INDETERMINATE
+    //
+    // This point becomes CHECKED.
+    // Indeterminate points to the right remain indeterminate.
+    // =============================================================
+    if (state === "indeterminate") {
+      setState(this, "checked");
 
-        $boxes.slice(0, index).each(function () {
-          if (!this.disabled) {
-            this.checked = true;
-            this.indeterminate = false;
-          }
-        });
-
-        return;
-      }
-
-      // LMB on CHECKED:
-      // if there is an indeterminate region to the right,
-      // the boxes that would normally become unchecked instead
-      // become indeterminate.
-      if (this.checked) {
-        const hasIndeterminateRight = $boxes
-          .slice(index + 1)
-          .toArray()
-          .some((box) => box.indeterminate);
-
-        $boxes.slice(index + 1).each(function () {
-          if (this.disabled) return;
-
-          this.checked = false;
-          this.indeterminate = hasIndeterminateRight;
-        });
-
-        return;
-      }
-
-      // LMB on UNCHECKED:
-      // fill everything from the left through this box.
-      $boxes.slice(0, index + 1).each(function () {
-        if (this.disabled) return;
-
-        this.checked = true;
-        this.indeterminate = false;
+      // Everything to the left remains checked.
+      $boxes.slice(0, index).each(function () {
+        if (this.dataset.state !== "off-limit") {
+          setState(this, "checked");
+        }
       });
 
       return;
     }
 
-    // -----------------------------------------------------------
-    // MIDDLE CLICK
-    // -----------------------------------------------------------
-    if (e.button === 1) {
-      // MMB on CHECKED:
-      // this box and checked boxes to its right become indeterminate.
-      if (this.checked && !this.indeterminate) {
-        $boxes.slice(index).each(function () {
-          if (this.disabled) return;
+    // =============================================================
+    // LMB on CHECKED
+    //
+    // Normally, everything to the right becomes UNCHECKED.
+    //
+    // If an INDETERMINATE section exists to the right, everything
+    // that would normally become unchecked instead becomes
+    // INDETERMINATE.
+    // =============================================================
+    if (state === "checked") {
+      const boxesRight = $boxes.slice(index + 1);
 
-          if (this.checked) {
-            this.checked = false;
-            this.indeterminate = true;
-          }
-        });
+      const hasIndeterminateRight = boxesRight
+        .toArray()
+        .some((box) => box.dataset.state === "indeterminate");
 
-        return;
-      }
+      boxesRight.each(function () {
+        // Off-limit defines the hard maximum and remains untouched.
+        if (this.dataset.state === "off-limit") return;
 
-      // MMB on INDETERMINATE:
-      // leave it alone.
-      if (this.indeterminate) {
-        return;
-      }
-
-      // MMB on UNCHECKED:
-      // unchecked boxes to the left become indeterminate.
-      $boxes.slice(0, index + 1).each(function () {
-        if (this.disabled) return;
-
-        if (!this.checked) {
-          this.indeterminate = true;
-        }
+        setState(this, hasIndeterminateRight ? "indeterminate" : "unchecked");
       });
+
+      return;
     }
+
+    // =============================================================
+    // LMB on UNCHECKED
+    //
+    // Fill every available point from the left through this point.
+    // =============================================================
+    if (state === "unchecked") {
+      $boxes.slice(0, index + 1).each(function () {
+        if (this.dataset.state === "off-limit") return;
+
+        setState(this, "checked");
+      });
+
+      return;
+    }
+
+    // =============================================================
+    // LMB on OFF-LIMIT
+    //
+    // Nothing happens.
+    // =============================================================
   });
 
-  // =============================================================
+  // ---------------------------------------------------------------
+  // MIDDLE CLICK
+  // ---------------------------------------------------------------
+  $(document).on("mousedown", selector, function (e) {
+    if (e.button !== 1) return;
+
+    e.preventDefault();
+
+    const $boxes = $(this).closest(".point-container").find(selector);
+
+    const index = $boxes.index(this);
+    const state = this.dataset.state;
+
+    // =============================================================
+    // MMB on CHECKED
+    //
+    // This point and every CHECKED point to its right become
+    // INDETERMINATE.
+    // =============================================================
+    if (state === "checked") {
+      $boxes.slice(index).each(function () {
+        if (this.dataset.state === "checked") {
+          setState(this, "indeterminate");
+        }
+      });
+
+      return;
+    }
+
+    // =============================================================
+    // MMB on INDETERMINATE
+    //
+    // Already temporary, so leave it alone.
+    // =============================================================
+    if (state === "indeterminate") {
+      return;
+    }
+
+    // =============================================================
+    // MMB on UNCHECKED
+    //
+    // Make available unchecked points from the left through this
+    // point INDETERMINATE.
+    // =============================================================
+    if (state === "unchecked") {
+      $boxes.slice(0, index + 1).each(function () {
+        if (this.dataset.state === "unchecked") {
+          setState(this, "indeterminate");
+        }
+      });
+
+      return;
+    }
+
+    // =============================================================
+    // MMB on OFF-LIMIT
+    //
+    // Nothing happens.
+    // =============================================================
+  });
+
+  // ---------------------------------------------------------------
   // RIGHT CLICK
-  //
-  // Listen on the CONTAINER, because disabled checkboxes don't
-  // receive mouse events.
-  // =============================================================
+  // ---------------------------------------------------------------
   $(document).on("contextmenu", ".point-container", function (e) {
     e.preventDefault();
 
-    // Find the checkbox currently under the cursor.
     const element = document.elementFromPoint(e.clientX, e.clientY);
 
     if (!element || !element.matches(selector)) {
@@ -130,17 +189,21 @@ $(function () {
 
     if (index === -1) return;
 
-    // Disable this box and everything to its right.
+    // =============================================================
+    // RMB:
+    //
+    // This point and everything to its RIGHT become OFF-LIMIT.
+    //
+    // Nothing to the left is changed.
+    // =============================================================
     $boxes.slice(index).each(function () {
-      this.checked = false;
-      this.indeterminate = false;
-      this.disabled = true;
+      setState(this, "off-limit");
     });
   });
 
-  // =============================================================
-  // MIDDLE CLICK: prevent auxclick behavior
-  // =============================================================
+  // ---------------------------------------------------------------
+  // Prevent middle-click browser behavior.
+  // ---------------------------------------------------------------
   $(document).on("auxclick", selector, function (e) {
     if (e.button === 1) {
       e.preventDefault();
