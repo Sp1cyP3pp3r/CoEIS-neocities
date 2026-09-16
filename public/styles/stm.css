@@ -52,15 +52,16 @@ descr:hover {
   & > label {
     display: flex;
     flex-flow: row nowrap;
-    background-color: var(--clr-element-bg, #2f2f30);
     color: var(--clr-element-txt, white);
 
     span {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
       font-size: 1.5em;
+      background-color: var(--clr-element-bg, #2f2f30);
     }
 
     picture img {
+      background-color: var(--clr-element-bg, #2f2f30);
       height: 2rem;
       filter: invert(1);
     }
