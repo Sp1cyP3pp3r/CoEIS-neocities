@@ -120,7 +120,7 @@ descr:hover {
 
       display: flex;
       flex-flow: row nowrap;
-
+      align-items: baseline;
       justify-content: space-between;
     }
 
