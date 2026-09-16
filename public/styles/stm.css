@@ -99,6 +99,10 @@ descr:hover {
     width: var(--point-size);
     height: var(--point-size);
     border: calc(var(--point-size) / 16) solid black;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
   }
   input[type="checkbox"]:checked {
     background-color: #2f2f30;
