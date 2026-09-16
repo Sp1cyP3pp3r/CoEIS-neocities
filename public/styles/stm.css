@@ -27,7 +27,7 @@
 #toolbar {
   position: fixed;
   inset-inline-end: 20px;
-  inset-block-end: 25px;
+  inset-block-end: 55px;
 
   ul {
     display: flex;
