@@ -52,6 +52,8 @@ descr:hover {
   & > label {
     display: flex;
     flex-flow: row nowrap;
+    background-color: var(--clr-element-bg, #2f2f30);
+    color: var(--clr-element-txt, white);
 
     span {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
@@ -64,16 +66,6 @@ descr:hover {
     input {
     }
   }
-}
-
-/* Header Label (Black Bar) */
-#a-voice > label {
-  display: flex;
-  align-items: center;
-  background-color: #111;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  width: fit-content;
 }
 
 #a-voice > label span {
