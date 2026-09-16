@@ -56,3 +56,98 @@ descr:hover {
     }
   }
 }
+
+/* Main Container */
+#a-voice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  font-family: "Times New Roman", Times, serif;
+  margin: 2rem auto;
+}
+
+/* Header Label (Black Bar) */
+#a-voice > label {
+  display: flex;
+  align-items: center;
+  background-color: #111;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+}
+
+#a-voice > label span {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin-right: 1rem;
+}
+
+#a-voice > label picture img {
+  height: 2rem;
+  width: auto;
+  filter: invert(1); /* Ensures icon is white if the source is black */
+}
+
+/* Attribute Value Input (The small line above the checkboxes) */
+#a-voice input[type="number"] {
+  position: absolute;
+  top: 45px; /* Positioned below the header */
+  right: 120px; /* Aligned roughly above the checkboxes */
+  width: 60px;
+  border: none;
+  border-bottom: 2px solid #111;
+  background: transparent;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: inherit;
+}
+
+/* Remove default number input spinners */
+#a-voice input[type="number"]::-webkit-outer-spin-button,
+#a-voice input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#a-voice input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Skill Rows (Fieldsets) */
+.c-skills-container {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+/* Row Labels (Legend) */
+.c-skills-container legend {
+  float: none; /* Resets default fieldset legend behavior */
+  width: 130px; /* Fixed width to create a clean right-aligned column */
+  text-align: right;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-right: 1.5rem;
+  padding: 0;
+}
+
+/* Checkboxes */
+.c-skills-container input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #111;
+  margin-right: 6px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+/* Checked State */
+.c-skills-container input[type="checkbox"]:checked {
+  background-color: #111;
+}
