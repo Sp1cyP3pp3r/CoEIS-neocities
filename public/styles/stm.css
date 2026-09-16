@@ -55,7 +55,7 @@ descr:hover {
   flex-flow: column wrap;
 
   & > label {
-    height: calc(var(--c-element-height) + var(--c-element-padding));
+    height: calc(var(--c-element-height) + var(--c-element-padding) * 2);
     display: flex;
     flex-flow: row nowrap;
     color: var(--clr-element-txt, white);
