@@ -1,2 +1,10 @@
 .character-sheet {
 }
+
+.descr {
+  display: none;
+}
+
+*:hover + .descr {
+  display: block;
+}
