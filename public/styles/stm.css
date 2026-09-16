@@ -2,12 +2,15 @@
 }
 
 .descr {
+  --descr-max-width: 30ch;
+  --descr-border-clr: black;
+  --descr-bg-clr: white;
   display: none;
   position: fixed;
-  max-width: 50ch;
+  max-width: var(--descr-max-width);
 
-  border: 1px solid black;
-  background-color: white;
+  border: 1px solid var(--descr-border-clr);
+  background-color: var(--descr-bg-clr);
 }
 
 *:hover + .descr {
