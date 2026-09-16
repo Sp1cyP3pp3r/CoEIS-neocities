@@ -56,7 +56,6 @@ descr:hover {
 
   & > label {
     height: var(--c-element-height);
-    padding: var(--c-element-padding);
     display: flex;
     flex-flow: row nowrap;
     color: var(--clr-element-txt, white);
@@ -66,6 +65,8 @@ descr:hover {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
       font-size: var(--c-element-height);
       background-color: var(--clr-element-bg, #2f2f30);
+
+      padding: var(--c-element-padding);
     }
 
     picture img {
