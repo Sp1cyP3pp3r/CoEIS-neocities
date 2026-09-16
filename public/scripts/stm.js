@@ -1,134 +1,108 @@
 $(function () {
   const selector = ".point-container input[type='checkbox']";
 
-  // Prevent the browser's native checkbox behavior for all
-  // mouse buttons. We handle the state ourselves.
-  $(document).on("mousedown", selector, function (e) {
+  // ---------------------------------------------------------------
+  // LMB
+  // ---------------------------------------------------------------
+  $(document).on("click", selector, function (e) {
     const $container = $(this).closest(".point-container");
-    const $checkboxes = $container.find("input[type='checkbox']");
-    const index = $checkboxes.index(this);
+    const $boxes = $container.find("input[type='checkbox']");
+    const index = $boxes.index(this);
 
-    // ============================================================
-    // LEFT MOUSE BUTTON
-    // ============================================================
-    if (e.button === 0) {
-      e.preventDefault();
+    // Ignore clicks that aren't left-clicks.
+    if (e.button !== 0) return;
 
-      const $box = $checkboxes.eq(index);
+    // Don't allow the browser to mess with our indeterminate state.
+    e.preventDefault();
 
-      // ----------------------------------------------------------
+    const wasIndeterminate = this.indeterminate;
+    const wasChecked = this.checked;
+
+    if (wasIndeterminate) {
+      // -----------------------------------------------------------
       // LMB on INDETERMINATE
       //
-      // This box becomes checked.
-      // Indeterminate boxes to the right stay indeterminate.
-      // ----------------------------------------------------------
-      if (this.indeterminate) {
-        this.indeterminate = false;
-        this.checked = true;
+      // This box becomes CHECKED.
+      // Indeterminate boxes to the right stay INDETERMINATE.
+      // -----------------------------------------------------------
 
-        return;
-      }
+      this.indeterminate = false;
+      this.checked = true;
 
-      // ----------------------------------------------------------
+      // Everything to the left must remain checked.
+      $boxes.slice(0, index).each(function () {
+        if (!this.disabled) {
+          this.indeterminate = false;
+          this.checked = true;
+        }
+      });
+    } else if (wasChecked) {
+      // -----------------------------------------------------------
       // LMB on CHECKED
       //
-      // Normally, clicking a checked box clears everything to
-      // the right.
+      // Normally this would clear everything to the right.
       //
-      // However, if there are indeterminate boxes to the right,
-      // the boxes that would normally be cleared become
-      // indeterminate instead.
-      // ----------------------------------------------------------
-      if (this.checked) {
-        const $right = $checkboxes.slice(index + 1);
+      // If there is an indeterminate section, however, everything
+      // that would normally be cleared becomes INDETERMINATE.
+      // -----------------------------------------------------------
 
-        const hasIndeterminateRight =
-          $right.filter(function () {
-            return this.indeterminate;
-          }).length > 0;
+      const hasIndeterminateRight =
+        $boxes.slice(index + 1).filter(function () {
+          return this.indeterminate;
+        }).length > 0;
 
-        $right.each(function () {
-          if (hasIndeterminateRight) {
-            this.checked = false;
-            this.indeterminate = true;
-          } else {
-            this.checked = false;
-            this.indeterminate = false;
-          }
-        });
+      $boxes.slice(index + 1).each(function () {
+        if (this.disabled) return;
 
-        return;
-      }
+        this.checked = false;
 
-      // ----------------------------------------------------------
+        if (hasIndeterminateRight) {
+          this.indeterminate = true;
+        } else {
+          this.indeterminate = false;
+        }
+      });
+    } else {
+      // -----------------------------------------------------------
       // LMB on UNCHECKED
       //
-      // Fill everything up to and including this box.
-      // Clear normal checked/indeterminate states to the right.
-      // ----------------------------------------------------------
-      $checkboxes.slice(0, index + 1).each(function () {
+      // Fill from the left through this box.
+      // -----------------------------------------------------------
+
+      $boxes.slice(0, index + 1).each(function () {
+        if (this.disabled) return;
+
         this.checked = true;
         this.indeterminate = false;
       });
-
-      $checkboxes.slice(index + 1).each(function () {
-        this.checked = false;
-        this.indeterminate = false;
-      });
-
-      return;
     }
+  });
 
-    // ============================================================
-    // MIDDLE MOUSE BUTTON
-    // ============================================================
-    if (e.button === 1) {
-      e.preventDefault();
+  // ---------------------------------------------------------------
+  // MMB
+  // ---------------------------------------------------------------
+  $(document).on("mousedown", selector, function (e) {
+    if (e.button !== 1) return;
 
-      // ----------------------------------------------------------
-      // MMB on CHECKED
-      //
-      // This box and every CHECKED box to its right become
-      // indeterminate.
-      //
-      // Unchecked boxes are left alone.
-      // ----------------------------------------------------------
-      if (this.checked && !this.indeterminate) {
-        $checkboxes.slice(index).each(function () {
-          if (this.checked) {
-            this.checked = false;
-            this.indeterminate = true;
-          }
-        });
+    e.preventDefault();
 
-        return;
-      }
+    const $container = $(this).closest(".point-container");
+    const $boxes = $container.find(selector);
+    const index = $boxes.index(this);
 
-      // ----------------------------------------------------------
-      // MMB on INDETERMINATE
-      //
-      // Keep the indeterminate state and propagate it to
-      // indeterminate boxes to the right.
-      // ----------------------------------------------------------
-      if (this.indeterminate) {
-        $checkboxes.slice(index).each(function () {
-          if (this.indeterminate) {
-            this.checked = false;
-            this.indeterminate = true;
-          }
-        });
+    // -------------------------------------------------------------
+    // MMB on CHECKED
+    //
+    // This box and all CHECKED boxes to its right become
+    // INDETERMINATE.
+    // -------------------------------------------------------------
 
-        return;
-      }
+    if (this.checked && !this.indeterminate) {
+      $boxes.slice(index).each(function () {
+        if (this.disabled) return;
 
-      // ----------------------------------------------------------
-      // MMB on UNCHECKED
-      //
-      // Make this box and everything to its left indeterminate,
-      // without touching already-checked boxes.
-      // ----------------------------------------------------------
-      $checkboxes.slice(0, index + 1).each(function () {
-        if (!this.checked) {
+        if (this.checked) {
+          this.checked = false;
           this.indeterminate = true;
         }
       });
@@ -136,28 +110,56 @@ $(function () {
       return;
     }
 
-    // ============================================================
-    // RIGHT MOUSE BUTTON
-    // ============================================================
-    if (e.button === 2) {
-      e.preventDefault();
+    // -------------------------------------------------------------
+    // MMB on INDETERMINATE
+    //
+    // Keep the existing indeterminate region.
+    // -------------------------------------------------------------
 
-      // Disable from RIGHT → LEFT:
-      // clicked box + everything to its LEFT.
-      $checkboxes.slice(0, index + 1).each(function () {
-        this.disabled = true;
-      });
-
+    if (this.indeterminate) {
       return;
     }
+
+    // -------------------------------------------------------------
+    // MMB on UNCHECKED
+    //
+    // Make this box and boxes to its left indeterminate, unless
+    // they're already checked.
+    // -------------------------------------------------------------
+
+    $boxes.slice(0, index + 1).each(function () {
+      if (this.disabled) return;
+
+      if (!this.checked) {
+        this.indeterminate = true;
+      }
+    });
   });
 
-  // Prevent the browser's context menu on the skill boxes.
+  // ---------------------------------------------------------------
+  // RMB
+  // ---------------------------------------------------------------
   $(document).on("contextmenu", selector, function (e) {
     e.preventDefault();
+
+    const $container = $(this).closest(".point-container");
+    const $boxes = $container.find(selector);
+    const index = $boxes.index(this);
+
+    // -------------------------------------------------------------
+    // Disable this box and everything to its RIGHT.
+    // -------------------------------------------------------------
+
+    $boxes.slice(index).each(function () {
+      this.checked = false;
+      this.indeterminate = false;
+      this.disabled = true;
+    });
   });
 
-  // Prevent middle-click autoscroll / auxclick behavior.
+  // ---------------------------------------------------------------
+  // Prevent middle-click's auxclick action.
+  // ---------------------------------------------------------------
   $(document).on("auxclick", selector, function (e) {
     if (e.button === 1) {
       e.preventDefault();
