@@ -25,9 +25,12 @@
 }
 
 #toolbar {
-  display: flex;
   position: fixed;
   inset-inline-end: 1em;
   inset-block-end: 1em;
-  flex-flow: row nowrap;
+
+  ul {
+    display: flex;
+    flex-flow: row nowrap;
+  }
 }
