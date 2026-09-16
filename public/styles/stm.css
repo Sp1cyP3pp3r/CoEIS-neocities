@@ -9,7 +9,7 @@
   --descr-bg-clr: white;
   --descr-padding: 1ch;
   --descr-padding-inline: calc(var(--descr-padding) * 2);
-  display: none;
+
   position: fixed;
   max-width: var(--descr-max-width);
   /*
