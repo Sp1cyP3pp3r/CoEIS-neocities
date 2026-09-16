@@ -86,39 +86,26 @@ $(function () {
       }
 
       // -----------------------------------------------------------
-      // CHECKED
+      // CHECKED → INDETERMINATE
       //
-      // Remove CHECKED points past this point.
+      // Convert this point and all CHECKED points to its right
+      // into INDETERMINATE.
       //
-      // If there are no CHECKED points to the right, remove this
-      // point itself.
-      //
-      // INDETERMINATE points to the right are preserved.
+      // Existing INDETERMINATE points are preserved.
       // -----------------------------------------------------------
 
       if (state === "checked") {
-        const $right = $boxes.slice(index + 1);
+        $boxes.slice(index).each(function () {
+          const currentState = $(this).attr("data-state");
 
-        const hasCheckedRight =
-          $right.filter(function () {
-            return $(this).attr("data-state") === "checked";
-          }).length > 0;
+          if (currentState === "off-limit") {
+            return false;
+          }
 
-        if (hasCheckedRight) {
-          $right.each(function () {
-            const rightState = $(this).attr("data-state");
-
-            if (rightState === "off-limit") {
-              return false;
-            }
-
-            if (rightState === "checked") {
-              setState(this, "unchecked");
-            }
-          });
-        } else {
-          setState(this, "unchecked");
-        }
+          if (currentState === "checked") {
+            setState(this, "indeterminate");
+          }
+        });
 
         return;
       }
@@ -128,13 +115,12 @@ $(function () {
       //
       // Promote this point to CHECKED.
       //
-      // Indeterminate points to the right remain indeterminate.
+      // Everything to the left becomes CHECKED as well.
       // -----------------------------------------------------------
 
       if (state === "indeterminate") {
         setState(this, "checked");
 
-        // Everything to the left remains permanent.
         $boxes.slice(0, index).each(function () {
           if ($(this).attr("data-state") === "off-limit") {
             return false;
@@ -241,57 +227,56 @@ $(function () {
     }
 
     // =============================================================
-// RIGHT MOUSE BUTTON
-// =============================================================
+    // RIGHT MOUSE BUTTON
+    // =============================================================
 
-if (e.button === 2) {
+    if (e.button === 2) {
+      // -----------------------------------------------------------
+      // CLICKING AN OFF-LIMIT POINT
+      //
+      // Remove THIS off-limit point and everything to its LEFT
+      // that is also off-limit.
+      //
+      // Example:
+      //
+      //   ■ ■ ■ □ ╳ ╳
+      //             RMB
+      //   → ■ ■ ■ □ □ ╳
+      //
+      // -----------------------------------------------------------
 
-  // -----------------------------------------------------------
-  // CLICKING AN OFF-LIMIT POINT
-  //
-  // Remove THIS off-limit point and everything to its LEFT
-  // that is also off-limit.
-  //
-  // Example:
-  //
-  //   ■ ■ ■ □ ╳ ╳
-  //           RMB
-  //   → ■ ■ ■ □ □ ╳
-  //
-  // -----------------------------------------------------------
+      if (state === "off-limit") {
+        for (let i = index; i >= 0; i--) {
+          if ($boxes.eq(i).attr("data-state") !== "off-limit") {
+            break;
+          }
 
-  if (state === "off-limit") {
-    for (let i = index; i >= 0; i--) {
-      if ($boxes.eq(i).attr("data-state") !== "off-limit") {
-        break;
+          setState($boxes[i], "unchecked");
+        }
+
+        return;
       }
 
-      setState($boxes[i], "unchecked");
+      // -----------------------------------------------------------
+      // CLICKING ANY NON-OFF-LIMIT POINT
+      //
+      // This point and everything to its RIGHT become off-limit.
+      //
+      // Example:
+      //
+      //   ■ ■ ■ □ □
+      //       RMB
+      //   → ■ ■ ■ ╳ ╳
+      //
+      // -----------------------------------------------------------
+
+      $boxes.slice(index).each(function () {
+        setState(this, "off-limit");
+      });
+
+      return;
     }
-
-    return;
-  }
-
-
-  // -----------------------------------------------------------
-  // CLICKING ANY NON-OFF-LIMIT POINT
-  //
-  // This point and everything to its RIGHT become off-limit.
-  //
-  // Example:
-  //
-  //   ■ ■ ■ □ □
-  //       RMB
-  //   → ■ ■ ■ ╳ ╳
-  //
-  // -----------------------------------------------------------
-
-  $boxes.slice(index).each(function () {
-    setState(this, "off-limit");
   });
-
-  return;
-}
 
   // ===============================================================
   // PREVENT RIGHT-CLICK CONTEXT MENU
