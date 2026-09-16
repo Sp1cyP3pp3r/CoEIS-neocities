@@ -44,7 +44,13 @@ descr:hover {
 }
 
 .c-attribute {
+  display: flex;
+  flex-flow: column wrap;
+
   & > label {
+    display: flex;
+    flex-flow: row nowrap;
+
     span {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
     }
@@ -56,16 +62,6 @@ descr:hover {
     input {
     }
   }
-}
-
-/* Main Container */
-#a-voice {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  font-family: "Times New Roman", Times, serif;
-  margin: 2rem auto;
 }
 
 /* Header Label (Black Bar) */
