@@ -151,12 +151,19 @@ $(function () {
 
     if (e.button === 2) {
       if (state === "off-limit") {
-        for (let i = index; i >= 0; i--) {
-          if ($boxes.eq(i).attr("data-state") !== "off-limit") {
-            break;
-          }
+        if (
+          index > 0 &&
+          $boxes.eq(index - 1).attr("data-state") === "off-limit"
+        ) {
+          for (let i = index - 1; i >= 0; i--) {
+            if ($boxes.eq(i).attr("data-state") !== "off-limit") {
+              break;
+            }
 
-          setState($boxes[i], "unchecked");
+            setState($boxes[i], "unchecked");
+          }
+        } else {
+          setState(this, "unchecked");
         }
 
         return;
