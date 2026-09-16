@@ -32,7 +32,7 @@
 
 #toolbar {
   position: fixed;
-  inset-inline-end: 20px;
+  inset-inline-start: 20px;
   inset-block-end: 55px;
 
   ul {
