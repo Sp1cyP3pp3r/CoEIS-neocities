@@ -134,6 +134,7 @@ descr:hover {
     }
 
     input {
+      font-size: 2em;
       width: 2em;
       text-align: center;
 
