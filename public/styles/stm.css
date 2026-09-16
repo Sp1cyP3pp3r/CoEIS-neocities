@@ -5,13 +5,15 @@
   --descr-max-width: 30ch;
   --descr-border-clr: black;
   --descr-bg-clr: white;
+  --descr-padding: 1ch;
+  --descr-padding-inline: calc(var(--descr-padding) * 2);
   display: none;
   position: fixed;
   max-width: var(--descr-max-width);
   border: 1px solid var(--descr-border-clr);
   background-color: var(--descr-bg-clr);
-  padding: 1ch;
-  padding-inline-start: 2ch;
+  padding: var(--descr-padding);
+  padding-inline-start: var(--descr-padding-inline);
 }
 
 *:hover + .descr {
