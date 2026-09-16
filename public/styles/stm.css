@@ -60,13 +60,9 @@ descr:hover {
       background-color: var(--clr-element-bg, #2f2f30);
     }
 
-    picture {
-      background-color: var(--clr-element-bg, #2f2f30);
-
-      img {
-        height: 2rem;
-        filter: invert(1);
-      }
+    picture img {
+      height: 2rem;
+      filter: invert(1);
     }
 
     input {
