@@ -61,12 +61,13 @@ descr:hover {
     color: var(--clr-element-txt, white);
 
     span {
-      line-height: var(--c-element-height);
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
       font-size: var(--c-element-height);
       background-color: var(--clr-element-bg, #2f2f30);
 
+      line-height: var(--c-element-height);
       padding: var(--c-element-padding);
+      width: calc(var(--c-element-height) * 2);
     }
 
     picture img {
