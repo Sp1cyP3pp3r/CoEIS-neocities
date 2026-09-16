@@ -1,5 +1,5 @@
 .character-sheet {
-  --c-element-height: 24px;
+  --c-element-height: 34px;
 
   margin-inline: 25%;
   margin-block: 7%;
@@ -62,7 +62,7 @@ descr:hover {
     span {
       line-height: var(--c-element-height);
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
-      font-size: 1.5em;
+      font-size: var(--c-element-height);
       background-color: var(--clr-element-bg, #2f2f30);
     }
 
