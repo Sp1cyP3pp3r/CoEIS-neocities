@@ -27,6 +27,8 @@ descr {
   padding-inline-start: var(--descr-padding-inline);
 
   transition: 3s 3s display;
+
+  bottom: 0;
 }
 
 *:hover + descr,
