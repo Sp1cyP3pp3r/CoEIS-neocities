@@ -49,7 +49,7 @@ $(function () {
     "mousedown",
     ".point-container input[type='checkbox']",
     function (e) {
-      if (e.which !== 3) return; // left / middle button → ignore
+      if (e.which !== 2) return; // left / middle button → ignore
       e.preventDefault(); // also stops the native menu in most browsers
 
       const $container = $(this).closest(".point-container");
