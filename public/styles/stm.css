@@ -4,7 +4,7 @@
 /* DESCRIPTION PLUG-IN */
 
 .descr {
-  --descr-max-width: 30ch;
+  --descr-max-width: 40ch;
   --descr-border-clr: black;
   --descr-bg-clr: white;
   --descr-padding: 1ch;
