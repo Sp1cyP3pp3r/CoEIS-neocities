@@ -1,108 +1,124 @@
 $(function () {
-  const selector = ".point-container input[type='checkbox']";
+  const checkboxSelector = ".point-container input[type='checkbox']";
 
-  // ---------------------------------------------------------------
-  // LMB
-  // ---------------------------------------------------------------
-  $(document).on("click", selector, function (e) {
-    const $container = $(this).closest(".point-container");
+  $(document).on("mousedown", checkboxSelector, function (e) {
+    const $box = $(this);
+    const $container = $box.closest(".point-container");
     const $boxes = $container.find("input[type='checkbox']");
     const index = $boxes.index(this);
 
-    // Ignore clicks that aren't left-clicks.
-    if (e.button !== 0) return;
+    // =============================================================
+    // LEFT MOUSE BUTTON
+    // =============================================================
+    if (e.button === 0) {
+      e.preventDefault();
 
-    // Don't allow the browser to mess with our indeterminate state.
-    e.preventDefault();
-
-    const wasIndeterminate = this.indeterminate;
-    const wasChecked = this.checked;
-
-    if (wasIndeterminate) {
       // -----------------------------------------------------------
       // LMB on INDETERMINATE
       //
       // This box becomes CHECKED.
-      // Indeterminate boxes to the right stay INDETERMINATE.
+      // INDETERMINATE boxes to the right stay INDETERMINATE.
       // -----------------------------------------------------------
+      if (this.indeterminate) {
+        this.indeterminate = false;
+        this.checked = true;
 
-      this.indeterminate = false;
-      this.checked = true;
+        // Everything to the left is also checked.
+        $boxes.slice(0, index).each(function () {
+          if (!this.disabled) {
+            this.checked = true;
+            this.indeterminate = false;
+          }
+        });
 
-      // Everything to the left must remain checked.
-      $boxes.slice(0, index).each(function () {
-        if (!this.disabled) {
-          this.indeterminate = false;
-          this.checked = true;
-        }
-      });
-    } else if (wasChecked) {
+        return;
+      }
+
       // -----------------------------------------------------------
       // LMB on CHECKED
       //
-      // Normally this would clear everything to the right.
+      // If there is an indeterminate region to the right,
+      // the boxes we would normally clear become indeterminate.
       //
-      // If there is an indeterminate section, however, everything
-      // that would normally be cleared becomes INDETERMINATE.
+      // Otherwise they simply become unchecked.
       // -----------------------------------------------------------
+      if (this.checked) {
+        const hasIndeterminateRight = $boxes
+          .slice(index + 1)
+          .toArray()
+          .some(function (box) {
+            return box.indeterminate;
+          });
 
-      const hasIndeterminateRight =
-        $boxes.slice(index + 1).filter(function () {
-          return this.indeterminate;
-        }).length > 0;
+        $boxes.slice(index + 1).each(function () {
+          if (this.disabled) return;
 
-      $boxes.slice(index + 1).each(function () {
-        if (this.disabled) return;
+          this.checked = false;
+          this.indeterminate = hasIndeterminateRight;
+        });
 
-        this.checked = false;
+        return;
+      }
 
-        if (hasIndeterminateRight) {
-          this.indeterminate = true;
-        } else {
-          this.indeterminate = false;
-        }
-      });
-    } else {
       // -----------------------------------------------------------
       // LMB on UNCHECKED
       //
-      // Fill from the left through this box.
+      // Fill everything from the left through this box.
       // -----------------------------------------------------------
-
       $boxes.slice(0, index + 1).each(function () {
         if (this.disabled) return;
 
         this.checked = true;
         this.indeterminate = false;
       });
+
+      return;
     }
-  });
 
-  // ---------------------------------------------------------------
-  // MMB
-  // ---------------------------------------------------------------
-  $(document).on("mousedown", selector, function (e) {
-    if (e.button !== 1) return;
+    // =============================================================
+    // MIDDLE MOUSE BUTTON
+    // =============================================================
+    if (e.button === 1) {
+      e.preventDefault();
 
-    e.preventDefault();
+      // -----------------------------------------------------------
+      // MMB on CHECKED
+      //
+      // This box AND every checked box to its right become
+      // INDETERMINATE.
+      // -----------------------------------------------------------
+      if (this.checked && !this.indeterminate) {
+        $boxes.slice(index).each(function () {
+          if (this.disabled) return;
 
-    const $container = $(this).closest(".point-container");
-    const $boxes = $container.find(selector);
-    const index = $boxes.index(this);
+          if (this.checked) {
+            this.checked = false;
+            this.indeterminate = true;
+          }
+        });
 
-    // -------------------------------------------------------------
-    // MMB on CHECKED
-    //
-    // This box and all CHECKED boxes to its right become
-    // INDETERMINATE.
-    // -------------------------------------------------------------
+        return;
+      }
 
-    if (this.checked && !this.indeterminate) {
-      $boxes.slice(index).each(function () {
+      // -----------------------------------------------------------
+      // MMB on INDETERMINATE
+      //
+      // Already indeterminate, so don't change anything.
+      // -----------------------------------------------------------
+      if (this.indeterminate) {
+        return;
+      }
+
+      // -----------------------------------------------------------
+      // MMB on UNCHECKED
+      //
+      // Make unchecked boxes from the left through this box
+      // indeterminate.
+      // -----------------------------------------------------------
+      $boxes.slice(0, index + 1).each(function () {
         if (this.disabled) return;
 
-        if (this.checked) {
-          this.checked = false;
+        if (!this.checked) {
           this.indeterminate = true;
         }
       });
@@ -110,57 +126,38 @@ $(function () {
       return;
     }
 
-    // -------------------------------------------------------------
-    // MMB on INDETERMINATE
-    //
-    // Keep the existing indeterminate region.
-    // -------------------------------------------------------------
+    // =============================================================
+    // RIGHT MOUSE BUTTON
+    // =============================================================
+    if (e.button === 2) {
+      e.preventDefault();
 
-    if (this.indeterminate) {
+      // Disable this box and EVERYTHING to its right.
+      $boxes.slice(index).each(function () {
+        this.checked = false;
+        this.indeterminate = false;
+        this.disabled = true;
+      });
+
       return;
     }
-
-    // -------------------------------------------------------------
-    // MMB on UNCHECKED
-    //
-    // Make this box and boxes to its left indeterminate, unless
-    // they're already checked.
-    // -------------------------------------------------------------
-
-    $boxes.slice(0, index + 1).each(function () {
-      if (this.disabled) return;
-
-      if (!this.checked) {
-        this.indeterminate = true;
-      }
-    });
   });
 
-  // ---------------------------------------------------------------
-  // RMB
-  // ---------------------------------------------------------------
-  $(document).on("contextmenu", selector, function (e) {
+  // ===============================================================
+  // RIGHT CLICK
+  //
+  // Needed because the context menu can otherwise appear.
+  // ===============================================================
+  $(document).on("contextmenu", ".point-container", function (e) {
     e.preventDefault();
-
-    const $container = $(this).closest(".point-container");
-    const $boxes = $container.find(selector);
-    const index = $boxes.index(this);
-
-    // -------------------------------------------------------------
-    // Disable this box and everything to its RIGHT.
-    // -------------------------------------------------------------
-
-    $boxes.slice(index).each(function () {
-      this.checked = false;
-      this.indeterminate = false;
-      this.disabled = true;
-    });
   });
 
-  // ---------------------------------------------------------------
-  // Prevent middle-click's auxclick action.
-  // ---------------------------------------------------------------
-  $(document).on("auxclick", selector, function (e) {
+  // ===============================================================
+  // MIDDLE CLICK
+  //
+  // Prevent browser autoscroll / auxclick behavior.
+  // ===============================================================
+  $(document).on("auxclick", checkboxSelector, function (e) {
     if (e.button === 1) {
       e.preventDefault();
     }
