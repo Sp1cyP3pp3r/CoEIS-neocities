@@ -3,6 +3,9 @@
 
 .descr {
   display: none;
+  position: fixed;
+  width: 50ch;
+  border: 1px solid black;
 }
 
 *:hover + .descr {
