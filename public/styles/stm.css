@@ -1,6 +1,8 @@
 .character-sheet {
 }
 
+/* DESCRIPTION PLUG-IN */
+
 .descr {
   --descr-max-width: 30ch;
   --descr-border-clr: black;
@@ -20,4 +22,12 @@
 
 *:hover + .descr {
   display: block;
+}
+
+#toolbar {
+  display: flex;
+  position: fixed;
+  inset-inline-end: 1em;
+  inset-block-end: 1em;
+  flex-flow: row nowrap;
 }
