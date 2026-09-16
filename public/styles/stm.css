@@ -42,3 +42,17 @@ descr:hover {
     flex-flow: row nowrap;
   }
 }
+
+.c-attribute {
+  & > label {
+    span {
+    }
+
+    picture {
+      height: 100%;
+    }
+
+    input {
+    }
+  }
+}
