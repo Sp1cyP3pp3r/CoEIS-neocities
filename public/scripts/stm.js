@@ -1,5 +1,13 @@
 $(function () {
+  // ===============================================================
+  // SELECTOR
+  // ===============================================================
+
   const selector = ".point-container input[type='checkbox']";
+
+  // ===============================================================
+  // STATE MANAGEMENT
+  // ===============================================================
 
   function setState(box, state) {
     $(box).attr("data-state", state);
@@ -27,9 +35,17 @@ $(function () {
     return $(box).closest(".point-container").find("input[type='checkbox']");
   }
 
+  // ===============================================================
+  // PREVENT NATIVE CHECKBOX BEHAVIOR
+  // ===============================================================
+
   $(document).on("click", selector, function (e) {
     e.preventDefault();
   });
+
+  // ===============================================================
+  // MOUSE INPUT
+  // ===============================================================
 
   $(document).on("mousedown", selector, function (e) {
     e.preventDefault();
@@ -38,10 +54,18 @@ $(function () {
     const index = $boxes.index(this);
     const state = $(this).attr("data-state");
 
+    // =============================================================
+    // LEFT MOUSE BUTTON
+    // =============================================================
+
     if (e.button === 0) {
+      // OFF-LIMIT
+
       if (state === "off-limit") {
         return;
       }
+
+      // UNCHECKED → CHECKED
 
       if (state === "unchecked") {
         $boxes.slice(0, index + 1).each(function () {
@@ -54,6 +78,8 @@ $(function () {
 
         return;
       }
+
+      // CHECKED → INDETERMINATE
 
       if (state === "checked") {
         $boxes.slice(index).each(function () {
@@ -70,6 +96,8 @@ $(function () {
 
         return;
       }
+
+      // INDETERMINATE → CHECKED
 
       if (state === "indeterminate") {
         setState(this, "checked");
@@ -86,10 +114,18 @@ $(function () {
       }
     }
 
+    // =============================================================
+    // MIDDLE MOUSE BUTTON
+    // =============================================================
+
     if (e.button === 1) {
+      // OFF-LIMIT
+
       if (state === "off-limit") {
         return;
       }
+
+      // UNCHECKED → INDETERMINATE
 
       if (state === "unchecked") {
         $boxes.slice(0, index + 1).each(function () {
@@ -104,6 +140,8 @@ $(function () {
 
         return;
       }
+
+      // CHECKED → INDETERMINATE
 
       if (state === "checked") {
         $boxes.slice(index).each(function () {
@@ -120,6 +158,8 @@ $(function () {
 
         return;
       }
+
+      // INDETERMINATE → UNCHECKED
 
       if (state === "indeterminate") {
         const $right = $boxes.slice(index + 1);
@@ -149,7 +189,13 @@ $(function () {
       }
     }
 
+    // =============================================================
+    // RIGHT MOUSE BUTTON
+    // =============================================================
+
     if (e.button === 2) {
+      // OFF-LIMIT → REMOVE PREVIOUS OFF-LIMIT POINTS
+
       if (state === "off-limit") {
         if (
           index > 0 &&
@@ -169,6 +215,8 @@ $(function () {
         return;
       }
 
+      // SET OFF-LIMIT FROM CURRENT POINT
+
       $boxes.slice(index).each(function () {
         setState(this, "off-limit");
       });
@@ -177,9 +225,17 @@ $(function () {
     }
   });
 
+  // ===============================================================
+  // CONTEXT MENU
+  // ===============================================================
+
   $(document).on("contextmenu", selector, function (e) {
     e.preventDefault();
   });
+
+  // ===============================================================
+  // MIDDLE-CLICK AUXILIARY EVENT
+  // ===============================================================
 
   $(document).on("auxclick", selector, function (e) {
     if (e.button === 1) {
