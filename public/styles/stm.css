@@ -46,6 +46,7 @@ descr:hover {
 .c-attribute {
   & > label {
     span {
+      font-family: fantasy;
     }
 
     picture {
