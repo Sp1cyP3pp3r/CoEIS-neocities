@@ -1,5 +1,6 @@
 .character-sheet {
   --c-element-height: 34px;
+  --c-element-padding: calc(var(--c-element-height) / 10);
 
   margin-inline: 25%;
   margin-block: 7%;
@@ -55,6 +56,7 @@ descr:hover {
 
   & > label {
     height: var(--c-element-height);
+    padding: var(--c-element-padding);
     display: flex;
     flex-flow: row nowrap;
     color: var(--clr-element-txt, white);
