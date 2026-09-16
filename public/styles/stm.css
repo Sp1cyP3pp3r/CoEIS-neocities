@@ -8,10 +8,10 @@
   display: none;
   position: fixed;
   max-width: var(--descr-max-width);
-  padding: 1ch;
-
   border: 1px solid var(--descr-border-clr);
   background-color: var(--descr-bg-clr);
+  padding: 1ch;
+  padding-inline-start: 2ch;
 }
 
 *:hover + .descr {
