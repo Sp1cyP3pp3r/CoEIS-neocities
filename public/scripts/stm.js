@@ -1,4 +1,4 @@
-$(function () {
+document.addEventListener("DOMContentLoaded", () => {
   const selector = ".point-container input[type='checkbox']";
 
   // ===============================================================
@@ -32,198 +32,233 @@ $(function () {
     }
   }
 
-  // ===============================================================
-  // NATIVE CHECKBOX CLICK
-  //
-  // We handle everything ourselves with mousedown.
-  // This prevents the browser from toggling the checkbox afterward.
-  // ===============================================================
-
-  $(document).on("click", selector, function (e) {
-    e.preventDefault();
-  });
+  function getBoxes(box) {
+    return [
+      ...box
+        .closest(".point-container")
+        .querySelectorAll("input[type='checkbox']"),
+    ];
+  }
 
   // ===============================================================
-  // MOUSE BUTTONS
+  // MOUSE DOWN
   // ===============================================================
 
-  $(document).on("mousedown", selector, function (e) {
-    const $boxes = $(this).closest(".point-container").find(selector);
+  document.addEventListener("mousedown", (e) => {
+    const box = e.target.closest(selector);
 
-    const index = $boxes.index(this);
+    if (!box) return;
 
-    // ---------------------------------------------------------------
+    const boxes = getBoxes(box);
+    const index = boxes.indexOf(box);
+    const state = box.dataset.state;
+
+    // =============================================================
     // LEFT MOUSE BUTTON
-    // ---------------------------------------------------------------
+    // =============================================================
 
     if (e.button === 0) {
       e.preventDefault();
 
-      const state = this.dataset.state;
+      // -----------------------------------------------------------
+      // LMB ON OFF-LIMIT
+      // -----------------------------------------------------------
 
-      // -------------------------------------------------------------
-      // LMB: INDETERMINATE → CHECKED
+      if (state === "off-limit") {
+        return;
+      }
+
+      // -----------------------------------------------------------
+      // LMB ON INDETERMINATE
       //
-      // Right-side indeterminate points stay untouched.
-      // -------------------------------------------------------------
+      // This point becomes CHECKED.
+      // Indeterminate points to the right remain untouched.
+      // -----------------------------------------------------------
 
       if (state === "indeterminate") {
-        setState(this, "checked");
+        setState(box, "checked");
 
-        // Everything to the left stays checked.
-        $boxes.slice(0, index).each(function () {
-          if (this.dataset.state !== "off-limit") {
-            setState(this, "checked");
+        // Everything before it should remain checked.
+        for (let i = 0; i < index; i++) {
+          if (boxes[i].dataset.state === "off-limit") {
+            break;
           }
-        });
+
+          setState(boxes[i], "checked");
+        }
 
         return;
       }
 
-      // -------------------------------------------------------------
-      // LMB: CHECKED
+      // -----------------------------------------------------------
+      // LMB ON CHECKED
       //
-      // Normally everything to the right becomes unchecked.
+      // If an indeterminate region exists to the right, the points
+      // that would normally be cleared become indeterminate.
       //
-      // If there are temporary points to the right, however,
-      // everything that would normally be removed becomes
-      // indeterminate instead.
-      // -------------------------------------------------------------
+      // Otherwise they become unchecked.
+      // -----------------------------------------------------------
 
       if (state === "checked") {
-        const $right = $boxes.slice(index + 1);
+        const right = boxes.slice(index + 1);
 
-        const hasIndeterminateRight = $right
-          .toArray()
-          .some((box) => box.dataset.state === "indeterminate");
+        const hasIndeterminate = right.some(
+          (b) => b.dataset.state === "indeterminate",
+        );
 
-        $right.each(function () {
-          if (this.dataset.state === "off-limit") {
-            return;
+        for (const b of right) {
+          if (b.dataset.state === "off-limit") {
+            break;
           }
 
-          setState(this, hasIndeterminateRight ? "indeterminate" : "unchecked");
-        });
+          setState(b, hasIndeterminate ? "indeterminate" : "unchecked");
+        }
 
         return;
       }
 
-      // -------------------------------------------------------------
-      // LMB: UNCHECKED → CHECKED
+      // -----------------------------------------------------------
+      // LMB ON UNCHECKED
       //
-      // Fill from the left through this point.
-      // -------------------------------------------------------------
+      // Fill points from the left through this point.
+      // Stop at the off-limit boundary.
+      // -----------------------------------------------------------
 
       if (state === "unchecked") {
-        $boxes.slice(0, index + 1).each(function () {
-          if (this.dataset.state !== "off-limit") {
-            setState(this, "checked");
+        for (let i = 0; i <= index; i++) {
+          if (boxes[i].dataset.state === "off-limit") {
+            break;
           }
-        });
+
+          setState(boxes[i], "checked");
+        }
 
         return;
       }
-
-      // -------------------------------------------------------------
-      // LMB: OFF-LIMIT
-      //
-      // Nothing happens.
-      // -------------------------------------------------------------
-
-      return;
     }
 
-    // ---------------------------------------------------------------
+    // =============================================================
     // MIDDLE MOUSE BUTTON
-    // ---------------------------------------------------------------
+    // =============================================================
 
     if (e.button === 1) {
       e.preventDefault();
 
-      const state = this.dataset.state;
+      // -----------------------------------------------------------
+      // MMB ON OFF-LIMIT
+      // -----------------------------------------------------------
 
-      // -------------------------------------------------------------
-      // MMB: CHECKED → INDETERMINATE
+      if (state === "off-limit") {
+        return;
+      }
+
+      // -----------------------------------------------------------
+      // MMB ON CHECKED
       //
-      // This box and every CHECKED box to its right become temporary.
-      // -------------------------------------------------------------
+      // This box and every checked box to its RIGHT become
+      // indeterminate.
+      // -----------------------------------------------------------
 
       if (state === "checked") {
-        $boxes.slice(index).each(function () {
-          if (this.dataset.state === "checked") {
-            setState(this, "indeterminate");
+        for (let i = index; i < boxes.length; i++) {
+          if (boxes[i].dataset.state === "off-limit") {
+            break;
           }
-        });
+
+          if (boxes[i].dataset.state === "checked") {
+            setState(boxes[i], "indeterminate");
+          }
+        }
 
         return;
       }
 
-      // -------------------------------------------------------------
-      // MMB: INDETERMINATE
+      // -----------------------------------------------------------
+      // MMB ON INDETERMINATE
       //
-      // Already temporary; nothing changes.
-      // -------------------------------------------------------------
+      // Already temporary; do nothing.
+      // -----------------------------------------------------------
 
       if (state === "indeterminate") {
         return;
       }
 
-      // -------------------------------------------------------------
-      // MMB: UNCHECKED
+      // -----------------------------------------------------------
+      // MMB ON UNCHECKED
       //
-      // Make unchecked points from the left through this point
-      // temporary.
-      // -------------------------------------------------------------
+      // Turn available unchecked points from the left through this
+      // point into indeterminate.
+      // -----------------------------------------------------------
 
       if (state === "unchecked") {
-        $boxes.slice(0, index + 1).each(function () {
-          if (this.dataset.state === "unchecked") {
-            setState(this, "indeterminate");
+        for (let i = 0; i <= index; i++) {
+          if (boxes[i].dataset.state === "off-limit") {
+            break;
           }
-        });
+
+          if (boxes[i].dataset.state === "unchecked") {
+            setState(boxes[i], "indeterminate");
+          }
+        }
 
         return;
       }
-
-      // -------------------------------------------------------------
-      // MMB: OFF-LIMIT
-      // -------------------------------------------------------------
-
-      return;
     }
 
-    // ---------------------------------------------------------------
+    // =============================================================
     // RIGHT MOUSE BUTTON
-    // ---------------------------------------------------------------
+    // =============================================================
 
     if (e.button === 2) {
       e.preventDefault();
 
-      // This point and everything to its right become OFF-LIMIT.
-      $boxes.slice(index).each(function () {
-        setState(this, "off-limit");
-      });
+      // -----------------------------------------------------------
+      // RMB:
+      //
+      // This point and everything to its RIGHT become off-limit.
+      // -----------------------------------------------------------
+
+      for (let i = index; i < boxes.length; i++) {
+        setState(boxes[i], "off-limit");
+      }
 
       return;
     }
   });
 
   // ===============================================================
-  // RIGHT-CLICK CONTEXT MENU
-  //
-  // Prevent the browser menu from appearing.
-  // The actual state change is already handled by mousedown above.
+  // STOP THE BROWSER FROM PERFORMING THE NATIVE CHECKBOX ACTION
   // ===============================================================
 
-  $(document).on("contextmenu", ".point-container", function (e) {
+  document.addEventListener("click", (e) => {
+    const box = e.target.closest(selector);
+
+    if (!box) return;
+
     e.preventDefault();
   });
 
   // ===============================================================
-  // MIDDLE-CLICK AUTOSCROLL / AUXCLICK
+  // STOP THE CONTEXT MENU
   // ===============================================================
 
-  $(document).on("auxclick", selector, function (e) {
+  document.addEventListener("contextmenu", (e) => {
+    const box = e.target.closest(selector);
+
+    if (!box) return;
+
+    e.preventDefault();
+  });
+
+  // ===============================================================
+  // STOP MIDDLE-CLICK AUXCLICK
+  // ===============================================================
+
+  document.addEventListener("auxclick", (e) => {
+    const box = e.target.closest(selector);
+
+    if (!box) return;
+
     if (e.button === 1) {
       e.preventDefault();
     }
