@@ -88,35 +88,34 @@ descr:hover {
 
 .point-container {
   --point-size: 16px;
+
   display: flex;
   flex-flow: row wrap;
 
   input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;
-    background-color: transparent;
-    cursor: pointer;
 
     width: var(--point-size);
     height: var(--point-size);
-    border: calc(var(--point-size) / 8) solid black;
 
-    &:checked {
+    border: calc(var(--point-size) / 8) solid black;
+    background-color: transparent;
+
+    cursor: pointer;
+
+    &[data-state="checked"] {
       background-color: #2f2f30;
     }
 
-    &:indeterminate {
+    &[data-state="indeterminate"] {
       background-image: linear-gradient(135deg, black 50%, transparent 50%);
     }
 
-    &.locked {
+    &[data-state="off-limit"] {
       background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiI+PHBhdGggc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNNiAxOEwxOCA2TTYgNmwxMiAxMiIvPjwvc3ZnPg==);
       background-size: 100% 100%;
       cursor: not-allowed;
-    }
-
-    &[disabled] {
-      cursor: default;
     }
   }
 }
