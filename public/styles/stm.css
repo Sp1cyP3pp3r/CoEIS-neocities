@@ -87,6 +87,7 @@ descr:hover {
 }
 
 .point-container {
+  --point-size: 16px;
   display: flex;
   flex-flow: row wrap;
 
@@ -94,6 +95,10 @@ descr:hover {
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
+
+    width: var(--point-size);
+    height: var(--point-size);
+    border: calc(var(--point-size) / 16) solid black;
   }
   input[type="checkbox"]:checked {
     background-color: #2f2f30;
