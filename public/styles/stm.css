@@ -128,6 +128,7 @@ descr:hover {
       display: flex;
       align-items: center;
       margin-inline-end: 0.2em;
+      height: 100%;
       img {
         height: calc(var(--c-element-height) * 0.9);
         filter: invert(1);
