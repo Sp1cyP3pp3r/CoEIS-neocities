@@ -102,6 +102,8 @@ descr:hover {
 }
 
 .c-skills-container {
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .point-container {
