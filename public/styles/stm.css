@@ -70,33 +70,17 @@ descr:hover {
     }
 
     input {
+      border: none;
+      background: transparent;
+      text-align: center;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
     }
   }
-}
-
-/* Attribute Value Input (The small line above the checkboxes) */
-#a-voice input[type="number"] {
-  position: absolute;
-  top: 45px; /* Positioned below the header */
-  right: 120px; /* Aligned roughly above the checkboxes */
-  width: 60px;
-  border: none;
-  border-bottom: 2px solid #111;
-  background: transparent;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  font-family: inherit;
-}
-
-/* Remove default number input spinners */
-#a-voice input[type="number"]::-webkit-outer-spin-button,
-#a-voice input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-#a-voice input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 /* Skill Rows (Fieldsets) */
