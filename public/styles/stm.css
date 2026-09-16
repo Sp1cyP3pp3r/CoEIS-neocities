@@ -79,7 +79,8 @@ descr:hover {
   }
 }
 
-/* Skill Rows (Fieldsets) */
+/*
+
 .c-skills-container {
   display: flex;
   align-items: center;
@@ -88,10 +89,10 @@ descr:hover {
   margin: 0.5rem 0;
 }
 
-/* Row Labels (Legend) */
+
 .c-skills-container legend {
-  float: none; /* Resets default fieldset legend behavior */
-  width: 130px; /* Fixed width to create a clean right-aligned column */
+  float: none; 
+  width: 130px; 
   text-align: right;
   font-size: 1.8rem;
   font-weight: bold;
@@ -99,7 +100,6 @@ descr:hover {
   padding: 0;
 }
 
-/* Checkboxes */
 .c-skills-container input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
@@ -112,7 +112,7 @@ descr:hover {
   transition: background-color 0.1s;
 }
 
-/* Checked State */
 .c-skills-container input[type="checkbox"]:checked {
   background-color: #111;
 }
+*/
