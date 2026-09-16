@@ -79,20 +79,64 @@ $(function () {
         return;
       }
 
-      // CHECKED → UNCHECKED
+      // CHECKED → CORRECT BEHAVIOR
 
       if (state === "checked") {
-        $boxes.slice(index).each(function () {
-          const currentState = $(this).attr("data-state");
-
-          if (currentState === "off-limit") {
-            return false;
+        // Check if there is any checked box to the right (before off-limit)
+        let hasCheckedRight = false;
+        for (let i = index + 1; i < $boxes.length; i++) {
+          const s = $boxes.eq(i).attr("data-state");
+          if (s === "off-limit") break;
+          if (s === "checked") {
+            hasCheckedRight = true;
+            break;
           }
+        }
 
-          if (currentState === "checked") {
+        if (!hasCheckedRight) {
+          // This is the last checked box.
+          // Find the last indeterminate box to the right (before off-limit)
+          let lastIIndex = -1;
+          for (let i = index + 1; i < $boxes.length; i++) {
+            const s = $boxes.eq(i).attr("data-state");
+            if (s === "off-limit") break;
+            if (s === "indeterminate") {
+              lastIIndex = i;
+            }
+          }
+          if (lastIIndex !== -1) {
+            // Shift indeterminate left: this becomes indeterminate, last indeterminate becomes unchecked.
+            setState(this, "indeterminate");
+            setState($boxes[lastIIndex], "unchecked");
+          } else {
+            // No indeterminate to the right, just uncheck this box.
             setState(this, "unchecked");
           }
-        });
+        } else {
+          // There is a checked box to the right.
+          // The clicked box stays checked.
+          // Count total indeterminate boxes in the active area (before off-limit).
+          let numI = 0;
+          for (let i = 0; i < $boxes.length; i++) {
+            const s = $boxes.eq(i).attr("data-state");
+            if (s === "off-limit") break;
+            if (s === "indeterminate") numI++;
+          }
+          // Set all boxes after index up to index+numI to indeterminate, and the rest to unchecked.
+          let i = index + 1;
+          let iCount = 0;
+          while (i < $boxes.length) {
+            const s = $boxes.eq(i).attr("data-state");
+            if (s === "off-limit") break;
+            if (iCount < numI) {
+              setState($boxes[i], "indeterminate");
+              iCount++;
+            } else {
+              setState($boxes[i], "unchecked");
+            }
+            i++;
+          }
+        }
 
         return;
       }
@@ -162,17 +206,28 @@ $(function () {
       // INDETERMINATE → UNCHECKED
 
       if (state === "indeterminate") {
-        $boxes.slice(index).each(function () {
-          const currentState = $(this).attr("data-state");
+        const $right = $boxes.slice(index + 1);
 
-          if (currentState === "off-limit") {
-            return false;
-          }
+        const hasIndeterminateRight =
+          $right.filter(function () {
+            return $(this).attr("data-state") === "indeterminate";
+          }).length > 0;
 
-          if (currentState === "indeterminate") {
-            setState(this, "unchecked");
-          }
-        });
+        if (hasIndeterminateRight) {
+          $right.each(function () {
+            const rightState = $(this).attr("data-state");
+
+            if (rightState === "off-limit") {
+              return false;
+            }
+
+            if (rightState === "indeterminate") {
+              setState(this, "unchecked");
+            }
+          });
+        } else {
+          setState(this, "unchecked");
+        }
 
         return;
       }
