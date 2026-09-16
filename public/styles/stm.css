@@ -5,7 +5,7 @@
 
 .descr {
   --descr-max-width: 40ch;
-  --descr-border-clr: black;
+  --descr-border-clr: #535353;
   --descr-bg-clr: white;
   --descr-padding: 1ch;
   --descr-padding-inline: calc(var(--descr-padding) * 2);
@@ -16,6 +16,11 @@
   border: 1px solid var(--descr-border-clr);
   */
   background-color: var(--descr-bg-clr);
+  background-image: linear-gradient(
+    90deg,
+    var(--descr-border-clr) var(--descr-padding-inline),
+    transparent var(--descr-padding-inline)
+  );
   padding: var(--descr-padding);
   padding-inline-start: var(--descr-padding-inline);
 }
