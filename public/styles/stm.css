@@ -78,7 +78,7 @@ descr:hover {
 
     picture img {
       line-height: var(--c-element-height);
-      height: var(--c-element-height);
+      height: calc(var(--c-element-height) * 0.98);
       filter: invert(1);
     }
 
