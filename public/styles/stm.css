@@ -10,7 +10,9 @@
   display: none;
   position: fixed;
   max-width: var(--descr-max-width);
+  /*
   border: 1px solid var(--descr-border-clr);
+  */
   background-color: var(--descr-bg-clr);
   padding: var(--descr-padding);
   padding-inline-start: var(--descr-padding-inline);
