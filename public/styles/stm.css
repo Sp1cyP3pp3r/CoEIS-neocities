@@ -76,10 +76,13 @@ descr:hover {
       justify-content: space-between;
     }
 
-    picture img {
-      line-height: var(--c-element-height);
-      height: calc(var(--c-element-height) * 0.9);
-      filter: invert(1);
+    picture {
+      display: flex;
+      align-items: center;
+      img {
+        height: calc(var(--c-element-height) * 0.9);
+        filter: invert(1);
+      }
     }
 
     input {
