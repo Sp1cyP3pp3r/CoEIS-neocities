@@ -10,7 +10,7 @@
   --descr-padding: 1ch;
   --descr-padding-inline: calc(var(--descr-padding) * 2);
   display: none;
-  position: fixed;
+  position: absolute;
   max-width: var(--descr-max-width);
   /*
   border: 1px solid var(--descr-border-clr);
