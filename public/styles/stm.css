@@ -51,6 +51,7 @@ descr:hover {
 }
 
 .c-attribute {
+  --c-element-width: 128px;
   display: flex;
   flex-flow: column wrap;
 
@@ -67,7 +68,7 @@ descr:hover {
 
       line-height: var(--c-element-height);
       padding: var(--c-element-padding);
-      width: calc(var(--c-element-height) * 2);
+      width: var(--c-element-width);
     }
 
     picture img {
