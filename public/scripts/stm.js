@@ -79,7 +79,7 @@ $(function () {
         return;
       }
 
-      // CHECKED → INDETERMINATE
+      // CHECKED → UNCHECKED
 
       if (state === "checked") {
         $boxes.slice(index).each(function () {
@@ -90,7 +90,7 @@ $(function () {
           }
 
           if (currentState === "checked") {
-            setState(this, "indeterminate");
+            setState(this, "unchecked");
           }
         });
 
@@ -162,28 +162,17 @@ $(function () {
       // INDETERMINATE → UNCHECKED
 
       if (state === "indeterminate") {
-        const $right = $boxes.slice(index + 1);
+        $boxes.slice(index).each(function () {
+          const currentState = $(this).attr("data-state");
 
-        const hasIndeterminateRight =
-          $right.filter(function () {
-            return $(this).attr("data-state") === "indeterminate";
-          }).length > 0;
+          if (currentState === "off-limit") {
+            return false;
+          }
 
-        if (hasIndeterminateRight) {
-          $right.each(function () {
-            const rightState = $(this).attr("data-state");
-
-            if (rightState === "off-limit") {
-              return false;
-            }
-
-            if (rightState === "indeterminate") {
-              setState(this, "unchecked");
-            }
-          });
-        } else {
-          setState(this, "unchecked");
-        }
+          if (currentState === "indeterminate") {
+            setState(this, "unchecked");
+          }
+        });
 
         return;
       }
