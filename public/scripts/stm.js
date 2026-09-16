@@ -47,31 +47,21 @@ $(function () {
     "mousedown",
     ".point-container input[type='checkbox']",
     function (e) {
-      if (e.which !== 2) return; // only the middle button
-      e.preventDefault(); // stops autoscroll starting
+      if (e.button !== 1) return;
+
+      e.preventDefault();
 
       const $container = $(this).closest(".point-container");
       const $checkboxes = $container.find("input[type='checkbox']");
       const index = $checkboxes.index(this);
 
-      // 1. Clear every partial mark to the RIGHT (mirrors LMB unchecking)
+      // Clear indeterminate state to the right.
       $checkboxes.slice(index + 1).prop("indeterminate", false);
 
-      // 2. Mark this box and everything to its LEFT as partial.
-      //    `!this.checked` keeps already-checked boxes untouched.
+      // Mark unchecked boxes up to this point as indeterminate.
       $checkboxes.slice(0, index + 1).each(function () {
         this.indeterminate = !this.checked;
       });
-    },
-  );
-
-  // Middle-click also fires `auxclick` in modern browsers (used for
-  // "open in new tab"); swallow it on checkboxes so nothing else reacts.
-  $(document).on(
-    "auxclick",
-    ".point-container input[type='checkbox']",
-    function (e) {
-      if (e.which === 2) e.preventDefault();
     },
   );
 });
