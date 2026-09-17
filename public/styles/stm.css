@@ -2,6 +2,10 @@
   --c-element-height: 34px;
   --c-element-padding: calc(var(--c-element-height) / 10);
 
+  --font-h1: "Beleren", serif;
+  --font-h2: "Monotype Corsiva", cursive;
+  --font-h3: "Beleren", serif;
+
   margin-inline: 25%;
   margin-block: 7%;
 }
@@ -40,8 +44,9 @@ descr:hover {
 }
 /* Points */
 .point-container {
-  --point-size: 16px;
+  --point-size: 20px;
   --point-margin-gap: calc(var(--point-size) / 6);
+  --point-border-thickness: calc(var(--point-size) / 8);
   display: flex;
   flex-flow: row wrap;
 
@@ -54,7 +59,7 @@ descr:hover {
     margin: 0;
     margin-inline: var(--point-margin-gap);
 
-    border: calc(var(--point-size) / 8) solid black;
+    border: var(--point-border-thickness) solid black;
     background-color: transparent;
 
     cursor: pointer;
@@ -112,6 +117,7 @@ descr:hover {
   --c-element-input: 2em;
   display: flex;
   flex-flow: column wrap;
+  align-items: flex-end;
   width: calc((var(--c-element-input) + var(--c-element-width)) * 1.1);
 
   & > label {
@@ -177,6 +183,8 @@ descr:hover {
   legend {
     float: inline-end;
     margin-inline-end: calc(var(--skills-margin) * 3);
+    font-family: var(--font-h3);
+    font-size: 1.2em;
   }
 
   &:first-of-type {
