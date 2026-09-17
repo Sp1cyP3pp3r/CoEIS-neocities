@@ -101,8 +101,10 @@ descr:hover {
 
 .c-attribute {
   --c-element-width: 158px;
+  --c-element-input: 2em;
   display: flex;
   flex-flow: column wrap;
+  width: calc((var(--c-element-input) + var(--c-element-width)) * 1.1);
 
   & > label {
     height: calc(var(--c-element-height) + var(--c-element-padding) * 2);
@@ -138,8 +140,8 @@ descr:hover {
 
     input {
       font-family: Effra;
-      font-size: 2em;
-      width: 2em;
+      font-size: var(--c-element-input);
+      width: var(--c-element-input);
       text-align: center;
 
       border: none;
