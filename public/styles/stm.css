@@ -1,6 +1,8 @@
 .character-sheet {
   --c-element-height: 34px;
   --c-element-padding: calc(var(--c-element-height) / 10);
+  --clr-element-bg: #2f2f30;
+  --clr-element-txt: white;
 
   --font-h1: "Beleren", serif;
   --font-h2: "Monotype Corsiva", cursive;
@@ -192,5 +194,12 @@ descr:hover {
   }
   &:last-of-type {
     margin-block-end: var(--skills-to-attribute-margin);
+  }
+}
+
+.c-motif {
+  label {
+    background-color: var(--clr-element-bg);
+    color: var(--clr-element-txt);
   }
 }
