@@ -176,6 +176,7 @@ descr:hover {
 
   legend {
     float: inline-end;
+    margin-inline-end: var(--skills-margin);
   }
 
   &:first-of-type {
