@@ -165,7 +165,7 @@ descr:hover {
 }
 
 .c-skills-container {
-  --skills-to-attribute-margin: calc(var(--point-margin-gap) * 2);
+  --skills-to-attribute-margin: calc(var(--point-margin-gap) * 4);
   --skills-margin: calc(var(--point-margin-gap) / 1);
   display: flex;
   flex-flow: row wrap;
