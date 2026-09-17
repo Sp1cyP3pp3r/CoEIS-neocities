@@ -157,13 +157,23 @@ descr:hover {
 }
 
 .c-skills-container {
+  --skills-to-attribute-margin: 1em;
+  --skills-margin: calc(var(--skills-to-attribute-margin) / 2);
   display: flex;
   flex-flow: row wrap;
 
   justify-content: flex-end;
   align-items: center;
+  margin-block: var(--skills-margin);
 
   legend {
     float: inline-end;
+  }
+
+  &:first-of-type {
+    margin-block-start: var(--skills-to-attribute-margin);
+  }
+  &:last-of-type {
+    margin-block-end: var(--skills-to-attribute-margin);
   }
 }
