@@ -38,7 +38,7 @@ descr {
 descr:hover {
   display: block;
 }
-
+/* Points */
 .point-container {
   --point-size: 16px;
 
@@ -51,6 +51,7 @@ descr:hover {
 
     width: var(--point-size);
     height: var(--point-size);
+    margin: 0;
 
     border: calc(var(--point-size) / 8) solid black;
     background-color: transparent;
