@@ -59,6 +59,13 @@ descr:hover {
 
     cursor: pointer;
 
+    &:first-of-type {
+      margin-inline-start: 0;
+    }
+    &:last-of-type {
+      margin-inline-end: 0;
+    }
+
     &[data-state="checked"] {
       background-color: #2f2f30;
     }
