@@ -1,6 +1,6 @@
 .character-sheet {
   --c-element-height: 34px;
-  --c-label-width: 158px;
+  --c-label-width: 100px;
   --c-element-padding: calc(var(--c-element-height) / 10);
   --clr-element-bg: #2f2f30;
   --clr-element-txt: white;
