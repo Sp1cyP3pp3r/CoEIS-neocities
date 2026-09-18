@@ -201,17 +201,18 @@ descr:hover {
   align-items: center;
   justify-content: space-around;
 
+  position: relative;
   width: var(--c-element-width);
   padding-block-start: var(--c-label-height);
 
   label {
-    flex: 0 0 100%;
     background-color: var(--clr-element-bg);
     color: var(--clr-element-txt);
     font-family: var(--font-h2);
     font-size: var(--c-element-height);
     height: var(--c-label-height);
     width: var(--c-label-width);
+    position: absolute;
     margin: 0;
     margin-block-start: calc(var(--c-label-height) * -1);
   }
