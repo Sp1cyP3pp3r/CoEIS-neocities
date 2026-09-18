@@ -238,12 +238,14 @@ descr:hover {
   }
 
   .c-motif-point-container {
-    flex: 0 0 auto;
-    width: calc(4 * var(--point-size) + 6 * var(--point-margin-gap));
+    --points-per-row: 4;
+    width: calc(
+      var(--points-per-row) * var(--point-size) + (var(--points-per-row) - 1) *
+        var(--point-margin-gap)
+    );
     row-gap: var(--point-margin-gap);
 
     input[type="checkbox"] {
-      flex: 0 0 auto;
     }
   }
 }
