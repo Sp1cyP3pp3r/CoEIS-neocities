@@ -202,10 +202,10 @@ descr:hover {
 .c-motif {
   display: flex;
   flex-wrap: wrap;
-  /* Space between the picture box and the checkbox grid */
+  align-items: flex-start;
   gap: calc(var(--point-margin-gap) * 2);
-  width: fit-content;
   box-sizing: border-box;
+  position: relative;
 
   *,
   *::before,
@@ -213,26 +213,22 @@ descr:hover {
     box-sizing: inherit;
   }
 
-  /* "Quick" Label styling */
   label {
     flex: 0 0 100%;
     background-color: var(--clr-element-bg);
     color: var(--clr-element-txt);
     font-family: var(--font-h2), cursive;
-    font-size: var(--c-element-height); /* Fixed: now matches your variable */
-    font-weight: normal;
+    font-size: var(--c-element-height);
     line-height: 1;
     padding: var(--c-element-padding) calc(var(--c-element-padding) * 4);
     text-align: center;
     margin: 0;
   }
 
-  /* Logo Picture Box styling */
   picture {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Height = 2 rows of checkboxes + 1 row gap */
     height: calc(2 * var(--point-size) + var(--point-margin-gap));
     width: calc(2 * var(--point-size) + var(--point-margin-gap));
     border: var(--point-border-thickness) solid black;
@@ -247,21 +243,11 @@ descr:hover {
     }
   }
 
-  /* Point Container (Fieldset) styling */
   .c-motif-point-container {
-    /* Removed redundant resets (handled by reset.css) */
-
-    /* Preferred 2x4 grid: 4 columns wide */
-    /* Width = (4 * checkbox) + (6 * horizontal margins) */
     max-width: calc(4 * var(--point-size) + 6 * var(--point-margin-gap));
-
-    /* Allow it to grow to fill space, but wrap if it hits max-width */
     flex: 1 1 auto;
-
-    /* Add vertical spacing between the two rows */
     row-gap: var(--point-margin-gap);
 
-    /* Ensure the checkboxes do not get stretched or squished */
     input[type="checkbox"] {
       flex: 0 0 auto;
       width: var(--point-size);
