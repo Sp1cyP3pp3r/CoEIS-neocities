@@ -194,6 +194,7 @@ descr:hover {
 
 .c-motif {
   --c-element-width: calc(var(--c-label-width) * 1.75);
+  --c-label-height: var(--c-element-height);
 
   display: flex;
   flex-flow: row wrap;
@@ -201,6 +202,7 @@ descr:hover {
   justify-content: space-around;
 
   width: var(--c-element-width);
+  padding-block-start: var(--c-label-height);
 
   label {
     flex: 0 0 100%;
@@ -208,9 +210,9 @@ descr:hover {
     color: var(--clr-element-txt);
     font-family: var(--font-h2);
     font-size: var(--c-element-height);
-    text-align: center;
-    margin: 0;
     width: var(--c-label-width);
+    margin: 0;
+    margin-block-start: calc(var(--c-label-height) * -1);
   }
 
   picture {
