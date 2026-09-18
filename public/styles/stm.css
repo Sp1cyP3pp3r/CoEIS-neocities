@@ -222,7 +222,7 @@ descr:hover {
 
     padding-inline-start: 0.15em;
     line-height: 1.5;
-    text-shadow: 0px 1px var(--clr-element-bg);
+    text-shadow: 0px 2px var(--clr-element-bg);
   }
 
   picture {
