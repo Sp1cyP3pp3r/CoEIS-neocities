@@ -213,11 +213,8 @@ descr:hover {
     flex: 0 0 100%;
     background-color: var(--clr-element-bg);
     color: var(--clr-element-txt);
-    font-family: var(--font-h2), cursive;
+    font-family: var(--font-h2);
     font-size: var(--c-element-height);
-    font-weight: normal;
-    line-height: 1;
-    padding: var(--c-element-padding) calc(var(--c-element-padding) * 4);
     text-align: center;
     margin: 0;
     width: var(--c-label-width);
