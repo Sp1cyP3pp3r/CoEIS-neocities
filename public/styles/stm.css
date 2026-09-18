@@ -206,92 +206,76 @@ descr:hover {
 }
 */
 
-/* Base container styling */
 .c-motif {
   display: grid;
-  /* Two columns: auto-width for the logo, auto-width for the points grid */
-  grid-template-columns: auto auto;
-  /* Space between the logo and the checkbox container */
+  /* 1 column for logo, 4 columns for the checkbox grid */
+  grid-template-columns: 120px repeat(4, 50px);
+  /* 1 row for label, 1 row for content (logo + checkboxes) */
+  grid-template-rows: auto auto;
   gap: 15px;
-  /* Ensure the container wraps tightly around its content */
-  width: fit-content;
+  align-items: start;
   font-family: sans-serif;
-  box-sizing: border-box;
 }
 
-.c-motif *,
-.c-motif *::before,
-.c-motif *::after {
-  box-sizing: inherit;
-}
-
-/* "Quick" Label styling */
+/* Label Styling */
 .c-motif label {
-  /* Make the label span across both columns */
-  grid-column: 1 / -1;
+  grid-column: 2 / 6; /* Span across the 4 checkbox columns */
+  grid-row: 1;
   background-color: #1a1a1a;
-  color: #ffffff;
-  /* Cursive font to match the image */
-  font-family: "Brush Script MT", "Lucida Handwriting", cursive;
-  font-size: 3.5rem;
-  font-weight: normal;
-  line-height: 1;
-  /* Inner spacing of the black banner */
-  padding: 12px 20px;
-  text-align: center;
-  display: block;
-  margin: 0;
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 2rem;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
-/* Logo Picture Box styling */
+/* Logo Styling */
 .c-motif picture {
+  grid-column: 1;
+  grid-row: 1 / 3; /* Span both rows to align height with label + grid */
+  border: 2px solid black;
+  padding: 10px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  /* Fixed square dimensions to match the checkbox grid height */
-  width: 120px;
-  height: 120px;
-  border: 3px solid #000;
-  /* Space between the border and the inner logo */
-  padding: 12px;
-  background-color: #ffffff;
+  justify-content: center;
+  background: white;
 }
 
 .c-motif picture img {
-  width: 100%;
-  height: 100%;
-  /* Prevent the logo from distorting */
-  object-fit: contain;
+  width: 80%;
+  height: auto;
   display: block;
 }
 
-/* Point Container (Fieldset) styling */
+/* Fieldset (Checkbox Container) Styling */
 .c-motif-point-container {
-  /* Reset default fieldset properties */
-  border: none;
-  padding: 0;
-  margin: 0;
-  /* Set up a 2 row by 4 column grid */
+  grid-column: 2 / 6;
+  grid-row: 2;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 10px;
-  /* Match dimensions with the picture box on the left */
-  height: 120px;
-  width: 250px;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Individual Checkboxes styling */
+/* Checkbox Styling */
 .c-motif-point-container input[type="checkbox"] {
-  /* Remove default browser styling */
   appearance: none;
   -webkit-appearance: none;
-  margin: 0;
-  padding: 0;
-  /* Create the hollow square look */
-  border: 3px solid #000;
-  background-color: #ffffff;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1; /* Keeps them square */
+  border: 2px solid black;
+  background-color: white;
   cursor: pointer;
+  margin: 0;
+}
+
+/* Optional: Checked state styling if needed later */
+.c-motif-point-container input[type="checkbox"]:checked {
+  background-color: #1a1a1a;
 }
