@@ -212,9 +212,9 @@ descr:hover {
     font-size: var(--c-element-height);
     height: var(--c-label-height);
     width: var(--c-label-width);
-    position: absolute;
     margin: 0;
-    margin-block-start: calc(var(--c-label-height) * 2 * -1);
+    position: absolute;
+    inset-block-start: 0;
   }
 
   picture {
