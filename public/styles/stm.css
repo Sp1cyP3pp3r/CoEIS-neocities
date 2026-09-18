@@ -222,11 +222,12 @@ descr:hover {
   }
 
   picture {
+    --picture-size: calc(var(--point-size) * 2.5);
     display: flex;
     justify-content: center;
     align-items: center;
 
-    height: 50px;
+    height: var(--picture-size);
     aspect-ratio: 1;
 
     img {
