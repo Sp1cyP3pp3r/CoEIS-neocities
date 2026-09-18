@@ -210,6 +210,7 @@ descr:hover {
     color: var(--clr-element-txt);
     font-family: var(--font-h2);
     font-size: var(--c-element-height);
+    height: var(--c-label-height);
     width: var(--c-label-width);
     margin: 0;
     margin-block-start: calc(var(--c-label-height) * -1);
