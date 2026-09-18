@@ -53,6 +53,7 @@ descr:hover {
   --point-border-thickness: calc(var(--point-size) / 8);
   display: flex;
   flex-flow: row wrap;
+  gap: var(--point-margin-gap);
 
   input[type="checkbox"] {
     -webkit-appearance: none;
@@ -61,19 +62,11 @@ descr:hover {
     width: var(--point-size);
     height: var(--point-size);
     margin: 0;
-    margin-inline: var(--point-margin-gap);
 
     border: var(--point-border-thickness) solid black;
     background-color: transparent;
 
     cursor: pointer;
-
-    &:first-of-type {
-      margin-inline-start: 0;
-    }
-    &:last-of-type {
-      margin-inline-end: 0;
-    }
 
     &[data-state="checked"] {
       background-color: #2f2f30;
