@@ -1,6 +1,6 @@
 .character-sheet {
   --c-element-height: 34px;
-  --c-label-width: 100px;
+  --c-label-width: 128px;
   --c-element-padding: calc(var(--c-element-height) / 10);
   --clr-element-bg: #2f2f30;
   --clr-element-txt: white;
@@ -193,7 +193,7 @@ descr:hover {
 }
 
 .c-motif {
-  --c-element-width: calc(var(--c-label-width) * 1.75);
+  --c-element-width: calc(var(--c-label-width) * 1.25);
   --c-label-height: var(--c-element-height);
 
   display: flex;
