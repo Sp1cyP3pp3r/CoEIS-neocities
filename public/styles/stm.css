@@ -195,6 +195,7 @@ descr:hover {
 .c-motif {
   --c-element-width: calc(var(--c-label-width) * 1.25);
   --c-label-height: var(--c-element-height);
+  --motif-gap: 8px;
 
   display: flex;
   flex-flow: row wrap;
@@ -203,7 +204,8 @@ descr:hover {
 
   position: relative;
   width: var(--c-element-width);
-  padding-block-start: var(--c-label-height);
+  padding-block-start: calc(var(--c-label-height) + var(--motif-gap));
+  padding-block-end: var(--motif-gap);
 
   label {
     background-color: var(--clr-element-bg);
