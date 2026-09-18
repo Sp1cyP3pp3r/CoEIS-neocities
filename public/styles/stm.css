@@ -137,7 +137,7 @@ descr:hover {
 
       display: flex;
       flex-flow: row nowrap;
-      align-items: baseline;
+      align-items: stretch;
       justify-content: space-between;
     }
 
@@ -145,8 +145,6 @@ descr:hover {
       display: flex;
       align-items: center;
       margin-inline-end: 0.2em;
-      height: 100%;
-      line-height: var(--c-element-height);
       img {
         height: calc(var(--c-element-height) * 0.9);
         filter: invert(1);
