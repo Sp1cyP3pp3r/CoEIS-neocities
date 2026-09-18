@@ -163,6 +163,8 @@ descr:hover {
       background: transparent;
       -moz-appearance: textfield;
 
+      text-shadow: 0px 1px rgba(0, 0, 0, 0.45);
+
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
