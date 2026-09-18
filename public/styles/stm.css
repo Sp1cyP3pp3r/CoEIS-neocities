@@ -224,11 +224,10 @@ descr:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(2 * var(--point-size) + var(--point-margin-gap));
-    width: calc(2 * var(--point-size) + var(--point-margin-gap));
-    border: var(--point-border-thickness) solid black;
-    padding: var(--c-element-padding);
-    background-color: white;
+
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1;
 
     img {
       width: 100%;
