@@ -198,15 +198,12 @@ descr:hover {
   }
 }
 
-/* MOTIF PLUG-IN */
 .c-motif {
   display: flex;
   flex-wrap: wrap;
-  width: fit-content;
   gap: calc(var(--point-margin-gap) * 2);
   margin-block: calc(var(--point-margin-gap) * 4);
   box-sizing: border-box;
-  position: relative;
 
   *,
   *::before,
@@ -246,6 +243,9 @@ descr:hover {
   }
 
   .c-motif-point-container {
+    border: none;
+    padding: 0;
+    margin: 0;
     max-width: calc(4 * var(--point-size) + 6 * var(--point-margin-gap));
     row-gap: var(--point-margin-gap);
 
