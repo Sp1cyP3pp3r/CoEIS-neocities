@@ -226,7 +226,6 @@ descr:hover {
     align-items: center;
 
     height: 50px;
-    width: 100%;
     aspect-ratio: 1;
 
     img {
@@ -243,7 +242,9 @@ descr:hover {
       var(--points-per-row) * var(--point-size) + (var(--points-per-row) - 1) *
         var(--point-margin-gap)
     );
+    /*
     row-gap: var(--point-margin-gap);
+    */
 
     input[type="checkbox"] {
     }
