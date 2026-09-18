@@ -9,6 +9,9 @@
   --font-h2: "Monotype Corsiva", cursive;
   --font-h3: "Beleren", serif;
 
+  --point-size: 20px;
+  --point-margin-gap: calc(var(--point-size) / 6);
+
   margin-inline: 25%;
   margin-block: 7%;
 }
@@ -48,8 +51,6 @@ descr:hover {
 
 /* Points */
 .point-container {
-  --point-size: 20px;
-  --point-margin-gap: calc(var(--point-size) / 6);
   --point-border-thickness: calc(var(--point-size) / 8);
   display: flex;
   flex-flow: row wrap;
