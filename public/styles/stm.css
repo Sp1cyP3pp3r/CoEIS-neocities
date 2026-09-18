@@ -202,8 +202,9 @@ descr:hover {
 .c-motif {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  width: fit-content;
   gap: calc(var(--point-margin-gap) * 2);
+  margin-block: calc(var(--point-margin-gap) * 4);
   box-sizing: border-box;
   position: relative;
 
@@ -219,6 +220,7 @@ descr:hover {
     color: var(--clr-element-txt);
     font-family: var(--font-h2), cursive;
     font-size: var(--c-element-height);
+    font-weight: normal;
     line-height: 1;
     padding: var(--c-element-padding) calc(var(--c-element-padding) * 4);
     text-align: center;
@@ -245,13 +247,10 @@ descr:hover {
 
   .c-motif-point-container {
     max-width: calc(4 * var(--point-size) + 6 * var(--point-margin-gap));
-    flex: 1 1 auto;
     row-gap: var(--point-margin-gap);
 
     input[type="checkbox"] {
       flex: 0 0 auto;
-      width: var(--point-size);
-      height: var(--point-size);
     }
   }
 }
