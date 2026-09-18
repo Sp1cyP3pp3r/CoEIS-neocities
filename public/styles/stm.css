@@ -128,13 +128,11 @@ descr:hover {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
       font-size: var(--c-element-height);
       background-color: var(--clr-element-bg, #2f2f30);
-
-      /*line-height: var(--c-element-height);*/
       padding: var(--c-element-padding);
       width: var(--c-element-width);
 
       padding-inline-start: 0.15em;
-      line-height: 1.3;
+      line-height: 1.5;
       text-shadow: 0px 2px var(--clr-element-bg);
 
       display: flex;
@@ -148,6 +146,7 @@ descr:hover {
       align-items: center;
       margin-inline-end: 0.2em;
       height: 100%;
+      line-height: var(--c-element-height);
       img {
         height: calc(var(--c-element-height) * 0.9);
         filter: invert(1);
