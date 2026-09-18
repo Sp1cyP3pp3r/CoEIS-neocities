@@ -201,8 +201,8 @@ descr:hover {
 /* MOTIF PLUG-IN */
 .c-motif {
   display: flex;
-  flex-wrap: wrap; /* Allows the label to force a new line */
-  gap: 15px; /* Space between the logo and the points container */
+  flex-wrap: wrap;
+  gap: 15px;
   width: fit-content;
   box-sizing: border-box;
 
@@ -219,7 +219,7 @@ descr:hover {
     background-color: var(--clr-element-bg, #2f2f30);
     color: var(--clr-element-txt, white);
     font-family: var(--font-h2, "Monotype Corsiva"), cursive;
-    font-size: 3.5rem;
+    font-size: var(--c-element-height);
     font-weight: normal;
     line-height: 1;
     padding: var(--c-element-padding, 3.4px)
@@ -234,12 +234,10 @@ descr:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+
     /* Fixed dimensions to match the height of the checkbox grid */
     flex: 0 0 120px;
     height: 120px;
-    border: 3px solid black;
-    padding: 12px;
-    background-color: white;
 
     img {
       width: 100%;
@@ -249,41 +247,20 @@ descr:hover {
     }
   }
 
-  /* Point Container (Fieldset) styling */
   .c-motif-point-container {
-    /* Reset default fieldset properties */
-    border: none;
-    padding: 0;
-    margin: 0;
-
-    /* Flexbox setup for the 2x4 grid */
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Space between checkboxes */
+    gap: var(--point-margin-gap);
 
     /* Match dimensions with the picture box on the left */
     flex: 0 0 250px;
     height: 120px;
 
-    /* Override .point-container defaults to create the exact grid */
     input[type="checkbox"] {
-      /* Remove fixed sizing from .point-container so they fill the grid */
-      width: auto;
-      height: auto;
-
-      /* Remove margins since we are using `gap` on the parent */
       margin-inline: 0 !important;
 
-      /* Calculate width for exactly 4 columns */
-      /* 25% width minus a quarter of the total 30px gap (3 gaps * 10px = 30px) */
       flex: 1 1 calc(25% - 7.5px);
-
-      /* Calculate height for exactly 2 rows */
-      /* 50% height minus half of the 10px gap (1 gap * 10px = 10px) */
       height: calc(50% - 5px);
-
-      /* Keep the user's border thickness variable, fallback to 2.5px */
-      border: var(--point-border-thickness, 2.5px) solid black;
     }
   }
 }
