@@ -202,7 +202,8 @@ descr:hover {
 .c-motif {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  /* Space between the picture box and the checkbox grid */
+  gap: calc(var(--point-margin-gap) * 2);
   width: fit-content;
   box-sizing: border-box;
 
@@ -214,18 +215,15 @@ descr:hover {
 
   /* "Quick" Label styling */
   label {
-    /* Forces the label to take up the full width, pushing the rest down */
     flex: 0 0 100%;
-    background-color: var(--clr-element-bg, #2f2f30);
-    color: var(--clr-element-txt, white);
-    font-family: var(--font-h2, "Monotype Corsiva"), cursive;
-    font-size: var(--c-element-height);
+    background-color: var(--clr-element-bg);
+    color: var(--clr-element-txt);
+    font-family: var(--font-h2), cursive;
+    font-size: calc(var(--c-element-height) * 1.5);
     font-weight: normal;
     line-height: 1;
-    padding: var(--c-element-padding, 3.4px)
-      calc(var(--c-element-padding, 3.4px) * 3);
+    padding: var(--c-element-padding) calc(var(--c-element-padding) * 4);
     text-align: center;
-    display: block;
     margin: 0;
   }
 
@@ -234,10 +232,12 @@ descr:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* Fixed dimensions to match the height of the checkbox grid */
-    flex: 0 0 120px;
-    height: 120px;
+    /* Height = 2 rows of checkboxes + 1 row gap */
+    height: calc(2 * var(--point-size) + var(--point-margin-gap));
+    width: calc(2 * var(--point-size) + var(--point-margin-gap));
+    border: var(--point-border-thickness) solid black;
+    padding: var(--c-element-padding);
+    background-color: white;
 
     img {
       width: 100%;
@@ -247,20 +247,28 @@ descr:hover {
     }
   }
 
+  /* Point Container (Fieldset) styling */
   .c-motif-point-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--point-margin-gap);
+    /* Reset default fieldset properties */
+    border: none;
+    padding: 0;
+    margin: 0;
 
-    /* Match dimensions with the picture box on the left */
-    flex: 0 0 250px;
-    height: 120px;
+    /* Preferred 2x4 grid: 4 columns wide */
+    /* Width = (4 * checkbox) + (6 * horizontal margins) */
+    max-width: calc(4 * var(--point-size) + 6 * var(--point-margin-gap));
 
+    /* Allow it to grow to fill space, but wrap if it hits max-width or screen edge */
+    flex: 1 1 auto;
+
+    /* Add vertical spacing between the two rows */
+    row-gap: var(--point-margin-gap);
+
+    /* Ensure the checkboxes do not get stretched or squished */
     input[type="checkbox"] {
-      margin-inline: 0 !important;
-
-      flex: 1 1 calc(25% - 7.5px);
-      height: calc(50% - 5px);
+      flex: 0 0 auto;
+      width: var(--point-size);
+      height: var(--point-size);
     }
   }
 }
