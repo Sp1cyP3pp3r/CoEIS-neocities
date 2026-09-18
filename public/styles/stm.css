@@ -197,9 +197,101 @@ descr:hover {
   }
 }
 
+/*
 .c-motif {
   label {
     background-color: var(--clr-element-bg);
     color: var(--clr-element-txt);
   }
+}
+*/
+
+/* Base container styling */
+.c-motif {
+  display: grid;
+  /* Two columns: auto-width for the logo, auto-width for the points grid */
+  grid-template-columns: auto auto;
+  /* Space between the logo and the checkbox container */
+  gap: 15px;
+  /* Ensure the container wraps tightly around its content */
+  width: fit-content;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.c-motif *,
+.c-motif *::before,
+.c-motif *::after {
+  box-sizing: inherit;
+}
+
+/* "Quick" Label styling */
+.c-motif label {
+  /* Make the label span across both columns */
+  grid-column: 1 / -1;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  /* Cursive font to match the image */
+  font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+  font-size: 3.5rem;
+  font-weight: normal;
+  line-height: 1;
+  /* Inner spacing of the black banner */
+  padding: 12px 20px;
+  text-align: center;
+  display: block;
+  margin: 0;
+}
+
+/* Logo Picture Box styling */
+.c-motif picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Fixed square dimensions to match the checkbox grid height */
+  width: 120px;
+  height: 120px;
+  border: 3px solid #000;
+  /* Space between the border and the inner logo */
+  padding: 12px;
+  background-color: #ffffff;
+}
+
+.c-motif picture img {
+  width: 100%;
+  height: 100%;
+  /* Prevent the logo from distorting */
+  object-fit: contain;
+  display: block;
+}
+
+/* Point Container (Fieldset) styling */
+.c-motif-point-container {
+  /* Reset default fieldset properties */
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* Set up a 2 row by 4 column grid */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  /* Match dimensions with the picture box on the left */
+  height: 120px;
+  width: 250px;
+}
+
+/* Individual Checkboxes styling */
+.c-motif-point-container input[type="checkbox"] {
+  /* Remove default browser styling */
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+  /* Create the hollow square look */
+  border: 3px solid #000;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
