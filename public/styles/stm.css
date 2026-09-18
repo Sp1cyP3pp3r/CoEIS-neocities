@@ -219,7 +219,7 @@ descr:hover {
     background-color: var(--clr-element-bg);
     color: var(--clr-element-txt);
     font-family: var(--font-h2), cursive;
-    font-size: calc(var(--c-element-height) * 1.5);
+    font-size: var(--c-element-height); /* Fixed: now matches your variable */
     font-weight: normal;
     line-height: 1;
     padding: var(--c-element-padding) calc(var(--c-element-padding) * 4);
@@ -249,16 +249,13 @@ descr:hover {
 
   /* Point Container (Fieldset) styling */
   .c-motif-point-container {
-    /* Reset default fieldset properties */
-    border: none;
-    padding: 0;
-    margin: 0;
+    /* Removed redundant resets (handled by reset.css) */
 
     /* Preferred 2x4 grid: 4 columns wide */
     /* Width = (4 * checkbox) + (6 * horizontal margins) */
     max-width: calc(4 * var(--point-size) + 6 * var(--point-margin-gap));
 
-    /* Allow it to grow to fill space, but wrap if it hits max-width or screen edge */
+    /* Allow it to grow to fill space, but wrap if it hits max-width */
     flex: 1 1 auto;
 
     /* Add vertical spacing between the two rows */
