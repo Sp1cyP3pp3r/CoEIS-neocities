@@ -221,7 +221,7 @@ descr:hover {
     inset-inline-end: 0;
 
     padding-inline-start: 0.15em;
-    line-height: 1.5;
+    line-height: 1.4;
     text-shadow: 0px 2px var(--clr-element-bg);
   }
 
