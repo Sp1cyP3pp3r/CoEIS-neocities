@@ -200,15 +200,13 @@ descr:hover {
 }
 
 .c-motif {
-  --c-element-width: max(158px, var(--c-label-width));
+  --c-element-width: calc(var(--c-label-width) * 1.75);
 
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: space-around;
 
-  gap: calc(var(--point-margin-gap) * 2);
-  margin-block: calc(var(--point-margin-gap) * 4);
   width: var(--c-element-width);
 
   label {
