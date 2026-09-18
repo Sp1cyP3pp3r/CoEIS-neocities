@@ -250,3 +250,98 @@ descr:hover {
     );
   }
 }
+
+/* ===== CHARACTER SHEET LAYOUT ===== */
+
+.character-sheet {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: 2rem;
+  align-items: start;
+}
+
+/* Name & Concept — two columns */
+.c-name,
+.c-concept {
+  grid-column: span 6;
+}
+
+.c-name label,
+.c-concept label {
+  display: block;
+  font-family: var(--font-h3, "Beleren", serif);
+  margin-block-end: 0.25rem;
+}
+
+.c-name input,
+.c-concept input {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--clr-element-bg, #2f2f30);
+  color: var(--clr-element-txt, white);
+  border: none;
+}
+
+/* Attributes — three columns */
+.c-attribute {
+  grid-column: span 4;
+  width: 100%;
+  align-items: stretch;
+}
+
+.c-attribute > label {
+  justify-content: space-between;
+}
+
+.c-attribute > label span {
+  width: auto;
+  flex: 1;
+}
+
+.c-attribute > label input {
+  width: 3em;
+  flex-shrink: 0;
+}
+
+/* Motifs — four columns */
+.c-motif {
+  grid-column: span 3;
+  width: 100%;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1024px) {
+  .character-sheet {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .c-name,
+  .c-concept {
+    grid-column: span 3;
+  }
+
+  .c-attribute {
+    grid-column: span 2;
+  }
+
+  .c-motif {
+    grid-column: span 3; /* 2 per row */
+  }
+}
+
+@media (max-width: 640px) {
+  .character-sheet {
+    grid-template-columns: 1fr;
+  }
+
+  .c-name,
+  .c-concept,
+  .c-attribute,
+  .c-motif {
+    grid-column: span 1;
+  }
+}
