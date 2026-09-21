@@ -266,11 +266,14 @@ descr:hover {
 /* TRAITS */
 
 .c-trait {
+  --title-height: var(--c-element-height);
+
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
 
     display: flex;
     flex-flow: row wrap;
+    height: var(--title-height);
 
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
