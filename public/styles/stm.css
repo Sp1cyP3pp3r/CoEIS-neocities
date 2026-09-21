@@ -278,13 +278,13 @@ descr:hover {
 .c-trait {
   --title-height: var(--c-element-height);
   --trait-text-padding: calc(var(--c-element-padding) * 2);
+  --trait-name-margin: calc(var(--c-element-height) / 2);
 
   width: 100ch;
 
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
     --trait-name-padding: calc(var(--trait-text-padding) * 1);
-    --trait-name-margin: 0.25em;
 
     display: flex;
     flex-flow: row wrap;
@@ -337,6 +337,10 @@ descr:hover {
       summary {
       }
       .trivia-text {
+      }
+
+      &:last-of-type {
+        margin-block-end: var(--trait-name-margin);
       }
     }
 
