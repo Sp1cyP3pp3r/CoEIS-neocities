@@ -17,6 +17,12 @@ html {
 
   --point-size: 20px;
   --point-margin-gap: calc(var(--point-size) / 6);
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
 }
 
 /* DESCRIPTION PLUG-IN */
@@ -267,14 +273,19 @@ descr:hover {
 
 .c-trait {
   --title-height: var(--c-element-height);
+  --trait-text-padding: calc(var(--c-element-padding) * 2);
+
+  width: 100ch;
 
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
+    --trait-name-padding: calc(var(--trait-text-padding) * 1);
 
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     justify-content: space-between;
+    padding-inline: var(--trait-name-padding);
     height: var(--title-height);
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
@@ -294,6 +305,8 @@ descr:hover {
   }
 
   .c-trait-text {
+    padding: var(--trait-text-padding);
+
     details.trait-trivia {
       summary {
       }
