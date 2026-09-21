@@ -338,6 +338,7 @@ descr:hover {
         --sum-padding: calc(var(--c-element-padding) * 3);
         --clr-text: var(--clr-element-txt);
         cursor: pointer;
+        list-style: none;
 
         color: var(--clr-text);
         background-color: var(--clr-element-bg);
@@ -345,16 +346,34 @@ descr:hover {
         height: 1em;
 
         padding-inline: var(--sum-padding);
+        padding-inline-end: calc(var(--sum-padding) * 1.3);
         padding-block: calc(var(--sum-padding) / 2);
         font-family: var(--font-h2);
         font-size: 1.5em;
-        line-height: 1.5;
+        line-height: 1.25;
 
-        &::marker {
-          content: "";
+        &::-webkit-details-marker {
+          display: none;
+        }
+
+        &::after {
+          content: "⇲";
         }
       }
+
+      &[open] summary::after {
+        content: "⇱";
+      }
+
       .trivia-text {
+        --trivia-margin: 1em;
+        border: var(--clr-element-bg) 1px solid;
+        margin-inline-start: var(--trivia-margin);
+        margin-block-start: calc(var(--trivia-margin) * -1);
+        padding: var(--trivia-margin);
+        /*
+        padding-block-start: calc(var(--trivia-margin) * 2);
+        */
       }
 
       &:last-of-type {
