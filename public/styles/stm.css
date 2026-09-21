@@ -273,6 +273,8 @@ descr:hover {
 
     display: flex;
     flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-between;
     height: var(--title-height);
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
@@ -285,6 +287,9 @@ descr:hover {
     h3 {
     }
     .c-module-ctd-art-point-container {
+      align-items: center;
+      align-content: center;
+      height: 100%;
     }
   }
 
