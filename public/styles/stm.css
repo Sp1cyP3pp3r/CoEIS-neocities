@@ -267,6 +267,14 @@ descr:hover {
 
 .c-trait {
   .c-trait-name {
+    --clr-text: var(--clr-element-txt);
+
+    display: flex;
+    flex-flow: row wrap;
+
+    background-color: var(--clr-element-bg);
+    color: var(--clr-text);
+
     h3 {
     }
     .c-module-ctd-art-point-container {
