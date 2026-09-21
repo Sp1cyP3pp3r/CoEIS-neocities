@@ -307,8 +307,23 @@ descr:hover {
   }
 
   .c-trait-text {
+    --height-of-1-line: 1.2em;
+
+    display: flex;
+    flex-flow: column nowrap;
+
     p {
-      padding: var(--trait-text-padding);
+      padding-inline: var(--trait-text-padding);
+      line-height: var(--height-of-1-line);
+
+      /* Indentention */
+      &::before {
+        --indent-width: 20px;
+        content: "";
+        float: left;
+        width: var(--indent-width);
+        height: clamp(0px, 100% - var(--height-of-1-line), 1px);
+      }
     }
 
     details.trait-trivia {
