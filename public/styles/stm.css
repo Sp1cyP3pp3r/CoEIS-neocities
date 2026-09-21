@@ -398,6 +398,10 @@ descr:hover {
         /*
         padding-block-start: calc(var(--trivia-margin) * 2);
         */
+
+        p:last-of-type {
+          margin-block-end: var(--trivia-margin) !important;
+        }
       }
 
       &:last-of-type {
@@ -420,15 +424,18 @@ descr:hover {
       }
 
       .trait-power {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: stretch;
+
         .c-trait-name {
           --trait-name-font-size: calc(var(--c-element-height) / 1.2);
 
-          justify-content: flex-start;
-          align-items: flex-end;
+          flex-direction: column;
           width: 100%;
-          flex: 0 0 1;
+          height: auto;
+          justify-content: space-around;
 
-          line-height: 0.6;
           font-family: var(--font-h2);
 
           &::after {
