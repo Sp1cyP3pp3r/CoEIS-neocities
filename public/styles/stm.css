@@ -335,6 +335,21 @@ descr:hover {
       margin-block-start: var(--trait-name-margin);
 
       summary {
+        --sum-padding: calc(var(--c-element-padding) * 3);
+        --clr-text: var(--clr-element-txt);
+        cursor: pointer;
+
+        color: var(--clr-text);
+        background-color: var(--clr-element-bg);
+        width: fit-content;
+        height: 1em;
+
+        padding-inline: var(--sum-padding);
+        padding-block: calc(var(--sum-padding) / 2);
+        font-family: var(--font-h2);
+        font-size: 1.5em;
+        line-height: 1.5;
+
         &::marker {
           content: "";
         }
