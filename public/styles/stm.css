@@ -335,6 +335,9 @@ descr:hover {
       margin-block-start: var(--trait-name-margin);
 
       summary {
+        &::marker {
+          content: "";
+        }
       }
       .trivia-text {
       }
@@ -342,11 +345,11 @@ descr:hover {
       &:last-of-type {
         margin-block-end: var(--trait-name-margin);
       }
-    }
 
-    .ctd-unleashing {
-    }
-    .ctd-bunk {
+      &.ctd-unleashing {
+      }
+      &.ctd-bunk {
+      }
     }
 
     .trait-levels {
