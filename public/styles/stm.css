@@ -371,3 +371,7 @@ descr:hover {
     justify-content: flex-start;
   }
 }
+
+html {
+  height: 110vh;
+}
