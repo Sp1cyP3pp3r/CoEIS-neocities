@@ -1,3 +1,7 @@
+html {
+  height: 250vh;
+}
+
 .character-sheet {
   --c-element-height: 34px;
   --c-label-width: 128px;
@@ -370,8 +374,4 @@ descr:hover {
   .c-module-ctd-art-point-container {
     justify-content: flex-start;
   }
-}
-
-html {
-  height: 250vh;
 }
