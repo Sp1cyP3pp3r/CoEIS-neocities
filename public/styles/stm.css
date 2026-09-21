@@ -274,10 +274,10 @@ descr:hover {
     display: flex;
     flex-flow: row wrap;
     height: var(--title-height);
-    font-size: var(--c-element-height);
-
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
+    font-size: var(--c-element-height);
+    font-family: var(--font-h3);
 
     h3 {
     }
