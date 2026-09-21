@@ -357,7 +357,10 @@ descr:hover {
           transform 0.2s ease;
 
         &:active {
-          transform: scale(0.98);
+          transform: scale(0.9);
+        }
+        &:hover {
+          transform: scale(0.99);
         }
 
         &::-webkit-details-marker {
