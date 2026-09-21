@@ -307,7 +307,9 @@ descr:hover {
   }
 
   .c-trait-text {
-    padding: var(--trait-text-padding);
+    p {
+      padding: var(--trait-text-padding);
+    }
 
     details.trait-trivia {
       summary {
