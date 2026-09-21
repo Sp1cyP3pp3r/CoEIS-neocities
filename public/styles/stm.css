@@ -263,230 +263,140 @@ descr:hover {
   }
 }
 
-/* ============================================================
-   TRAIT / ART MODULE  (Changeling: The Dreaming "Arts")
-   ============================================================ */
-
-.c-trait {
-  --trait-gap: calc(var(--point-margin-gap) * 3);
-  --trait-radius: 2px;
-  --trait-rule: 1px solid #535353;
+.c-module-ctd-art {
+  --art-gap: calc(var(--point-margin-gap) * 4);
+  --art-section-gap: calc(var(--point-margin-gap) * 6);
+  --art-power-indent: calc(var(--point-margin-gap) * 4);
+  --art-border: 1px solid var(--clr-element-bg);
 
   display: flex;
   flex-flow: column nowrap;
-  gap: var(--trait-gap);
+  gap: var(--art-gap);
   width: 100%;
-}
+  max-width: 80ch;
+  margin-block: var(--art-section-gap);
 
-/* --- Header bar: name + dot rating --------------------------- */
+  .c-trait-name {
+    --clr-text: var(--clr-element-txt);
 
-.c-trait-name {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--trait-gap);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--art-gap);
 
-  background-color: var(--clr-element-bg, #2f2f30);
-  color: var(--clr-element-txt, white);
-  border-radius: var(--trait-radius);
+    padding: var(--c-element-padding) calc(var(--c-element-padding) * 2);
+    color: var(--clr-element-txt);
+    background-color: var(--clr-element-bg);
 
-  padding: var(--c-element-padding, 0.25rem) 0.75em;
-  min-height: calc(
-    var(--c-element-height, 34px) + var(--c-element-padding, 0.25rem) * 2
-  );
-
-  h3 {
-    margin: 0;
-    font-family: var(--font-h3, "Beleren", serif);
-    font-size: 1.35rem;
-    font-weight: normal;
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-    text-shadow: 0 2px var(--clr-element-bg);
-  }
-}
-
-/* Dot rating sits on the dark bar — invert the point colours */
-.c-module-ctd-art-point-container {
-  --point-border-thickness: calc(var(--point-size) / 8);
-
-  border: none;
-  margin: 0;
-  padding: 0;
-
-  input[type="checkbox"] {
-    border-color: var(--clr-element-txt, white);
-
-    &[data-state="checked"] {
-      background-color: var(--clr-element-txt, white);
-    }
-
-    &[data-state="off-limit"] {
-      background-image:
-        linear-gradient(
-          45deg,
-          transparent 45%,
-          white 45%,
-          white 55%,
-          transparent 55%
-        ),
-        linear-gradient(
-          135deg,
-          transparent 45%,
-          white 45%,
-          white 55%,
-          transparent 55%
-        );
+    h3 {
+      margin: 0;
+      font-family: var(--font-h3);
+      font-size: var(--c-element-height);
+      font-weight: normal;
+      line-height: 1.2;
+      text-shadow: 0 2px var(--clr-element-bg);
     }
   }
-}
 
-/* --- Body ---------------------------------------------------- */
-
-.c-module-ctd-art-text {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: var(--trait-gap);
-
-  /* The bare text node inside inherits these */
-  font-family: Effra, system-ui, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: #1a1a1a;
-  text-wrap: pretty;
-}
-
-/* Flavour text (raw text node) gets a softer, literary feel */
-.c-module-ctd-art-text::before {
-  content: "";
-  display: block;
-}
-
-.c-module-ctd-art-text > .ctd-art-trivia,
-.c-module-ctd-art-text > .c-module-ctd-art-levels {
-  margin: 0;
-}
-
-/* --- Trivia callouts (Unleashing / Bunks) -------------------- */
-
-.ctd-art-trivia {
-  --trivia-accent: #7a6a9c;
-
-  border-inline-start: 3px solid var(--trivia-accent);
-  background: color-mix(in srgb, var(--trivia-accent) 8%, transparent);
-  padding: calc(var(--trait-gap) / 2) calc(var(--trait-gap) / 1.5);
-  border-radius: 0 var(--trait-radius) var(--trait-radius) 0;
-
-  h4 {
-    margin: 0 0 0.35em;
-    font-family: var(--font-h2, "Monotype Corsiva", cursive);
-    font-size: 1.35rem;
-    font-weight: normal;
-    line-height: 1.2;
-    color: var(--trivia-accent);
-    text-shadow: 0 1px rgba(0, 0, 0, 0.08);
+  .c-module-ctd-art-point-container {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0;
   }
 
-  .ctd-trivia-text p {
+  .c-trait-text {
     margin: 0;
-    font-size: 0.9rem;
+  }
+
+  .c-module-ctd-art-text {
+    font-family: Effra, system-ui, sans-serif;
+    font-size: 1rem;
     line-height: 1.5;
-    color: #333;
+    color: var(--clr-text);
   }
 
-  & + .ctd-art-trivia {
-    margin-block-start: calc(var(--trait-gap) / 2);
+  .ctd-art-trivia {
+    margin-block: var(--art-gap);
+    border: var(--art-border);
+    background-color: transparent;
+
+    summary {
+      cursor: pointer;
+      padding: calc(var(--c-element-padding) * 1.5)
+        calc(var(--c-element-padding) * 2);
+
+      font-family: var(--font-h3);
+      font-size: 1.05em;
+      font-weight: normal;
+      color: var(--clr-element-txt);
+
+      background-color: var(--clr-element-bg);
+      text-shadow: 0 2px var(--clr-element-bg);
+    }
+
+    summary:hover {
+      filter: brightness(1.1);
+    }
+
+    summary:focus-visible {
+      outline: 2px solid var(--clr-element-txt);
+      outline-offset: 2px;
+    }
+
+    &[open] summary {
+      margin-block-end: var(--c-element-padding);
+    }
+
+    .ctd-trivia-text {
+      padding: 0 calc(var(--c-element-padding) * 2)
+        calc(var(--c-element-padding) * 2);
+
+      p {
+        margin: 0;
+      }
+    }
   }
-}
 
-/* --- Leveled powers ----------------------------------------- */
-
-.c-module-ctd-art-levels {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: var(--trait-gap);
-  counter-reset: art-level;
-}
-
-.c-module-ctd-art-power {
-  display: grid;
-  grid-template-columns: minmax(14ch, max-content) 1fr;
-  grid-template-areas: "head body";
-  gap: 0 calc(var(--trait-gap) * 1.5);
-
-  border-block-start: var(--trait-rule);
-  padding-block-start: calc(var(--trait-gap) / 1.5);
-
-  hgroup {
-    grid-area: head;
+  .c-module-ctd-art-levels {
     display: flex;
     flex-flow: column nowrap;
-    gap: 0.15em;
-    margin: 0;
+    gap: var(--art-section-gap);
+    margin-block-start: var(--art-section-gap);
+  }
 
-    /* Level badge */
-    &::before {
-      counter-increment: art-level;
-      content: "Lv " counter(art-level);
-      align-self: flex-start;
+  .c-module-ctd-art-power {
+    padding-inline-start: var(--art-power-indent);
+    border-inline-start: 2px solid var(--clr-element-bg);
 
-      font-family: Effra, system-ui, sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-
-      color: var(--clr-element-txt, white);
-      background: var(--clr-element-bg, #2f2f30);
-      padding: 0.15em 0.55em;
-      border-radius: 999px;
-      margin-block-end: 0.3em;
+    hgroup {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: baseline;
+      gap: calc(var(--point-margin-gap) * 2);
+      margin: 0 0 calc(var(--point-margin-gap) * 2);
     }
 
     h4 {
       margin: 0;
-      font-family: var(--font-h3, "Beleren", serif);
-      font-size: 1.05rem;
+      font-family: var(--font-h3);
+      font-size: 1.15em;
       font-weight: normal;
-      line-height: 1.25;
+      line-height: 1.2;
     }
 
-    span {
-      font-family: Effra, system-ui, sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #7a7a7a;
+    hgroup span {
+      font-family: var(--font-h2);
+      font-size: 0.95em;
+      font-style: italic;
+      opacity: 0.8;
     }
   }
 
   .c-module-ctd-art-power-text {
-    grid-area: body;
-    align-self: center;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #2a2a2a;
-  }
-}
-
-/* --- Narrow screens ----------------------------------------- */
-
-@media (max-width: 640px) {
-  .c-trait-name {
-    flex-flow: column nowrap;
-    align-items: flex-start;
-  }
-
-  .c-module-ctd-art-power {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "head"
-      "body";
-    gap: calc(var(--trait-gap) / 2);
-  }
-
-  .c-module-ctd-art-power .c-module-ctd-art-power-text {
-    align-self: start;
+    font-family: Effra, system-ui, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.45;
   }
 }
