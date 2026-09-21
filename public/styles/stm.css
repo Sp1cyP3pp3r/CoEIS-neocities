@@ -276,8 +276,11 @@ descr:hover {
     height: var(--title-height);
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
+
     font-size: var(--c-element-height);
     font-family: var(--font-h3);
+    line-height: 1.25;
+    text-shadow: 0px 2px var(--clr-element-bg);
 
     h3 {
     }
