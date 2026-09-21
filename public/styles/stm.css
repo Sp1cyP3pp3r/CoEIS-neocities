@@ -318,6 +318,7 @@ descr:hover {
       padding-inline: var(--trait-text-padding);
       line-height: var(--height-of-1-line);
       font-weight: bolder;
+      width: 100%;
 
       /* Indentention hack*/
       &::before {
@@ -330,7 +331,6 @@ descr:hover {
     }
 
     .trait-trivia {
-      width: 100%;
       font-weight: lighter;
       margin-block-start: var(--trait-name-margin);
 
