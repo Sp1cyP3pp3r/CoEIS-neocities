@@ -276,10 +276,13 @@ descr:hover {
 /* TRAITS */
 
 .c-trait {
+  --trait-name-attr: attr(data-art-name raw-string);
   --title-height: var(--c-element-height);
   --trait-text-padding: calc(var(--c-element-padding) * 2);
   --trait-name-margin: calc(var(--c-element-height) / 2);
+  --trait-name-font-size: var(--c-element-height);
 
+  counter-reset: trait-power-level;
   width: 60ch;
 
   .c-trait-name {
@@ -296,7 +299,7 @@ descr:hover {
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
 
-    font-size: var(--c-element-height);
+    font-size: var(--trait-name-font-size);
     font-family: var(--font-h3);
     line-height: 1.25;
     text-shadow: 0px 2px var(--clr-element-bg);
@@ -328,6 +331,9 @@ descr:hover {
         float: left;
         width: var(--indent-width);
         height: clamp(0px, 100% - var(--height-of-1-line), 1px);
+      }
+      &:last-of-type {
+        margin-block-end: var(--trait-name-margin);
       }
     }
 
@@ -408,11 +414,26 @@ descr:hover {
       display: flex;
       flex-flow: row wrap;
 
+      /* Each <li> is a level */
+      li {
+        counter-increment: trait-power-level;
+      }
+
       .trait-power {
         .c-trait-name {
+          --trait-name-font-size: calc(var(--c-element-height) / 1.5);
+
+          justify-content: flex-start;
+          align-items: flex-end;
+
           h4 {
           }
-          span {
+
+          &::after {
+            content: counter(trait-power-level) "lv power of the Art of "
+              var(--trait-name-attr);
+            font-size: calc(var(--trait-name-font-size) / 1.5);
+            font-family: "Courier New", Courier, monospace;
           }
         }
 
