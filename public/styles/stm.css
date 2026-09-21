@@ -14,8 +14,8 @@ html {
   --font-h1: "Beleren", serif;
   --font-h2: "Monotype Corsiva", cursive;
   --font-h3: "Beleren", serif;
-  --font-text-serif: "Certa Serif", serif;
-  --font-text-sans: "Certa Sans", sans;
+  --font-text-serif: Cambria, "Certa Serif", serif;
+  --font-text-sans: Roboto, "Certa Sans", sans;
   --font-text: var(--font-text-serif);
   font-family: var(--font-text);
 
@@ -310,15 +310,15 @@ descr:hover {
     --height-of-1-line: 1.2em;
 
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
 
     p {
       padding-inline: var(--trait-text-padding);
       line-height: var(--height-of-1-line);
 
-      /* Indentention */
+      /* Indentention hack*/
       &::before {
-        --indent-width: 20px;
+        --indent-width: 1em;
         content: "";
         float: left;
         width: var(--indent-width);
@@ -326,7 +326,9 @@ descr:hover {
       }
     }
 
-    details.trait-trivia {
+    .trait-trivia {
+      width: 100%;
+
       summary {
       }
       .trivia-text {
