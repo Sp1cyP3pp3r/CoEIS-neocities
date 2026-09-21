@@ -9,6 +9,7 @@ html {
   --clr-element-bg: #2f2f30;
   --clr-element-txt: white;
   --clr-text: #2f2f30;
+  color: var(--clr-text);
 
   --font-h1: "Beleren", serif;
   --font-h2: "Monotype Corsiva", cursive;
@@ -125,10 +126,11 @@ descr:hover {
   width: calc((var(--c-element-input) + var(--c-element-width)) * 1.1);
 
   & > label {
+    --clr-text: var(--clr-element-txt);
     height: calc(var(--c-element-height) + var(--c-element-padding) * 2);
     display: flex;
     flex-flow: row nowrap;
-    color: var(--clr-element-txt, white);
+    color: var(--clr-text);
 
     span {
       font-family: var(--font-h2, "Monotype Corsiva"), serif;
