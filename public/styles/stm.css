@@ -280,7 +280,7 @@ descr:hover {
   --trait-text-padding: calc(var(--c-element-padding) * 2);
   --trait-name-margin: calc(var(--c-element-height) / 2);
 
-  width: 100ch;
+  width: 60ch;
 
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
@@ -313,6 +313,7 @@ descr:hover {
 
     display: flex;
     flex-flow: row wrap;
+    column-gap: var(--trait-text-padding);
 
     p {
       padding-inline: var(--trait-text-padding);
@@ -350,6 +351,14 @@ descr:hover {
         font-family: var(--font-h2);
         font-size: 1.5em;
         line-height: 1.25;
+
+        transition:
+          background-color 0.2s ease,
+          transform 0.2s ease;
+
+        &:active {
+          transform: scale(0.98);
+        }
 
         &::-webkit-details-marker {
           display: none;
