@@ -352,16 +352,18 @@ descr:hover {
         font-size: 1.5em;
         line-height: 1.25;
 
+        /* Summary button animation */
         transition:
           background-color 0.2s ease,
           transform 0.2s ease;
 
         &:active {
-          transform: scale(0.9);
+          transform: scale(0.96) !important;
         }
         &:hover {
           transform: scale(0.99);
         }
+        /* ^ ^ ^ */
 
         &::-webkit-details-marker {
           display: none;
