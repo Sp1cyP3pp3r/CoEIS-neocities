@@ -284,12 +284,14 @@ descr:hover {
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
     --trait-name-padding: calc(var(--trait-text-padding) * 1);
+    --trait-name-margin-bottom: 0.25em;
 
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     justify-content: space-between;
     padding-inline: var(--trait-name-padding);
+    margin-block-end: var(--trait-name-margin-bottom);
     height: var(--title-height);
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
@@ -315,6 +317,7 @@ descr:hover {
     p {
       padding-inline: var(--trait-text-padding);
       line-height: var(--height-of-1-line);
+      font-weight: bolder;
 
       /* Indentention hack*/
       &::before {
