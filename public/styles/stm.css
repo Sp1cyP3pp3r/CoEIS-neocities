@@ -284,14 +284,14 @@ descr:hover {
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
     --trait-name-padding: calc(var(--trait-text-padding) * 1);
-    --trait-name-margin-bottom: 0.25em;
+    --trait-name-margin: 0.25em;
 
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
     justify-content: space-between;
     padding-inline: var(--trait-name-padding);
-    margin-block-end: var(--trait-name-margin-bottom);
+    margin-block-end: var(--trait-name-margin);
     height: var(--title-height);
     background-color: var(--clr-element-bg);
     color: var(--clr-text);
@@ -332,6 +332,7 @@ descr:hover {
     .trait-trivia {
       width: 100%;
       font-weight: lighter;
+      margin-block-start: var(--trait-name-margin);
 
       summary {
       }
