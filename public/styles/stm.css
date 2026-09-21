@@ -490,3 +490,48 @@ descr:hover {
     align-self: start;
   }
 }
+
+/* Hide every power by default */
+.c-module-ctd-art-power {
+  display: none;
+}
+
+/* Reveal powers up to the highest checked dot */
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(1)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(1),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(2)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 2),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(3)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 3),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(4)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 4),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(5)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 5),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(6)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 6),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(7)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 7),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(8)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 8),
+.c-trait:has(
+    .c-module-ctd-art-point-container input:nth-child(9)[data-state="checked"]
+  )
+  .c-module-ctd-art-power:nth-child(-n + 9) {
+  display: grid;
+}
