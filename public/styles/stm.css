@@ -264,28 +264,19 @@ descr:hover {
 }
 
 .c-module-ctd-art {
-  --art-gap: calc(var(--point-margin-gap) * 4);
-  --art-section-gap: calc(var(--point-margin-gap) * 6);
-  --art-power-indent: calc(var(--point-margin-gap) * 4);
-  --art-border: 1px solid var(--clr-element-bg);
-
   display: flex;
-  flex-flow: column nowrap;
-  gap: var(--art-gap);
-  width: 100%;
-  max-width: 80ch;
-  margin-block: var(--art-section-gap);
+  flex-flow: column wrap;
 
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
 
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    /*
     align-items: center;
     justify-content: space-between;
-    gap: var(--art-gap);
+    */
 
-    padding: var(--c-element-padding) calc(var(--c-element-padding) * 2);
     color: var(--clr-element-txt);
     background-color: var(--clr-element-bg);
 
