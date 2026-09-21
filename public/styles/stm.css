@@ -405,8 +405,11 @@ descr:hover {
     }
 
     .trait-levels {
-      .c-module-ctd-art-power {
-        hgroup {
+      display: flex;
+      flex-flow: row wrap;
+
+      .trait-power {
+        .c-trait-name {
           h4 {
           }
           span {
