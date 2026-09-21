@@ -263,28 +263,41 @@ descr:hover {
   }
 }
 
-.c-module-ctd-art {
-  display: flex;
-  flex-flow: column wrap;
+/* TRAITS */
 
+.c-trait {
   .c-trait-name {
-    --clr-text: var(--clr-element-txt);
-
-    display: flex;
-    flex-flow: row nowrap;
-    /*
-    align-items: center;
-    justify-content: space-between;
-    */
-
-    color: var(--clr-element-txt);
-    background-color: var(--clr-element-bg);
-
     h3 {
-      font-family: var(--font-h3);
-      font-size: var(--c-element-height);
-      font-weight: normal;
-      line-height: 1.5;
-      text-shadow: 0 2px var(--clr-element-bg);
+    }
+    .c-module-ctd-art-point-container {
     }
   }
+
+  .c-trait-text {
+    details.trait-trivia {
+      summary {
+      }
+      .trivia-text {
+      }
+    }
+
+    .ctd-unleashing {
+    }
+    .ctd-bunk {
+    }
+
+    .trait-levels {
+      .c-module-ctd-art-power {
+        hgroup {
+          h4 {
+          }
+          span {
+          }
+        }
+
+        .c-module-ctd-art-power-text {
+        }
+      }
+    }
+  }
+}
