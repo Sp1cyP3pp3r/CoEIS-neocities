@@ -285,14 +285,6 @@ descr:hover {
   counter-reset: trait-power-level;
   width: 60ch;
 
-  background-image:
-    linear-gradient(90deg, #fff, #fff),
-    url(https://i.ibb.co/zV5N8X3t/Symbol-Art-Wayfare.webp);
-  background-repeat: no-repeat;
-  background-size: 25%;
-  background-position: 88% 5%;
-  background-blend-mode: saturation;
-
   .c-trait-name {
     --clr-text: var(--clr-element-txt);
     --trait-name-padding: calc(var(--trait-text-padding) * 1);
@@ -472,5 +464,20 @@ descr:hover {
         }
       }
     }
+  }
+
+  &[data-art-name="Wayfare"]::before {
+    content: "art";
+    font-size: 0;
+    display: block;
+    position: absolute;
+
+    background-image:
+      linear-gradient(90deg, #fff, #fff),
+      url(https://i.ibb.co/zV5N8X3t/Symbol-Art-Wayfare.webp);
+    background-repeat: no-repeat;
+    background-size: 25%;
+    background-position: 88% 5%;
+    background-blend-mode: saturation;
   }
 }
