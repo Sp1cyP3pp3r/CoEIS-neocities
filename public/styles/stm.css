@@ -1,5 +1,5 @@
 /* ==========================================================================
-   STM SHEET — night-sky grimoire. Aligned.
+   STM SHEET — an illuminated night-sky grimoire, in full colour
    ========================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Cormorant+Unicase:wght@500;600;700&display=swap");
@@ -11,23 +11,67 @@
 }
 
 :root {
-  --night-0: #04050d;
-  --night-1: #090b1c;
-  --night-2: #101331;
-  --night-3: #191d45;
-  --night-4: #232a5e;
+  /* --- the deep --- */
+  --night-0: #060818;
+  --night-1: #0b0e28;
+  --night-2: #141a45;
+  --night-3: #1c2258;
+  --night-4: #2a3172;
 
-  --silver: #d9d6ef;
-  --silver-dim: #9c98c2;
-  --moon: #f5f2ff;
+  /* --- inks and metals --- */
+  --silver: #e2defa;
+  --silver-dim: #a19bc8;
+  --moon: #fbf8ff;
 
-  --gold: #e0bd68;
-  --gold-lt: #f7e6b0;
-  --gold-dk: #8a6f33;
+  --gold: #e8c46f;
+  --gold-lt: #fbeec2;
+  --gold-dk: #8f7338;
 
+  /* --- aurora palette --- */
   --aurora: #6fe3c4;
-  --violet: #8f7ce8;
-  --rose: #d98ab0;
+  --violet: #9a83f0;
+  --rose: #f08fb8;
+  --amber: #f0b566;
+  --crimson: #e36a6a;
+  --sapphire: #6ea8f0;
+  --jade: #74d68f;
+  --copper: #d68f5a;
+
+  /* --- attribute hues --- */
+  --voice-accent: #f08fb8;
+  --voice-deep: #6b2c4a;
+  --voice-soft: #4a1e36;
+
+  --mind-accent: #9a83f0;
+  --mind-deep: #3a2c72;
+  --mind-soft: #241a4d;
+
+  --body-accent: #f0b566;
+  --body-deep: #6e4419;
+  --body-soft: #432710;
+
+  /* --- motif jewels --- */
+  --m-quiet: #6ea8f0;
+  --m-quiet-d: #1f3d70;
+  --m-quick: #f0b566;
+  --m-quick-d: #6b4318;
+  --m-cool: #6fe3c4;
+  --m-cool-d: #1a5550;
+  --m-grace: #f08fb8;
+  --m-grace-d: #6b2c4a;
+  --m-clever: #9a83f0;
+  --m-clever-d: #3a2c72;
+  --m-bold: #e36a6a;
+  --m-bold-d: #6b1f1f;
+  --m-caution: #74d68f;
+  --m-caution-d: #215a37;
+  --m-persist: #d68f5a;
+  --m-persist-d: #5a3316;
+
+  --aurora-1: rgba(111, 227, 196, 0.16);
+  --aurora-2: rgba(154, 131, 240, 0.2);
+  --aurora-3: rgba(240, 143, 184, 0.14);
+  --aurora-4: rgba(240, 181, 102, 0.1);
 }
 
 html {
@@ -37,24 +81,14 @@ html {
 body {
   min-height: 100vh;
   color: var(--silver);
+
   background-color: var(--night-0);
   background-image:
-    radial-gradient(
-      70% 50% at 12% -6%,
-      rgba(111, 227, 196, 0.13),
-      transparent 65%
-    ),
-    radial-gradient(
-      62% 46% at 88% -2%,
-      rgba(143, 124, 232, 0.17),
-      transparent 65%
-    ),
-    radial-gradient(
-      90% 62% at 50% 106%,
-      rgba(217, 138, 176, 0.1),
-      transparent 70%
-    ),
-    linear-gradient(180deg, #0a0d22 0%, #04050d 55%, #080512 100%);
+    radial-gradient(70% 50% at 12% -6%, var(--aurora-1), transparent 65%),
+    radial-gradient(62% 46% at 88% -2%, var(--aurora-2), transparent 65%),
+    radial-gradient(90% 62% at 50% 106%, var(--aurora-3), transparent 70%),
+    radial-gradient(55% 40% at 5% 55%, var(--aurora-4), transparent 70%),
+    linear-gradient(180deg, #0d1030 0%, #060818 55%, #0a0a20 100%);
   background-attachment: fixed;
 }
 
@@ -71,19 +105,21 @@ body::after {
 body::before {
   background-image:
     radial-gradient(1.5px 1.5px at 24px 38px, #fff, transparent 60%),
-    radial-gradient(1px 1px at 132px 96px, #dfe4ff, transparent 60%),
-    radial-gradient(1.2px 1.2px at 214px 26px, #fff, transparent 60%),
-    radial-gradient(1px 1px at 84px 184px, #cfd6ff, transparent 60%);
+    radial-gradient(1px 1px at 132px 96px, #cfe0ff, transparent 60%),
+    radial-gradient(1.2px 1.2px at 214px 26px, #ffe7c2, transparent 60%),
+    radial-gradient(1px 1px at 84px 184px, #d8c9ff, transparent 60%),
+    radial-gradient(1.4px 1.4px at 178px 260px, #ffd0e0, transparent 60%);
   background-size: 260px 220px;
-  opacity: 0.5;
+  opacity: 0.6;
   animation: star-drift 240s linear infinite;
 }
 
 body::after {
   background-image:
     radial-gradient(2px 2px at 60px 140px, #fff, transparent 60%),
-    radial-gradient(1.4px 1.4px at 302px 62px, #e8e2ff, transparent 60%),
-    radial-gradient(1.6px 1.6px at 206px 286px, #ffeec9, transparent 60%);
+    radial-gradient(1.4px 1.4px at 302px 62px, #d8c9ff, transparent 60%),
+    radial-gradient(1.6px 1.6px at 206px 286px, #ffeec9, transparent 60%),
+    radial-gradient(1.5px 1.5px at 380px 200px, #b8f0dd, transparent 60%);
   background-size: 420px 360px;
   animation: star-twinkle 11s ease-in-out infinite alternate;
 }
@@ -99,10 +135,10 @@ body::after {
 
 @keyframes star-twinkle {
   from {
-    opacity: 0.22;
+    opacity: 0.25;
   }
   to {
-    opacity: 0.7;
+    opacity: 0.85;
   }
 }
 
@@ -152,18 +188,28 @@ body::after {
   background-color: var(--night-1);
   background-image:
     radial-gradient(
-      45% 30% at 10% 5%,
-      rgba(111, 227, 196, 0.07),
+      55% 40% at 8% 3%,
+      rgba(111, 227, 196, 0.1),
       transparent 70%
     ),
     radial-gradient(
-      46% 32% at 93% 97%,
-      rgba(143, 124, 232, 0.1),
+      50% 38% at 95% 5%,
+      rgba(154, 131, 240, 0.12),
+      transparent 70%
+    ),
+    radial-gradient(
+      46% 34% at 92% 96%,
+      rgba(240, 143, 184, 0.1),
+      transparent 70%
+    ),
+    radial-gradient(
+      42% 30% at 6% 92%,
+      rgba(240, 181, 102, 0.09),
       transparent 70%
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.014) 0 1px,
+      rgba(255, 255, 255, 0.015) 0 1px,
       transparent 1px 3px
     ),
     repeating-linear-gradient(
@@ -172,20 +218,21 @@ body::after {
       transparent 1px 3px
     );
 
-  border: 1px solid rgba(224, 189, 104, 0.32);
+  border: 1px solid rgba(232, 196, 111, 0.38);
   box-shadow:
     inset 0 0 0 6px var(--night-1),
-    inset 0 0 0 7px rgba(224, 189, 104, 0.16),
+    inset 0 0 0 7px rgba(232, 196, 111, 0.2),
     0 46px 90px -40px #000,
     0 0 0 1px #000;
 }
 
+/* corner brackets — now a full iridescent frame */
 .character-sheet::before {
   content: "";
   position: absolute;
   inset: 16px;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.95;
   background-image:
     linear-gradient(var(--gold), var(--gold)),
     linear-gradient(var(--gold), var(--gold)),
@@ -214,6 +261,7 @@ body::after {
     0 100%,
     100% 100%,
     100% 100%;
+  filter: drop-shadow(0 0 4px rgba(232, 196, 111, 0.35));
 }
 
 .character-sheet::after {
@@ -235,8 +283,7 @@ body::after {
 }
 
 /* ==========================================================================
-   NAME & CONCEPT — same Y, same baseline, same underline
-   FIX: removed align-self: end from .c-concept (was pushing it down)
+   NAME & CONCEPT
    ========================================================================== */
 
 .c-name,
@@ -247,8 +294,7 @@ body::after {
   margin-block: 0 2.25rem;
   padding-block-end: 0.75rem;
   position: relative;
-  border-block-end: 1px solid rgba(156, 152, 194, 0.3);
-  /* both stretch to the row height, so the rules line up */
+  border-block-end: 1px solid rgba(161, 155, 200, 0.32);
 }
 
 .c-name {
@@ -259,7 +305,6 @@ body::after {
   grid-column: 8 / span 5;
   grid-row: 1;
 }
-/* ↑ NO align-self: end. That was the bug. */
 
 .c-name::after,
 .c-concept::after {
@@ -271,6 +316,7 @@ body::after {
   height: 6px;
   background-color: var(--gold);
   transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(232, 196, 111, 0.6);
 }
 
 .c-name label,
@@ -302,43 +348,33 @@ body::after {
 
 .c-name input::placeholder,
 .c-concept input::placeholder {
-  color: rgba(156, 152, 194, 0.35);
+  color: rgba(161, 155, 200, 0.4);
 }
 
 .c-name input:focus,
 .c-concept input:focus {
   outline: none;
   color: var(--gold-lt);
+  text-shadow: 0 0 12px rgba(232, 196, 111, 0.35);
 }
+
 /* ==========================================================================
-   TOOLTIPS  <descr> — always out of flow, always in the corner.
-   The element is never display:none and never participates in grid/flex
-   layout — only visibility and opacity change on hover. This is what stops
-   it from shoving the article around.
+   TOOLTIPS  <descr> — a small plate of lore
    ========================================================================== */
 
 descr {
-  /* Take it out of flow permanently. !important guards against any
-     cascade accident that could re-instate it as a grid item. */
   position: fixed !important;
-  display: block !important; /* never toggled — see below */
-
-  /* Pinned to the bottom-right corner of the viewport. All four sides
-     set so the box can never be treated as auto-placed. */
+  display: block !important;
   inset: auto 2rem 2rem auto;
   inset-block-start: auto;
   inset-inline-start: auto;
   inset-block-end: 2rem;
   inset-inline-end: 2rem;
 
-  /* Sized explicitly so it can never influence grid track sizes. */
   width: 36ch;
   max-width: calc(100vw - 4rem);
-  height: auto;
-
   z-index: 60;
   margin: 0;
-
   padding: 1.25em 1.6em 1.15em;
 
   font-size: 0.98rem;
@@ -347,26 +383,33 @@ descr {
   color: var(--silver);
 
   background-color: var(--night-2);
-  background-image: linear-gradient(180deg, #161a3d, #0b0e24);
-  border: 1px solid rgba(224, 189, 104, 0.45);
+  background-image:
+    radial-gradient(
+      60% 50% at 10% 0%,
+      rgba(154, 131, 240, 0.16),
+      transparent 70%
+    ),
+    radial-gradient(
+      60% 50% at 90% 100%,
+      rgba(111, 227, 196, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #1a1f52, #0b0e28);
+  border: 1px solid rgba(232, 196, 111, 0.5);
   border-inline-start: 3px solid var(--gold);
   box-shadow:
     0 26px 64px -22px #000,
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 40px -10px rgba(232, 196, 111, 0.35);
 
-  /* Hidden state: no layout, no paint, no pointer events. */
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transform: translateY(8px);
-
-  /* Delay the visibility flip so the fade-out is visible. */
   transition:
     opacity 0.22s ease,
     transform 0.22s ease,
     visibility 0s linear 0.22s;
-
-  /* Ensure long content scrolls instead of stretching. */
   overflow: auto;
   max-height: calc(100vh - 4rem);
 }
@@ -382,11 +425,9 @@ descr::before {
   color: var(--gold);
   padding-block-end: 0.7em;
   margin-block-end: 0.7em;
-  border-block-end: 1px solid rgba(224, 189, 104, 0.28);
+  border-block-end: 1px solid rgba(232, 196, 111, 0.3);
 }
 
-/* Show state: same box, same position, only paint state changes.
-   Because `position: fixed` was already active, no grid track is inserted. */
 *:hover + descr,
 descr:hover {
   visibility: visible;
@@ -400,7 +441,7 @@ descr:hover {
 }
 
 /* ==========================================================================
-   POINTS
+   POINTS — gem-cut diamonds
    ========================================================================== */
 
 .point-container {
@@ -417,84 +458,105 @@ descr:hover {
   width: 13px;
   height: 13px;
   margin: 3.5px;
-  border: 1px solid rgba(217, 214, 239, 0.5);
+  border: 1px solid rgba(226, 222, 250, 0.55);
   background-color: transparent;
   transform: rotate(45deg);
   cursor: pointer;
   transition:
     background-color 0.22s ease,
-    border-color 0.22s ease;
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .point-container input[type="checkbox"]:hover {
   border-color: var(--gold-lt);
-  background-color: rgba(224, 189, 104, 0.2);
+  background-color: rgba(232, 196, 111, 0.25);
+  box-shadow: 0 0 8px rgba(232, 196, 111, 0.5);
 }
 
+/* Each attribute family tints its own filled diamonds.
+   Fallback: gold, if no ancestor overrides --accent. */
 .point-container input[type="checkbox"][data-state="checked"] {
-  border-color: var(--gold-lt);
+  border-color: var(--accent, var(--gold-lt));
   background-image: linear-gradient(
     135deg,
-    var(--gold-lt),
-    var(--gold) 55%,
-    var(--gold-dk)
+    var(--accent-lt, var(--gold-lt)),
+    var(--accent, var(--gold)) 55%,
+    var(--accent-dk, var(--gold-dk))
   );
+  box-shadow: 0 0 10px -2px var(--accent, var(--gold));
 }
 
 .point-container input[type="checkbox"][data-state="indeterminate"] {
-  border-color: var(--gold);
-  background-image: linear-gradient(135deg, var(--gold) 0 50%, transparent 50%);
+  border-color: var(--accent, var(--gold));
+  background-image: linear-gradient(
+    135deg,
+    var(--accent, var(--gold)) 0 50%,
+    transparent 50%
+  );
 }
 
 .point-container input[type="checkbox"][data-state="off-limit"] {
-  border-color: rgba(156, 152, 194, 0.35);
+  border-color: rgba(161, 155, 200, 0.4);
   background-image:
     linear-gradient(
       45deg,
       transparent 44%,
-      rgba(156, 152, 194, 0.6) 44% 56%,
+      rgba(161, 155, 200, 0.65) 44% 56%,
       transparent 56%
     ),
     linear-gradient(
       135deg,
       transparent 44%,
-      rgba(156, 152, 194, 0.6) 44% 56%,
+      rgba(161, 155, 200, 0.65) 44% 56%,
       transparent 56%
     );
   cursor: default;
+  box-shadow: none;
 }
 
 /* ==========================================================================
-   ATTRIBUTES — flat row. All three start at the same Y.
-   FIX: all three #a-* now share the same margin-block-start.
+   ATTRIBUTES — flat row, each with its own colour family
    ========================================================================== */
 
 .c-attribute {
-  --c-element-width: 158px;
-  --c-element-input: 2em;
-
   display: flex;
   flex-flow: column nowrap;
-  align-items: stretch; /* header is full-width, skills are content-width */
+  align-items: stretch;
   width: 100%;
   align-self: start;
   margin-block: 0;
 }
 
+/* Voice — rose */
 #a-voice {
   grid-column: 1 / span 4;
   grid-row: 2;
   margin-block-start: 2rem;
+  --accent: var(--voice-accent);
+  --accent-lt: #ffc4dd;
+  --accent-dk: var(--voice-deep);
+  --accent-soft: var(--voice-soft);
 }
+/* Mind — violet */
 #a-mind {
   grid-column: 5 / span 4;
   grid-row: 2;
   margin-block-start: 2rem;
+  --accent: var(--mind-accent);
+  --accent-lt: #c4b6ff;
+  --accent-dk: var(--mind-deep);
+  --accent-soft: var(--mind-soft);
 }
+/* Body — amber */
 #a-body {
   grid-column: 9 / span 4;
   grid-row: 2;
   margin-block-start: 2rem;
+  --accent: var(--body-accent);
+  --accent-lt: #ffd9a3;
+  --accent-dk: var(--body-deep);
+  --accent-soft: var(--body-soft);
 }
 
 .c-attribute > label {
@@ -504,15 +566,21 @@ descr:hover {
   width: 100%;
   height: calc(var(--c-element-height) + var(--c-element-padding) * 2);
 
-  background-color: var(--night-3);
-  background-image: linear-gradient(180deg, #232a5e, #101331);
-  border-block: 1px solid rgba(224, 189, 104, 0.42);
-  border-inline-start: 2px solid var(--gold);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background-color: var(--accent-soft);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent-soft), white 6%),
+    color-mix(in oklab, var(--accent-soft), black 25%)
+  );
+  border-block: 1px solid color-mix(in oklab, var(--accent), white 15%);
+  border-inline-start: 3px solid var(--accent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--accent), white 25%),
+    0 0 20px -8px var(--accent);
 }
 
 .c-attribute > label > span {
-  flex: 1 1 auto; /* ← number input pinned to the far right */
+  flex: 1 1 auto;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -524,13 +592,15 @@ descr:hover {
   letter-spacing: 0.14em;
   line-height: 1;
   color: var(--moon);
-  text-shadow: 0 1px 0 #000;
+  text-shadow:
+    0 1px 0 #000,
+    0 0 12px color-mix(in oklab, var(--accent), transparent 50%);
 }
 
 .c-attribute > label > span::before {
   content: "✦";
   font-size: 0.85em;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .c-attribute > label picture {
@@ -542,23 +612,40 @@ descr:hover {
 
 .c-attribute > label picture img {
   height: calc(var(--c-element-height) * 0.82);
-  filter: invert(1) sepia(0.5) saturate(1.6) hue-rotate(-10deg) brightness(1.05);
-  opacity: 0.92;
+  filter: invert(1) sepia(1) saturate(3) hue-rotate(0deg) brightness(1.05);
+  /* tint the icon with the attribute colour */
+  opacity: 0.95;
+}
+
+/* Icon tinting per attribute */
+#a-voice > label picture img {
+  filter: invert(78%) sepia(28%) saturate(1800%) hue-rotate(295deg)
+    brightness(105%);
+}
+#a-mind > label picture img {
+  filter: invert(70%) sepia(35%) saturate(1900%) hue-rotate(230deg)
+    brightness(105%);
+}
+#a-body > label picture img {
+  filter: invert(82%) sepia(35%) saturate(1400%) hue-rotate(340deg)
+    brightness(105%);
 }
 
 .c-attribute > label input {
   flex: none;
-  width: var(--c-element-input);
+  width: 2em;
   border: 0;
-  border-inline-start: 1px solid rgba(224, 189, 104, 0.32);
+  border-inline-start: 1px solid
+    color-mix(in oklab, var(--accent), transparent 55%);
   background: transparent;
   font-family: var(--font-h2);
   font-size: 1.45rem;
   font-weight: 600;
   text-align: center;
-  color: var(--gold-lt);
-  caret-color: var(--gold);
+  color: var(--accent-lt);
+  caret-color: var(--accent);
   -moz-appearance: textfield;
+  text-shadow: 0 0 10px color-mix(in oklab, var(--accent), transparent 55%);
 }
 
 .c-attribute > label input::-webkit-outer-spin-button,
@@ -568,33 +655,28 @@ descr:hover {
 
 .c-attribute > label input:focus {
   outline: none;
-  color: #fff6dd;
+  color: #fff;
+  text-shadow: 0 0 14px var(--accent);
 }
 
 /* ==========================================================================
-   SKILLS — legend on the LEFT of the diamonds, both flush to the column's
-   left edge. FIX: killed justify-content: flex-end and the width hacks.
-   The legend is now a normal flex child of the fieldset.
+   SKILLS
    ========================================================================== */
 
 .c-skills-container {
   --skills-margin: calc(var(--point-margin-gap) * 1.9);
   --legend-width: 6.5em;
-
-  /* kill the browser's default fieldset sizing so the flex layout works */
   min-width: 0;
   min-inline-size: 0;
 
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  justify-content: flex-start; /* ← diamonds start at the LEFT */
+  justify-content: flex-start;
   gap: 0.85em;
-
-  width: max-content; /* ← shrink to content, not full column */
+  width: max-content;
   max-width: 100%;
-  align-self: flex-start; /* ← do NOT stretch to column width */
-
+  align-self: flex-start;
   margin-block: var(--skills-margin);
   padding: 0;
 }
@@ -606,24 +688,20 @@ descr:hover {
   margin-block-end: calc(var(--point-margin-gap) * 5);
 }
 
-/* The legend is now a plain flex item — no absolute positioning.
-   This is what makes it sit still and stay next to the diamonds. */
 .c-skills-container legend {
   float: none;
   position: static;
   margin: 0;
   padding: 0;
   border: 0;
-
   width: var(--legend-width);
   flex: none;
-
   text-align: right;
   font-family: var(--font-h2);
   font-style: italic;
   font-size: 1.28rem;
   line-height: 1;
-  color: var(--silver-dim);
+  color: color-mix(in oklab, var(--accent, var(--silver-dim)), white 15%);
 }
 
 .c-skills-container legend::before {
@@ -631,13 +709,12 @@ descr:hover {
   font-size: 0.55em;
   font-style: normal;
   vertical-align: 0.35em;
-  color: var(--gold);
-  opacity: 0.9;
+  color: var(--accent, var(--gold));
+  opacity: 0.95;
 }
 
 /* ==========================================================================
-   MOTIFS — flat row per line. No more ragged wave.
-   FIX: all motifs in row 3 share margin-block-start; same for row 4.
+   MOTIFS — each one is its own jewel
    ========================================================================== */
 
 .c-motif {
@@ -653,12 +730,28 @@ descr:hover {
   align-self: start;
 
   padding: 1.6rem 1rem 1.35rem;
-  border: 1px solid rgba(156, 152, 194, 0.16);
-  background-image: radial-gradient(
-    80% 70% at 50% 118%,
-    rgba(143, 124, 232, 0.13),
-    transparent 70%
-  );
+
+  /* per-motif colour defaults to gold */
+  --accent: var(--gold);
+  --accent-lt: var(--gold-lt);
+  --accent-dk: var(--gold-dk);
+
+  border: 1px solid color-mix(in oklab, var(--accent), transparent 65%);
+  background-color: color-mix(in oklab, var(--night-1), var(--accent) 6%);
+  background-image:
+    radial-gradient(
+      80% 70% at 50% 118%,
+      color-mix(in oklab, var(--accent), transparent 82%),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--night-1), var(--accent) 10%),
+      var(--night-1)
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--accent), transparent 78%),
+    0 12px 34px -18px color-mix(in oklab, var(--accent), transparent 40%);
 }
 
 .c-motif::before {
@@ -671,8 +764,8 @@ descr:hover {
   background-image: linear-gradient(
     180deg,
     transparent,
-    rgba(224, 189, 104, 0.55) 45%,
-    var(--gold) 100%
+    color-mix(in oklab, var(--accent), transparent 40%) 45%,
+    var(--accent) 100%
   );
 }
 
@@ -684,12 +777,13 @@ descr:hover {
   width: 7px;
   height: 7px;
   margin-inline-start: -3.5px;
-  background-color: var(--gold);
+  background-color: var(--accent);
   transform: rotate(45deg);
+  box-shadow: 0 0 10px var(--accent);
   z-index: 1;
 }
 
-/* Row 3 — all four motifs share the SAME margin-block-start */
+/* row 3 */
 #m-quiet,
 #m-quick,
 #m-cool,
@@ -699,18 +793,30 @@ descr:hover {
 }
 #m-quiet {
   grid-column: 1 / span 3;
+  --accent: var(--m-quiet);
+  --accent-lt: #b7d6ff;
+  --accent-dk: var(--m-quiet-d);
 }
 #m-quick {
   grid-column: 4 / span 3;
+  --accent: var(--m-quick);
+  --accent-lt: #ffd9a3;
+  --accent-dk: var(--m-quick-d);
 }
 #m-cool {
   grid-column: 7 / span 3;
+  --accent: var(--m-cool);
+  --accent-lt: #b7f5e5;
+  --accent-dk: var(--m-cool-d);
 }
 #m-grace {
   grid-column: 10 / span 3;
+  --accent: var(--m-grace);
+  --accent-lt: #ffc4dd;
+  --accent-dk: var(--m-grace-d);
 }
 
-/* Row 4 — all four motifs share the SAME margin-block-start */
+/* row 4 */
 #m-clever,
 #m-bold,
 #m-caution,
@@ -720,15 +826,27 @@ descr:hover {
 }
 #m-clever {
   grid-column: 1 / span 3;
+  --accent: var(--m-clever);
+  --accent-lt: #c4b6ff;
+  --accent-dk: var(--m-clever-d);
 }
 #m-bold {
   grid-column: 4 / span 3;
+  --accent: var(--m-bold);
+  --accent-lt: #ff9e9e;
+  --accent-dk: var(--m-bold-d);
 }
 #m-caution {
   grid-column: 7 / span 3;
+  --accent: var(--m-caution);
+  --accent-lt: #b7f0c9;
+  --accent-dk: var(--m-caution-d);
 }
 #m-persist {
   grid-column: 10 / span 3;
+  --accent: var(--m-persist);
+  --accent-lt: #f0c9a5;
+  --accent-dk: var(--m-persist-d);
 }
 
 .c-motif label {
@@ -739,9 +857,11 @@ descr:hover {
   font-size: calc(var(--c-element-height) * 0.46);
   letter-spacing: 0.22em;
   line-height: 1;
-  color: var(--gold);
+  color: var(--accent-lt);
   padding-block-end: 0.75rem;
-  border-block-end: 1px solid rgba(224, 189, 104, 0.24);
+  border-block-end: 1px solid
+    color-mix(in oklab, var(--accent), transparent 65%);
+  text-shadow: 0 0 12px color-mix(in oklab, var(--accent), transparent 45%);
 }
 
 .c-motif label::before,
@@ -750,8 +870,8 @@ descr:hover {
   margin-inline: 0.55em;
   font-size: 0.75em;
   vertical-align: 0.15em;
-  color: var(--gold-lt);
-  opacity: 0.8;
+  color: var(--accent);
+  opacity: 0.95;
 }
 
 .c-motif picture {
@@ -761,7 +881,7 @@ descr:hover {
   justify-content: center;
   width: var(--picture-size);
   height: var(--picture-size);
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .c-motif picture img {
@@ -769,6 +889,43 @@ descr:hover {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: drop-shadow(
+    0 0 10px color-mix(in oklab, var(--accent), transparent 55%)
+  );
+}
+
+/* recolour each icon by motif — uses hue-rotate on top of invert */
+#m-quiet picture img {
+  filter: invert(70%) sepia(40%) saturate(1800%) hue-rotate(200deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-quiet));
+}
+#m-quick picture img {
+  filter: invert(82%) sepia(45%) saturate(1400%) hue-rotate(330deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-quick));
+}
+#m-cool picture img {
+  filter: invert(78%) sepia(45%) saturate(1800%) hue-rotate(120deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-cool));
+}
+#m-grace picture img {
+  filter: invert(78%) sepia(40%) saturate(1800%) hue-rotate(295deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-grace));
+}
+#m-clever picture img {
+  filter: invert(70%) sepia(40%) saturate(1800%) hue-rotate(230deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-clever));
+}
+#m-bold picture img {
+  filter: invert(70%) sepia(50%) saturate(2000%) hue-rotate(340deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-bold));
+}
+#m-caution picture img {
+  filter: invert(78%) sepia(45%) saturate(1400%) hue-rotate(90deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-caution));
+}
+#m-persist picture img {
+  filter: invert(78%) sepia(45%) saturate(1600%) hue-rotate(20deg)
+    brightness(108%) drop-shadow(0 0 8px var(--m-persist));
 }
 
 .c-motif .c-motif-point-container {
@@ -790,6 +947,9 @@ descr:hover {
   align-self: start;
   width: 100%;
   margin-block: 0;
+  --accent: var(--gold);
+  --accent-lt: var(--gold-lt);
+  --accent-dk: var(--gold-dk);
 }
 
 .character-sheet > .c-trait {
@@ -811,7 +971,7 @@ descr:hover {
     var(--gold) 0 3px,
     transparent 3px 12px
   );
-  opacity: 0.45;
+  opacity: 0.55;
 }
 
 .character-sheet > .c-trait::after {
@@ -823,7 +983,8 @@ descr:hover {
   font-size: 13px;
   line-height: 1;
   color: var(--gold);
-  opacity: 0.75;
+  opacity: 0.85;
+  text-shadow: 0 0 10px var(--gold);
 }
 
 .c-trait > h3 {
@@ -836,7 +997,7 @@ descr:hover {
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--gold);
-  border-block-end: 1px solid rgba(224, 189, 104, 0.32);
+  border-block-end: 1px solid rgba(232, 196, 111, 0.35);
 }
 
 .c-trait > h3::before {
@@ -853,10 +1014,16 @@ descr:hover {
   gap: 1rem;
   padding: 0.6em 0.95em;
   margin-block-end: 1.15rem;
-  background-color: var(--night-2);
-  background-image: linear-gradient(180deg, #1b1f47, #0d1029);
-  border: 1px solid rgba(224, 189, 104, 0.26);
-  border-inline-start: 2px solid var(--gold);
+
+  background-color: color-mix(in oklab, var(--night-2), var(--accent) 20%);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--night-2), var(--accent) 30%),
+    color-mix(in oklab, var(--night-1), var(--accent) 10%)
+  );
+  border: 1px solid color-mix(in oklab, var(--accent), transparent 60%);
+  border-inline-start: 3px solid var(--accent);
+  box-shadow: 0 0 24px -10px var(--accent);
 }
 
 .c-trait .c-trait-name h3 {
@@ -865,7 +1032,8 @@ descr:hover {
   font-weight: 600;
   font-style: italic;
   letter-spacing: 0.02em;
-  color: var(--gold-lt);
+  color: var(--accent-lt);
+  text-shadow: 0 0 14px color-mix(in oklab, var(--accent), transparent 55%);
 }
 
 .c-trait .c-trait-text {
@@ -911,19 +1079,26 @@ descr:hover {
   font-style: italic;
   line-height: 1.2;
   color: var(--moon);
+
   background-color: var(--night-2);
-  background-image: linear-gradient(180deg, #1b1f47, #0d1029);
-  border: 1px solid rgba(224, 189, 104, 0.28);
-  border-inline-start: 2px solid var(--gold);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--night-2), var(--accent) 22%),
+    color-mix(in oklab, var(--night-1), var(--accent) 8%)
+  );
+  border: 1px solid color-mix(in oklab, var(--accent), transparent 60%);
+  border-inline-start: 3px solid var(--accent);
   transition:
     color 0.22s ease,
-    border-color 0.22s ease;
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .trait-trivia summary:hover {
-  color: var(--gold-lt);
-  border-color: rgba(224, 189, 104, 0.6);
-  border-inline-start-color: var(--gold-lt);
+  color: var(--accent-lt);
+  border-color: color-mix(in oklab, var(--accent), transparent 25%);
+  border-inline-start-color: var(--accent-lt);
+  box-shadow: 0 0 22px -8px var(--accent);
 }
 
 .trait-trivia summary::-webkit-details-marker {
@@ -935,7 +1110,7 @@ descr:hover {
 .trait-trivia summary::after {
   content: "⇲";
   font-style: normal;
-  color: var(--gold);
+  color: var(--accent);
 }
 .trait-trivia[open] summary::after {
   content: "⇱";
@@ -945,9 +1120,9 @@ descr:hover {
   margin-inline-start: 1.6em;
   margin-block-start: 0;
   padding: 1.1em 1.3em;
-  border: 1px solid rgba(224, 189, 104, 0.28);
+  border: 1px solid color-mix(in oklab, var(--accent), transparent 68%);
   border-block-start: 0;
-  background-color: rgba(255, 255, 255, 0.025);
+  background-color: color-mix(in oklab, var(--night-1), var(--accent) 5%);
 }
 
 .trait-trivia .trivia-text p {
@@ -980,7 +1155,8 @@ descr:hover {
   align-items: stretch;
   gap: 0;
   padding-block-start: 1rem;
-  border-block-start: 1px solid rgba(224, 189, 104, 0.24);
+  border-block-start: 1px solid
+    color-mix(in oklab, var(--accent), transparent 72%);
 }
 
 .trait-power .c-trait-name {
@@ -992,9 +1168,14 @@ descr:hover {
   width: auto;
   height: auto;
   padding: 0.85em 1em;
-  background-image: linear-gradient(180deg, #1b1f47, #0d1029);
-  border: 1px solid rgba(224, 189, 104, 0.22);
-  border-inline-start: 2px solid var(--gold);
+
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--night-2), var(--accent) 30%),
+    color-mix(in oklab, var(--night-1), var(--accent) 12%)
+  );
+  border: 1px solid color-mix(in oklab, var(--accent), transparent 65%);
+  border-inline-start: 3px solid var(--accent);
 }
 
 .trait-power .c-trait-name h4 {
@@ -1003,7 +1184,8 @@ descr:hover {
   font-weight: 600;
   font-style: italic;
   line-height: 1.15;
-  color: var(--gold-lt);
+  color: var(--accent-lt);
+  text-shadow: 0 0 12px color-mix(in oklab, var(--accent), transparent 55%);
 }
 
 .trait-power .c-trait-name::after {
@@ -1013,7 +1195,7 @@ descr:hover {
   font-style: normal;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--silver-dim);
+  color: color-mix(in oklab, var(--accent), var(--silver-dim));
 }
 
 .trait-power .c-trait-power-description {
@@ -1042,7 +1224,7 @@ descr:hover {
 }
 
 /* ==========================================================================
-   MODULE
+   MODULE — one shared aurora across the whole arts block
    ========================================================================== */
 
 .a-module {
@@ -1052,15 +1234,17 @@ descr:hover {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--col-gap);
-  row-gap: 0;
+  row-gap: 2.5rem;
   align-items: start;
   margin-block-start: 6rem;
   padding-block-start: 3.5rem;
+
   background-image: linear-gradient(
     90deg,
     transparent,
-    rgba(224, 189, 104, 0.28) 12%,
-    rgba(224, 189, 104, 0.28) 88%,
+    var(--gold) 12%,
+    var(--aurora) 50%,
+    var(--gold) 88%,
     transparent
   );
   background-repeat: no-repeat;
@@ -1082,35 +1266,81 @@ descr:hover {
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
-  color: var(--gold);
+  color: var(--gold-lt);
   background-color: var(--night-1);
+  text-shadow: 0 0 12px rgba(232, 196, 111, 0.5);
 }
 
 .a-module > .c-trait {
   width: auto;
 }
 
-.a-module > .c-trait:nth-of-type(1) {
+/* Each art gets its own accent, so the module is a rainbow of arts. */
+.a-module > .c-trait[data-art-name="Wayfare"] {
+  --accent: var(--aurora);
+  --accent-lt: #b7f5e5;
+  --accent-dk: var(--m-cool-d);
+  grid-column: 6 / span 7;
+  grid-row: 1 / span 2;
+  padding-inline-start: 1.6rem;
+  border-inline-start: 1px solid
+    color-mix(in oklab, var(--accent), transparent 60%);
+}
+
+.a-module > .c-trait[data-art-name="Chicanery"] {
+  --accent: var(--violet);
+  --accent-lt: #c4b6ff;
+  --accent-dk: var(--m-clever-d);
   grid-column: 1 / span 5;
   grid-row: 1;
 }
 
-.a-module > .c-trait[data-art-name="Wayfare"] {
-  grid-column: 6 / span 7;
-  grid-row: 1 / span 2;
-  padding-inline-start: 1.6rem;
-  border-inline-start: 1px solid rgba(224, 189, 104, 0.28);
-}
-
-.a-module > .c-trait:nth-of-type(3) {
+.a-module > .c-trait[data-art-name="Primal"] {
+  --accent: var(--jade);
+  --accent-lt: #b7f0c9;
+  --accent-dk: var(--m-caution-d);
   grid-column: 1 / span 5;
   grid-row: 2;
-  margin-block-start: 3rem;
 }
 
+.a-module > .c-trait[data-art-name="Soothsay"] {
+  --accent: var(--rose);
+  --accent-lt: #ffc4dd;
+  --accent-dk: var(--m-grace-d);
+  grid-column: 1 / span 5;
+  grid-row: 3;
+}
+
+.a-module > .c-trait[data-art-name="Pyretics"] {
+  --accent: var(--crimson);
+  --accent-lt: #ff9e9e;
+  --accent-dk: var(--m-bold-d);
+  grid-column: 6 / span 7;
+  grid-row: 3;
+}
+
+/* the placeholder art */
+.a-module > .c-trait:not([data-art-name]) {
+  --accent: var(--amber);
+  --accent-lt: #ffd9a3;
+  --accent-dk: var(--m-persist-d);
+  grid-column: 1 / -1;
+  grid-row: 4;
+}
+
+/* the top-level "Changeling Trait #1" (first child of module) */
+.a-module > .c-trait:nth-of-type(1):not([data-art-name]) {
+  --accent: var(--gold);
+  --accent-lt: var(--gold-lt);
+  --accent-dk: var(--gold-dk);
+  grid-column: 1 / -1;
+  grid-row: 0;
+}
+
+/* Wayfare watermark tinted with its aurora */
 .c-trait[data-art-name="Wayfare"] {
   background-image:
-    linear-gradient(rgba(9, 11, 28, 0.88), rgba(9, 11, 28, 0.88)),
+    linear-gradient(rgba(11, 14, 40, 0.9), rgba(11, 14, 40, 0.9)),
     url(https://i.ibb.co/2718TTB2/wayfare.png);
   background-repeat: no-repeat, no-repeat;
   background-position:
@@ -1148,14 +1378,15 @@ descr:hover {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--silver-dim);
-  background-color: rgba(9, 11, 28, 0.92);
-  border: 1px solid rgba(224, 189, 104, 0.34);
+  background-color: rgba(11, 14, 40, 0.92);
+  border: 1px solid rgba(232, 196, 111, 0.4);
   padding: 1em 1.55em;
   cursor: pointer;
   transition:
     color 0.24s ease,
     border-color 0.24s ease,
-    background-color 0.24s ease;
+    background-color 0.24s ease,
+    box-shadow 0.24s ease;
 }
 
 #toolbar button::before {
@@ -1168,7 +1399,8 @@ descr:hover {
 #toolbar button:hover {
   color: var(--gold-lt);
   border-color: var(--gold);
-  background-color: rgba(25, 29, 69, 0.95);
+  background-color: rgba(28, 34, 88, 0.95);
+  box-shadow: 0 0 20px -6px var(--gold);
 }
 
 #toolbar button:active {
@@ -1261,21 +1493,13 @@ descr:hover {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
+  .a-module > .c-trait,
   .a-module > .c-trait:nth-of-type(1) {
     grid-column: 1 / -1;
-    grid-row: 1;
-  }
-  .a-module > .c-trait[data-art-name="Wayfare"] {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    grid-row: auto;
     margin-block-start: 2rem;
     padding-inline-start: 0;
     border-inline-start: 0;
-  }
-  .a-module > .c-trait:nth-of-type(3) {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    margin-block-start: 2rem;
   }
 }
 
@@ -1317,16 +1541,10 @@ descr:hover {
     grid-template-columns: 1fr;
   }
 
-  .a-module > .c-trait:nth-of-type(1),
-  .a-module > .c-trait[data-art-name="Wayfare"],
-  .a-module > .c-trait:nth-of-type(3) {
-    grid-column: 1 / -1;
-    grid-row: auto;
-  }
-
   descr {
     inset-inline: 1rem;
     inset-block-end: 1rem;
     max-width: none;
+    width: auto;
   }
 }
