@@ -18,21 +18,25 @@
         <input type="text" name="c-name" id="c-name-input" />
       </div>
       <descr>Your character's name.</descr>
+
       <div class="c-concept">
         <label for="c-concept">Concept</label>
         <input type="text" name="c-concept" id="c-concept-input" />
       </div>
       <descr>
-        The concept behind your character. A short description rellaying who
+        The concept behind your character. A short description relaying who the
         character is and what they do.
       </descr>
 
+      <!-- ============================================================
+           VOICE
+           ============================================================ -->
       <section class="c-attribute" id="a-voice">
         <label for="c-attribute-voice">
           <span>
             Voice
             <picture>
-              <img src="assets/stm/voice-pic.png" />
+              <img src="assets/stm/voice-pic.png" alt="" />
             </picture>
           </span>
 
@@ -46,9 +50,12 @@
           />
         </label>
         <descr>
-          Attribute of <em>Voice</em> determines your character's willpower and
-          charisma.
+          <em>Voice</em> is the measure of your presence — the weight of your
+          words when you speak, the pull of your charm, the force of your will.
+          It is the attribute of the tongue, the lungs, the heart, and the
+          spine.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-tongue">
           <legend>Tongue</legend>
           <input type="checkbox" name="s-tongue" data-state="unchecked" />
@@ -58,9 +65,10 @@
           <input type="checkbox" name="s-tongue" data-state="unchecked" />
         </fieldset>
         <descr>
-          Determines your proficiency with language and tongue. Charm, lie,
-          confuse, suck, lick, etc.
+          Proficiency with language and tongue. Charm, lie, confuse, suck, lick,
+          seduce, threaten — every act that passes through the mouth.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-lungs">
           <legend>Lungs</legend>
           <input type="checkbox" name="s-lungs" data-state="unchecked" />
@@ -70,11 +78,11 @@
           <input type="checkbox" name="s-lungs" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Breath, endurance, and song. Lungs carry a voice when shouting,
+          gasping, or singing a lie so sweet it sounds true. Also the skill of
+          holding one's breath in places where breathing would be unwise.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-heart">
           <legend>Heart</legend>
           <input type="checkbox" name="s-heart" data-state="unchecked" />
@@ -84,11 +92,11 @@
           <input type="checkbox" name="s-heart" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Courage, passion, and conviction. Heart moves others to follow you
+          into fire, to love you against reason, or to hate you with a devotion
+          worth fearing. It is the seat of everything worth doing badly.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-spine">
           <legend>Spine</legend>
           <input type="checkbox" name="s-spine" data-state="unchecked" />
@@ -98,18 +106,21 @@
           <input type="checkbox" name="s-spine" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Willpower and resolve. Spine is what keeps you standing when your legs
+          have already given up — the iron in a voice that refuses to break, no
+          matter what is offered or threatened.
         </descr>
       </section>
+
+      <!-- ============================================================
+           MIND
+           ============================================================ -->
       <section class="c-attribute" id="a-mind">
         <label for="c-attribute-mind">
           <span>
             Mind
             <picture>
-              <img src="assets/stm/mind-pic.png" />
+              <img src="assets/stm/mind-pic.png" alt="" />
             </picture>
           </span>
 
@@ -122,9 +133,11 @@
           />
         </label>
         <descr>
-          Attribute of <em>Voice</em> determines your character's willpower and
-          charisma.
+          <em>Mind</em> measures your cunning — memory, wit, intuition, and the
+          sharpness of your senses. It is the attribute of the brain, the eyes,
+          the nerves, and the ears.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-brain">
           <legend>Brain</legend>
           <input type="checkbox" name="s-brain" data-state="unchecked" />
@@ -134,11 +147,11 @@
           <input type="checkbox" name="s-brain" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum neque
-          perspiciatis tenetur. Quia, aperiam cumque adipisci quod
-          exercitationem ea perspiciatis suscipit fugiat natus dicta blanditiis,
-          laborum reprehenderit repellendus voluptatem libero.
+          Memory, reason, and the patient art of thinking three moves ahead.
+          Brain is the scholar's attribute — the quiet knife in the study, the
+          ledger nobody else can read.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-eyes">
           <legend>Eyes</legend>
           <input type="checkbox" name="s-eyes" data-state="unchecked" />
@@ -148,11 +161,11 @@
           <input type="checkbox" name="s-eyes" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Perception and the reading of the world. Eyes catch what others miss —
+          the tell, the lie, the tremor in a hand that confesses more than any
+          spoken word ever could.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-nerves">
           <legend>Nerves</legend>
           <input type="checkbox" name="s-nerves" data-state="unchecked" />
@@ -162,11 +175,11 @@
           <input type="checkbox" name="s-nerves" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Composure under pressure. Nerves carry you through fear, torture, and
+          long silences without flinching — or let you flinch at exactly the
+          wrong moment. Choose carefully which you'd rather be known for.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-ears">
           <legend>Ears</legend>
           <input type="checkbox" name="s-ears" data-state="unchecked" />
@@ -176,18 +189,21 @@
           <input type="checkbox" name="s-ears" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Hearing and intuition. Ears catch what is said in whispers, and what
+          is <em>not</em> said — the pause before a name, the lie hidden in a
+          rhythm, the footsteps that stop one second too long outside the door.
         </descr>
       </section>
+
+      <!-- ============================================================
+           BODY
+           ============================================================ -->
       <section class="c-attribute" id="a-body">
         <label for="c-attribute-body">
           <span>
             Body
             <picture>
-              <img src="assets/stm/body-pic.png" />
+              <img src="assets/stm/body-pic.png" alt="" />
             </picture>
           </span>
 
@@ -200,9 +216,12 @@
           />
         </label>
         <descr>
-          Attribute of <em>Voice</em> determines your character's willpower and
-          charisma.
+          <em>Body</em> measures your physical presence — raw strength,
+          endurance, and the animal instincts that keep you alive long past the
+          point where you deserve it. It is the attribute of the guts, the
+          hands, the legs, and the nose.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-guts">
           <legend>Guts</legend>
           <input type="checkbox" name="s-guts" data-state="unchecked" />
@@ -212,9 +231,11 @@
           <input type="checkbox" name="s-guts" data-state="unchecked" />
         </fieldset>
         <descr>
-          Determines your proficiency with language and tongue. Charm, lie,
-          confuse, suck, lick, etc.
+          Stomach for the bloody work. Guts covers the courage to endure the
+          unbearable and the appetite to do what must be done — then eat dinner
+          afterwards without losing it.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-hands">
           <legend>Hands</legend>
           <input type="checkbox" name="s-hands" data-state="unchecked" />
@@ -224,11 +245,11 @@
           <input type="checkbox" name="s-hands" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Craft, dexterity, and violence. Hands build, mend, pick locks, and
+          break bones — often without needing to know in advance which one you
+          meant.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-legs">
           <legend>Legs</legend>
           <input type="checkbox" name="s-legs" data-state="unchecked" />
@@ -238,11 +259,10 @@
           <input type="checkbox" name="s-legs" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Speed, balance, and a clean escape. Legs decide whether the evening
+          ends in a dance or a chase — and, quite often, in both, in that order.
         </descr>
+
         <fieldset class="c-skills-container point-container" id="s-nose">
           <legend>Nose</legend>
           <input type="checkbox" name="s-nose" data-state="unchecked" />
@@ -252,12 +272,14 @@
           <input type="checkbox" name="s-nose" data-state="unchecked" />
         </fieldset>
         <descr>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          qui quidem quis, error eos delectus odio minima, debitis nulla quos
-          suscipit veniam minus amet vero. Sapiente placeat quibusdam commodi
-          voluptas?
+          Instinct, tracking, and the scent of fear. Nose is the animal in you
+          that knows a lie one breath before the mind has time to argue with it.
         </descr>
       </section>
+
+      <!-- ============================================================
+           MOTIFS
+           ============================================================ -->
 
       <section class="c-motif" id="m-quiet">
         <label>Quiet</label>
@@ -279,11 +301,11 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        The art of not being noticed. <em>Quiet</em> is the stillness before the
+        strike, the breath held in the dark, the door that closes without sound.
+        It is the companion of assassins, spies, and the very, very patient.
       </descr>
+
       <section class="c-motif" id="m-quick">
         <label>Quick</label>
         <picture>
@@ -304,11 +326,11 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        Speed without thought — reflex, snap-decision, the flash of a blade
+        already drawn before the mind has caught up. <em>Quick</em> is the
+        difference between being first and being finished.
       </descr>
+
       <section class="c-motif" id="m-cool">
         <label>Cool</label>
         <picture>
@@ -329,11 +351,11 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        Grace under pressure. <em>Cool</em> is the raised eyebrow in a burning
+        room, the even voice when all the others crack, the smile that says
+        <em>I expected this</em> and means it.
       </descr>
+
       <section class="c-motif" id="m-grace">
         <label>Grace</label>
         <picture>
@@ -354,11 +376,11 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        Beauty, poise, and the art of moving through the world as if you belong
+        there. <em>Grace</em> disarms suspicion and wins the room before a
+        single word has been spoken.
       </descr>
+
       <section class="c-motif" id="m-clever">
         <label>Clever</label>
         <picture>
@@ -379,11 +401,11 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        Wit, wordplay, and the trickster's tongue. <em>Clever</em> turns
+        questions into answers, enemies into friends, and friends into unwitting
+        accomplices — all before the wine is poured.
       </descr>
+
       <section class="c-motif" id="m-bold">
         <label>Bold</label>
         <picture>
@@ -404,11 +426,11 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        The virtue of the reckless and the hero. <em>Bold</em> leaps first,
+        apologizes later, and is remembered for one or the other — often in the
+        same story.
       </descr>
+
       <section class="c-motif" id="m-caution">
         <label>Caution</label>
         <picture>
@@ -429,11 +451,12 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        The wisdom of the survivor. <em>Caution</em> checks the latch, walks the
+        long way round, and lets the other one open the door first. It is the
+        most underestimated of the motifs, and the one most likely to be thanked
+        in a eulogy.
       </descr>
+
       <section class="c-motif" id="m-persist">
         <label>Persist</label>
         <picture>
@@ -454,11 +477,15 @@
         </fieldset>
       </section>
       <descr>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, et
-        culpa? Enim repellendus doloribus ipsa minima harum quibusdam, iusto
-        odio? Ipsum ab fugit magni quisquam deserunt iste dicta omnis
-        voluptatem!
+        Endurance beyond reason. <em>Persist</em> is what carries you through
+        the tenth mile, the hundredth refusal, the long war of attrition that no
+        amount of cleverness could ever win. It is the quiet virtue — and the
+        one that finishes the story.
       </descr>
+
+      <!-- ============================================================
+           TRAITS
+           ============================================================ -->
 
       <section class="c-trait">
         <h3>Name of the Trait</h3>
@@ -604,7 +631,7 @@
               <li>
                 <section class="trait-power c-module-ctd-art-power">
                   <hgroup class="c-trait-name ctd-art-power-name">
-                    <h4>Бегущий-по-Ветру</h4>
+                    <h4>Wind Runner</h4>
                   </hgroup>
                   <div class="c-trait-power-description">
                     <p>
@@ -645,6 +672,7 @@
             </ul>
           </div>
         </section>
+
         <section class="c-trait c-module-ctd-art">
           <div class="c-trait-name">
             <h3>Art Name</h3>
