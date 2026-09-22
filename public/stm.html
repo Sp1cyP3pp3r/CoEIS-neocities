@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>STM Sheet</title>
+    <title>СТМ Лист</title>
 
     <link rel="stylesheet" href="styles/reset.css" />
     <link rel="stylesheet" href="styles/stm.css" />
@@ -14,27 +14,27 @@
   <body>
     <article class="character-sheet">
       <div class="c-name">
-        <label for="c-name">Name</label>
+        <label for="c-name">Имя</label>
         <input type="text" name="c-name" id="c-name-input" />
       </div>
-      <descr>Your character's name.</descr>
+      <descr>Имя вашего персонажа.</descr>
 
       <div class="c-concept">
-        <label for="c-concept">Concept</label>
+        <label for="c-concept">Концепция</label>
         <input type="text" name="c-concept" id="c-concept-input" />
       </div>
       <descr>
-        The concept behind your character. A short description relaying who the
-        character is and what they do.
+        Концепция вашего персонажа. Краткое описание, передающее, кем является
+        персонаж и чем он занимается.
       </descr>
 
       <!-- ============================================================
-           VOICE
+           VOICE / ГОЛОС
            ============================================================ -->
       <section class="c-attribute" id="a-voice">
         <label for="c-attribute-voice">
           <span>
-            Voice
+            Голос
             <picture>
               <img src="assets/stm/voice-pic.png" alt="" />
             </picture>
@@ -50,14 +50,13 @@
           />
         </label>
         <descr>
-          <em>Voice</em> is the measure of your presence — the weight of your
-          words when you speak, the pull of your charm, the force of your will.
-          It is the attribute of the tongue, the lungs, the heart, and the
-          spine.
+          <em>Голос</em> — мера вашего присутствия, вес ваших слов, когда вы
+          говорите, притягательность вашего обаяния, сила вашей воли. Это
+          атрибут языка, лёгких, сердца и хребта.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-tongue">
-          <legend>Tongue</legend>
+          <legend>Язык</legend>
           <input type="checkbox" name="s-tongue" data-state="unchecked" />
           <input type="checkbox" name="s-tongue" data-state="unchecked" />
           <input type="checkbox" name="s-tongue" data-state="unchecked" />
@@ -65,12 +64,12 @@
           <input type="checkbox" name="s-tongue" data-state="unchecked" />
         </fieldset>
         <descr>
-          Proficiency with language and tongue. Charm, lie, confuse, suck, lick,
-          seduce, threaten — every act that passes through the mouth.
+          Владение языком и речью. Очаровывать, лгать, сбивать с толку,
+          соблазнять, угрожать — любое действие, проходящее через уста.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-lungs">
-          <legend>Lungs</legend>
+          <legend>Лёгкие</legend>
           <input type="checkbox" name="s-lungs" data-state="unchecked" />
           <input type="checkbox" name="s-lungs" data-state="unchecked" />
           <input type="checkbox" name="s-lungs" data-state="unchecked" />
@@ -78,13 +77,14 @@
           <input type="checkbox" name="s-lungs" data-state="unchecked" />
         </fieldset>
         <descr>
-          Breath, endurance, and song. Lungs carry a voice when shouting,
-          gasping, or singing a lie so sweet it sounds true. Also the skill of
-          holding one's breath in places where breathing would be unwise.
+          Дыхание, выносливость и песня. Лёгкие несут голос, когда вы кричите,
+          задыхаетесь или поёте ложь столь сладкую, что она звучит правдой.
+          Также это умение задерживать дыхание там, где дышать было бы
+          неразумно.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-heart">
-          <legend>Heart</legend>
+          <legend>Сердце</legend>
           <input type="checkbox" name="s-heart" data-state="unchecked" />
           <input type="checkbox" name="s-heart" data-state="unchecked" />
           <input type="checkbox" name="s-heart" data-state="unchecked" />
@@ -92,13 +92,13 @@
           <input type="checkbox" name="s-heart" data-state="unchecked" />
         </fieldset>
         <descr>
-          Courage, passion, and conviction. Heart moves others to follow you
-          into fire, to love you against reason, or to hate you with a devotion
-          worth fearing. It is the seat of everything worth doing badly.
+          Смелость, страсть и убеждённость. Сердце ведёт других за вами в огонь,
+          заставляет любить вас вопреки рассудку или ненавидеть с преданностью,
+          достойной страха. Это средоточие всего, что стоит делать плохо.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-spine">
-          <legend>Spine</legend>
+          <legend>Хребет</legend>
           <input type="checkbox" name="s-spine" data-state="unchecked" />
           <input type="checkbox" name="s-spine" data-state="unchecked" />
           <input type="checkbox" name="s-spine" data-state="unchecked" />
@@ -106,19 +106,19 @@
           <input type="checkbox" name="s-spine" data-state="unchecked" />
         </fieldset>
         <descr>
-          Willpower and resolve. Spine is what keeps you standing when your legs
-          have already given up — the iron in a voice that refuses to break, no
-          matter what is offered or threatened.
+          Сила воли и решимость. Хребет — то, что держит вас на ногах, когда
+          ноги уже отказали, — железо в голосе, который отказывается сломаться,
+          что бы ни предлагали и чем бы ни угрожали.
         </descr>
       </section>
 
       <!-- ============================================================
-           MIND
+           MIND / РАЗУМ
            ============================================================ -->
       <section class="c-attribute" id="a-mind">
         <label for="c-attribute-mind">
           <span>
-            Mind
+            Разум
             <picture>
               <img src="assets/stm/mind-pic.png" alt="" />
             </picture>
@@ -133,13 +133,12 @@
           />
         </label>
         <descr>
-          <em>Mind</em> measures your cunning — memory, wit, intuition, and the
-          sharpness of your senses. It is the attribute of the brain, the eyes,
-          the nerves, and the ears.
+          <em>Разум</em> измеряет вашу хитрость — память, остроумие, интуицию и
+          остроту чувств. Это атрибут мозга, глаз, нервов и ушей.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-brain">
-          <legend>Brain</legend>
+          <legend>Мозг</legend>
           <input type="checkbox" name="s-brain" data-state="unchecked" />
           <input type="checkbox" name="s-brain" data-state="unchecked" />
           <input type="checkbox" name="s-brain" data-state="unchecked" />
@@ -147,13 +146,13 @@
           <input type="checkbox" name="s-brain" data-state="unchecked" />
         </fieldset>
         <descr>
-          Memory, reason, and the patient art of thinking three moves ahead.
-          Brain is the scholar's attribute — the quiet knife in the study, the
-          ledger nobody else can read.
+          Память, разум и терпеливое искусство думать на три хода вперёд. Мозг —
+          атрибут учёного: тихий нож в кабинете, бухгалтерская книга, которую
+          больше никто не может прочесть.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-eyes">
-          <legend>Eyes</legend>
+          <legend>Глаза</legend>
           <input type="checkbox" name="s-eyes" data-state="unchecked" />
           <input type="checkbox" name="s-eyes" data-state="unchecked" />
           <input type="checkbox" name="s-eyes" data-state="unchecked" />
@@ -161,13 +160,13 @@
           <input type="checkbox" name="s-eyes" data-state="unchecked" />
         </fieldset>
         <descr>
-          Perception and the reading of the world. Eyes catch what others miss —
-          the tell, the lie, the tremor in a hand that confesses more than any
-          spoken word ever could.
+          Восприятие и чтение мира. Глаза ловят то, что упускают другие, —
+          сигнал, ложь, дрожь в руке, которая признаётся больше, чем любое
+          произнесённое слово.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-nerves">
-          <legend>Nerves</legend>
+          <legend>Нервы</legend>
           <input type="checkbox" name="s-nerves" data-state="unchecked" />
           <input type="checkbox" name="s-nerves" data-state="unchecked" />
           <input type="checkbox" name="s-nerves" data-state="unchecked" />
@@ -175,13 +174,13 @@
           <input type="checkbox" name="s-nerves" data-state="unchecked" />
         </fieldset>
         <descr>
-          Composure under pressure. Nerves carry you through fear, torture, and
-          long silences without flinching — or let you flinch at exactly the
-          wrong moment. Choose carefully which you'd rather be known for.
+          Хладнокровие под давлением. Нервы проводят вас через страх, пытки и
+          долгие молчания без дрожи — или заставляют дрогнуть ровно в
+          неподходящий момент. Выбирайте тщательно, чем вас запомнят.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-ears">
-          <legend>Ears</legend>
+          <legend>Уши</legend>
           <input type="checkbox" name="s-ears" data-state="unchecked" />
           <input type="checkbox" name="s-ears" data-state="unchecked" />
           <input type="checkbox" name="s-ears" data-state="unchecked" />
@@ -189,19 +188,19 @@
           <input type="checkbox" name="s-ears" data-state="unchecked" />
         </fieldset>
         <descr>
-          Hearing and intuition. Ears catch what is said in whispers, and what
-          is <em>not</em> said — the pause before a name, the lie hidden in a
-          rhythm, the footsteps that stop one second too long outside the door.
+          Слух и интуиция. Уши ловят то, что сказано шёпотом, и то, что
+          <em>не</em> сказано, — паузу перед именем, ложь, спрятанную в ритме,
+          шаги, которые замирают на секунду слишком долго за дверью.
         </descr>
       </section>
 
       <!-- ============================================================
-           BODY
+           BODY / ТЕЛО
            ============================================================ -->
       <section class="c-attribute" id="a-body">
         <label for="c-attribute-body">
           <span>
-            Body
+            Тело
             <picture>
               <img src="assets/stm/body-pic.png" alt="" />
             </picture>
@@ -216,14 +215,14 @@
           />
         </label>
         <descr>
-          <em>Body</em> measures your physical presence — raw strength,
-          endurance, and the animal instincts that keep you alive long past the
-          point where you deserve it. It is the attribute of the guts, the
-          hands, the legs, and the nose.
+          <em>Тело</em> измеряет ваше физическое присутствие — грубую силу,
+          выносливость и звериные инстинкты, которые удерживают вас в живых
+          далеко за той чертой, где вы этого заслуживаете. Это атрибут
+          внутренностей, рук, ног и носа.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-guts">
-          <legend>Guts</legend>
+          <legend>Нутро</legend>
           <input type="checkbox" name="s-guts" data-state="unchecked" />
           <input type="checkbox" name="s-guts" data-state="unchecked" />
           <input type="checkbox" name="s-guts" data-state="unchecked" />
@@ -231,13 +230,13 @@
           <input type="checkbox" name="s-guts" data-state="unchecked" />
         </fieldset>
         <descr>
-          Stomach for the bloody work. Guts covers the courage to endure the
-          unbearable and the appetite to do what must be done — then eat dinner
-          afterwards without losing it.
+          Желудок для кровавой работы. Нутро — это мужество вынести невыносимое
+          и аппетит сделать то, что должно, а потом поужинать без потери
+          аппетита.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-hands">
-          <legend>Hands</legend>
+          <legend>Руки</legend>
           <input type="checkbox" name="s-hands" data-state="unchecked" />
           <input type="checkbox" name="s-hands" data-state="unchecked" />
           <input type="checkbox" name="s-hands" data-state="unchecked" />
@@ -245,13 +244,13 @@
           <input type="checkbox" name="s-hands" data-state="unchecked" />
         </fieldset>
         <descr>
-          Craft, dexterity, and violence. Hands build, mend, pick locks, and
-          break bones — often without needing to know in advance which one you
-          meant.
+          Ремесло, ловкость и насилие. Руки строят, чинят, вскрывают замки и
+          ломают кости — часто без необходимости заранее знать, что именно вы
+          имели в виду.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-legs">
-          <legend>Legs</legend>
+          <legend>Ноги</legend>
           <input type="checkbox" name="s-legs" data-state="unchecked" />
           <input type="checkbox" name="s-legs" data-state="unchecked" />
           <input type="checkbox" name="s-legs" data-state="unchecked" />
@@ -259,12 +258,13 @@
           <input type="checkbox" name="s-legs" data-state="unchecked" />
         </fieldset>
         <descr>
-          Speed, balance, and a clean escape. Legs decide whether the evening
-          ends in a dance or a chase — and, quite often, in both, in that order.
+          Скорость, равновесие и чистый побег. Ноги решают, закончится ли вечер
+          танцем или погоней — и, довольно часто, и тем и другим, в этом
+          порядке.
         </descr>
 
         <fieldset class="c-skills-container point-container" id="s-nose">
-          <legend>Nose</legend>
+          <legend>Нос</legend>
           <input type="checkbox" name="s-nose" data-state="unchecked" />
           <input type="checkbox" name="s-nose" data-state="unchecked" />
           <input type="checkbox" name="s-nose" data-state="unchecked" />
@@ -272,17 +272,18 @@
           <input type="checkbox" name="s-nose" data-state="unchecked" />
         </fieldset>
         <descr>
-          Instinct, tracking, and the scent of fear. Nose is the animal in you
-          that knows a lie one breath before the mind has time to argue with it.
+          Инстинкт, следопытство и запах страха. Нос — это зверь внутри вас,
+          который знает ложь за одно дыхание до того, как разум успеет с ней
+          поспорить.
         </descr>
       </section>
 
       <!-- ============================================================
-           MOTIFS
+           MOTIFS / МОТИВЫ
            ============================================================ -->
 
       <section class="c-motif" id="m-quiet">
-        <label>Quiet</label>
+        <label>Тишина</label>
         <picture>
           <img src="assets/stm/quiet.svg" alt="" />
         </picture>
@@ -301,13 +302,13 @@
         </fieldset>
       </section>
       <descr>
-        The art of not being noticed. <em>Quiet</em> is the stillness before the
-        strike, the breath held in the dark, the door that closes without sound.
-        It is the companion of assassins, spies, and the very, very patient.
+        Искусство оставаться незамеченным. <em>Тишина</em> — это неподвижность
+        перед ударом, задержанное в темноте дыхание, дверь, которая закрывается
+        без звука. Спутница убийц, шпионов и очень, очень терпеливых.
       </descr>
 
       <section class="c-motif" id="m-quick">
-        <label>Quick</label>
+        <label>Быстрота</label>
         <picture>
           <img src="assets/stm/quick.svg" alt="" />
         </picture>
@@ -326,13 +327,13 @@
         </fieldset>
       </section>
       <descr>
-        Speed without thought — reflex, snap-decision, the flash of a blade
-        already drawn before the mind has caught up. <em>Quick</em> is the
-        difference between being first and being finished.
+        Скорость без мысли — рефлекс, мгновенное решение, вспышка клинка, уже
+        обнажённого прежде, чем разум успел осознать. <em>Быстрота</em> —
+        разница между тем, чтобы быть первым, и тем, чтобы быть конченым.
       </descr>
 
       <section class="c-motif" id="m-cool">
-        <label>Cool</label>
+        <label>Хладнокровие</label>
         <picture>
           <img src="assets/stm/cool.svg" alt="" />
         </picture>
@@ -351,13 +352,13 @@
         </fieldset>
       </section>
       <descr>
-        Grace under pressure. <em>Cool</em> is the raised eyebrow in a burning
-        room, the even voice when all the others crack, the smile that says
-        <em>I expected this</em> and means it.
+        Грация под давлением. <em>Хладнокровие</em> — это поднятая бровь в
+        горящей комнате, ровный голос, когда все остальные срываются, улыбка,
+        которая говорит <em>я этого ожидал</em>, и не лжёт.
       </descr>
 
       <section class="c-motif" id="m-grace">
-        <label>Grace</label>
+        <label>Грация</label>
         <picture>
           <img src="assets/stm/grace.svg" alt="" />
         </picture>
@@ -376,13 +377,13 @@
         </fieldset>
       </section>
       <descr>
-        Beauty, poise, and the art of moving through the world as if you belong
-        there. <em>Grace</em> disarms suspicion and wins the room before a
-        single word has been spoken.
+        Красота, осанка и искусство двигаться по миру так, будто вы здесь свой.
+        <em>Грация</em> обезоруживает подозрения и покоряет комнату прежде, чем
+        произнесено хоть слово.
       </descr>
 
       <section class="c-motif" id="m-clever">
-        <label>Clever</label>
+        <label>Ум</label>
         <picture>
           <img src="assets/stm/clever.svg" alt="" />
         </picture>
@@ -401,13 +402,13 @@
         </fieldset>
       </section>
       <descr>
-        Wit, wordplay, and the trickster's tongue. <em>Clever</em> turns
-        questions into answers, enemies into friends, and friends into unwitting
-        accomplices — all before the wine is poured.
+        Остроумие, игра слов и язык трикстера. <em>Ум</em> превращает вопросы в
+        ответы, врагов в друзей, а друзей в невольных сообщников — и всё это
+        прежде, чем налито вино.
       </descr>
 
       <section class="c-motif" id="m-bold">
-        <label>Bold</label>
+        <label>Дерзость</label>
         <picture>
           <img src="assets/stm/bold.svg" alt="" />
         </picture>
@@ -426,13 +427,13 @@
         </fieldset>
       </section>
       <descr>
-        The virtue of the reckless and the hero. <em>Bold</em> leaps first,
-        apologizes later, and is remembered for one or the other — often in the
-        same story.
+        Добродетель безрассудных и героев. <em>Дерзость</em> прыгает первой,
+        извиняется потом и запоминается за одно или за другое — часто в одной и
+        той же истории.
       </descr>
 
       <section class="c-motif" id="m-caution">
-        <label>Caution</label>
+        <label>Осторожность</label>
         <picture>
           <img src="assets/stm/caution.svg" alt="" />
         </picture>
@@ -451,14 +452,14 @@
         </fieldset>
       </section>
       <descr>
-        The wisdom of the survivor. <em>Caution</em> checks the latch, walks the
-        long way round, and lets the other one open the door first. It is the
-        most underestimated of the motifs, and the one most likely to be thanked
-        in a eulogy.
+        Мудрость выжившего. <em>Осторожность</em> проверяет защёлку, идёт
+        длинной дорогой и позволяет другому открыть дверь первым. Это самый
+        недооценённый из мотивов и тот, который чаще всего благодарят в
+        надгробной речи.
       </descr>
 
       <section class="c-motif" id="m-persist">
-        <label>Persist</label>
+        <label>Упорство</label>
         <picture>
           <img src="assets/stm/persist.svg" alt="" />
         </picture>
@@ -477,35 +478,35 @@
         </fieldset>
       </section>
       <descr>
-        Endurance beyond reason. <em>Persist</em> is what carries you through
-        the tenth mile, the hundredth refusal, the long war of attrition that no
-        amount of cleverness could ever win. It is the quiet virtue — and the
-        one that finishes the story.
+        Выносливость за пределами разумного. <em>Упорство</em> — то, что несёт
+        вас через десятую милю, сотый отказ, долгую войну на истощение, которую
+        никакая хитрость не смогла бы выиграть. Это тихая добродетель — и та,
+        что дописывает историю до конца.
       </descr>
 
       <!-- ============================================================
-           TRAITS
+           TRAITS / ЧЕРТЫ
            ============================================================ -->
 
       <section class="c-trait">
-        <h3>Name of the Trait</h3>
+        <h3>Название Черты</h3>
         <div class="c-trait-text">
-          <!-- Text of the Trait. Traits are stored in a JSON file -->
+          <!-- Текст Черты. Черты хранятся в JSON-файле -->
         </div>
       </section>
 
       <!-- These articles are additional modules -->
-      <!-- Changeling module -->
+      <!-- Changeling module / Модуль Чейнджлинга -->
       <article class="a-module" id="module-changeling">
-        <!-- module's traits -->
+        <!-- module's traits / черты модуля -->
         <section class="c-trait">
-          <h3>Changeling Trait #1</h3>
+          <h3>Черта Чейнджлинга #1</h3>
           <div class="c-trait-text">
-            <!-- Text of the Trait. Traits are stored in a JSON file -->
+            <!-- Текст Черты. Черты хранятся в JSON-файле -->
           </div>
         </section>
 
-        <!-- arts -->
+        <!-- arts / искусства -->
         <section class="c-trait c-module-ctd-art" data-art-name="Wayfare">
           <div class="c-trait-name">
             <h3>Странствия</h3>
@@ -519,9 +520,9 @@
           </div>
 
           <div class="c-trait-text c-module-ctd-art-text">
-            <!-- Text of the Art. Stored in a JSON file -->
+            <!-- Текст Искусства. Хранится в JSON-файле -->
             <p>
-              Исскуство путешествий, грациозных движений и фееричного таланта
+              Искусство путешествий, грациозных движений и фееричного таланта
               передвижения словно во сне.
             </p>
 
@@ -529,22 +530,23 @@
               <summary>Освобождение</summary>
               <div class="trivia-text ctd-trivia-text">
                 <p>
-                  Unleashing Wayfare is the desperate act of those who have
-                  utterly lost their way or who face imminent doom. “Get us out
-                  of here” and “get them out of here” are by far the most common
-                  directions when the ancient magic of ways and travel is poured
-                  into the Autumn World, followed closely by “bring me to my
-                  goal.” The latter command is rarely predictable, hurling
-                  Kithain into the arms of Dan — the place a changeling needs to
-                  go to progress is often not the place they expect. Wayfare
-                  Unleashings have also been used in the past to attempt to
-                  force open dormant trods, with only limited and temporary
-                  success. A bold few changelings have even used this Art to
-                  attempt to transport themselves to lost Arcadia, but either
-                  report that even the Glamour of the Autumn World can no longer
-                  lead them to its source, or simply vanish into the depths of
-                  the Dreaming, never to be heard from again, their ultimate
-                  fate up to the speculation of those left behind.
+                  Освобождение Странствий — отчаянный акт тех, кто полностью
+                  сбился с пути или стоит перед лицом неминуемой гибели. «Выведи
+                  нас отсюда» и «выведи их отсюда» — безусловно, самые
+                  распространённые указания, когда древняя магия путей и
+                  странствий изливается в Осенний Мир, за ними следуют «приведи
+                  меня к моей цели». Последняя команда редко предсказуема, она
+                  швыряет Китейн в объятия Дана — место, куда чейнджлингу нужно
+                  попасть, чтобы двигаться дальше, часто оказывается не тем
+                  местом, которое он ожидает. Освобождения Странствий также
+                  использовались в прошлом для попыток силой открыть спящие
+                  тропы, с лишь ограниченным и временным успехом. Несколько
+                  смелых чейнджлингов даже использовали это Искусство, чтобы
+                  попытаться перенести себя в потерянную Аркадию, но либо
+                  сообщали, что даже Гламур Осеннего Мира больше не может
+                  привести их к его источнику, либо просто исчезали в глубинах
+                  Грёзы, и о них больше никогда не слышали, а их окончательная
+                  судьба остаётся предметом догадок тех, кто остался.
                 </p>
               </div>
             </details>
@@ -577,19 +579,19 @@
                   </div>
                   <div class="c-trait-text c-module-ctd-art-power-text">
                     <p>
-                      <b> System: </b>
-                      The Realm selected determines who or what jumps. Living
-                      creatures gain the ability to make a prodigious leap, or
-                      can be forced to do so. Objects targeted with Hopscotch
-                      leap wildly as the caster wills them to. Anyone in contact
-                      with a leaping object may attempt to stop its wild flight
-                      with aStrength + Athletics roll (difficulty 7) against the
-                      changeling’s successes in invoking the cantrip. The exact
-                      result of failing to stop an object from taking flight are
-                      up to the Storyteller and depend on the object. A set of
-                      clothing is likely to rip itself free as it soars skyward,
-                      but a leaping smart car could have significantly more
-                      serious results.
+                      <b> Система: </b>
+                      Выбранное Царство определяет, кто или что прыгает. Живые
+                      существа получают способность совершить огромный прыжок
+                      или могут быть принуждены к этому. Объекты, выбранные
+                      целью «Классиков», дико скачут по воле заклинателя. Любой,
+                      кто контактирует с прыгающим объектом, может попытаться
+                      остановить его дикий полёт броском Сила + Атлетика
+                      (сложность 7) против успехов чейнджлинга при вызове
+                      каприза. Точный результат неудачи остановить объект от
+                      полёта остаётся на усмотрение Рассказчика и зависит от
+                      объекта. Комплект одежды, скорее всего, разорвётся и
+                      освободится, взмывая в небо, но прыгающий смарт-кар может
+                      иметь значительно более серьёзные последствия.
                     </p>
                   </div>
                 </section>
@@ -600,11 +602,16 @@
                     <h4>Меркурий</h4>
                   </hgroup>
                   <div class="c-trait-power-description">
-                    <p>Позволяет передвигаться на сногшибательных скоростях.</p>
+                    <p>
+                      Позволяет передвигаться на сногсшибательных скоростях.
+                    </p>
                   </div>
                   <div class="c-trait-text c-module-ctd-art-power-text">
-                    <!-- Text of the Art Power. Stored in a JSON file -->
-                    <p>Allows an object to move at an incredibly fast speed.</p>
+                    <!-- Текст Силы Искусства. Хранится в JSON-файле -->
+                    <p>
+                      Позволяет объекту двигаться с невероятно высокой
+                      скоростью.
+                    </p>
                   </div>
                 </section>
               </li>
@@ -615,15 +622,15 @@
                   </hgroup>
                   <div class="c-trait-power-description">
                     <p>
-                      Creates a temporary opening through any barrier, allowing
-                      it to be moved through.
+                      Создаёт временное отверстие в любом барьере, позволяя
+                      пройти сквозь него.
                     </p>
                   </div>
                   <div class="c-trait-text c-module-ctd-art-power-text">
-                    <!-- Text of the Art Power. Stored in a JSON file -->
+                    <!-- Текст Силы Искусства. Хранится в JSON-файле -->
                     <p>
-                      Creates a temporary opening through any barrier, allowing
-                      it to be moved through.
+                      Создаёт временное отверстие в любом барьере, позволяя
+                      пройти сквозь него.
                     </p>
                   </div>
                 </section>
@@ -631,19 +638,19 @@
               <li>
                 <section class="trait-power c-module-ctd-art-power">
                   <hgroup class="c-trait-name ctd-art-power-name">
-                    <h4>Wind Runner</h4>
+                    <h4>Бегун Ветра</h4>
                   </hgroup>
                   <div class="c-trait-power-description">
                     <p>
-                      Allows a target to fly, taking to the sky as if they had
-                      wings.
+                      Позволяет цели летать, поднимаясь в небо, словно у неё
+                      есть крылья.
                     </p>
                   </div>
                   <div class="c-trait-text c-module-ctd-art-power-text">
-                    <!-- Text of the Art Power. Stored in a JSON file -->
+                    <!-- Текст Силы Искусства. Хранится в JSON-файле -->
                     <p>
-                      Allows a target to fly, taking to the sky as if they had
-                      wings.
+                      Позволяет цели летать, поднимаясь в небо, словно у неё
+                      есть крылья.
                     </p>
                   </div>
                 </section>
@@ -651,20 +658,20 @@
               <li>
                 <section class="trait-power c-module-ctd-art-power">
                   <hgroup class="c-trait-name ctd-art-power-name">
-                    <h4>Flicker Flash</h4>
+                    <h4>Мерцающая Вспышка</h4>
                   </hgroup>
                   <div class="c-trait-power-description">
                     <p>
-                      Instantly disappear, and reappear somewhere else in the
-                      world, or in the Dreaming (though, it is usually unwise to
-                      use it to cross between the two).
+                      Мгновенно исчезнуть и появиться в другом месте мира или в
+                      Грёзе (хотя обычно неразумно использовать это для перехода
+                      между ними).
                     </p>
                   </div>
                   <div class="c-trait-text c-module-ctd-art-power-text">
                     <p>
-                      Instantly disappear, and reappear somewhere else in the
-                      world, or in the Dreaming (though, it is usually unwise to
-                      use it to cross between the two).
+                      Мгновенно исчезнуть и появиться в другом месте мира или в
+                      Грёзе (хотя обычно неразумно использовать это для перехода
+                      между ними).
                     </p>
                   </div>
                 </section>
@@ -673,9 +680,14 @@
           </div>
         </section>
 
-        <section class="c-trait c-module-ctd-art">
+        <!-- ============================================================
+             NEW ARTS / НОВЫЕ ИСКУССТВА
+             ============================================================ -->
+
+        <!-- Chicanery / Хиканери -->
+        <section class="c-trait c-module-ctd-art" data-art-name="Chicanery">
           <div class="c-trait-name">
-            <h3>Art Name</h3>
+            <h3>Хиканери</h3>
             <fieldset class="c-module-ctd-art-point-container point-container">
               <input type="checkbox" data-state="unchecked" />
               <input type="checkbox" data-state="unchecked" />
@@ -686,7 +698,675 @@
           </div>
 
           <div class="c-trait-text c-module-ctd-art-text">
-            <!-- Text of the Art. Stored in a JSON file -->
+            <p>
+              Искусство обмана, излюбленное теми, кто использует хитрость, чтобы
+              сбить неосторожных с пути истинного. Это искусство обманывает
+              чувства и на высших уровнях опутывает разум. Практикующие Хиканери
+              обычно считаются подозрительными знатью и её канцлерами и
+              находятся под пристальным наблюдением. Лишь немногие дворяне стали
+              печально известны неосмотрительным использованием этого искусства,
+              хотя Хиканери обычно считается искусством простолюдинов.
+            </p>
+
+            <details class="trait-trivia ctd-art-trivia ctd-unleashing">
+              <summary>Освобождение</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Хиканери, направленное через сырой Гламур, искривляет
+                  восприятие, переписывает память и делает фантазию и безумие
+                  неопровержимыми. Примеры команд при освобождении Хиканери:
+                  «скрой этот дом от наших врагов», «заставь мир забыть этот
+                  день» или «то, что было найдено, снова будет потеряно».
+                </p>
+              </div>
+            </details>
+            <details class="trait-trivia ctd-art-trivia ctd-bunk">
+              <summary>Чепуха</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Чепухи Хиканери часто связаны с голосом заклинателя,
+                  маскировкой и ложью. Примеры чепух: настаивайте, чтобы друзья
+                  называли вас другим именем в течение дня, оденьтесь врачом и
+                  лечите пациентов, трижды повторите секрет перед толпой или
+                  сожгите фотографию.
+                </p>
+              </div>
+            </details>
+            <ul class="trait-levels c-module-ctd-art-levels">
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Игра Света</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Тонкая манипуляция Гламуром, чтобы затуманить восприятие,
+                      создавая недоразумения и ошибки.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Применение «Игры Света» к цели заставляет любого,
+                      воспринимающего цель, неправильно истолковывать то, что
+                      они видят или слышат, как определено игроком, но эффект не
+                      выдерживает длительного scrutiny. Каждый успех на броске
+                      каприза поддерживает обман в течение одного хода. A
+                      character spending longer than a turn paying close
+                      attention to the target can roll Perception + Occult
+                      (difficulty 8) to see through the cantrip. Это каприз не
+                      может быть использован для создания сложных иллюзий.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Завуалированные Глаза</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Заставляет цель каприза мгновенно стать незаметной,
+                      используя Туманы.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Царство определяет то, что все остальные игнорируют, но
+                      дополнительные Царства могут быть использованы для
+                      создания исключений из эффекта. Количество успехов
+                      определяет длительность: 1 успех — один ход, 2 — одна
+                      минута, 3 — один час, 4 — одна сцена, 5 — один день.
+                      Чейнджлинги могут противостоять чарам сопротивляемым
+                      действием, используя Восприятие + Кеннинг (сложность 8).
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Фуга</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>Позволяет заклинателю изменять воспоминания цели.</p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может удалить, изменить или создать
+                      воспоминания. Количество успехов определяет, насколько
+                      глубоко заклинатель может проникнуть в разум цели и
+                      насколько долговечными будут изменения. Изменения памяти
+                      не являются постоянными, если не достигнуты
+                      соответствующие успехи.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Одержимое Сердце</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>Позволяет заклинателю манипулировать эмоциями цели.</p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может усилить, ослабить или изменить эмоции
+                      цели. Количество успехов определяет интенсивность и
+                      длительность эффекта. Цель может сопротивляться броском
+                      Сила Воли (сложность 7).
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Пленённое Сердце</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Даёт заклинателю гораздо больший контроль над эмоциями
+                      цели, чем Одержимое Сердце.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может полностью контролировать эмоциональное
+                      состояние цели, заставляя её испытывать любовь, ненависть,
+                      страх или любую другую эмоцию по своему желанию.
+                      Количество успехов определяет длительность и интенсивность
+                      эффекта.
+                    </p>
+                  </div>
+                </section>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Primal / Первобытное -->
+        <section class="c-trait c-module-ctd-art" data-art-name="Primal">
+          <div class="c-trait-name">
+            <h3>Первобытное</h3>
+            <fieldset class="c-module-ctd-art-point-container point-container">
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+            </fieldset>
+          </div>
+
+          <div class="c-trait-text c-module-ctd-art-text">
+            <p>
+              Позволяет чейнджлингу манипулировать силами природы, от вызова
+              стихий до общения с неодушевлёнными предметами. Оно также даёт
+              власть над телом, позволяя фее затвердеть кожей, как кора дерева,
+              исцелять раны, разрывать плоть и даже менять форму. Первобытное
+              было впервые преподано Китейн Инанимаэ, хотя современная версия
+              Искусства сильно отличается от Сливеров Инанимаэ.
+            </p>
+
+            <details class="trait-trivia ctd-art-trivia ctd-unleashing">
+              <summary>Освобождение</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Освобождение Первобытного может заставить природу восстать,
+                  вылечить всех в области, вызвать землетрясение или превратить
+                  область в дикую местность. Это опасное предприятие, которое
+                  может привести к разрушительным последствиям.
+                </p>
+              </div>
+            </details>
+            <details class="trait-trivia ctd-art-trivia ctd-bunk">
+              <summary>Чепуха</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Чепухи Первобытного часто включают взаимодействие с природой и
+                  телом. Примеры: посадите семя и ухаживайте за ним, обнимите
+                  дерево, съешьте горсть земли, искупайтесь в реке, пробегите
+                  босиком по траве, пообщайтесь с животным или проведите ночь
+                  под открытым небом.
+                </p>
+              </div>
+            </details>
+            <ul class="trait-levels c-module-ctd-art-levels">
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Шёпот Ивы</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Позволяет заклинателю общаться с растениями и получать
+                      информацию от них.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может задавать вопросы растениям и получать
+                      ответы в виде образов или ощущений. Количество успехов
+                      определяет детализацию и точность получаемой информации.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Эльдрич Прайм</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Позволяет заклинателю создавать элементальные эффекты,
+                      такие как огонь, вода, воздух или земля.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может создавать элементальные эффекты,
+                      соответствующие выбранному Царству. Количество успехов
+                      определяет силу и масштаб эффекта.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Дубовый Щит</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>Покрывает людей и предметы корой, подобной дубовой.</p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Каприз создаёт покрытие с твёрдостью дубовой коры, хотя
+                      фактическое покрытие может быть любой текстуры или цвета
+                      по желанию заклинателя. Покрытие обеспечивает защиту от
+                      повреждений.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Бальзам Вереска</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>Позволяет заклинателю исцелять раны и болезни.</p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может исцелять раны и некоторые заболевания.
+                      Количество успехов определяет, сколько уровней урона может
+                      быть исцелено. Хронические состояния могут не поддаваться
+                      полному исцелению.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Удар Падуба</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Позволяет заклинателю наносить повреждения, разрывая
+                      плоть.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может наносить урон, который принимает форму
+                      рваных ран. Количество успехов определяет серьёзность
+                      повреждений.
+                    </p>
+                  </div>
+                </section>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Soothsay / Прорицание -->
+        <section class="c-trait c-module-ctd-art" data-art-name="Soothsay">
+          <div class="c-trait-name">
+            <h3>Прорицание</h3>
+            <fieldset class="c-module-ctd-art-point-container point-container">
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+            </fieldset>
+          </div>
+
+          <div class="c-trait-text c-module-ctd-art-text">
+            <p>
+              Искусство прорицания, предсказания и взаимодействия с Даном, верой
+              фей в судьбу. Чейнджлинги-провидцы считают, что Дан — это великий
+              ткацкий станок из переплетённых нитей судьбы, слишком огромный и
+              сложный для большинства умов, чтобы распутать его. Все существа —
+              феи, смертные и Отступники alike — вплетены в этот великий
+              гобелен, их действия и идеалы петляют друг вокруг друга, создавая
+              великий замысел, который есть мир. Иногда силы Дана становятся
+              очевидными в виде знаков, предзнаменований и предвестий, если у
+              наблюдателя есть знания, инстинкт и мудрость, чтобы узнать их
+              такими, какие они есть. Прорицание измеряет эти качества. Это
+              Искусство связано с вдумчивыми, созерцательными Китейн. Знать ищет
+              мастеров Прорицания как провидцев и советников, в то время как
+              простолюдины почитают их за мудрость, которую они предлагают.
+            </p>
+
+            <details class="trait-trivia ctd-art-trivia ctd-unleashing">
+              <summary>Освобождение</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Освобождения Прорицания часто считаются одними из самых
+                  опасных явлений в Грёзе, ибо они обнажают весь гобелен Дана —
+                  опасная вещь для любого провидца. Освобождение этого Искусства
+                  раскрывает будущее, к добру или к худу, и почти всегда
+                  раскрывает больше, чем провидец надеялся узнать, усложняя её
+                  судьбу в процессе.
+                </p>
+              </div>
+            </details>
+            <details class="trait-trivia ctd-art-trivia ctd-bunk">
+              <summary>Чепуха</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Чепухи Прорицания, как правило, включают традиционные и
+                  нетрадиционные акты гадания. Примеры: разложите расклад Таро,
+                  выпейте чашу чая и прочтите листья, разбейте зеркало и изучите
+                  осколки, выполните скапуломантию, съешьте печенье с
+                  предсказанием, загипнотизируйте друга и расспросите его о
+                  будущем, истолкуйте облака, примите галлюциногены, посидите в
+                  дымовой ложе, потрясите магический шар-8, запрограммируйте
+                  случайный алгоритм, чтобы имитировать магический шар-8.
+                </p>
+              </div>
+            </details>
+            <ul class="trait-levels c-module-ctd-art-levels">
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Предзнаменование</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Даёт кратчайший проблеск нити судьбы человека, места или
+                      вещи.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Выбранное Царство определяет, о чём Предзнаменование —
+                      обычно Фея или Актор, хотя вполне возможно вызвать
+                      Предзнаменование о месте или предмете. Чем больше успехов
+                      выпало, тем глубже Предзнаменование может проникнуть,
+                      чтобы намекнуть на истину о своём субъекте… хотя, сколько
+                      бы успехов ни выпало, Предзнаменования всегда подлежат
+                      некоторому истолкованию.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>
+                      Прекрасное — это уродливое, а уродливое — прекрасное
+                    </h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Слегка вмешивается в дела судьбы, даруя немного удачи
+                      союзнику или немного неудачи врагу.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может дать союзнику бонус к броскам или
+                      наложить штраф на броски врага. Количество успехов
+                      определяет величину бонуса или штрафа.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Огонь Судьбы</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Позволяет заклинателю видеть и манипулировать нитями
+                      судьбы более непосредственно.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может видеть нити судьбы и манипулировать ими,
+                      чтобы изменить вероятные исходы. Количество успехов
+                      определяет степень контроля.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Прядильщик</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>Позволяет заклинателю полностью изменить судьбу цели.</p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может переписать нить судьбы цели, изменяя её
+                      будущее значительным образом. Это мощное и опасное
+                      использование Искусства, которое может иметь
+                      непредвиденные последствия.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Великий Гобелен</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Позволяет заклинателю видеть всю картину судьбы и
+                      понимать, как всё взаимосвязано.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может получить глубокое понимание взаимосвязей
+                      судьбы, включая прошлое, настоящее и возможные будущие
+                      цели. Это высший уровень Прорицания.
+                    </p>
+                  </div>
+                </section>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Pyretics / Пиретика -->
+        <section class="c-trait c-module-ctd-art" data-art-name="Pyretics">
+          <div class="c-trait-name">
+            <h3>Пиретика</h3>
+            <fieldset class="c-module-ctd-art-point-container point-container">
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+            </fieldset>
+          </div>
+
+          <div class="c-trait-text c-module-ctd-art-text">
+            <p>
+              Каждая душа чейнджлинга горит силой Грёзы, но не все учатся
+              обуздывать это пламя с помощью магии Пиретики. Огонь пожирает,
+              очищает, защищает и создаёт новое. Китейн из обоих дворов,
+              простолюдины и знать, члены всех домов уважают силу пламени и ищут
+              знания его секретов.
+            </p>
+
+            <details class="trait-trivia ctd-art-trivia ctd-unleashing">
+              <summary>Освобождение</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Освобождение Гламура через Пиретику может сжечь нечистоты или
+                  иллюзии, вызвать ужасные разрушения или создать что-то новое.
+                  Персонаж может воззвать к Искусству, чтобы создать защитный
+                  круг огня, сжечь фантомов, посланных отвлекать или
+                  преследовать её, или превратить свой пот и слёзы в
+                  расплавленный Гламур, поджигая всё, к чему они прикоснутся.
+                </p>
+              </div>
+            </details>
+            <details class="trait-trivia ctd-art-trivia ctd-bunk">
+              <summary>Чепуха</summary>
+              <div class="trivia-text ctd-trivia-text">
+                <p>
+                  Чепухи Пиретики, неудивительно, чаще всего связаны с огнём и
+                  разрушением, но также включают удаление нечистот, готовку и
+                  новую жизнь. Примеры чепух: сожгите что-нибудь, или сожгите
+                  всё, сделайте сломанное как новое, держите спичку под рукой,
+                  пока не появится волдырь, расскажите историю у костра,
+                  создайте стеклянную скульптуру, а затем разбейте её, пройдите
+                  по горячим углям или спойте балладу и закончите её ровно на
+                  восходе.
+                </p>
+              </div>
+            </details>
+            <ul class="trait-levels c-module-ctd-art-levels">
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Разжигание</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Нагревает цель Гламура достаточно, чтобы вызвать
+                      дискомфорт, но не травмировать.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Царство каприза определяет цель(и). При использовании на
+                      неодушевлённом или неразумном предмете Рассказчик должен
+                      арбитрировать эффекты нагрева (растения могут увянуть,
+                      металл становится опасным для прикосновения, еда готовится
+                      без видимого источника тепла). При использовании на
+                      человеке, животном или существе цель получает +1 к
+                      сложности всех бросков из-за отвлечения и дискомфорта.
+                      Количество успехов определяет количество ходов, в течение
+                      которых цель остаётся перегретой.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Озарение</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Создаёт свет, который рассеивает тьму, иллюзии и мелкий
+                      обман.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Царство определяет источник света. Свечение Озарения
+                      раскрывает всё скрытое или замаскированное.
+                      Сверхъестественные иллюзии, физические маскировки и даже
+                      элементарная нечестность становятся легче разоблачаемыми,
+                      пока свет каприза сияет. Свет обычно распространяется
+                      всего на несколько футов в каждом направлении, но может
+                      быть значительно расширен с помощью Сцены. Любая
+                      сверхъестественная иллюзия или маскировка с уровнем силы
+                      ниже количества успехов, выпавших на капризе,
+                      раскрывается. Все попытки лгать или прятаться в области
+                      магического света получают штраф к пулу кубиков, равный
+                      количеству успехов, выпавших на капризе. Эффекты Озарения
+                      длятся одну сцену, но могут быть прекращены заклинателем
+                      раньше.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Очищение</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>Сжигает загрязнения химерическим огнём.</p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может сжечь загрязнения, болезни или
+                      химерические нечистоты. Количество успехов определяет,
+                      насколько сильное загрязнение может быть очищено.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Звёздное Тело</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Превращает тело заклинателя в пламя, делая его неуязвимым
+                      для обычного огня и даруя способность излучать тепло и
+                      свет.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель становится существом из огня, получая
+                      иммунитет к обычному огню и способность излучать тепло и
+                      свет. Количество успехов определяет длительность эффекта.
+                    </p>
+                  </div>
+                </section>
+              </li>
+              <li>
+                <section class="trait-power c-module-ctd-art-power">
+                  <hgroup class="c-trait-name ctd-art-power-name">
+                    <h4>Поглощение</h4>
+                  </hgroup>
+                  <div class="c-trait-power-description">
+                    <p>
+                      Позволяет заклинателю поглощать огонь и использовать его
+                      для исцеления или усиления.
+                    </p>
+                  </div>
+                  <div class="c-trait-text c-module-ctd-art-power-text">
+                    <p>
+                      <b> Система: </b>
+                      Заклинатель может поглощать огонь, чтобы исцелить себя или
+                      усилить свои способности. Количество успехов определяет,
+                      сколько огня может быть поглощено и насколько силён
+                      эффект.
+                    </p>
+                  </div>
+                </section>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Placeholder Art / Искусство-заполнитель -->
+        <section class="c-trait c-module-ctd-art">
+          <div class="c-trait-name">
+            <h3>Название Искусства</h3>
+            <fieldset class="c-module-ctd-art-point-container point-container">
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+              <input type="checkbox" data-state="unchecked" />
+            </fieldset>
+          </div>
+
+          <div class="c-trait-text c-module-ctd-art-text">
+            <!-- Текст Искусства. Хранится в JSON-файле -->
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
               vero totam at hic sequi voluptates inventore, velit delectus optio
@@ -696,11 +1376,11 @@
 
             <section class="c-module-ctd-art-power">
               <hgroup>
-                <h4>Art power #1</h4>
-                <span> 1lv power of the $ArtName </span>
+                <h4>Сила Искусства #1</h4>
+                <span> 1-й уровень силы $ArtName </span>
               </hgroup>
               <div class="c-trait-text c-module-ctd-art-power-text">
-                <!-- Text of the Art Power. Stored in a JSON file -->
+                <!-- Текст Силы Искусства. Хранится в JSON-файле -->
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Nesciunt vero totam at hic sequi voluptates inventore, velit
@@ -711,11 +1391,11 @@
             </section>
             <section class="c-module-ctd-art-power">
               <hgroup>
-                <h4>Art power #2</h4>
-                <span> 2lv power of the $ArtName </span>
+                <h4>Сила Искусства #2</h4>
+                <span> 2-й уровень силы $ArtName </span>
               </hgroup>
               <div class="c-trait-text c-module-ctd-art-power-text">
-                <!-- Text of the Art Power. Stored in a JSON file -->
+                <!-- Текст Силы Искусства. Хранится в JSON-файле -->
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Nesciunt vero totam at hic sequi voluptates inventore, velit
@@ -732,24 +1412,25 @@
     <aside id="toolbar">
       <ul>
         <li>
-          <button>Resync</button>
+          <button>Синхронизировать</button>
           <descr>
-            Update the info on your sheet, resyncing it with Google Table.
+            Обновите информацию на вашем листе, синхронизировав его с Google
+            Таблицей.
           </descr>
         </li>
         <li>
-          <button>Edit</button>
+          <button>Редактировать</button>
           <descr>
-            Enter manual edit mode. If your sheet doesn't have
-            <i>Storyteller access</i>, you'll need a password.
+            Войдите в режим ручного редактирования. Если на вашем листе нет
+            <i>доступа Рассказчика</i>, вам понадобится пароль.
           </descr>
         </li>
         <li>
-          <button>Switch</button>
+          <button>Переключить</button>
           <descr>
-            Inspect other created character sheets. You can't edit them unless
-            you have password to that sheet.
-            <i>(Password is provided to you by a Storyteller)</i>
+            Просмотрите другие созданные листы персонажей. Вы не сможете
+            редактировать их, если у вас нет пароля к этому листу.
+            <i>(Пароль предоставляется вам Рассказчиком)</i>
           </descr>
         </li>
       </ul>
