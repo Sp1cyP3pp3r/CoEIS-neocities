@@ -310,21 +310,35 @@ body::after {
   outline: none;
   color: var(--gold-lt);
 }
-
 /* ==========================================================================
-   TOOLTIPS  <descr> — fixed bottom-right, away from the toolbar
+   TOOLTIPS  <descr> — always out of flow, always in the corner.
+   The element is never display:none and never participates in grid/flex
+   layout — only visibility and opacity change on hover. This is what stops
+   it from shoving the article around.
    ========================================================================== */
 
 descr {
-  display: none;
-  position: fixed;
+  /* Take it out of flow permanently. !important guards against any
+     cascade accident that could re-instate it as a grid item. */
+  position: fixed !important;
+  display: block !important; /* never toggled — see below */
+
+  /* Pinned to the bottom-right corner of the viewport. All four sides
+     set so the box can never be treated as auto-placed. */
+  inset: auto 2rem 2rem auto;
+  inset-block-start: auto;
+  inset-inline-start: auto;
   inset-block-end: 2rem;
   inset-inline-end: 2rem;
-  inset-inline-start: auto;
-  inset-block-start: auto;
-  z-index: 60;
 
-  max-width: 36ch;
+  /* Sized explicitly so it can never influence grid track sizes. */
+  width: 36ch;
+  max-width: calc(100vw - 4rem);
+  height: auto;
+
+  z-index: 60;
+  margin: 0;
+
   padding: 1.25em 1.6em 1.15em;
 
   font-size: 0.98rem;
@@ -339,6 +353,22 @@ descr {
   box-shadow:
     0 26px 64px -22px #000,
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* Hidden state: no layout, no paint, no pointer events. */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+
+  /* Delay the visibility flip so the fade-out is visible. */
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0s linear 0.22s;
+
+  /* Ensure long content scrolls instead of stretching. */
+  overflow: auto;
+  max-height: calc(100vh - 4rem);
 }
 
 descr::before {
@@ -355,21 +385,18 @@ descr::before {
   border-block-end: 1px solid rgba(224, 189, 104, 0.28);
 }
 
+/* Show state: same box, same position, only paint state changes.
+   Because `position: fixed` was already active, no grid track is inserted. */
 *:hover + descr,
 descr:hover {
-  display: block;
-  animation: lore-in 0.22s ease-out;
-}
-
-@keyframes lore-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0s linear 0s;
 }
 
 /* ==========================================================================
