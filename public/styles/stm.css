@@ -393,7 +393,7 @@ descr:hover {
       .trivia-text {
         --trivia-margin: 1em;
         border: var(--clr-element-bg) 1px solid;
-        margin-inline-start: var(--trivia-margin);
+        margin-inline: var(--trivia-margin);
         margin-block-start: calc(var(--trivia-margin) * -1);
         padding: var(--trivia-margin);
         /*
