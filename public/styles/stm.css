@@ -479,8 +479,8 @@ descr:hover {
     background-repeat: no-repeat;
     background-origin: border-box;
     background-attachment: fixed;
-    background-size: 35%;
-    background-position: 50% 20%;
+    background-size: var(--bg-size);
+    background-position: var(--bg-pos);
 
     opacity: 0.2;
     filter: grayscale(30%);
@@ -490,9 +490,11 @@ descr:hover {
 
 [data-art-name="Wayfare" i] {
   --bg: url(https://i.ibb.co/2718TTB2/wayfare.png);
+  --bg-size: 35%;
+  --bg-pos: 50% 20%;
 }
-[data-art-name="Chronos" i] {
+[data-art-name="Chronos" i]::before {
   --bg: url(https://i.pinimg.com/1200x/71/64/db/7164db1e63bb911ce2951bc764651f56.jpg);
-  background-size: 45%;
-  background-position: 50% 20%;
+  --bg-size: 050%;
+  --bg-pos: 50% 20%;
 }
