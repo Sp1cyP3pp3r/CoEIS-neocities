@@ -483,7 +483,7 @@ descr:hover {
     background-position: var(--bg-pos);
 
     opacity: 0.2;
-    filter: grayscale(30%);
+    filter: grayscale(45%);
     z-index: -1;
   }
 }
