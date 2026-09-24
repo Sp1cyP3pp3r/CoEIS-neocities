@@ -287,3 +287,27 @@ $(function () {
     }
   });
 });
+
+$(document).ready(function () {
+  // Check if the current hostname is localhost or 127.0.0.1
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    // Target the existing favicon link element
+    let $favicon = $('link[rel*="icon"]');
+    let localFaviconUrl = "/favicon-local.ico"; // Path to your local environment favicon
+
+    if ($favicon.length) {
+      // Update the href if the element already exists
+      $favicon.attr("href", localFaviconUrl);
+    } else {
+      // Create and append a new link element if none exists
+      $("head").append(
+        '<link rel="shortcut icon" href="' +
+          localFaviconUrl +
+          '" type="image/x-icon" />',
+      );
+    }
+  }
+});
