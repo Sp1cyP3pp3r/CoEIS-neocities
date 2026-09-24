@@ -281,6 +281,7 @@ descr:hover {
   --trait-text-padding: calc(var(--c-element-padding) * 2);
   --trait-name-margin: calc(var(--c-element-height) / 2);
   --trait-name-font-size: var(--c-element-height);
+  --indent-width: 1em;
 
   counter-reset: trait-power-level;
   position: relative;
@@ -293,7 +294,7 @@ descr:hover {
     display: flex;
     flex-flow: row wrap;
     align-items: stretch;
-    justify-content: flex-start;
+    justify-content: space-between;
     row-gap: var(--trait-name-padding);
     padding-inline: var(--trait-name-padding);
     margin-block-end: var(--trait-name-margin);
@@ -328,13 +329,12 @@ descr:hover {
 
       /* Indentention hack*/
       &::before {
-        --indent-width: 1em;
         content: "";
         float: left;
         width: var(--indent-width);
         height: clamp(0px, 100% - var(--height-of-1-line), 1px);
       }
-      &:last-of-type {
+      &:last-of-type:not(:has(+ :is(.trait-trivia, details))) {
         margin-block-end: var(--trait-name-margin);
       }
     }
@@ -350,7 +350,9 @@ descr:hover {
 
     .trait-trivia {
       --margin-bottom-for-trait: var(--trait-name-margin);
+
       font-weight: lighter;
+      z-index: 1;
 
       & .trait-trivia {
         --margin-bottom-for-trait: 0;
@@ -361,6 +363,7 @@ descr:hover {
         --clr-text: var(--clr-element-txt);
         cursor: pointer;
         list-style: none;
+        z-index: 2;
 
         color: var(--clr-text);
         background-color: var(--clr-element-bg);
@@ -406,6 +409,13 @@ descr:hover {
 
       .trivia-text {
         --trivia-margin: 1em;
+        --indent-width: 0;
+
+        display: flex;
+        flex-flow: row wrap;
+
+        column-gap: var(--trait-text-padding);
+
         border: var(--clr-element-bg) 1px solid;
         margin-inline: var(--trivia-margin);
         margin-block-start: calc(var(--trivia-margin) * -1);
