@@ -296,7 +296,7 @@ $(document).ready(function () {
   ) {
     // Target the existing favicon link element
     let $favicon = $('link[rel*="icon"]');
-    let localFaviconUrl = "/assets/icon_localhost.png"; // Path to your local environment favicon
+    let localFaviconUrl = "assets/icon_localhost.png"; // Path to your local environment favicon
 
     if ($favicon.length) {
       // Update the href if the element already exists
