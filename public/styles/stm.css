@@ -344,12 +344,15 @@ descr:hover {
           TRIVIA DETAILS SUMMARY
     ==============================
     */
+    :is(p, .trait-trivia) + .trait-trivia {
+      margin-block-start: var(--trait-name-margin);
+    }
+
     .trait-trivia {
       --margin-bottom-for-trait: var(--trait-name-margin);
       font-weight: lighter;
-      margin-block-start: var(--trait-name-margin);
 
-      &:has(> .trait-trivia) {
+      & .trait-trivia {
         --margin-bottom-for-trait: 0;
       }
 
@@ -436,6 +439,7 @@ descr:hover {
         display: flex;
         flex-flow: row wrap;
         justify-content: stretch;
+        align-items: flex-start;
 
         .c-trait-name {
           --trait-name-font-size: calc(var(--c-element-height) / 1.2);
@@ -444,6 +448,7 @@ descr:hover {
           width: auto;
           height: auto;
           justify-content: space-around;
+          margin-block-end: 0;
 
           font-family: var(--font-h2);
           flex: 1 0 30%;
