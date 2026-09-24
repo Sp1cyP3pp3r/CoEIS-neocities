@@ -488,6 +488,6 @@ descr:hover {
   }
 }
 
-[data-art-name] {
+[data-art-name="Wayfare" i] {
   --bg: url(https://i.ibb.co/2718TTB2/wayfare.png);
 }
