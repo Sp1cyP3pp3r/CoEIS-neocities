@@ -476,7 +476,7 @@ descr:hover {
     height: 100%;
 
     background-image: var(--bg);
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-origin: border-box;
     background-attachment: fixed;
     background-size: var(--bg-size);
@@ -495,6 +495,6 @@ descr:hover {
 }
 [data-art-name="Chronos" i]::before {
   --bg: url(https://i.pinimg.com/1200x/71/64/db/7164db1e63bb911ce2951bc764651f56.jpg);
-  --bg-size: 050%;
+  --bg-size: 50% auto;
   --bg-pos: 50% 20%;
 }
