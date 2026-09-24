@@ -493,4 +493,6 @@ descr:hover {
 }
 [data-art-name="Chronos" i] {
   --bg: url(https://i.pinimg.com/1200x/71/64/db/7164db1e63bb911ce2951bc764651f56.jpg);
+  background-size: 45%;
+  background-position: 50% 20%;
 }
