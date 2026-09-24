@@ -467,7 +467,7 @@ descr:hover {
     }
   }
 
-  &[data-art-name="Wayfare"]::before {
+  &[data-art-name]::before {
     content: "art";
     font-size: 0;
     display: block;
@@ -475,7 +475,7 @@ descr:hover {
     width: 100%;
     height: 100%;
 
-    background-image: url(https://i.ibb.co/2718TTB2/wayfare.png);
+    background-image: var(--bg);
     background-repeat: no-repeat;
     background-origin: border-box;
     background-attachment: fixed;
@@ -486,4 +486,8 @@ descr:hover {
     filter: grayscale(30%);
     z-index: -1;
   }
+}
+
+[data-art-name] {
+  --bg: url(https://i.ibb.co/2718TTB2/wayfare.png);
 }
