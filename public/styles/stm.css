@@ -493,7 +493,7 @@ descr:hover {
   --bg-size: 35%;
   --bg-pos: 50% 20%;
 }
-[data-art-name="Chronos" i]::before {
+[data-art-name="Chronos" i] {
   --bg: url(https://i.pinimg.com/1200x/71/64/db/7164db1e63bb911ce2951bc764651f56.jpg);
   --bg-size: 50% auto;
   --bg-pos: 50% 20%;
