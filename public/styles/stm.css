@@ -339,9 +339,19 @@ descr:hover {
       }
     }
 
+    /*
+    ==============================
+          TRIVIA DETAILS SUMMARY
+    ==============================
+    */
     .trait-trivia {
+      --margin-bottom-for-trait: var(--trait-name-margin);
       font-weight: lighter;
       margin-block-start: var(--trait-name-margin);
+
+      &:has(> .trait-trivia) {
+        --margin-bottom-for-trait: 0;
+      }
 
       summary {
         --sum-padding: calc(var(--c-element-padding) * 3);
@@ -404,7 +414,7 @@ descr:hover {
       }
 
       &:last-of-type {
-        margin-block-end: var(--trait-name-margin);
+        margin-block-end: var(--margin-bottom-for-trait);
       }
 
       &.ctd-unleashing {
