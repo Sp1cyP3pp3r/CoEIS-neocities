@@ -505,10 +505,14 @@ descr:hover {
   flex-flow: column wrap;
   align-items: flex-end;
   font-size: var(--c-element-height);
+  z-index: 1;
 
   .counter-number {
     font-family: var(--font-h1);
     font-size: 2.3em;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
   }
 
   .counter-name {
@@ -523,6 +527,7 @@ descr:hover {
 
     width: 66%;
     transform: skewY(calc(var(--skew-deg) * -1));
+    z-index: 2;
 
     span {
       display: inline-block;
