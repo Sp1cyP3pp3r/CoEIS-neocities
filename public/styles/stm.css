@@ -499,14 +499,27 @@ descr:hover {
 }
 
 .c-stat-counter {
+  --skew-deg: 5deg;
+
   display: flex;
   flex-flow: column wrap;
+  font-size: var(--c-element-height);
 
   .counter-number {
+    font-family: var(--font-h1);
+    font-size: 0.8em;
   }
 
   .counter-name {
     font-family: var(--font-h2);
-    font-size: 1em;
+    font-size: 0.8em;
+    background-color: var(--clr-element-bg);
+    color: var(--clr-element-txt);
+
+    transform: calc(var(--skew-deg) * -1);
+
+    span {
+      transform: var(--skew-deg);
+    }
   }
 }
