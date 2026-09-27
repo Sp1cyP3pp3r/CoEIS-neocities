@@ -507,6 +507,6 @@ descr:hover {
 
   .counter-name {
     font-family: var(--font-h2);
-    font-size: 0.8em;
+    font-size: 1em;
   }
 }
