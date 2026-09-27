@@ -1,0 +1,36 @@
+.ctd-stat {
+  --points-per-row: 5;
+}
+
+.c-trait {
+  &[data-art-name]::before {
+    content: "art";
+    font-size: 0;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-image: var(--bg);
+    background-repeat: repeat;
+    background-origin: border-box;
+    background-attachment: fixed;
+    background-size: var(--bg-size);
+    background-position: var(--bg-pos);
+
+    opacity: 0.1;
+    filter: grayscale(45%);
+    z-index: -1;
+  }
+}
+
+[data-art-name="Wayfare" i] {
+  --bg: url(https://i.ibb.co/2718TTB2/wayfare.png);
+  --bg-size: 35%;
+  --bg-pos: 50% 20%;
+}
+[data-art-name="Chronos" i] {
+  --bg: url(https://i.pinimg.com/1200x/71/64/db/7164db1e63bb911ce2951bc764651f56.jpg);
+  --bg-size: 50% auto;
+  --bg-pos: 50% 20%;
+}
