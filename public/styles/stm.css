@@ -215,6 +215,7 @@ descr:hover {
 }
 
 .c-motif {
+  --points-per-row: 4;
   --c-element-width: calc(var(--c-label-width) * 1.25);
   --c-label-height: var(--c-element-height);
   --motif-gap: 8px;
@@ -265,7 +266,6 @@ descr:hover {
   }
 
   .c-motif-point-container {
-    --points-per-row: 4;
     width: calc(
       var(--points-per-row) * var(--point-size) + (var(--points-per-row) - 1) *
         var(--point-margin-gap)
@@ -527,4 +527,8 @@ descr:hover {
   --bg: url(https://i.pinimg.com/1200x/71/64/db/7164db1e63bb911ce2951bc764651f56.jpg);
   --bg-size: 50% auto;
   --bg-pos: 50% 20%;
+}
+
+.ctd-stat {
+  --points-per-row: 5;
 }
