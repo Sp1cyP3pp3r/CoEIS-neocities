@@ -503,21 +503,29 @@ descr:hover {
 
   display: flex;
   flex-flow: column wrap;
+  align-items: flex-end;
   font-size: var(--c-element-height);
 
   .counter-number {
     font-family: var(--font-h1);
-    font-size: 0.8em;
+    font-size: 2.3em;
   }
 
   .counter-name {
     font-family: var(--font-h2);
     font-size: 0.8em;
-    background-color: var(--clr-element-bg);
+
     color: var(--clr-element-txt);
+    /*
+    background-color: var(--clr-element-bg);
+    */
+    backdrop-filter: invert(83%);
+
+    width: 66%;
     transform: skewY(calc(var(--skew-deg) * -1));
 
     span {
+      display: inline-block;
       transform: skewY(var(--skew-deg));
     }
   }
