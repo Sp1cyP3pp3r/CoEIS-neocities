@@ -311,3 +311,41 @@ $(document).ready(function () {
     }
   }
 });
+
+$(function () {
+  const $ctdBcNumber = $("#ctd-banality-threshold .counter-number");
+  const $container = $("#m-c-banality-points");
+
+  // Функция для пересчета активных точек банальности
+  // Функция для пересчета активных точек банальности
+  function updateBanalityCounter() {
+    // Находим инпуты, у которых data-state равен либо 'checked', либо 'indeterminate'
+    let activeCount = $container.find(
+      "input[data-state='checked'], input[data-state='indeterminate']",
+    ).length;
+    let maxCount = $container.find("input[data-state]").length;
+
+    // Вычисляем итоговое число
+    let resultValue = maxCount - activeCount;
+
+    // ЕСЛИ результат равен 10, заменяем его на "X", иначе оставляем число
+    if (resultValue === 10) {
+      $ctdBcNumber.text("X");
+    } else {
+      $ctdBcNumber.text(resultValue);
+    }
+  }
+
+  // Отслеживаем клики (mousedown) по чекбоксам банальности
+  $(document).on(
+    "mousedown",
+    "#m-c-banality-points input[type='checkbox']",
+    function () {
+      // Небольшой таймаут, чтобы основной скрипт точек успел поменять data-state
+      setTimeout(updateBanalityCounter, 0);
+    },
+  );
+
+  // Первоначальный расчет при загрузке листа персонажа
+  updateBanalityCounter();
+});

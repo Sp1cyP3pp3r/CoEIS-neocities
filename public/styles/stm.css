@@ -505,33 +505,43 @@ descr:hover {
   flex-flow: column wrap;
   align-items: flex-end;
   font-size: var(--c-element-height);
+
   z-index: 1;
+  padding-block-end: 16%;
 
   .counter-number {
     font-family: var(--font-h1);
     font-size: 2.3em;
     position: absolute;
-    bottom: 0;
     z-index: -1;
+    bottom: 0;
+    right: -0.52em;
   }
 
   .counter-name {
-    font-family: var(--font-h2);
+    font-family: var(--font-text);
+    font-style: italic;
     font-size: 0.8em;
 
     color: var(--clr-element-txt);
+    backdrop-filter: invert(83%);
     /*
     background-color: var(--clr-element-bg);
     */
-    backdrop-filter: invert(83%);
 
-    width: 66%;
+    width: min-content;
     transform: skewY(calc(var(--skew-deg) * -1));
     z-index: 2;
+    user-select: none;
+    padding-inline-end: 60%;
 
     span {
+      user-select: text;
       display: inline-block;
+      height: 100%;
+      width: fit-content;
       transform: skewY(var(--skew-deg));
+      line-height: var(--c-element-height);
     }
   }
 }
