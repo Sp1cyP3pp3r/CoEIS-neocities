@@ -515,7 +515,6 @@ descr:hover {
     font-size: 0.8em;
     background-color: var(--clr-element-bg);
     color: var(--clr-element-txt);
-
     transform: calc(var(--skew-deg) * -1);
 
     span {
