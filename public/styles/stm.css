@@ -127,6 +127,13 @@ descr:hover {
   }
 }
 
+.c-attributes-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .c-attribute {
   --c-element-width: 158px;
   --c-element-input: 2em;
@@ -212,6 +219,13 @@ descr:hover {
   &:last-of-type {
     margin-block-end: var(--skills-to-attribute-margin);
   }
+}
+
+.c-motifs-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .c-motif {
