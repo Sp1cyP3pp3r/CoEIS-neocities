@@ -349,3 +349,75 @@ $(function () {
   // Первоначальный расчет при загрузке листа персонажа
   updateBanalityCounter();
 });
+
+$(function () {
+  // ===============================================================
+  // LEVELED TRAITS
+  // ===============================================================
+  // Every .c-trait that has a .point-container inside its .c-trait-name
+  // is a "leveled" trait: its .trait-levels > li powers are revealed
+  // one by one as the corresponding dots are filled in.
+  //
+  //   • By default only "checked" dots count.
+  //   • Add [data-count-indeterminate] to the .c-trait to also
+  //     count "indeterminate" dots.
+
+  const TRAIT_SELECTOR = ".c-trait";
+  const POINTS_SELECTOR =
+    ".c-trait-name .point-container input[type='checkbox']";
+  const LEVELS_SELECTOR = ".trait-levels > li";
+
+  function updateTraitLevels($trait) {
+    const $points = $trait.find(POINTS_SELECTOR);
+    const $levels = $trait.find(LEVELS_SELECTOR);
+
+    // Not a leveled trait — nothing to do.
+    if (!$points.length || !$levels.length) return;
+
+    // Opt-in: does this trait count indeterminate dots too?
+    const countIndeterminate = $trait.is("[data-count-indeterminate]");
+
+    // Count "active" dots.
+    const activeCount = $points.filter(function () {
+      const s = $(this).attr("data-state");
+      if (s === "checked") return true;
+      if (countIndeterminate && s === "indeterminate") return true;
+      return false;
+    }).length;
+
+    // Reveal the first `activeCount` powers, hide the rest.
+    $levels.each(function (i) {
+      $(this).prop("hidden", i >= activeCount);
+    });
+  }
+
+  function updateAllLeveledTraits() {
+    $(TRAIT_SELECTOR).each(function () {
+      updateTraitLevels($(this));
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // React to dot changes.
+  // The main script mutates data-state inside its own mousedown
+  // handler, so we defer by one tick to read the new state.
+  // ---------------------------------------------------------------
+
+  $(document).on(
+    "mousedown",
+    ".c-trait .c-trait-name .point-container input[type='checkbox']",
+    function () {
+      const $trait = $(this).closest(".c-trait");
+
+      setTimeout(function () {
+        updateTraitLevels($trait);
+      }, 0);
+    },
+  );
+
+  // ---------------------------------------------------------------
+  // Initial pass on page load (state may be pre-set in HTML).
+  // ---------------------------------------------------------------
+
+  updateAllLeveledTraits();
+});
