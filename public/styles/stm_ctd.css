@@ -34,3 +34,45 @@
   --bg-size: 50% auto;
   --bg-pos: 50% 20%;
 }
+
+.c-realms-container {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: calc(var(--c-element-height) * 1.5);
+  margin-block: calc(var(--c-element-height) * 2);
+}
+
+.c-section-title {
+  font-family: var(--font-h1);
+  font-size: calc(var(--c-element-height) * 1.6);
+  color: var(--clr-element-bg);
+  margin-block-end: var(--c-element-height);
+}
+
+.c-realms-group {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.c-realms-group-name {
+  font-family: var(--font-h2);
+  font-size: calc(var(--c-element-height) * 1.1);
+  color: var(--clr-element-bg);
+  margin-block-end: var(--c-element-height);
+}
+
+.c-realms-note {
+  font-family: var(--font-text-serif);
+  font-size: 0.7em;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+/* Optional: let Realm motifs sit a little tighter than the main motif grid */
+.c-realm .c-motif-point-container {
+  --points-per-row: 5;
+}
